@@ -9,12 +9,12 @@ rverts.tri.cent.alt(Dt, tri, M)
 }
 \arguments{
 \item{Dt}{A set of 2D points representing the set of data points for which indices of the vertex regions
-containing them are to be determined}
+containing them are to be determined.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}}
+which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}.}
 }
 \value{
 A list with two elements
@@ -25,7 +25,7 @@ A list with two elements
 An alternative function to the function \code{\link{rverts.tri.cent}}
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 M<-c(1.6,1.0)

@@ -7,7 +7,7 @@
 as.bastri(tri)
 }
 \arguments{
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
 A list with two elements
@@ -30,7 +30,7 @@ original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
 }
 \examples{
-\donttest{
+\dontrun{
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 

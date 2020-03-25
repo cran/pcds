@@ -2,12 +2,12 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rel.six.Te}
 \alias{rel.six.Te}
-\title{Region index inside the Gamma-1 region.}
+\title{Region index inside the Gamma-1 region}
 \usage{
 rel.six.Te(Pt)
 }
 \arguments{
-\item{Pt}{A 2D point.}
+\item{Pt}{A 2D point whose index for the 6 regions in sandard equilateral triangle \eqn{T_e} is determined.}
 }
 \value{
 rel An integer between 1-6 (inclusive) or \code{NA}
@@ -20,7 +20,7 @@ These regions are in the inner hexagon which is the Gamma-1 region for CS-PCD wi
 if \code{Pt} is not in any of the 6 regions the function returns \code{NA}.
 }
 \examples{
-\donttest{
+\dontrun{
 P<-c(.4,.2)
 rel.six.Te(P)
 

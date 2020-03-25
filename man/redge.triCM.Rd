@@ -7,9 +7,9 @@
 redge.triCM(pt, tri)
 }
 \arguments{
-\item{pt}{A 2D point for which CM-edge region it resides in is to be determined in the triangle \code{tri}}
+\item{pt}{A 2D point for which CM-edge region it resides in is to be determined in the triangle \code{tri}.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
 The CM-edge region that contains point, \code{pt}  in the triangle \code{tri}. The related edges are given as
@@ -33,7 +33,7 @@ Edge region for BCA is the triangle \eqn{T(B,C,CM)}, edge region CAB is \eqn{T(A
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 

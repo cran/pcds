@@ -5,9 +5,7 @@
 \alias{IndCSTeRABt1}
 \alias{IndCSTeRBCt1}
 \alias{IndCSTeRACt1}
-\title{Three indicator functions: \code{IndCSTeRABt1}, \code{IndCSTeRBCt1} and \code{IndCSTeRACt1} ---
-
-Each function is for the presence of an arc from a point in one of the edge regions
+\title{Each function is for the presence of an arc from a point in one of the edge regions
 to another for Central Similarity Proximity Catch Digraphs (CS-PCDs) -
 standard equilateral triangle case with \eqn{t=1}}
 \usage{
@@ -28,6 +26,8 @@ Each function returns I(\code{pt2} is in \eqn{NCS(pt1,t=1)}) for \code{pt1}, tha
 returns 1 if \code{pt2} is in \eqn{NCS(pt1,t=1)}, returns 0 otherwise
 }
 \description{
+Three indicator functions: \code{IndCSTeRABt1}, \code{IndCSTeRBCt1} and \code{IndCSTeRACt1}.
+
 The function \code{IndCSTeRABt1} returns I(\code{pt2} is in \eqn{NCS(pt1,t=1)} for \code{pt1} in RAB
 (edge region for edge AB, i.e., edge 3) in the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))};
 
@@ -41,7 +41,7 @@ CS proximity region for point \eqn{x} with expansion parameter \eqn{t=1}.
 }
 \examples{
 #Examples for IndCSTeRABt1
-\donttest{
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T3<-rbind(A,B,CM);
@@ -59,8 +59,8 @@ IndCSTeRABt1(c(.2,.5),dat[2,])
 IndCSTeRABt1(c(.2,.5),c(.2,.5))
 }
 
-\donttest{
 #Examples for IndCSTeRBCt1
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T1<-rbind(B,C,CM);
@@ -80,8 +80,8 @@ IndCSTeRBCt1(c(.2,.5),c(.2,.5))
 IndCSTeRBCt1(dat[2,],dat[2,])
 }
 
-\donttest{
 #Examples for IndCSTeRACt1
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T2<-rbind(A,C,CM);

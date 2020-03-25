@@ -18,22 +18,24 @@ Gam2PEtetra(
 )
 }
 \arguments{
-\item{pt1, pt2}{Two 3D points to be tested for constituting a dominating set of the PE-PCD}
+\item{pt1, pt2}{Two 3D points to be tested for constituting a dominating set of the PE-PCD.}
 
-\item{Dt}{A set of 3D points which constitutes the vertices of the PE-PCD}
+\item{Dt}{A set of 3D points which constitutes the vertices of the PE-PCD.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
+Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3,4 as in the row order of the vertices in th (default is \code{NULL} for both)}
+They take the vertex labels as 1,2,3,4 as in the row order of the vertices in \code{th}
+(default is \code{NULL} for both).}
 
 \item{ch.data.pnts}{A logical argument for checking whether both points \code{pt1} and \code{pt2} are
-data points in \code{Dt} or not (default is \code{FALSE})}
+data points in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
 I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 3D data set \code{Dt}),
@@ -57,7 +59,7 @@ if they actually were both in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 n<-20
@@ -101,9 +103,7 @@ Gam2PEtetra(P1,P2,dat,r,tetra,M)
 
 dat.fr<-data.frame(a=dat)
 Gam2PEtetra(P1,P2,dat.fr,r,tetra,M)
-}
 
-\dontrun{
 Gam2PEtetra(c(-1,-1,-1),dat[2,],dat,r,tetra,M,ch.data.pnts = TRUE)
 #gives an error message since not both points, pt1 and pt2, are data points in Dt
 }

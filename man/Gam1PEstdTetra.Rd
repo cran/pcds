@@ -8,17 +8,18 @@
 Gam1PEstdTetra(p, Dt, r, rv = NULL, ch.data.pnt = FALSE)
 }
 \arguments{
-\item{p}{A 3D point that is to be tested for being a dominating point or not of the PE-PCD}
+\item{p}{A 3D point that is to be tested for being a dominating point or not of the PE-PCD.}
 
-\item{Dt}{A set of 3D points which constitutes the vertices of the PE-PCD}
+\item{Dt}{A set of 3D points which constitutes the vertices of the PE-PCD.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
-\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3,4 as
-in the row order of the vertices in standard regular tetrahedron, default is \code{NULL}}
+\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels
+as 1,2,3,4 as in the row order of the vertices in standard regular tetrahedron, default is \code{NULL}.}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
-in \code{Dt} or not (default is \code{FALSE})}
+in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
 I(\code{p} is a dominating point of the PE-PCD) where the vertices of teh PE-PCD are the 3D data set \code{Dt},
@@ -42,7 +43,7 @@ if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 
@@ -102,9 +103,7 @@ Gam1PEstdTetra(P,dat,r)
 
 dat.fr<-data.frame(a=dat)
 Gam1PEstdTetra(P,dat.fr,r)
-}
 
-\dontrun{
 Gam1PEstdTetra(c(-1,-1,-1),dat,r,ch.data.pnt = TRUE)
 #gives an error message since p is not a data point
 }

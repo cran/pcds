@@ -8,12 +8,12 @@
 Gam1CS.Te.onesixth(p, Dt, ch.data.pnt = FALSE)
 }
 \arguments{
-\item{p}{A 2D point that is to be tested for being a dominating point or not of the CS-PCD}
+\item{p}{A 2D point that is to be tested for being a dominating point or not of the CS-PCD.}
 
-\item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD}
+\item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD.}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
-in \code{Dt} or not (default is \code{FALSE})}
+in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
 I(\code{p} is a dominating point of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt},
@@ -36,7 +36,7 @@ set.
 See also (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 n<-5
 set.seed(1)
 dat<-rbind(runifTe.onesixth(n)$gen.points,runifTe(n)$gen.points)
@@ -91,9 +91,7 @@ Gam1CS.Te.onesixth(c(.4,.2),dat)
 
 dat.fr<-data.frame(a=dat)
 Gam1CS.Te.onesixth(c(.4,.2),dat.fr)
-}
 
-\dontrun{
 Gam1CS.Te.onesixth(c(.49,.49),dat,ch.data.pnt = TRUE)
 #gives an error message since point, p, is not a data point in Dt
 }

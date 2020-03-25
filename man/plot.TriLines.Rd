@@ -7,9 +7,9 @@
 \method{plot}{TriLines}(x, xlab = "x", ylab = "y", ...)
 }
 \arguments{
-\item{x}{Object of class \code{TriLines}}
+\item{x}{Object of class \code{TriLines}.}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y".)}
+\item{xlab, ylab}{Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y").}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }
@@ -20,7 +20,7 @@ None
 Plots the line together with the defining triangle.
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate

@@ -2,16 +2,14 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{Line}
 \alias{Line}
-\title{An object of class "Lines":
-
-The line joining two distinct 2D points \code{a} and \code{b}}
+\title{The line joining two distinct 2D points \code{a} and \code{b}}
 \usage{
 Line(a, b, x)
 }
 \arguments{
-\item{a, b}{2D points that determine the straight line (i.e., through which the straight line passes)}
+\item{a, b}{2D points that determine the straight line (i.e., through which the straight line passes).}
 
-\item{x}{A scalar or a vector of scalars representing the x-coordinates of the line}
+\item{x}{A scalar or a vector of scalars representing the x-coordinates of the line.}
 }
 \value{
 A list with the elements
@@ -29,11 +27,12 @@ then \code{y} will be a vector of scalars.}
 \item{equation}{Equation of the line passing through points \code{a} and \code{b}}
 }
 \description{
+An object of class "Lines".
 Returns the \code{equation, slope, intercept}, and y-coordinates of the line crossing two
 distinct 2D points \code{a} and \code{b} with x-coordinates provided in vector \code{x}.
 
-This function is
-different from the \code{\link[stats]{line}} function in the standard \code{stats} package in R in the sense that \code{Line(a,b,x)} fits the line passing
+This function is different from the \code{\link[stats]{line}} function in the standard \code{stats} package
+in R in the sense that \code{Line(a,b,x)} fits the line passing
 through points \code{a} and \code{b} and returns various quantities (see below) for this line and \code{x} is
 the x-coordinates of the points we want to find on the \code{Line(a,b,x)} while \code{line(a,b)} fits the line robustly
 whose x-coordinates are in \code{a} and y-coordinates are in \code{b}.
