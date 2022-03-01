@@ -99,15 +99,13 @@ TSArcDensCSMT(Xp,Yp,t)
 Xp<-runif.tri(nx,Yp[1:3,])$g
 TSArcDensCSMT(Xp,Yp[1:3,],t)
 
-TSArcDensCSMT(Xp,rbind(Yp,Yp),t)
-
 dat.fr<-data.frame(a=Xp)
 TSArcDensCSMT(dat.fr,Yp,t)
 
 dat.fr<-data.frame(a=Yp)
 TSArcDensCSMT(Xp,dat.fr,t)
 
-TSArcDensCSMT(Xp,Yp,t=.5)
+#TSArcDensCSMT(Xp,Yp,t=.5)
 #gives an error message if Xp=c(.4,.2) since not enough points in the convex hull
 #of non-target points to compute arc density of the target points
 

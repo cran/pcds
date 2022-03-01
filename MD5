@@ -1,12 +1,12 @@
-9a6a7c5cde426cfb4301762185f1cd44 *DESCRIPTION
+e6924a87bc29d62c497c05a9ccca8bca *DESCRIPTION
 7b84cb8619b0e45109420c3c441de116 *NAMESPACE
 650cc95b6384b5fdcc62659cdef6ae8d *R/AuxRFuncs4PCDClasses.r
-067aafec02d5590575939ae176f1c9d7 *R/PCDFunctions.r
+3011781398b812e5a7e6541cd2f9a195 *R/PCDFunctions.r
 27a7488094ba972288d3f8edfefa0214 *R/StartupFunctions.R
-2d1a5773b340d7769be2cf555d7ccb09 *R/data.R
-bb851ee64115688f6a17073b5fbece1e *R/pcds.R
+3bf8c2db05a0f79b690623b62466fc01 *R/data.R
+d42ca290bfd33f601ace189510259e85 *R/pcds.R
 98a76ddcf22fc65cf55687040dfc9df1 *README.md
-ae75382b3044d62ee54b0ed10745e124 *build/partial.rdb
+bd00df94a7e9d1d2046f827f621d175f *build/partial.rdb
 b4d341567e221a459a3d425e96293f62 *data/swamptrees.RData
 f20fea84f4cd019c62f7f752b3c27ff7 *inst/REFERENCES.bib
 d4ecb3321ab84b58ae93f2c952f0fce1 *man/ASarcdens.tri.Rd
@@ -127,7 +127,7 @@ bf3d491f850b428487f96597cda9189b *man/PG2PE1D.asy.Rd
 c173d7199c74f529d3b0997600fde02f *man/PG2PEtri.Rd
 8b2b90f02e03762cc4b3bf8619d2634f *man/Plane.Rd
 d93bf1be2a9806c6f7949adbd6f5c136 *man/TSArcDensCS1D.Rd
-4a99ea7d962fc72f2a7b5520cf1491dd *man/TSArcDensCSMT.Rd
+58c1682b658cefb280b958aefa47d53b *man/TSArcDensCSMT.Rd
 ae71bc3a7ead22626c31df883516820c *man/TSArcDensPE1D.Rd
 8dc1dcd2d754756610fbe5ac6571a836 *man/TSArcDensPEMT.Rd
 141286140f87a2def31eeea43ad08864 *man/TSDomPEBin.Rd
@@ -198,7 +198,7 @@ efc542a747b2d7f118256e6f5ab9908b *man/int.2lines.Rd
 df2279fee7602c87051ef6633df72d51 *man/paraline.Rd
 44c4dcb6afee27288cc517f48a1c3df9 *man/paraline3D.Rd
 45891b6ea36220106b4ace54835b631b *man/paraplane.Rd
-ce593cbae0b9e39646ac9d7002f3f9c0 *man/pcds.Rd
+316638f4f7b56a1c8da464f4bdf2ae97 *man/pcds.Rd
 7f629a75a70868916348b4290f69850b *man/perp.ln2pl.Rd
 8d82fbb4f83944d85a5fe01df29c01bb *man/perpline.Rd
 36a8784ff16289641073f28663d5cd8e *man/plot.Extrema.Rd
@@ -250,7 +250,7 @@ e08f67891d80797b185a436554be6bb4 *man/print.summary.Planes.Rd
 d52c15a74516e254ff64088dfc21cf08 *man/radii.Rd
 8182b4c9ef8d9251f45dac6afd0c85d4 *man/radius.Rd
 b7cea0474c318e213cdf74822ffc6908 *man/rasc.disc.Rd
-a6384ae520916dcd4113822e404ebc09 *man/rasc.matern.Rd
+d344613e51a15802118cd6c749dd6ce2 *man/rasc.matern.Rd
 8f74e68417eb15c93a5bd7e0e63c9abe *man/rasc.tri.Rd
 03244f5d4c1ddd4d1c2f1632081b9f27 *man/rascIITe.Rd
 9a35db1f8815d20bb82a5488f3acecfa *man/rascMT.Rd
@@ -304,4 +304,4 @@ dee464d87f001c09530e74a2c175d29a *man/summary.PCDs.Rd
 e2b6b2d6d7b762871814ee3990bed14f *man/summary.Planes.Rd
 5820afcbfa862f910e4fbba75d0f92b4 *man/summary.TriLines.Rd
 97767fc5bf0235903669c4bb3722fa11 *man/summary.Uniform.Rd
-bb436adef87fcb60466bc487948c7009 *man/swamptrees.Rd
+f796d8c4c3c25d6a53d022187b15996b *man/swamptrees.Rd

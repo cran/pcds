@@ -938,8 +938,8 @@ rasc.disc <- function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,
 #' with \eqn{n_y} being number of \code{Y} points for various values of e under the association pattern
 #' and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.
 #'
-#' The pattern resembles the Matern cluster pattern (see \code{\link[spatstat.core]{rMatClust}} in the
-#' \code{spatstat.core} package for further information (\insertCite{baddeley:2005;textual}{pcds}).
+#' The pattern resembles the Matern cluster pattern (see \code{\link[spatstat.random]{rMatClust}} in the
+#' \code{spatstat.random} package for further information (\insertCite{baddeley:2005;textual}{pcds}).
 #' \code{rMatClust(kappa, scale, mu, win)} in the simplest
 #' case generates a uniform Poisson point process of "parent" points with intensity \code{kappa}.
 #' Then each parent point is replaced by a random cluster of
@@ -948,7 +948,7 @@ rasc.disc <- function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,
 #' pattern is a realization of the classical "stationary Matern cluster process" generated inside the
 #' window \code{win}.
 #'
-#' The main difference of \code{rasc.matern} and \code{\link[spatstat.core]{rMatClust}} is that the parent points are \code{Y} points
+#' The main difference of \code{rasc.matern} and \code{\link[spatstat.random]{rMatClust}} is that the parent points are \code{Y} points
 #' which are given beforehand and we do not discard them in the end in \code{rasc.matern} and the offspring points
 #' are the points associated with the reference points, \code{Y};
 #' \code{e} must be positive and very large values of e provide patterns close to CSR.
@@ -978,8 +978,8 @@ rasc.disc <- function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,
 #' \item{xlimit,ylimit}{The possible ranges of the \eqn{x}- and \eqn{y}-coordinates of the generated points.}
 #'
 #' @seealso \code{\link{rasc.disc}}, \code{\link{rascTe}}, \code{\link{rascIITe}},
-#' \code{\link{rascMT}}, \code{\link{rseg.disc}}, and \code{\link[spatstat.core]{rMatClust}}
-#' in the \code{spatstat.core} package
+#' \code{\link{rascMT}}, \code{\link{rseg.disc}}, and \code{\link[spatstat.random]{rMatClust}}
+#' in the \code{spatstat.random} package
 #'
 #' @references
 #' \insertAllCited{}
@@ -33163,15 +33163,13 @@ NumArcsCSMT <- function(Xp,Yp,t,M=c(1,1,1))
 #' Xp<-runif.tri(nx,Yp[1:3,])$g
 #' TSArcDensCSMT(Xp,Yp[1:3,],t)
 #'
-#' TSArcDensCSMT(Xp,rbind(Yp,Yp),t)
-#'
 #' dat.fr<-data.frame(a=Xp)
 #' TSArcDensCSMT(dat.fr,Yp,t)
 #'
 #' dat.fr<-data.frame(a=Yp)
 #' TSArcDensCSMT(Xp,dat.fr,t)
 #'
-#' TSArcDensCSMT(Xp,Yp,t=.5)
+#' #TSArcDensCSMT(Xp,Yp,t=.5)
 #' #gives an error message if Xp=c(.4,.2) since not enough points in the convex hull
 #' #of non-target points to compute arc density of the target points
 #'
