@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Elvan Ceyhan" />
+
+<meta name="date" content="2023-01-02" />
+
+<title>VS1.3 - Example: An Artificial 1D Dataset</title>
+
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">VS1.3 - Example: An Artificial 1D Dataset</h1>
+<h4 class="author">Elvan Ceyhan</h4>
+<h4 class="date">2023-01-02</h4>
+
+
+
+<style>
+.math {
+font-size: small;
+}
+</style>
+<p>First we load the <code>pcds</code> package:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pcds)</span></code></pre></div>
+<!--  Illustrative Examples -->
+<div id="sec:arti-data-1D" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Illustration of PCDs on an Artificial 1D Dataset</h1>
+<p>This data set consists of simulated points from two classes, <span class="math inline">\(\mathcal{X}\)</span> and <span class="math inline">\(\mathcal{Y}\)</span>,
+where <span class="math inline">\(\mathcal{X}\)</span> points are uniformly distributed on the interval <span class="math inline">\([a,b]=[0,10]\)</span>,
+while <span class="math inline">\(\mathcal{Y}\)</span> points are chosen at approximately regular distances for better illustration.
+Here <span class="math inline">\(n_x\)</span> is the size of class <span class="math inline">\(\mathcal{X}\)</span> points,
+<span class="math inline">\(n_y\)</span> is the size of class <span class="math inline">\(\mathcal{Y}\)</span> points,
+and for better illustration of certain structures and graph constructs.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="dv">0</span>; b<span class="ot">&lt;-</span><span class="dv">10</span>; int<span class="ot">&lt;-</span><span class="fu">c</span>(a,b)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#nx is number of X points (target) and ny is number of Y points (nontarget)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>; ny<span class="ot">&lt;-</span><span class="dv">5</span>; <span class="co">#try also nx&lt;-40; ny&lt;-10 or nx&lt;-1000; ny&lt;-10;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>xf<span class="ot">&lt;-</span>(int[<span class="dv">2</span>]<span class="sc">-</span>int[<span class="dv">1</span>])<span class="sc">*</span>.<span class="dv">1</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Xp<span class="ot">&lt;-</span><span class="fu">runif</span>(nx,a<span class="sc">-</span>xf,b<span class="sc">+</span>xf)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">runif</span>(ny,<span class="sc">-</span>.<span class="dv">25</span>,.<span class="dv">25</span>)<span class="sc">+</span> <span class="fl">2.5</span><span class="sc">*</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) <span class="co">#try also Yp&lt;-runif(ny,a,b)</span></span></code></pre></div>
+<p>We take <span class="math inline">\(n_x=\)</span> 10 and <span class="math inline">\(n_y=\)</span> 5
+(however, one is encouraged to try the specifications that follow in the comments after “#try also” in the commented out script
+here and henceforth.)
+More specifically,
+<span class="math inline">\(\mathcal{Y}\)</span> points are generated as <span class="math inline">\(Y_i = a + U\)</span> for <span class="math inline">\(a = 0.0, 2.5, 5.0, 7.5, 10.0\)</span>
+and <span class="math inline">\(U \sim \text{Uniform}(-.25,.25)\)</span> to provide jitter around <span class="math inline">\(a\)</span> values.
+<span class="math inline">\(\mathcal{X}\)</span> points are denoted as <code>Xp</code> and <span class="math inline">\(\mathcal{Y}\)</span> points are denoted as <code>Yp</code> in what follows.</p>
+<!-- The scatterplot of $\X$ points (black circles) and $\Y$ points (red triangles) on the real line; -->
+<p>The scatterplot of <span class="math inline">\(\mathcal{X}\)</span> and <span class="math inline">\(\mathcal{Y}\)</span> points on the real line can be obtained by the below code;
+<span class="math inline">\(y\)</span>-axis is added for better visualization.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>XYpts <span class="ot">=</span><span class="fu">c</span>(Xp,Yp) <span class="co">#combined Xp and Yp</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>lab<span class="ot">=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,nx),<span class="fu">rep</span>(<span class="dv">2</span>,ny))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>lab.fac<span class="ot">=</span><span class="fu">as.factor</span>(lab)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(XYpts,<span class="fu">rep</span>(<span class="dv">0</span>,<span class="fu">length</span>(XYpts)),<span class="at">col=</span>lab,<span class="at">pch=</span>lab,<span class="at">xlab=</span><span class="st">&quot;x&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;&quot;</span>,<span class="at">ylim=</span>.<span class="dv">005</span><span class="sc">*</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Scatterplot of 1D Points from Two Classes&quot;</span>)</span></code></pre></div>
+<p>The PCDs are constructed with vertices from <span class="math inline">\(\mathcal{X}\)</span> points and
+Delaunay triangulation of <span class="math inline">\(\mathcal{Y}\)</span> points.</p>
+<p>The PCDs in the 1D case are constructed with vertices from <span class="math inline">\(\mathcal{X}\)</span> points and
+the binary relation that determines the arcs are based on proximity regions
+which depend on the intervals whose end points are the ordered <span class="math inline">\(\mathcal{Y}\)</span> points
+(which is the Delaunay tessellation of <span class="math inline">\(\mathcal{Y}\)</span> points).
+More specifically,
+the proximity regions are defined with respect to the
+Delaunay cells (i.e., intervals) based on order statistics of the <span class="math inline">\(\mathcal{Y}\)</span> points and
+vertex regions in each interval are based on the center <span class="math inline">\(M_c=a+c\,(b-a)\)</span> for the interval <span class="math inline">\([a,b]\)</span> where <span class="math inline">\(c \in (0,1)\)</span>.
+Notice that Delaunay tessellation of <span class="math inline">\(\mathcal{Y}\)</span> points
+provides an interval partitioning of the range of <span class="math inline">\(\mathcal{Y}\)</span> points
+based on the order statistics of the <span class="math inline">\(\mathcal{Y}\)</span> points.</p>
+<p>The convex hull of <span class="math inline">\(\mathcal{Y}\)</span> points (i.e., the interval <span class="math inline">\(\left[\mathsf{y}_{(1)},\mathsf{y}_{(m)}\right]\)</span>)
+is partitioned by the intervals based on the ordered <span class="math inline">\(\mathcal{Y}\)</span> points
+(i.e., multiple intervals are the set of these intervals
+whose union constitutes the range of <span class="math inline">\(\mathcal{Y}\)</span> points).</p>
+<p>Below we plot the <span class="math inline">\(\mathcal{X}\)</span> points together with the intervals based on <span class="math inline">\(\mathcal{Y}\)</span> points.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Xlim<span class="ot">&lt;-</span><span class="fu">range</span>(Xp)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Ylim<span class="ot">&lt;-</span>.<span class="dv">005</span><span class="sc">*</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>xd<span class="ot">&lt;-</span>Xlim[<span class="dv">2</span>]<span class="sc">-</span>Xlim[<span class="dv">1</span>]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Xp,<span class="fu">rep</span>(<span class="dv">0</span>,nx),<span class="at">xlab=</span><span class="st">&quot;x&quot;</span>, <span class="at">ylab=</span><span class="st">&quot; &quot;</span>,<span class="at">xlim=</span>Xlim<span class="sc">+</span>xd<span class="sc">*</span><span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">05</span>,.<span class="dv">05</span>), <span class="at">yaxt=</span><span class="st">&#39;n&#39;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim=</span>Ylim,<span class="at">pch=</span><span class="st">&quot;.&quot;</span>,<span class="at">cex=</span><span class="dv">3</span>,<span class="at">main=</span><span class="st">&quot;X Points and Intervals based on Y Points&quot;</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#now, we add the intervals based on Y points</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">new=</span><span class="cn">TRUE</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIntervals</span>(Xp,Yp,<span class="at">xlab=</span><span class="st">&quot;&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;&quot;</span>,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ADpl"></span>
+<img src="data:image/png;base64,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" alt="The plot of the $X$ points (black circles) in the artificial data set together with the intervals (blue rounded brackets) based on $Y$ points (red circles)." />
+<p class="caption">
+Figure 1.1: The plot of the <span class="math inline">\(X\)</span> points (black circles) in the artificial data set together with the intervals (blue rounded brackets) based on <span class="math inline">\(Y\)</span> points (red circles).
+</p>
+</div>
+<p>Or, alternatively, we can use the <code>plotIntervals</code> function in <code>pcds</code> to obtain the same plot by executing <code>plotIntervals(Xp,Yp,xlab=&quot;&quot;,ylab=&quot;&quot;)</code> command.</p>
+<div id="sec:summary-1D-arti-data-PE-PCD" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Summary and Visualization with Proportional Edge PCDs</h2>
+<p>PE proximity regions are defined with respect to the
+intervals based on <span class="math inline">\(\mathcal{Y}\)</span> points and vertex regions in each interval are based on the centrality parameter <code>c</code> in <span class="math inline">\((0,1)\)</span>.
+For PE-PCDs, the default centrality parameter used to construct the vertex regions is <code>c=.5</code>
+(which gives the center of mass of each interval).
+The range of <span class="math inline">\(\mathcal{Y}\)</span> is partitioned by the intervals based on the order statistics of (i.e., sorted) <span class="math inline">\(\mathcal{Y}\)</span> points
+(i.e., multiple intervals are the set of these intervals whose union constitutes
+the range (or convex hull) of <span class="math inline">\(\mathcal{Y}\)</span> points).</p>
+<p>See <span class="citation">Ceyhan (2012)</span> for more on PE-PCDs for 1D data.</p>
+<p>Number of arcs of the PE-PCD can be computed by the function <code>NumArcsPE1D</code>
+which takes the arguments</p>
+<ul>
+<li><code>Xp</code>, a set or vector of 1D points which constitute the vertices of the PE-PCD,</li>
+<li><code>Yp</code>, a set or vector of 1D points which constitute the end points of the partition intervals,</li>
+<li><code>r</code>, a positive real number which serves as the expansion parameter in PE proximity region; must be <span class="math inline">\(\ge 1\)</span>.</li>
+<li><code>c</code>, a positive real number in <span class="math inline">\((0,1)\)</span> parameterizing the center inside the middle (partition) intervals
+with the default <code>c=.5</code>.
+For an interval, <code>int</code><span class="math inline">\(=(a,b)\)</span>, the parameterized center is <span class="math inline">\(M_c=a+c(b-a)\)</span>.</li>
+</ul>
+<p>This function returns the list of</p>
+<ul>
+<li><code>num.arcs</code>: Total number of arcs in all intervals (including the end intervals),
+i.e., the number of arcs for the entire PE-PCD</li>
+<li><code>num.in.range</code>: Number of <code>Xp</code> points in the range or convex hull of <code>Yp</code> points</li>
+<li><code>num.in.ints</code>: The vector of number of <code>Xp</code> points in the partition intervals (including the end intervals)
+based on <code>Yp</code> points</li>
+<li><code>weight.vec</code>: The <code>vector</code> of the lengths of the middle partition intervals (i.e., end intervals excluded)
+based on <code>Yp</code> points,</li>
+<li><code>int.num.arcs</code>: The <code>vector</code> of the number of arcs of the component of the PE-PCD in the
+partition intervals (including the end intervals) based on <code>Yp</code> points,</li>
+<li><code>part.int</code>: A list of partition intervals based on <code>Yp</code> points,</li>
+<li><code>data.int.ind</code>: A <code>vector</code> of indices of partition intervals in which data points reside,
+i.e., column number of <code>part.int</code> is provided for each <code>Xp</code> point.
+Partition intervals are numbered from left to right
+with 1 being the left end interval.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>r<span class="ot">&lt;-</span><span class="dv">2</span> <span class="co">#try also r=1.5</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>c<span class="ot">&lt;-</span>.<span class="dv">4</span>  <span class="co">#try also c=.3</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">NumArcsPE1D</span>(Xp,Yp,r,c)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $num.arcs</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $num.in.range</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 8</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $num.in.intervals</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1 1 2 2 3 1</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $weight.vec</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.248250 2.612118 2.447531 2.265146</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $int.num.arcs</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0 0 2 1 3 0</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $partition.intervals</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]     [,3]     [,4]     [,5]     [,6]</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]      -Inf 0.2284167 2.476667 5.088785 7.536317 9.801462</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.2284167 2.4766671 5.088785 7.536317 9.801462      Inf</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $data.interval.indices</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 2 5 3 5 6 1 4 5 4 3</span></span></code></pre></div>
+<p>The incidence matrix of the PE-PCD can be found by <code>IncMatPE1D</code> function by running <code>IncMatPE1D(Xp,Yp,r,c)</code>.
+As in the 2D case, given the incidence matrix, we can find the approximate or the exact domination number of the PE-PCD,
+using the functions <code>dom.greedy</code> and <code>dom.exact</code>.</p>
+<p>Plot of the arcs of the digraph PE-PCD are provided by the function <code>plotPEarcs1D</code>,
+which take the arguments</p>
+<ul>
+<li><code>Xp,Yp,r,c</code> are same as in the function <code>NumArcsPE1D</code>,</li>
+<li><code>Jit</code>, a positive real number that determines the amount of jitter along the <span class="math inline">\(y\)</span>-axis, default=<code>0.1</code> and
+<code>Xp</code> points are jittered according to <span class="math inline">\(U(-Jit,Jit)\)</span> distribution along the <span class="math inline">\(y\)</span>-axis
+where <code>Jit</code> equals to the range of <code>Xp</code> and <code>Yp</code> multiplied by <code>Jit</code>).</li>
+<li><code>main</code> an overall title for the plot (default=<code>NULL</code>),</li>
+<li><code>xlab,ylab</code> titles for the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> axes, respectively (default=<code>NULL</code> for both),</li>
+<li><code>xlim,ylim</code>, two numeric vectors of length 2, giving the <span class="math inline">\(x\)</span>- and <span class="math inline">\(y\)</span>-coordinate ranges
+(default=<code>NULL</code> for both),</li>
+<li><code>centers</code>, a logical argument, if <code>TRUE</code>, plot includes the centers of the intervals
+as vertical lines in the plot, else centers of the intervals are not plotted, and</li>
+<li><code>...</code>, additional <code>plot</code> parameters.</li>
+</ul>
+<!-- The first plot is without the centers, and the second is together with the centers. -->
+<p>We plot the arcs together with the centers,
+with <code>centers=TRUE</code> option in the plot function.
+Arcs are jittered along the <span class="math inline">\(y\)</span>-axis to avoid clutter on the real line
+and thus provide better visualization.
+<!-- The same seed is used for both plots to have the same jitter for the arcs. -->
+<!-- ```{r AD1dPEarcs1, fig.cap="The arcs of the PE-PCD for the 1D artificial data set with centrality parameter $c=.4$; the end points of the $Y$ intervals are plotted with vertical red dashed lines."} -->
+<!-- jit<-.1 -->
+<!-- set.seed(1) -->
+<!-- plotPEarcs1D(Xp,Yp,r,c,jit,xlab="",ylab="") -->
+<!-- ``` --></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>jit<span class="ot">&lt;-</span>.<span class="dv">1</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPEarcs1D</span>(Xp,Yp,r,c,jit,<span class="at">xlab=</span><span class="st">&quot;&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;&quot;</span>,<span class="at">centers=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:AD1dPEarcs2"></span>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAkAAAAGACAMAAAByRC0tAAAA4VBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZmYAZpAAZrYA/wAil+Y6AAA6ADo6AGY6OgA6OmY6OpA6ZmY6ZpA6ZrY6kLY6kNtmAABmOgBmOjpmZgBmZjpmkJBmkLZmkNtmtttmtv+QOgCQOjqQZgCQZjqQkGaQkLaQtpCQttuQtv+Q27aQ29uQ2/+2ZgC2Zjq2ZpC2kDq2kGa2kJC2ttu227a229u22/+2/7a2/9u2///bkDrbkGbbtmbbtpDb25Db27bb29vb2//b/7bb/9vb////AAD/tmb/25D/27b//7b//9v///8mVXuGAAAACXBIWXMAAA7DAAAOwwHHb6hkAAATrUlEQVR4nO2dC3vbthlG6cTuHHtLt6aWu0tjrd2arWZ3bbao7bqLw9jS//9BIwiSAO8iP5AgqXOePqmsywuQPAJASISCA4CAwHcFYNkgEIhAIBCBQCACgUAEAoEIBAIRCAQiEAhEIBCIQCAQgUAgAoFABAKBCAQCEQgEIhAIRCAQiEAgEIFAIAKBQAQCgQgEAhFzEygKgmfvhrxw/811ELxKbu4CzcdvrT+C4OIhfWrh8fiV37/M/0gfOvvkbVMx2yRn/6d36sln9z1q+PiZKbOT8PjdsP8mrvBvHgp3bYPLHjWTMDeBwngn3w15YaQO/E1yM3dGHd8WgfTxf7pN/7opPNRQCS3Q4+2z3gJF16bMbo4XKK6RoiDMLjhVgZ425X1xLNbRLDjTJpC6K93/gRbXPNR6oPXh7SVQXM6z+8OHa1ONVo4XKK7Fm8N3hbddXMqpChQFZ79Kd128Y766DZ7FTb7qYp6/Vvd997LUvfwQdwvPVfMdWgd9pxMeN+qOXfVIlB4Pzt/Ef2xT3ZKHfrzNj0CYHPEwOUBxK/datUBJYc/exTX8Ou4+zu9NcFZlfRBtE58+u748FMT4QTV9H9/r15kg1Refv7EFMttfk6t7q0KflbwnTlSg+HD961r3RLusjQjzHiZtH8yu3QWFJxUF0i1Es0DJ46phSP7Y//bVf8xDcUuYthSRClEN401y9P9ZEKhUn7zKh+qBzjcwe3ZU7WbV7bxFzFPN9tflxlW7OWSeZ9U4vz1RgdTeSIepaq9evD38W+3oTx/i1uLZu/jRy4fD9/m+TDuEXSqX1YXpZkS9xuqU8jbeflxlWhXIdctvxGXcpX2Cepvr2mVdmKrhztQnq3L6uhqBTBcWB/3kQf2t3xjnWVC8uZcPalxsiZZuf22uTrBbtlj5r091EB3pNuNMt+v6kKcH65Nv1b46/9Z+errXQi1K1xjIEsg8nu5/81AukN1F7JIWQblUEugubwIOVpUbUS2Z9Ywf//Iy6Wv06+L4y2ybnnJhrO2vpSJQ/NK7kz0LSxridJekhzBrkA5Z6/48P2M1bZXR7nBoPAu700P0iwf78U6B4luqz/poc3avHiwKpJ5jtWFdo+q4HTE9zf5LXYnLQlB26HMhrO2vpSJQaKVMwKwEyptntcuMQPm+eNRn3Gd/0H9mhy5SclQF0qNtewxUFCh5vLkLy+LiVvGPGzV4vlF6Hy1QTRem7rqw7A/Of//jpiRQlmYLVHChqwuL1I1TFajQ3VRboJjH370MAmsY0dACWePmWoHMXdYgWvmUPZTfnbzoF9eq+flI9VUCgQr+pAf+qSxQtk2NLVDXIDrM96Hdso7HnASypmQuzdHQuzL6+E32rC9Kw4OaMVCDQPWP15zGq7/yt3CYWBfpYzZcoCe7/0qbzXwQbYIaxkD59tecxuvZrHza4XQF0qPI7O2fHY14T79SPUdwl5yPqH4sOw7tZ2HZHxnW2bb1ePdEYpQInR5/fbx26fCqzxgoLPij656Kagfps7CwcBaWbn99bvzi13oi0TRWJ9qF5Scxu8KgJswbpW/Kx9bMAw0WyHyU8cp+tvVRhnrPJ0cnnbGLS4uCdCLxeIHylsN0TaXGNg0Ky9U121+L+Sjj1AUy447k3WmORjIT+3l2q/B5ZDITnTw0WKDsw9RvrWcXZrvjeqWnc3d5j6Hmjd/2EmhXroY6Czt/szONbRq0//N18Px1ZSb68+b99s21/jD11AWCJYJAIAKBQAQCgQgEAhEIBCIQCEQgEIhAIBCBQCACgUAEAoEIBAIRCAQiEAhEIBCImF6gp02vNS0O6Rel7GUx0n+Poe4a864rZQbRFKrW5Dh71a+44zevjL25DZfXh8kVbsOWQKlheoF2vY+eJZBeFkP/exS+BUq/ydrr+4E9Nq/MkQLFlXX1lfvJBZLVXe+UHovnTCZQAzt1Fdv3/RYS6rF5bS9tEWjAu7iJyQWK9M4sLE3RsQqHaYH0qga/TL9anKys9OrBzjB3VVe5yIvMBMqX9igvj6FuZS/Mvl4cWZdF5Elx+6Iv48suWa2sH7LTl78WBDLbWdiCrAZh8+aV081eLGxu8XbdHkmu+HfC5ALpb7RXlqZoW4WjQaDkMsF4n78zGdZdlVUuTJHpsS5c0mHqo1949rK0zEJh9QK78jf66/bZ9T7F7+8n1/P//bbwfjfbWdmCJDRs3LxyulURe3Pt2w17xLqgX8jUAuXL2dhLU3SswmGNgewuLFTvyWKGdVd5lQurSB1VvKisvDyGuTBLv1mtay/syqsrNr66zi8Yq6wfkh78c+siD2u1jeIW5DVo2rya/ZJXxN5c+3bTHgld9WFTC2QORHFpirZVOOoFSt9E6XUxSYZ9V+UKT1OkHZUNCZqXx9DKR8UL+7LK60HyWdYvVtYPOTx+mb7/c8x2VrfAqkHN5lXTTUXsWlu3G/eIYJxVZGqB0rUAKktTdK7CURHIvsY3zbDuqqxyYRVpTwvYF9bXX5ye7f343vTaeqvyukO6sSpZqHlWo5v9X//2YG1M4cGgVIPGzaukFzYp31z7duMe6blAaDN+BKouTdG2Cke9QOkAwN7D1l11q1xkRea9zeFQWNqjfnmMpA/T72Qt0P+syidrZ1pvgGrNk6oEv762+p1sO6tbYAlUs3k16VlF7Frbtxv3yMIFqi5N0bkKR10LZC0ZlbVA2V2VhsQqsmcLpA55/oQgW4Mvu450m9Yze12h5vnWmuuxiy1QaQuKLVB58+rTK7W2bzfukYULVF2aom0VjsYxUN5kpRn2XeWhjFVk3RioZXkM9ehLy2678mp48jJIG9W8C/6iaG26PEOhYmo7q1tg1aBm88rpdkWax0D1e2SxAuktqi5N0bYKhyWQvSxGqJaleNyYuwt31ZxMZUXWnYW1LI+hWxBzXmVXXt3+7yafG6ipuXooWRTi01Qva7WNyhbYbXJ188rpdkXsWtu3m/bIYgfR+Wl8eRDdsgqHJZBeFkP/m05xGKPyiZXkj9IqF1aRdfNA5vCV54H0PXULwlymgkQmtLx+SDaIfX5tFDTbWdmCXOH6zavulzyqsLnW7aY9stjT+HQSvbI0haJpFQ5LIL0shv43PkWOD0u6jl2aYe6qrHJhiizMRFtLe2TDmjj952/tt2hU/DDLJEVBujxYtvpmZf2QpELPXz883pomzGxneQtShRs3r5Ru7cXC5tq36/eIuw/DfH2U0YcJFysxhJVRz5oofbgiwMeHqX0PxuNmSoHCZKmpbLW0pPxbVwOG2RAt98PUuD3uaUM2VTcR2dSJvbbhlOVPQrjcr3PEB6Tf21kNFV+NVZk6Hj+7tj/zjgU6+3TK8idg0V8og1WBQCACgUAEAoEIBAIRCAQiHAsUwErwJZDbOPAFAoGIlQj0wm3cxPETlDFa+hIEet/9lGH754hgSXy/YoaXcUz+oPRjglci0DBGC562GK/7B4HGB4F6PdF9HF2YPJ8urB0EGiN9LQLBjEEgELESgZgH8pU+kkDqUqrkK/G7hq9EMgZyV8YKx0C7s/vD00Z9J34igYbBabw8eBSB9lu9jom62BaBEKjfEw/q+gR9RVd48VASqP+3AA50YS7yl9WF6RYoJrxkDIRAPZ+oyLQpLhw3OA7my2hnYboT228RaN0wDzSD+AnKWNo8kNM4xkDy/IWNgdzGcRrvKR+BfAVPWwwCdUAXJs+nC2sHgcZIX4tAMGMQCESsRCDmgXylL0EgxkDy/JMeA3Ea7ykfgXwFT1sMAnVAFybPpwtrB4HGSF+LQDBjEAhErEQg5oF8pS9BIMZA8vyTHgNxGu8pH4F8BU9bDAJ1QBcmz6cLaweBxkhfi0AwYxAIRKxEIOaBfKUvQSDGQPL8kx4DcRrvKR+BfAVPWwwCdUAXJs+nC2sHgcZIX4tAMGMQCESsRCDmgXylL0EgxkDy/JMeA3Ea7ykfgXwFT1sMAnVAFybPpwtrB4HGSF+LQDBjRhHoaWN+0oB1otfNOC1Q8/riQ34r4wiYB/KVPlIXtt9euotjDCTPX9wYKEp/68BFHKfxnvLXMohGoAnzr3oGr0QgujBn6VdGIgSSB0vi+xUzF4EOV1fqv2ODlyAQyLnqxSFTqBsEgiJJA6QtOoaVCMQ8kKv0K/3v1bHPX4JAjIHk+b3SM33WMgbiNN5TPgL5Cp62GATqgC5Mnr+4jzJcxiGQPP+kBYIZg0AgYiUCMQ/kK30JAjEGkuef9BiI03hP+QjkK3jaYhCoA7oweT5dWDsINEb6WgSCGYNAIGIlAjEP5Ct9CQIxBpLnn/QYiNN4T/kI5Ct42mIQqAO6MHk+XVg7CDRG+loEghmDQCBiJQIxD+QrfQkCMQaS55/0GIjTeE/5COQreNpiEKiDNXVhzRed04X14jQFaluzAIF6cZKn8cUleNYBAk3JerzJWYlAi5kHGmMMdAzMA7WzkDHQOGWscQy037b+0AGn8YvI9yfQLrjRN6LsRldc248fjLOD4hIHBtdXtXkL3lef4fS3Ho7YjF7lqScnL6gGV3NGEWi/zbXZXTwcFScUaEAL3UegYvw4Ao3ahQUvFiXQ0yb/nYOo2IkFBbI75P9/Meh17499/ovi38HAeuoDk7/c4fZ3/b9feVk9q/unJudYKUZugWChjDUGSpugo8dAsFBGOgvLfnKuof053XkgX2UwD9QO80BjpK/lszDmgTzlI5Cv4GmLQaAO6MLk+XRh7SDQGOlrEQhmDAINY4Xf7BnGSgSaeB5oDH2YBxqn3MMMx0CNPxQpKYYxUC+WfRp/NU0xvvMRaLTgXn0YAvV6ovu42XVhiivXxdCF9WLxAjkvBoF6sfTTeEhBIBCxEoH4PpCv9CUItIAx0JW8GMZAvVj4aXyFtvN6TuN7PdF93OwEGmUmejgI1MECurDWJogurNcT3cctQaArcTEI1IuVncZf+a6ANxAIKlz1eO5KBGIeyGl6j8+KlyDQEsZA8mLmNQZKFFrLGGh2p/EzK+aY/IaZhzYQyF/wtMWMkK/7sBMSiC7MZXo2BEIgebAkvl8xMxKoT/ASBIIZg0AgYiUCMQ/kK30JAjEGkuef9BiI03hP+QjkK3jaYhCoA7oweT5dWDsINEa6N4GyNVoVDb+WwWn8ShinBdpvG39lZUgczJeRurD99tJlXCfMA/lKH2sMFAV3rY8zBnJXxvrGQC0pOT1exGm8p/wZCjQoDoE85fsWyPrRHlEcXZg8f5FdGAL1KQaBKrgSCGYMAoGIlQjEPJCv9JWchTEGGiPd9xjIVRyn8Z7yEchX8LTFIFAHdGHyfLqwdhBojPS1CAQzBoFAxEoEYh7IV/oSBGIMJM8/6TEQp/Ge8hHIV/C0xSBQB3Rh8ny6sHYQaIz0tQgEMwaBQMRKBGIeyFf6EgRiDCTPP+kxEKfxnvIRyFfwtMUgUAd0YfJ8urB2EGiM9LUIBDMGgUDESgRiHshX+hIEYgwkzz/pMRCn8Z7yEchX8LTFIFAHdGHyfLqwdhBojPS1CAQzBoFAxEgC7YJAr/O7m2aleuaBfKWPI9Du7P7wtFFrjbsQiDGQPH9ZYyC9NNl+e/EwlUDD4DReHjyKQE8bvUx9ePGAQAjU84kHa3HE8JIujC6s5xMVmTZPGxc/94RA8vyFCRSfhelOrPy7T4N+KwNmDPNAIIJ1omcQP0EZC5sH0vBbGX2KYQxUYUKBhsFpvDwYgcYHgXo90UAX1qcYurBeIJC7MhAIlgsCgYiVCMQ8kK/0JQjEGEief9JjIE7jPeUjkK/gaYtBoA7owuT56+vCevC++ykv+uT1CZbE9ytmeBnH5A9KP6ringSavsRZx826cm7iEGjMuFlXDoHmHzfryiHQ/ONmXTkEmn/crCuHQPOPm3XlEGj+cbOuHALNP27WlUOg+cfNunJLFQhWBQKBCAQCEQgEIhAIRCAQiEAgEIFAIAKBQAQCgQgEAhEIBCIQCERMLFAUBGf3ztL22yAImhcrGkJ48eAq6sN1EFy6CrN+p8QFH36WrLLr4HBMK1AUVzdyZtB+G0ftXB6keI86EyiKk/QPizhB/U5J5Mqgp02yTLOLwzGpQHpts9DVTv1wrfZn06L5Q3jaOBNIb6uzyu23aq852nVxw6Pq5eRwTCqQ+yN+ODhs0eKqXXzhSqAPP3VXrYNbgaLgJlLHwMnhmFagZKdGbgUK3cXF9XM2Boqe/WPjcoDmtAvTx8DJ4ZhUIN1YuGwykreTqyjVpDsTaKd6Cd1uuMHp+UdijZPDsXSBIodj6F0sjzuBzty2tqqh/XDt6s2yUIHcd2EO2x9dO3cCJVuphxkOcDx8XGgX5nwQvXM5C7RLFzZxc8j1cXE2lHbceC90EO34ND7/9SmHOGuB9M87Omtt9cF2Fhct8zTe8USiuyGBwd1MtBpRtS3q35MRxkDLm0hMugl3Q+i0z3F6Uufwo4zI7ecsocu4tClzcDj4MBVEIBCIQCAQgUAgAoFABAKBCAQCEQgEIhAIRCAQiEAgEIFAIAKBQAQCgQgEAhEIBCIQCEQgEIhAIBCBQCACgUAEAoEIBAIRCAQiEAhEIBCIQCAQgUAgAoFABAKBCAQCEQgEIhAIRCAQiEAgEIFAIAKBQAQCgQgEAhEIBCIQCEQgEIhAIBCBQCACgUAEAoEIBAIRCAQiEAhEIBCIQCAQgUAgAoFABAKBCAQCEQgEIhAIRCAQiEAgEIFAIAKBQAQCgQgEAhH/B6F+Xyarg6J4AAAAAElFTkSuQmCC" alt="The arcs of the PE-PCD for the 1D artificial data set with centrality parameter $c=.4$, the end points of the $Y$ intervals (red) and the centers (green) are plotted with vertical dashed lines." />
+<p class="caption">
+Figure 1.2: The arcs of the PE-PCD for the 1D artificial data set with centrality parameter <span class="math inline">\(c=.4\)</span>, the end points of the <span class="math inline">\(Y\)</span> intervals (red) and the centers (green) are plotted with vertical dashed lines.
+</p>
+</div>
+<p>Plots of the PE proximity regions (i.e. proximity intervals) are provided with the function <code>plotPEregs1D</code>,
+which has the same arguments as the function <code>plotPEarcs1D</code>.
+<!-- The first plot is without the centers, and the second is together with the centers with `centers=TRUE` option. -->
+<!-- ```{r AD1dPEPR1, fig.cap="The PE proximity regions (blue) for the 1D artificial data set, the end points of the $Y$ intervals are plotted with vertical dashed lines."} -->
+<!-- set.seed(12) -->
+<!-- plotPEregs1D(Xp,Yp,r,c,xlab="x",ylab="") -->
+<!-- ``` -->
+We plot the proximity regions together with the centers with <code>centers=TRUE</code> option:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPEregs1D</span>(Xp,Yp,r,c,<span class="at">xlab=</span><span class="st">&quot;x&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;&quot;</span>,<span class="at">centers =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:AD1dPEPR2"></span>
+<img src="data:image/png;base64,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" alt="The PE proximity regions (blue) for the 1D artificial data set, the end points of the $Y$ intervals (black) and the centers (green) are plotted with vertical dashed lines." />
+<p class="caption">
+Figure 1.3: The PE proximity regions (blue) for the 1D artificial data set, the end points of the <span class="math inline">\(Y\)</span> intervals (black) and the centers (green) are plotted with vertical dashed lines.
+</p>
+</div>
+<p>The function <code>ArcsPE1D</code> is an object of class “<code>PCDs</code>” and
+has the same arguments as in <code>NumArcsPE1D</code>.
+Its <code>call</code> (with <code>Arcs</code> in the below script) just provides the description of the digraph,
+and <code>summary</code> provides a description of the digraph,
+the names of the data points constituting
+the vertices of the digraph and also the interval points,
+selected tail (or source) points of the arcs in the digraph
+(first 6 or fewer are printed),
+selected head (or end) points of the arcs in the digraph
+(first 6 or fewer are printed),
+the parameters of the digraph (here centrality parameter and the expansion parameter),
+and various quantities of the digraph (namely,
+the number of vertices, number of partition points,
+number of triangles, number of arcs, and arc density.
+The <code>plot</code> function (i.e., <code>plot.PCDs</code>) provides the plot of the arcs in the digraph
+together with the intervals based on the ordered <span class="math inline">\(\mathcal{Y}\)</span> points.</p>
+<p>For this function,
+PE proximity regions are constructed for data points inside or outside the intervals based
+on <code>Yp</code> points with expansion parameter <span class="math inline">\(r \ge 1\)</span> and centrality parameter <span class="math inline">\(c \in (0,1)\)</span>.
+That is, for this function,
+arcs may exist for points in the middle and end intervals.
+Arcs are jittered along the <span class="math inline">\(y\)</span>-axis in the plot for better visualization.
+The <code>plot</code> function returns the same plot as in <code>plotPEarcs1D</code>,
+hence we comment it out below.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Arcs<span class="ot">&lt;-</span><span class="fu">ArcsPE1D</span>(Xp,Yp,r,c)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Arcs</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ArcsPE1D(Xp = Xp, Yp = Yp, r = r, c = c)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points with Expansion Parameter r = 2 and Centrality Parameter c = 0.4&quot;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Arcs)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ArcsPE1D(Xp = Xp, Yp = Yp, r = r, c = c)</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the digraph:</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points with Expansion Parameter r = 2 and Centrality Parameter c = 0.4&quot;</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the digraph =  Xp </span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Partition points of the region =  Yp </span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Selected tail (or source) points of the arcs in the digraph</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       (first 6 or fewer are printed) </span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3.907723 4.479377 5.617220 8.459662 8.459662 9.596209</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Selected head (or end) points of the arcs in the digraph</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       (first 6 or fewer are printed) </span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4.479377 3.907723 5.337266 9.596209 9.709029 9.709029</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters of the digraph</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $`centrality parameter`</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.4</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $`expansion parameter`</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Various quantities of the digraph</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         number of vertices number of partition points </span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                10.00000000                 5.00000000 </span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        number of intervals             number of arcs </span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 6.00000000                 6.00000000 </span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                arc density </span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 0.06666667</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Arcs)</span></code></pre></div>
+<div id="sec:testing-1D-arti-data-PE-PCD" class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Testing Spatial Interaction and Uniformity with the PE-PCDs</h3>
+<p>We can test the spatial interaction between two classes/species or uniformity of points from one class
+in the 1D setting based on <em>arc density</em> or <em>domination number</em> of PE-PCDs.</p>
+<p><strong>The Use of Arc Density of PE-PCDs for Testing Spatial Interaction</strong></p>
+<p>We can test the spatial interaction of segregation/association or uniformity
+based on arc density of PE-PCD using the function <code>TSArcDensPE1D</code>
+which takes the arguments
+<code>Xp,Yp,support.int,r,c,end.int.cor,alternative,conf.level</code>
+where</p>
+<ul>
+<li><code>r,alternative,conf.level</code> are as in <code>TSArcDensPE</code>,</li>
+<li><code>Xp</code>, a set of 1D points which constitute the vertices of the PE-PCD,</li>
+<li><code>Yp</code>, a set of 1D points which constitute the end points of the partition intervals,</li>
+<li><code>support.int</code>, the support interval <span class="math inline">\((a,b)\)</span> with <span class="math inline">\(a&lt;b\)</span>.
+Uniformity of <code>Xp</code> points in this interval is tested.</li>
+<li><code>c</code>, a positive real number which serves as the centrality parameter in PE proximity region;
+must be in <span class="math inline">\((0,1)\)</span> (default <code>c=.5</code>).</li>
+<li><code>end.int.cor</code>, a logical argument for end interval correction, default is <code>FALSE</code>,
+recommended when both <code>Xp</code> and <code>Yp</code> have the same interval support.</li>
+</ul>
+<p>This function is an object of class “<code>htest</code>” (i.e., <em>hypothesis test</em>) and performs a hypothesis test of complete spatial
+randomness (CSR) or uniformity of <code>Xp</code> points in the range of <code>Yp</code> points against the alternatives
+of segregation (where <code>Xp</code> points cluster away from <code>Yp</code> points) and association
+(where <code>Xp</code> points cluster around <code>Yp</code> points) based on
+the normal approximation of the arc density of the PE-PCD for uniform 1D data
+utilizing the asymptotic normality of the <span class="math inline">\(U\)</span>-statistics.
+For testing of uniformity of <span class="math inline">\(\mathcal{X}\)</span> points in a bounded interval support,
+<span class="math inline">\(\mathcal{Y}\)</span> points are artificially inserted randomly or at regular distances in the support.</p>
+<p>The function is based on similar assumptions and returns the similar type of output as in <code>TSArcDensPE</code>,
+<!-- see Section \@ref(sec:summary-arti-data-PE-PCD)  -->
+see Section “VS1_1_2DArtiData”
+and
+also <span class="citation">Ceyhan (2012)</span> for more on the uniformity test based on the arc density of PE-PCDs for 1D data.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TSArcDensPE1D</span>(Xp,Yp,int,r,c) <span class="co"># try also TSArcDensPE1D(Xp,Yp,int,r,c,alt=&quot;l&quot;)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Large Sample z-Test Based on Arc Density of PE-PCD for Testing</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Uniformity of 1D Data ---</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  without End Interval Correction</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  Xp</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; standardized arc density (i.e., Z) = -0.77073, p-value = 0.4409</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true (expected) arc density is not equal to 0.1279913</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.05557408 0.15952931</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; arc density </span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   0.1075517</span></span></code></pre></div>
+<p><strong>The Use of Domination Number of PE-PCDs for Testing Spatial Interaction</strong></p>
+<p>We first provide two functions to compute the domination number of PE-PCDs: <code>PEdom1D</code> and <code>PEdom1D.nd</code>.</p>
+<p>The function <code>PEdom1D</code> takes the same arguments as <code>NumArcsPE1D</code>
+and returns a <code>list</code> with four elements as output:</p>
+<ul>
+<li><code>dom.num</code>, the overall domination number of PE-PCD with vertex set = <code>Xp</code> and expansion parameter <span class="math inline">\(r \ge 1\)</span> and
+centrality parameter <span class="math inline">\(c \in (0,1)\)</span>,</li>
+<li><code>mds</code>, a minimum dominating set of the PE-PCD,</li>
+<li><code>ind.mds</code>, the vector of data indices of the minimum dominating set of the PE-PCD whose vertices are <code>Xp</code> points,</li>
+<li><code>int.dom.nums</code>, the vector of domination numbers of the PE-PCD components for the partition intervals.</li>
+</ul>
+<p>This function takes any center in the interior of the intervals as its argument.
+The vertex regions in each interval are based on the center <span class="math inline">\(M_c=(a+c(b-a)\)</span> for the interval <span class="math inline">\([a,b]\)</span> with <span class="math inline">\(c \in (0,1)\)</span>
+(default for <span class="math inline">\(c=.5\)</span> which gives the center of mass of the interval).</p>
+<p>On the other hand, <code>PEdom1D.nd</code> takes only the arguments <code>Xp,Yp,r</code>
+and returns the same output as in <code>PEdom1D</code> function,
+but uses one of the non-degeneracy centrality values in the multiple interval case
+(hence <code>c</code> is not an argument for this function).
+That is, <code>c</code> is one of the two values <span class="math inline">\(\{(r-1)/r,1/r\}\)</span> that renders the asymptotic distribution of domination number
+non-degenerate for a given value of <span class="math inline">\(r \in (1,2]\)</span> and <code>M</code> is center of mass (i.e., <span class="math inline">\(c=.5\)</span>) for <span class="math inline">\(r=2\)</span>.</p>
+<p>These two functions functions are different from the function <code>dom.greedy</code> since they give an exact minimum dominating set and
+the exact domination number and from <code>dom.exact</code>,
+since they give a minimum dominating set and the domination number in polynomial time (in the number of vertices of the digraph,
+i.e., number of <code>Xp</code> points).</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PEdom1D</span>(Xp,Yp,r,c)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $dom.num</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $mds</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.453322  2.450930  3.907723  5.617220  8.459662 10.285607</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ind.mds</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6 1 3 9 2 5</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $int.dom.nums</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1 1 1 1 1 0 0 1</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="fu">PEdom1D.nd</span>(Xp,Yp,r)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $dom.num</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $mds</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.453322  2.450930  3.907723  5.617220  8.459662  9.596209 10.285607</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ind.mds</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6 1 3 9 2 4 5</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $int.dom.nums</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1 1 1 1 2 0 0 1</span></span></code></pre></div>
+<p>We can test the spatial pattern of segregation/association or uniformity based on domination of PE-PCD using the function
+<code>TSDomPEBin1D</code> which is an object of class “<code>htest</code>” and performs the same hypothesis test as in <code>TSArcDensPE1D</code>.
+<!-- (i.e., hypothesis test) and performs the hypothesis test of complete spatial -->
+<!-- randomness (CSR) or uniformity of `Xp` points in the range of `Yp` points against the alternatives -->
+<!-- of segregation and association. -->
+This function takes the same arguments as in <code>TSArcDensPE1D</code> and
+returns the test statistic, <span class="math inline">\(p\)</span>-value for the corresponding <code>alternative</code>,
+the confidence interval, estimate and null value for the parameter of interest
+(which is <span class="math inline">\(P(\mbox{domination number}\le 1)\)</span>), and method and name of the data set used.</p>
+<p>Under the null hypothesis of uniformity of <code>Xp</code> points in the range of <code>Yp</code> points,
+probability of success (i.e., <span class="math inline">\(P(\mbox{domination number}\le 1)\)</span>) equals to its expected value under the uniform distribution) and
+<code>alternative</code> could be two-sided, or right-sided (i.e., data is accumulated around the <code>Yp</code> points, or association)
+or left-sided (i.e., data is accumulated around the centers of the triangles, or segregation).</p>
+<p>Here, the PE proximity region is constructed with the centrality parameter <span class="math inline">\(c \in (0,1)\)</span> with an expansion parameter <span class="math inline">\(r \ge 1\)</span>
+that yields non-degenerate asymptotic distribution of the domination number.
+That is,
+for the centrality parameter <code>c</code> and for a given <span class="math inline">\(c \in (0,1)\)</span>, the
+expansion parameter <span class="math inline">\(r\)</span> is taken to be <span class="math inline">\(1/\max(c,1-c)\)</span>
+which yields non-degenerate asymptotic distribution of the domination number.</p>
+<p>The test statistic in <code>TSDomPEBin1D</code> is based on the binomial distribution,
+when success is defined as domination number being less than or
+equal to 1 in the one interval case (i.e., number of successes is equal to domination number <span class="math inline">\(\le 1\)</span> in the partition intervals).
+That is, the test statistic is based on the domination number for <code>Xp</code> points inside the range of <code>Yp</code> points
+for the PE-PCD and default end interval correction, <code>end.int.cor</code>, is <code>FALSE</code>.
+For this approximation to work, <code>Xp</code> must be at least 5 times more than <code>Yp</code> points
+(or <code>Xp</code> must be at least 5 or more per partition interval).
+Here, the probability of success is the exact probability of success for the binomial distribution.
+See also <span class="citation">Ceyhan (2020)</span> for more on the uniformity test based on the domination number of PE-PCDs for 1D data.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TSDomPEBin1D</span>(Xp,Yp,int,c) <span class="co">#try also TSDomPEBin1D(Xp,Yp,int,c,alt=&quot;l&quot;)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Large Sample Binomial Test based on the Domination Number of PE-PCD for</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Testing Uniformity of 1D Data ---</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  without End Interval Correction</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  Xp</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; adjusted domination number = 0, p-value = 0.3042</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true Pr(Domination Number=2) is not equal to 0.375</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.0000000 0.6023646</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          domination number   || Pr(domination number = 2) </span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                            6                            0</span></span></code></pre></div>
+<p>In all the test functions (based on arc density and domination number) above,
+the option <code>end.int.cor</code> is for end interval correction (default is “no end interval correction”, i.e., <code>end.int.cor = FALSE</code>)
+which is recommended when both <code>Xp</code> and <code>Yp</code> have the same interval support.
+When the symmetric difference of the supports is non-negligible, the tests are modified to account for the <span class="math inline">\(\mathcal{X}\)</span> points outside the
+range of <span class="math inline">\(\mathcal{Y}\)</span> points.
+For example, <code>TSArcDensPE1D(Xp,Yp,int,r,c,end.int.cor = TRUE)</code> would yield
+the end interval corrected version of the arc-based test of spatial interaction.
+Furthermore, we only provide the two-sided tests above, although both one-sided versions are also available.</p>
+</div>
+</div>
+<div id="summary-and-visualization-with-central-similarity-pcds" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Summary and Visualization with Central Similarity PCDs</h2>
+<p>CS proximity regions are defined similar to the PE proximity regions in Section <a href="#sec:summary-1D-arti-data-PE-PCD">1.1</a>.
+Note also that for CS-PCDs in two dimensions,
+we use the edge regions to construct the proximity region,
+however, in the one dimensional setting,
+vertex and edge regions coincide,
+so we refer these regions as “vertex” regions for convenience.
+The default centrality parameter used to construct the vertex regions is again <code>c=0.5</code>
+which yields the center of mass of each interval.</p>
+<p>The functions for CS-PCD have similar arguments as the <code>NumArcsPE1D</code>
+with the expansion parameter <code>r</code> replaced with <code>t</code> (which must be positive).</p>
+<p>Number of arcs of the CS-PCD can be computed by the function <code>NumArcsCS1D</code>,
+which takes same arguments (except expansion parameter <code>t</code>)
+and returns similar output items as in <code>NumArcsPE1D</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tau<span class="ot">&lt;-</span><span class="dv">2</span>; c<span class="ot">&lt;-</span>.<span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">NumArcsCS1D</span>(Xp,Yp,tau,c)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $num.arcs</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 8</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $num.in.range</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 8</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $num.in.intervals</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1 1 2 2 3 1</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $weight.vec</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.248250 2.612118 2.447531 2.265146</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $int.num.arcs</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0 0 2 2 4 0</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $partition.intervals</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]     [,3]     [,4]     [,5]     [,6]</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]      -Inf 0.2284167 2.476667 5.088785 7.536317 9.801462</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.2284167 2.4766671 5.088785 7.536317 9.801462      Inf</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $data.interval.indices</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 2 5 3 5 6 1 4 5 4 3</span></span></code></pre></div>
+<p>The incidence matrix of the CS-PCD can be found by <code>IncMatCS1D</code> by running <code>IncMatCS1D(Xp,Yp,t=1.5,c)</code> command.
+With the incidence matrix, approximate and exact domination numbers can be found by the functions
+<code>dom.greedy</code> and <code>dom.exact</code>, respectively.</p>
+<p>Plot of the arcs in the digraph CS-PCD is provided by the function <code>plotCSarcs1D</code>,
+which take same arguments as the function <code>plotPEarcs1D</code>.
+<!-- The first plot is without the centers, and the second is with the centers -->
+<!-- with `centers=TRUE` option in the plot function.  -->
+We plot the arcs together with the centers,
+with <code>centers=TRUE</code> option in the plot function.
+Arcs are jittered along the <span class="math inline">\(y\)</span>-axis to avoid clutter on the real line
+(i.e., for better visualization).
+<!-- The same seed is used for both plots to have the same jitter for the arcs. -->
+<!-- ```{r AD1dCSarcs1, fig.cap="The arcs of the CS-PCD for the 1D artificial data set with centrality parameter $c=.4$; the end points of the $Y$ intervals are plotted with vertical red dashed lines."} -->
+<!-- tau<-2; c<-.4; jit<-.1 -->
+<!-- set.seed(1) -->
+<!-- plotCSarcs1D(Xp,Yp,tau,c,jit,xlab="",ylab="") -->
+<!-- ``` --></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotCSarcs1D</span>(Xp,Yp,tau,c,jit,<span class="at">xlab=</span><span class="st">&quot;&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;&quot;</span>,<span class="at">centers=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:AD1dCSarcs2"></span>
+<img src="data:image/png;base64,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" alt="The arcs of the CS-PCD for the 1D artificial data set with centrality parameter $c=.4$, the end points of the $Y$ intervals (red) and the centers (green) are plotted with vertical dashed lines." />
+<p class="caption">
+Figure 1.4: The arcs of the CS-PCD for the 1D artificial data set with centrality parameter <span class="math inline">\(c=.4\)</span>, the end points of the <span class="math inline">\(Y\)</span> intervals (red) and the centers (green) are plotted with vertical dashed lines.
+</p>
+</div>
+<p>Plot of the CS proximity regions (or intervals) is provided with the function <code>plotCSregs1D</code>,
+which take same arguments as the function <code>plotPEregs1D</code>.
+<!-- The first plot is without the centers, and the second is with the centers with `centers=TRUE` option. -->
+<!-- ```{r AD1dCSPR1, fig.cap="The CS proximity regions (blue) for the 1D artificial data set, the end points of the $Y$ intervals are plotted with vertical dashed lines."} -->
+<!-- plotCSregs1D(Xp,Yp,tau,c,xlab="",ylab="") -->
+<!-- ``` -->
+We plot the proximity regions together with the centers with <code>centers=TRUE</code> option:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotCSregs1D</span>(Xp,Yp,tau,c,<span class="at">xlab=</span><span class="st">&quot;&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;&quot;</span>,<span class="at">centers =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:AD1dCSPR2"></span>
+<img src="data:image/png;base64,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" alt="The CS proximity regions (blue) for the 1D artificial data set, the end points of the $Y$ intervals (black) and the centers (green) are plotted with vertical dashed lines." />
+<p class="caption">
+Figure 1.5: The CS proximity regions (blue) for the 1D artificial data set, the end points of the <span class="math inline">\(Y\)</span> intervals (black) and the centers (green) are plotted with vertical dashed lines.
+</p>
+</div>
+<p>The function <code>ArcsCS1D</code> is an object of class “<code>PCDs</code>” and
+has the same arguments as in <code>NumArcsCS1D</code>.
+Its <code>call</code>, <code>summary</code>, and <code>plot</code> are as in <code>ArcsPE1D</code>.
+For this function,
+CS proximity regions are constructed for data points inside or outside the intervals based
+on <code>Yp</code> points with expansion parameter <span class="math inline">\(t &gt; 0\)</span> and centrality parameter <span class="math inline">\(c \in (0,1)\)</span>.
+That is, for this function,
+arcs may exist for points in the middle or end intervals.
+Arcs are jittered along the <span class="math inline">\(y\)</span>-axis in the plot for better visualization.
+The <code>plot</code> function returns the same plot as in <code>plotCSarcs1D</code>,
+hence we comment it out below.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Arcs<span class="ot">&lt;-</span><span class="fu">ArcsCS1D</span>(Xp,Yp,tau,c)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Arcs</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ArcsCS1D(Xp = Xp, Yp = Yp, t = tau, c = c)</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Central Similarity Proximity Catch Digraph (CS-PCD) for 1D Points with Expansion Parameter t = 2 and Centrality Parameter c = 0.4&quot;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Arcs)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ArcsCS1D(Xp = Xp, Yp = Yp, t = tau, c = c)</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the digraph:</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Central Similarity Proximity Catch Digraph (CS-PCD) for 1D Points with Expansion Parameter t = 2 and Centrality Parameter c = 0.4&quot;</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the digraph =  Xp </span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Partition points of the region =  Yp </span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Selected tail (or source) points of the arcs in the digraph</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       (first 6 or fewer are printed) </span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3.907723 4.479377 5.337266 5.617220 8.459662 8.459662</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Selected head (or end) points of the arcs in the digraph</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       (first 6 or fewer are printed) </span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4.479377 3.907723 5.617220 5.337266 9.596209 9.709029</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters of the digraph</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; centrality parameter  expansion parameter </span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  0.4                  2.0 </span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Various quantities of the digraph</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         number of vertices number of partition points </span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                10.00000000                 5.00000000 </span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        number of intervals             number of arcs </span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 6.00000000                 8.00000000 </span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                arc density </span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 0.08888889</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Arcs)</span></code></pre></div>
+<div id="testing-spatial-interaction-or-uniformity-with-the-cs-pcds" class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Testing Spatial Interaction or Uniformity with the CS-PCDs</h3>
+<p>We can test the spatial interaction between two classes/species or uniformity of points from one class
+in the 1D setting based on <em>arc density</em> of CS-PCDs.
+The distribution of the domination number of CS-PCDs is still a topic of ongoing work.</p>
+<p><strong>The Use of Arc Density of CS-PCDs for Testing Spatial Interaction or Uniformity</strong></p>
+<p>We can test the spatial interaction of segregation/association or uniformity
+based on arc density of CS-PCD using the function <code>TSArcDensCS1D</code>.
+This function is an object of class “<code>htest</code>” (i.e., <em>hypothesis test</em>),
+takes the same arguments as the function <code>TSArcDensPES1D</code>
+with expansion parameter <code>r</code> replaced with <code>t</code>,
+performs the same type of test with the same null and alternative hypotheses,
+and returns the same output as the <code>TSArcDensPE1D</code> function.
+See Section <a href="#sec:summary-1D-arti-data-PE-PCD">1.1</a>,
+and also <span class="citation">Ceyhan (2016)</span> for more details.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TSArcDensCS1D</span>(Xp,Yp,int,tau,c) <span class="co">#try also TSArcDensCS1D(Xp,Yp,int,tau,c,alt=&quot;l&quot;)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Large Sample z-Test Based on Arc Density of CS-PCD for Testing</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Uniformity of 1D Data ---</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  without End Interval Correction</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  Xp</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; standardized arc density (i.e., Z) = -0.75628, p-value = 0.4495</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true (expected) arc density is not equal to 0.1658151</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.08507259 0.20159565</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; arc density </span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   0.1433341</span></span></code></pre></div>
+<p>As in the tests based on PE-PCD,
+it is possible to account for <span class="math inline">\(\mathcal{X}\)</span> points outside the range of <span class="math inline">\(\mathcal{Y}\)</span> points, with the option <code>end.int.cor = TRUE</code>.
+For example, <code>TSArcDensCS1D(Xp,Yp,int,tau,c,end.int.cor = TRUE)</code> would yield the end interval corrected version of the arc-based test of spatial interaction.
+Furthermore, we only provide the two-sided test above, although both one-sided versions are also available.</p>
+<p><strong>References</strong></p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-ceyhan:metrika-2012" class="csl-entry">
+Ceyhan, E. 2012. <span>“The Distribution of the Relative Arc Density of a Family of Interval Catch Digraph Based on Uniform Data.”</span> <em>Metrika</em> 75(6): 761–93.
+</div>
+<div id="ref-ceyhan:revstat-2016" class="csl-entry">
+———. 2016. <span>“Density of a Random Interval Catch Digraph Family and Its Use for Testing Uniformity.”</span> <em>REVSTAT</em> 14(4): 349–94.
+</div>
+<div id="ref-ceyhan:stat-2020" class="csl-entry">
+———. 2020. <span>“Domination Number of an Interval Catch Digraph Family and Its Use for Testing Uniformity.”</span> <em>Statistics</em> 54(2): 310–39.
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

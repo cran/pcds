@@ -1,7 +1,7 @@
 Package: pcds
 Type: Package
 Title: Proximity Catch Digraphs and Their Applications
-Version: 0.1.4
+Version: 0.1.5
 Author: Elvan Ceyhan
 Maintainer: Elvan Ceyhan <elvanceyhan@gmail.com>
 Description: Contains the functions for generating patterns of segregation, association, complete spatial randomness (CSR))
@@ -15,12 +15,15 @@ Description: Contains the functions for generating patterns of segregation, asso
 License: GPL-2
 Encoding: UTF-8
 LazyData: TRUE
-Imports: combinat, graphics, interp, plot3D, plotrix, Rdpack (>= 0.7),
-        stats
+Imports: combinat, interp, gMOIP, plot3D, plotrix, Rdpack (>= 0.7)
+Depends: R (>= 3.5.0)
 RdMacros: Rdpack
-Suggests: scatterplot3d, spatstat.random
-RoxygenNote: 7.1.2
+Suggests: knitr, scatterplot3d, spatstat.random, rmarkdown, bookdown,
+        spelling
+RoxygenNote: 7.2.2
+VignetteBuilder: knitr
+Language: en-US
 NeedsCompilation: no
-Packaged: 2022-03-01 23:53:54 UTC; ezc0066
+Packaged: 2023-01-03 03:36:58 UTC; ezc0066
 Repository: CRAN
-Date/Publication: 2022-03-02 00:10:06 UTC
+Date/Publication: 2023-01-06 22:30:07 UTC
