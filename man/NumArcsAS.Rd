@@ -11,7 +11,7 @@ NumArcsAS(Xp, Yp, M = "CC")
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle or 3D point in barycentric
 coordinates which serves as a center in the interior of each Delaunay triangle;
 default is \code{M="CC"} i.e., the circumcenter of each triangle.}
 }
@@ -23,9 +23,9 @@ A \code{list} with the elements
 \item{weight.vec}{The \code{vector} of the areas of Delaunay triangles based on \code{Yp} points}
 \item{tri.num.arcs}{The \code{vector} of the number of arcs of the component of the AS-PCD in the
 Delaunay triangles based on \code{Yp} points}
-\item{del.tri.ind}{Indices of Delaunay triangles based on \code{Yp} points,
-each column is the vector of indices of the vertices of one of the Delaunay triangle.}
-\item{data.tri.ind}{A \code{vector} of indices of Delaunay triangles in which data points reside,
+\item{del.tri.ind}{A matrix of indices of Delaunay triangles based on \code{Yp} points,
+each column corresponds to the vector of indices of the vertices of one of the Delaunay triangle.}
+\item{data.tri.ind}{A \code{vector} of indices of vertices of the Delaunay triangles in which data points reside,
 i.e., column number of \code{del.tri.ind} for each \code{Xp} point.}
 }
 \description{

@@ -2221,7 +2221,7 @@ IndASdomUBtri <- function(Xp,k,tri,M="CC")
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD.
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
+#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle or 3D point in barycentric
 #' coordinates which serves as a center in the interior of each Delaunay triangle;
 #' default is \code{M="CC"} i.e., the circumcenter of each triangle.
 #'
@@ -2232,9 +2232,9 @@ IndASdomUBtri <- function(Xp,k,tri,M="CC")
 #' \item{weight.vec}{The \code{vector} of the areas of Delaunay triangles based on \code{Yp} points}
 #' \item{tri.num.arcs}{The \code{vector} of the number of arcs of the component of the AS-PCD in the
 #' Delaunay triangles based on \code{Yp} points}
-#' \item{del.tri.ind}{Indices of Delaunay triangles based on \code{Yp} points,
-#' each column is the vector of indices of the vertices of one of the Delaunay triangle.}
-#' \item{data.tri.ind}{A \code{vector} of indices of Delaunay triangles in which data points reside,
+#' \item{del.tri.ind}{A matrix of indices of Delaunay triangles based on \code{Yp} points,
+#' each column corresponds to the vector of indices of the vertices of one of the Delaunay triangle.}
+#' \item{data.tri.ind}{A \code{vector} of indices of vertices of the Delaunay triangles in which data points reside,
 #' i.e., column number of \code{del.tri.ind} for each \code{Xp} point.}
 #'
 #' @seealso \code{\link{NumArcsAStri}}, \code{\link{NumArcsPE}}, and \code{\link{NumArcsCS}}
@@ -2369,8 +2369,8 @@ NumArcsAS <- function(Xp,Yp,M="CC")
               num.in.conv.hull=NinCH, # number of Xp points in CH of Yp points
               num.in.tris=ni.vec, # vector of number of Xp points in the Delaunay triangles
               weight.vec=Wvec, #areas of Delaunay triangles
-              del.tri.ind=t(Ytri), # indices of the Delaunay triangles, each column is the indices of the vertices of one triangle
-              data.tri.ind=data.tri.ind) #indices of Delaunay triangles in which data points reside, i.e., column number of del.tri for each Xp point
+              del.tri.ind=t(Ytri), # indices of the Delaunay triangles, each column correponds to the indices of the vertices of one triangle
+              data.tri.ind=data.tri.ind) #indices of vertices of the Delaunay triangles in which data points reside, i.e., column number of del.tri for each Xp point
   }
 res
 
@@ -2499,7 +2499,7 @@ IncMatAStri <- function(Xp,tri,M="CC")
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD.
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
+#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle or 3D point in barycentric
 #' coordinates which serves as a center in the interior of each Delaunay triangle;
 #' default is \code{M="CC"} i.e., the circumcenter of each triangle.
 #'
@@ -4005,7 +4005,7 @@ plotASregs.tri <- function(Xp,tri,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD.
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
 #' triangles partition the convex hull of \code{Yp} points.
-#' @param M The center of the triangle. \code{"CC"} represents the circumcenter of each Delaunay triangle \code{tri}
+#' @param M The center of the triangle. \code{"CC"} represents the circumcenter of each Delaunay triangle
 #' or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
 #' default is \code{M="CC"} i.e., the circumcenter of each triangle. \code{M} must be entered in barycentric coordinates
 #' unless it is the circumcenter.
@@ -4191,7 +4191,7 @@ ArcsAS <- function(Xp,Yp,M="CC")
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD.
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
 #' triangles partition the convex hull of \code{Yp} points.
-#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle \code{tri}
+#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle
 #' or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
 #' default is \code{M="CC"} i.e., the circumcenter of each triangle.
 #' @param asp A \code{numeric} value, giving the aspect ratio for \eqn{y} axis to \eqn{x}-axis \eqn{y/x} (default is \code{NA}),
@@ -4294,7 +4294,7 @@ plotASarcs <- function(Xp,Yp,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xlim=NU
 #' @param Xp A set of 2D points for which AS proximity regions are constructed.
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
 #' triangles partition the convex hull of \code{Yp} points.
-#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
+#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle or 3D point in barycentric
 #' coordinates which serves as a center in the interior of each Delaunay triangle;
 #' default is \code{M="CC"} i.e., the circumcenter of each triangle.
 #' @param main An overall title for the plot (default=\code{NULL}).

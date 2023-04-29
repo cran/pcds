@@ -11,7 +11,7 @@ IncMatAS(Xp, Yp, M = "CC")
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle or 3D point in barycentric
 coordinates which serves as a center in the interior of each Delaunay triangle;
 default is \code{M="CC"} i.e., the circumcenter of each triangle.}
 }

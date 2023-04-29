@@ -129,7 +129,7 @@ We can generate uniform points in the union of multiple Delaunay triangles,
 that is, in the convex hull of non-target points,
 where $n_x$ is number of $\X$ (i.e. target) points and $n_y$ is number of $\Y$ (nontarget) points.
 $\Y$ points constitute the vertices of the Delaunay triangles, and when uniform points are generated in the convex hull
-of nontarget points, then points in each triangle will also be uniform (restricted to the triangle,
+of nontarget points, then points in each triangle will also be uniformly distributed (restricted to the triangle,
 i.e. normalized by the ratio of the area of the convex hull to the area of the particular triangle).
 
 ```{r SPch2}
@@ -153,7 +153,8 @@ in the convex hull of the point set `Yp`,
 Its `call` and `plot` is as in `runif.tri` and its `summary`
 is similar, with the addition of the $x$ and $y$ coordinates of the nodes on the boundary of the convex hull of $\Y$ points
 and their indices (labeled `$i`).
-The `plot` of the object returns the scatterplot of the $\X$ points together with Delaunay triangles of $\Y$ points.
+The `plot` of the object returns the scatterplot of the $\X$ points 
+together with Delaunay triangulation of $\Y$ points.
 ```{r CSRmT, fig.cap="Scatterplot of the uniform $X$ points in the Delaunay triangles based on 5 $Y$ points."}
 Xdt<-runifMT(nx,Yp)  #data under CSR in the convex hull of Ypoints
 Xdt
@@ -349,8 +350,9 @@ creates a triangulation object.
 in `interp` package. `interp::triangles` function yields a triangulation data structure from the triangulation object created by `interp::tri.mesh`.
 
 Its `call`, `summary`, and `plot` are as in `rseg.tri`.
-The `plot` of the object s the scatterplot of the $\X$ points together with Delaunay triangles of $\Y$ points.
-```{r segmT, fig.cap="Scatterplot of the $X$ points segregated (in a type I fashion) from the $Y$ points in each Delaunay triangle."}
+The `plot` of the object is the scatterplot of the $\X$ points
+together with Delaunay triangulation of $\Y$ points.
+```{r segmT, fig.cap="Scatterplot of the $X$ points segregated (in a type I fashion) from the $Y$ points."}
 Xdt<-rsegMT(nx,Yp,del)
 Xdt
 summary(Xdt)
@@ -395,7 +397,7 @@ balls).
 (default is the range of $y$-coordinates of the `Yp` points).
 
 Its `call`, `summary`, and `plot` are as in `rsegMT`.
-The `plot` of the object s the scatterplot of the $\X$ points together with $\Y$ points 
+The `plot` of the object is the scatterplot of the $\X$ points together with $\Y$ points 
 (here we use `asp=1` so that the prohibited regions are actually depicted as circles).
 ```{r segmTcirc, eval=F, fig.cap="Scatterplot of the $X$ points segregated (in a circular fashion) from the $Y$ points in the unit square."}
 Xdt<-rseg.circ(nx,Yp,e)
@@ -404,13 +406,13 @@ Xdt
 #> rseg.circ(n = nx, Yp = Yp, e = e)
 #> 
 #> Type:
-#> [1] "Segregation of 10 X points from 5 Y points with circular (or radial) exclusion parameter e = 0.15"
+#> [1] "Segregation of 10 X points from 5 Y points with circular exclusion parameter e = 0.15"
 summary(Xdt)
 #> Call:
 #> rseg.circ(n = nx, Yp = Yp, e = e)
 #> 
 #> Type of the Pattern
-#> [1] "Segregation of 10 X points from 5 Y points with circular (or radial) exclusion parameter e = 0.15"
+#> [1] "Segregation of 10 X points from 5 Y points with circular exclusion parameter e = 0.15"
 #> 
 #> Parameters of the Pattern
 #> exclusion parameter 
@@ -547,7 +549,7 @@ in the union of the Delaunay triangles (or in the convex hull
 of the $\Y$ points) using the function `rascMT`, 
 and provide the summary of these associated points and the corresponding scatterplot (together with the triangles).
 The function `rascMT` is an object of class `Patterns` and its arguments, `call`, `summary`, and `plot` are as in `rsegMT`.
-```{r ascmT, fig.cap="Scatterplot of the $X$ points associated (in a type I fashion) with the $Y$ points in each Delaunay triangle."}
+```{r ascmT, fig.cap="Scatterplot of the $X$ points associated (in a type I fashion) with the $Y$ points."}
 Xdt<-rascMT(nx,Yp,del)
 Xdt
 summary(Xdt)
@@ -579,20 +581,20 @@ and provide the summary of these associated points and the corresponding scatter
 The function `rasc.circ` is an object of class `Patterns` and its arguments,  `call`, `summary`, and `plot` are as in `rseg.circ`.
 We use `asp=1` in the `plot` of the object
 so that the support of the $\X$ points (i.e., the allowed regions) are actually depicted as circles.
-```{r ascmTcirc, eval=F, fig.cap="Scatterplot of the $X$ points associated (in a circular fashion) with the $Y$ points in each Delaunay triangle."}
+```{r ascmTcirc, eval=F, fig.cap="Scatterplot of the $X$ points associated (in a circular fashion) with the $Y$ points."}
 Xdt<-rasc.circ(nx,Yp,e)
 Xdt
 #> Call:
 #> rasc.circ(n = nx, Yp = Yp, e = e)
 #> 
 #> Type:
-#> [1] "Association of 10 points with 5 Y points with circular (or radial) attraction parameter e = 0.15"
+#> [1] "Association of 10 points with 5 Y points with circular attraction parameter e = 0.15"
 summary(Xdt)
 #> Call:
 #> rasc.circ(n = nx, Yp = Yp, e = e)
 #> 
 #> Type of the Pattern
-#> [1] "Association of 10 points with 5 Y points with circular (or radial) attraction parameter e = 0.15"
+#> [1] "Association of 10 points with 5 Y points with circular attraction parameter e = 0.15"
 #> 
 #> Parameters of the Pattern
 #> attraction parameter 

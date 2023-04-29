@@ -1049,7 +1049,7 @@ print.summary.Patterns <- function(x, ...)
 
   cat("\nNumber of points:\n")
   print(x$num.pts)
-  cat("nx = number of generated points according to the pattern \nny = number of reference (i.e. Y) points")
+  cat("nx = number of generated points according to the pattern \n ny = number of reference (i.e. Y) points \n")
 } #end of the function
 #'
 ########################
@@ -1744,7 +1744,7 @@ print.summary.PCDs <- function(x, ...)
   cat("Call:\n")
   print(x$call)
 
-  cat("\nType of the digraph:\n")
+  cat("\n Type of the digraph:\n")
   print(x$type)
 
   cat("\n Vertices of the digraph = ",  x$Vname, "\n Partition points of the region = ", x$Tname,"\n")
@@ -1757,10 +1757,10 @@ print.summary.PCDs <- function(x, ...)
       (first 6 or fewer are printed) \n")
   print(x$evec)
 
-  cat("\nParameters of the digraph\n")
+  cat("\n Parameters of the digraph\n")
   print(x$param)
 
-  cat("Various quantities of the digraph\n")
+  cat("\n Various quantities of the digraph\n")
   print(x$Quant)
 } #end of the function
 #'

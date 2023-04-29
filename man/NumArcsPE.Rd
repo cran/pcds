@@ -26,9 +26,9 @@ A \code{list} with the elements
 \item{weight.vec}{The \code{vector} of the areas of Delaunay triangles based on \code{Yp} points}
 \item{tri.num.arcs}{The \code{vector} of the number of arcs of the component of the PE-PCD in the
 Delaunay triangles based on \code{Yp} points}
-\item{del.tri.ind}{A \code{vector} of indices of Delaunay triangles based on \code{Yp} points,
-each column is the indices of the vertices of one triangle.}
-\item{data.tri.ind}{A \code{vector} of indices of Delaunay triangles in which data points reside,
+\item{del.tri.ind}{A matrix of indices of vertices of the Delaunay triangles based on \code{Yp} points,
+each column corresponds to the vector of indices of the vertices of one triangle.}
+\item{data.tri.ind}{A \code{vector} of indices of vertices of the Delaunay triangles in which data points reside,
 i.e., column number of \code{del.tri.ind} for each \code{Xp} point.}
 }
 \description{

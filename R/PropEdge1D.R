@@ -207,7 +207,7 @@ NumArcsPEmid.int <- function(Xp,int,r,c=.5)
 #' @param r A positive real number which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return \code{muPE1D} returns the mean and \code{asyvarPE1D} returns the asymptotic variance of the
 #' arc density of PE-PCD for \eqn{U(a,b)} data
@@ -779,7 +779,7 @@ TSArcDensPE1D <- function(Xp,Yp,support.int,r,c=.5,end.int.cor=FALSE,
 #' must be \eqn{\ge 1}.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
@@ -1397,10 +1397,10 @@ ArcsPEend.int <- function(Xp,Yp,r)
 #' must be \eqn{\ge 1}.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param Jit A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
-#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by
-#' \code{Jit}).
+#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis
+#' where \code{Jit} equals to the range of the union of \code{Xp} and \code{Yp} points multiplied by \code{Jit}).
 #' @param main An overall title for the plot (default=\code{NULL}).
 #' @param xlab,ylab Titles of the \eqn{x} and \eqn{y} axes in the plot (default=\code{NULL} for both).
 #' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
@@ -1654,8 +1654,8 @@ IndNPEint <- function(p1,p2,int,r,c=.5)
 #' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param int A \code{vector} of two real numbers representing an interval.
 #' @param Jit A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
-#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and proximity region
-#' intervals multiplied by \code{Jit}).
+#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis
+#' where \code{Jit} equals to the range of the union of \code{Xp} and \code{Yp} points multiplied by \code{Jit}).
 #' @param main An overall title for the plot (default=\code{NULL}).
 #' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).
 #' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges.
@@ -1763,7 +1763,7 @@ plotPEregs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' i.e., the number of arcs for the entire PE-PCD}
 #' \item{num.in.range}{Number of \code{Xp} points in the interval \code{int}}
 #' \item{num.in.ints}{The vector of number of \code{Xp} points in the partition intervals (including the end intervals)}
-#' \item{int.num.arcs}{The \code{vector} of the number of arcs of the component of the PE-PCD in the
+#' \item{int.num.arcs}{The \code{vector} of the number of arcs of the components of the PE-PCD in the
 #' partition intervals (including the end intervals)}
 #' \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside.
 #' Partition intervals are numbered from left to right with 1 being the left end interval.}
@@ -1861,7 +1861,7 @@ NumArcsPEint <- function(Xp,int,r,c=.5)
 #' must be \eqn{\ge 1}.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside the middle (partition) intervals
 #' with the default \code{c=.5}.
-#' For an interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For an interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return A \code{list} with the elements
 #' \item{num.arcs}{Total number of arcs in all intervals (including the end intervals),
@@ -1871,9 +1871,9 @@ NumArcsPEint <- function(Xp,int,r,c=.5)
 #' based on \code{Yp} points}
 #' \item{weight.vec}{The \code{vector} of the lengths of the middle partition intervals (i.e., end intervals excluded)
 #' based on \code{Yp} points}
-#' \item{int.num.arcs}{The \code{vector} of the number of arcs of the component of the PE-PCD in the
+#' \item{int.num.arcs}{The \code{vector} of the number of arcs of the components of the PE-PCD in the
 #' partition intervals (including the end intervals) based on \code{Yp} points}
-#' \item{part.int}{A list of partition intervals based on \code{Yp} points.}
+#' \item{part.int}{A matrix with columns corresponding to the partition intervals based on \code{Yp} points.}
 #' \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside,
 #' i.e., column number of \code{part.int} is provided for each \code{Xp} point. Partition intervals are numbered from left to right
 #' with 1 being the left end interval.}
@@ -2126,7 +2126,7 @@ ArcsPEint <- function(Xp,int,r,c=.5)
   if (length(S)==0)
   {S<-E<-NA}
 
-  param<-list(c,r)
+  param<-c(c,r)
   names(param)<-c("centrality parameter","expansion parameter")
 
   typ<-paste("Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points with Expansion Parameter r = ",r, " and Centrality Parameter c = ",c,sep="")
@@ -2290,7 +2290,7 @@ plotPEarcs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' must be \eqn{\ge 1}.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
@@ -2438,7 +2438,7 @@ ArcsPE1D <- function(Xp,Yp,r,c=.5)
   if (length(S)==0)
   {S<-E<-NA}
 
-  param<-list(c,r)
+  param<-c(c,r)
   names(param)<-c("centrality parameter","expansion parameter")
 
   typ<-paste("Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points with Expansion Parameter r = ",r, " and Centrality Parameter c = ",c,sep="")
@@ -2490,7 +2490,7 @@ ArcsPE1D <- function(Xp,Yp,r,c=.5)
 #' must be \eqn{\ge 1}.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return Incidence matrix for the PE-PCD with vertices being 1D data set, \code{Xp},
 #' and \code{Yp} determines the end points of the intervals (in the multi-interval case)
@@ -2696,10 +2696,10 @@ IncMatPEint <- function(Xp,int,r,c=.5)
 #' must be \eqn{\ge 1}.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param Jit A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
-#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} and the
-#' proximity regions (intervals) multiplied by \code{Jit}).
+#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis
+#' where \code{Jit} equals to the range of the union of \code{Xp} and \code{Yp} points multiplied by \code{Jit}).
 #' @param main An overall title for the plot (default=\code{NULL}).
 #' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).
 #' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
@@ -3107,10 +3107,10 @@ Gam1PEint <- function(p,Xp,int,r,c=.5,rv=NULL,ch.data.pnt=FALSE)
 #' @param r A positive real number which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param n A positive integer representing the size of the uniform data set.
 #'
-#' @return \eqn{P(}domination number\eqn{=2)} for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite
+#' @return \eqn{P(}domination number\eqn{\le 1)} for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite
 #' interval \eqn{(a,b)}
 #'
 #' @name funsPG2PE1D
@@ -3375,16 +3375,16 @@ PG2PE1D <- function(r,c,n)
 #' @title The asymptotic probability of domination number \eqn{= 2} for Proportional Edge Proximity Catch Digraphs (PE-PCDs)
 #' - middle interval case
 #'
-#' @description Returns the asymptotic \eqn{P(}domination number\eqn{=2)} for PE-PCD whose vertices are a uniform data set in a finite
-#' interval \eqn{(a,b)}.
+#' @description Returns the asymptotic \eqn{P(}domination number\eqn{\le 1)} for PE-PCD whose vertices are a uniform
+#' data set in a finite interval \eqn{(a,b)}.
 #'
 #' The PE proximity region \eqn{N_{PE}(x,r,c)} is defined with respect to \eqn{(a,b)} with centrality parameter \code{c}
 #' in \eqn{(0,1)} and expansion parameter \eqn{r=1/\max(c,1-c)}.
 #'
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
-#' @return The asymptotic \eqn{P(}domination number\eqn{=2)} for PE-PCD whose vertices are a uniform data set in a finite
+#' @return The asymptotic \eqn{P(}domination number\eqn{\le 1)} for PE-PCD whose vertices are a uniform data set in a finite
 #' interval \eqn{(a,b)}
 #'
 #' @seealso \code{\link{PG2PE1D}} and \code{\link{PG2PEtri}}
@@ -3492,6 +3492,8 @@ ind.int.set <- function(Xp,Yp)
 #' and the domination numbers for partition intervals based on \code{Yp}.
 #'
 #' \code{Yp} determines the end points of the intervals (i.e., partition the real line via intervalization).
+#' It also includes the domination numbers in the end intervals, with interval label 1 for the left end interval
+#' and $|Yp|+1$ for the right end interval.
 #'
 #' PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}.
 #'
@@ -3503,7 +3505,7 @@ ind.int.set <- function(Xp,Yp)
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int} (default \code{c=.5}).
 #'
 #' @return A \code{list} with three elements
-#' \item{dom.num}{Domination number of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r \ge 1} and
+#' \item{dom.num}{Domination number of PE-PCD with vertex set \code{Xp} and expansion parameter \eqn{r \ge 1} and
 #' centrality parameter \eqn{c \in (0,1)}.}
 #' \item{mds}{A minimum dominating set of the PE-PCD.}
 #' \item{ind.mds}{The data indices of the minimum dominating set of the PE-PCD whose vertices are \code{Xp} points.}
@@ -3560,24 +3562,24 @@ PEdom1D <- function(Xp,Yp,r,c=.5)
     #calculation of the domination number
     gam<-rep(0,nint); mds<-mds.ind<-c()
 
-    for (i in 1:(nint-2)) #1:(nint-2) is to remove the end intervals
+    for (i in 2:(nint-1)) #2:(nint-1) is to remove the end intervals
     {
-      ith.int.ind = Int.Ind==i+1
+      ith.int.ind = Int.Ind==i
       Xpi<-Xp[ith.int.ind]  #points in ith partition interval
       ind.parti = which(ith.int.ind) #indices of Xpi points (wrt to original data indices)
 
       ni<-length(Xpi)  #number of points in ith interval
-      if (ni==0)
+      if (ni==0)  #Gamma=0 piece
       {
         gam[i]<-0
       } else
       {
-        int<-c(Ys[i],Ys[i+1])  #end points of the ith interval
-        cl2v = cl2Mc.int(Xpi,int,c) #???
-        Clvert <-as.numeric(cl2v$ext)
-        Clvert.ind<-cl2v$ind # indices of these extrema wrt Xpi
+        int<-c(Ys[i-1],Ys[i])  #end points of the ith interval
+        cl2Mc = cl2Mc.int(Xpi,int,c) #closest Xp points to the center of ith interval
+        Clvert <- as.numeric(cl2Mc$ext)
+        Clvert.ind <- cl2Mc$ind # indices of these extrema wrt Xpi
 
-        Ext.ind =ind.parti[Clvert.ind] #indices of these extrema wrt to the original data
+        Ext.ind = ind.parti[Clvert.ind] #indices of these extrema wrt to the original data
 
         #Gamma=1 piece
         cnt<-0; j<-1;
@@ -3610,7 +3612,7 @@ PEdom1D <- function(Xp,Yp,r,c=.5)
   } else
   {
   gamL=0;
-  mdsL.ind = mdsL = ind.mdsL=NULL
+  mdsL.ind = mdsL = ind.mdsL = NULL
   }
 
   if (length(XpR)>0)
@@ -3622,19 +3624,19 @@ PEdom1D <- function(Xp,Yp,r,c=.5)
   } else
   {
   gamR=0;
-  mdsR.ind = mdsR = ind.mdsR=NULL
+  mdsR.ind = mdsR = ind.mdsR = NULL
   }
 
   mds<-c(mdsL,mds,mdsR)  #a minimum dominating set
   mds.ind=c(ind.mdsL,mds.ind,ind.mdsR)
 
-  gam<-c(gamL,gam,gamR) #adding the domination number in the end intervals
+  gam[1]<-gamL; gam[nint]<-gamR; #c(gamL,gam,gamR) #adding the domination numbers in the end intervals
   Gam<-sum(gam)  #domination number for the entire digraph including the end intervals
 
-  res<- list(dom.num=Gam,  #domination number
-             mds=mds, #a minimum dominating set
-             ind.mds =mds.ind, #indices of a minimum dominating set (wrt to original data)
-             int.dom.nums=gam #domination numbers for the partition intervals
+  res<- list(dom.num = Gam,  #domination number
+             mds = mds, #a minimum dominating set
+             ind.mds = mds.ind, #indices of a minimum dominating set (wrt to original data)
+             int.dom.nums = gam #domination numbers for the partition intervals
   )
 
   res
@@ -3667,7 +3669,7 @@ PEdom1D <- function(Xp,Yp,r,c=.5)
 #' must be in \eqn{(1,2]} here.
 #'
 #' @return A \code{list} with three elements
-#' \item{dom.num}{Domination number of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r in (1,2]} and
+#' \item{dom.num}{Domination number of PE-PCD with vertex set \code{Xp} and expansion parameter \eqn{r in (1,2]} and
 #' centrality parameter \eqn{c \in \{(r-1)/r,1/r\}}.}
 #' \item{mds}{A minimum dominating set of the PE-PCD.}
 #' \item{ind.mds}{The data indices of the minimum dominating set of the PE-PCD whose vertices are \code{Xp} points.}
@@ -3819,7 +3821,7 @@ PEdom1D.nd <- function(Xp,Yp,r)
 #'
 #' The function yields the test statistic, \eqn{p}-value for the corresponding
 #' alternative, the confidence interval, estimate and null value for the parameter of interest (which is
-#' \eqn{Pr(}domination number\eqn{=2)}), and method and name of the data set used.
+#' \eqn{Pr(}domination number\eqn{\le 1)}), and method and name of the data set used.
 #'
 #' Under the null hypothesis of uniformity of \code{Xp} points in the support interval, probability of success
 #' (i.e., \eqn{Pr(}domination number\eqn{\le 1)}) equals to its expected value) and
@@ -3835,8 +3837,8 @@ PEdom1D.nd <- function(Xp,Yp,r)
 #' or equal to 1 in the one interval case (i.e., number of failures is equal to number of times restricted domination number = 1
 #' in the intervals).
 #' That is, the test statistic is based on the domination number for \code{Xp} points inside the partition intervals
-#' for the PE-PCD. For this approach to work, \code{Xp} must be large for each partition interval, but 5 or more per partition interval
-#' seems to work in practice.
+#' for the PE-PCD. For this approach to work, \code{Xp} must be large for each partition interval,
+#' but 5 or more per partition interval seems to work in practice.
 #'
 #' Probability of success is chosen in the following way for various parameter choices.
 #' \code{asy.bin} is a logical argument for the use of asymptotic probability of success for the binomial distribution,
@@ -3855,12 +3857,12 @@ PEdom1D.nd <- function(Xp,Yp,r)
 #' of trials equals to expected number of \code{Xp} points per partition interval.
 #' @param alternative Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.
 #' @param conf.level Level of the confidence interval, default is \code{0.95}, for the probability of success
-#' (i.e., \eqn{Pr(}domination number\eqn{=2)} for PE-PCD whose vertices are the 1D data set \code{Xp}.
+#' (i.e., \eqn{Pr(}domination number\eqn{\le 1)} for PE-PCD whose vertices are the 1D data set \code{Xp}.
 #'
 #' @return A \code{list} with the elements
 #' \item{statistic}{Test statistic}
 #' \item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding \code{alternative}}
-#' \item{conf.int}{Confidence interval for \eqn{Pr(}domination number\eqn{=2)} at the given level \code{conf.level} and
+#' \item{conf.int}{Confidence interval for \eqn{Pr(}domination number\eqn{\le 1)} at the given level \code{conf.level} and
 #' depends on the type of \code{alternative}.}
 #' \item{estimate}{A \code{vector} with two entries: first is is the estimate of the parameter, i.e.,
 #' \eqn{Pr(}domination number\eqn{\le 1)} and second is the domination number}
@@ -3986,7 +3988,7 @@ TSDomPEBin1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
   attr(cint, "conf.level") <-conf.level
 
   estimate1 <-x/nint
-  names(x) <-"# of times domination number is <= 1" #"domination number - number of partition intervals"
+  names(x) <-"#(domination number is <= 1)" #"domination number - number of partition intervals"
   names(nint) <-"number of partition intervals based on Yp"
   names(p) <-"Pr(Domination Number=2)"
   names(estimate1) <-c(" Pr(domination number <= 1)")
@@ -4018,7 +4020,8 @@ TSDomPEBin1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
 #' support interval \eqn{(a,b)}).
 #' The test is for testing the spatial interaction between \code{Xp} and \code{Yp} points.
 #'
-#' The null hypothesis is uniformity of \code{Xp} points on \eqn{(a,b)}.
+#' The null hypothesis is uniformity of \code{Xp} points on \eqn{(y_{\min},y_{\max})} (by default)
+#' where \eqn{y_{\min}} and \eqn{y_{\max}} are minimum and maximum of \code{Yp} points, respectively.
 #' \code{Yp} determines the end points of the intervals (i.e., partition the real line via its spacings called intervalization)
 #' where end points are the order statistics of \code{Yp} points.
 #'
@@ -4026,9 +4029,13 @@ TSDomPEBin1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
 #' partition intervals) and association (where \code{Xp} points cluster around \code{Yp} points). The test is based on the (asymptotic) binomial
 #' distribution of the domination number of PE-PCD for uniform 1D data in the partition intervals based on \code{Yp} points.
 #'
+#' The test by default is restricted to the range of \code{Yp} points, and so ignores \code{Xp} points outside this range.
+#' However, a correction for the \code{Xp} points outside the range of \code{Yp} points is available by setting
+#' \code{end.int.cor=TRUE}, which is recommended when both \code{Xp} and \code{Yp} have the same interval support.
+#'
 #' The function yields the test statistic, \eqn{p}-value for the corresponding
 #' alternative, the confidence interval, estimate and null value for the parameter of interest (which is
-#' \eqn{Pr(}domination number\eqn{=2)}), and method and name of the data set used.
+#' \eqn{Pr(}domination number\eqn{\le 1)}), and method and name of the data set used.
 #'
 #' Under the null hypothesis of uniformity of \code{Xp} points in the intervals based on \code{Yp} points, probability of success
 #' (i.e., \eqn{Pr(}domination number\eqn{\le 1)}) equals to its expected value) and
@@ -4042,12 +4049,14 @@ TSDomPEBin1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
 #' expansion parameter \eqn{r} is taken to be \eqn{1/\max(c,1-c)} which yields non-degenerate asymptotic distribution of the
 #' domination number.
 #'
-#' The test statistic is based on the binomial distribution, when success is defined as domination number being
-#' equal to 1 in the one interval case (i.e., number of successes is equal to domination number \eqn{\le 1} in the partition intervals).
+#' The test statistic is based on the binomial distribution, when success is defined as domination number being less than or
+#' equal to 1 in the one interval case
+#' (i.e., number of successes is equal to domination number \eqn{\le 1} in the partition intervals).
 #' That is, the test statistic is based on the domination number for \code{Xp} points inside range of \code{Yp} points
+#' (the domination numbers are summed over the \eqn{|Yp|-1} middle intervals)
 #' for the PE-PCD and default end interval correction, \code{end.int.cor}, is \code{FALSE}
-#' where \code{M} is the center that yields nondegenerate asymptotic distribution for the domination number.
-#' For this approximation to work, \code{Xp} must be at least 5 times more than \code{Yp} points
+#' and the center \eqn{Mc} is chosen so that asymptotic distribution for the domination number is nondegenerate.
+#' For this test to work, \code{Xp} must be at least 5 times more than \code{Yp} points
 #' (or \code{Xp} must be at least 5 or more per partition interval).
 #' Probability of success is the exact probability of success for the binomial distribution.
 #'
@@ -4074,12 +4083,12 @@ TSDomPEBin1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
 #' recommended when both \code{Xp} and \code{Yp} have the same interval support.
 #' @param alternative Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.
 #' @param conf.level Level of the confidence interval, default is \code{0.95}, for the probability of success
-#' (i.e., \eqn{Pr(}domination number\eqn{=2)} for PE-PCD whose vertices are the 1D data set \code{Xp}.
+#' (i.e., \eqn{Pr(}domination number\eqn{\le 1)} for PE-PCD whose vertices are the 1D data set \code{Xp}.
 #'
 #' @return A \code{list} with the elements
 #' \item{statistic}{Test statistic}
 #' \item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding \code{alternative}.}
-#' \item{conf.int}{Confidence interval for \eqn{Pr(}domination number\eqn{=2)} at the given level \code{conf.level} and
+#' \item{conf.int}{Confidence interval for \eqn{Pr(}domination number\eqn{\le 1)} at the given level \code{conf.level} and
 #' depends on the type of \code{alternative}.}
 #' \item{estimate}{A \code{vector} with two entries: first is is the estimate of the parameter, i.e.,
 #' \eqn{Pr(}domination number\eqn{\le 1)} and second is the domination number}
@@ -4128,7 +4137,7 @@ TSDomPEBin1D <- function(Xp,Yp,support.int,c=.5,end.int.cor=FALSE,
   {stop('Xp and Yp must be 1D vectors of numerical entries.')}
 
   if (length(Yp)<2)
-  {stop('Yp must be of length >2')}
+  {stop('Yp must be of length > 2')}
 
   if (!is.point(support.int) || support.int[2]<=support.int[1])
   {stop('support.int must be an interval as (a,b) with a<b')}
@@ -4146,20 +4155,22 @@ TSDomPEBin1D <- function(Xp,Yp,support.int,c=.5,end.int.cor=FALSE,
 
   nx<-length(Xp)  #number of Xp points
   ny<-length(Yp)  #number of Yp points
-  nint<-ny-1
+  nint<-ny-1  #number of middle intervals
   Ys<-sort(Yp)  #sorted Yp points (ends of the partition intervals)
 
   dom.num = PEdom1D(Xp,Yp,rstar,c)
-  Gammas<-dom.num$i #domination numbers for the partition intervals
-  nint=ny-1 #-sum(Gammas0<1)
+  Gammas<-dom.num$int #domination numbers for the partition intervals
+  #nint=ny-1 #-sum(Gammas0<1)
 
-  Gam.all<-PEdom1D(Xp,Yp,rstar,c)$d #domination number (with the end intervals included)
+  Gam.all<-dom.num$d #domination number (with the end intervals included)
   Gam<-Gam.all-sum(sum(Xp<Ys[1])>0)-sum(sum(Xp>Ys[ny])>0)  #removing the domination number in the end intervals
   estimate2<-Gam
 
-  estimate1<-dom.num$d #domination number of the entire PE-PCD
+  estimate1<-Gam.all #domination number of the entire PE-PCD
   # ind0<- Gammas0>0 ; Gammas=Gammas0[ind0]
-  Bm<-sum(Gammas<=1) #the binomial test statistic, probability of success is Gamma <=1
+  #Bm.all<-sum(Gammas<=1) #the binomial test statistic, probability of success is Gamma <=1 for all intervals
+  Bm<-sum(Gammas[-c(1,ny+1)]<=1) #the binomial test statistic, probability of success is Gamma <=1 for middle intervals
+
 
   method <-c("Large Sample Binomial Test based on the Domination Number of PE-PCD for Testing Uniformity of 1D Data ---")
 
@@ -4169,7 +4180,7 @@ TSDomPEBin1D <- function(Xp,Yp,support.int,c=.5,end.int.cor=FALSE,
     prop.out<-out.int/nx #observed proportion of points in the end intervals
     exp.prop.out<-2/(ny+1)  #expected proportion of points in the end intervals
 
-    Bm<-round(Bm*(1-(prop.out-exp.prop.out)))
+    x<-round(Bm*(1-(prop.out-exp.prop.out)))
     method <-c(method, "\n with End Interval Correction")
   } else
   { method <-c(method, "\n without End Interval Correction")}
@@ -4212,12 +4223,13 @@ TSDomPEBin1D <- function(Xp,Yp,support.int,c=.5,end.int.cor=FALSE,
 
   estimate2 <-x/nint
 
-  names(x) <- "adjusted domination number" #"domination number - number of partition intervals"
-  names(nint) <-"number of partition intervals based on Yp"
-  names(p) <-"Pr(Domination Number=2)"
+  #names(x) <-ifelse(end.int.cor==TRUE,"corrected domination number","domination number" )
+  names(x) <- "#(domination number is <= 1)" #"domination number - number of partition intervals"
+  names(nint) <-"number of partition (middle) intervals based on Yp"
+  names(p) <-"Pr(Domination Number <= 1)"
 
   names(estimate1) <-c(" domination number  ")
-  names(estimate2) <-c("|| Pr(domination number = 2)")
+  names(estimate2) <-c("|| Pr(domination number <= 1)")
 
   structure(
     list(statistic = x,

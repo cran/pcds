@@ -31,13 +31,13 @@ of trials equals to expected number of \code{Xp} points per partition interval.}
 \item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.}
 
 \item{conf.level}{Level of the confidence interval, default is \code{0.95}, for the probability of success
-(i.e., \eqn{Pr(}domination number\eqn{=2)} for PE-PCD whose vertices are the 1D data set \code{Xp}.}
+(i.e., \eqn{Pr(}domination number\eqn{\le 1)} for PE-PCD whose vertices are the 1D data set \code{Xp}.}
 }
 \value{
 A \code{list} with the elements
 \item{statistic}{Test statistic}
 \item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding \code{alternative}}
-\item{conf.int}{Confidence interval for \eqn{Pr(}domination number\eqn{=2)} at the given level \code{conf.level} and
+\item{conf.int}{Confidence interval for \eqn{Pr(}domination number\eqn{\le 1)} at the given level \code{conf.level} and
 depends on the type of \code{alternative}.}
 \item{estimate}{A \code{vector} with two entries: first is is the estimate of the parameter, i.e.,
 \eqn{Pr(}domination number\eqn{\le 1)} and second is the domination number}
@@ -60,7 +60,7 @@ distribution of the domination number of PE-PCD for uniform 1D data in the parti
 
 The function yields the test statistic, \eqn{p}-value for the corresponding
 alternative, the confidence interval, estimate and null value for the parameter of interest (which is
-\eqn{Pr(}domination number\eqn{=2)}), and method and name of the data set used.
+\eqn{Pr(}domination number\eqn{\le 1)}), and method and name of the data set used.
 
 Under the null hypothesis of uniformity of \code{Xp} points in the support interval, probability of success
 (i.e., \eqn{Pr(}domination number\eqn{\le 1)}) equals to its expected value) and
@@ -76,8 +76,8 @@ The test statistic is based on the binomial distribution, when success is define
 or equal to 1 in the one interval case (i.e., number of failures is equal to number of times restricted domination number = 1
 in the intervals).
 That is, the test statistic is based on the domination number for \code{Xp} points inside the partition intervals
-for the PE-PCD. For this approach to work, \code{Xp} must be large for each partition interval, but 5 or more per partition interval
-seems to work in practice.
+for the PE-PCD. For this approach to work, \code{Xp} must be large for each partition interval,
+but 5 or more per partition interval seems to work in practice.
 
 Probability of success is chosen in the following way for various parameter choices.
 \code{asy.bin} is a logical argument for the use of asymptotic probability of success for the binomial distribution,

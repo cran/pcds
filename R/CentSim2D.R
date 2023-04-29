@@ -1862,9 +1862,9 @@ res
 #' \item{weight.vec}{The \code{vector} of the areas of Delaunay triangles based on \code{Yp} points}
 #' \item{tri.num.arcs}{The \code{vector} of the number of arcs of the component of the PE-PCD in the
 #' Delaunay triangles based on \code{Yp} points}
-#' \item{del.tri.ind}{A \code{vector} of indices of Delaunay triangles based on \code{Yp} points,
-#' each column is the indices of the vertices of one triangle.}
-#' \item{data.tri.ind}{A \code{vector} of indices of Delaunay triangles in which data points reside,
+#' \item{del.tri.ind}{A matrix of indices of vertices of the Delaunay triangles based on \code{Yp} points,
+#' each column corresponds to the vector of indices of the vertices of one triangle.}
+#' \item{data.tri.ind}{A \code{vector} of indices of vertices of the Delaunay triangles in which data points reside,
 #' i.e., column number of \code{del.tri.ind} for each \code{Xp} point.}
 #'
 #' @seealso \code{\link{NumArcsCStri}}, \code{\link{NumArcsCSTe}}, \code{\link{NumArcsPE}},
@@ -1997,8 +1997,8 @@ NumArcsCS <- function(Xp,Yp,t,M=c(1,1,1))
               num.in.conv.hull=NinCH, # number of Xp points in CH of Yp points
               num.in.tris=ni.vec, # vector of number of Xp points in the Delaunay triangles
               weight.vec=Wvec, #areas of Delaunay triangles
-              del.tri.ind=t(Ytri), # indices of the Delaunay triangles, each column is the indices of the vertices of one triangle
-              data.tri.ind=data.tri.ind) #indices of Delaunay triangles in which data points reside, i.e., column number of del.tri for each Xp point
+              del.tri.ind=t(Ytri), # indices of the Delaunay triangles, each column corresponds to the vector of indices of the vertices of one triangle
+              data.tri.ind=data.tri.ind) #indices of vertices of the Delaunay triangles in which data points reside, i.e., column number of del.tri for each Xp point
   }
   res
 } #end of the function

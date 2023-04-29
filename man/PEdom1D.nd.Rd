@@ -18,7 +18,7 @@ must be in \eqn{(1,2]} here.}
 }
 \value{
 A \code{list} with three elements
-\item{dom.num}{Domination number of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r in (1,2]} and
+\item{dom.num}{Domination number of PE-PCD with vertex set \code{Xp} and expansion parameter \eqn{r in (1,2]} and
 centrality parameter \eqn{c \in \{(r-1)/r,1/r\}}.}
 \item{mds}{A minimum dominating set of the PE-PCD.}
 \item{ind.mds}{The data indices of the minimum dominating set of the PE-PCD whose vertices are \code{Xp} points.}

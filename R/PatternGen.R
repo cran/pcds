@@ -123,7 +123,7 @@ rseg.circ <- function(n,Yp,e,a1=min(Yp[,1]),a2=max(Yp[,1]),b1=min(Yp[,2]),b2=max
 
   param<-e
   names(param)<-"exclusion parameter"
-  typ<-paste("Segregation of ",n, " X points from ", ny," Y points with circular (or radial) exclusion parameter e = ",e,sep="")
+  typ<-paste("Segregation of ",n, " X points from ", ny," Y points with circular exclusion parameter e = ",e,sep="")
 
   npts<-c(n,ny)
   names(npts)<-c("nx","ny")
@@ -280,7 +280,7 @@ rasc.circ <- function(n,Yp,e,a1=min(Yp[,1]),a2=max(Yp[,1]),b1=min(Yp[,2]),b2=max
   }
   param<-e
   names(param)<-"attraction parameter"
-  typ<-paste("Association of ",n, " points with ", ny," Y points with circular (or radial) attraction parameter e = ",e,sep="")
+  typ<-paste("Association of ",n, " points with ", ny," Y points with circular attraction parameter e = ",e,sep="")
 
   npts<-c(n,ny)
   names(npts)<-c("nx","ny")
@@ -1821,9 +1821,9 @@ runifMT <- function(n,Yp,DTmesh=NULL)
       cnt<-cnt+1
     }
   }
-  typ<-"Uniform distribution in the union of multiple triangles that partition the convex hull of Yp points"
+  typ<-"Uniform distribution in the convex hull of Yp points"
   main.txt<-"Uniform Points in Convex Hull of Yp Points"
-  txt<-paste(n, " uniform points in the union of the Delaunay triangles based on Yp points (or in convex hull of Yp points)",sep="")
+  txt<-paste(n, " uniform points in the convex hull of Yp points",sep="")
 
   ny<-nrow(Yp)
   npts<-c(n,ny)

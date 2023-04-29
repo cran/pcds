@@ -284,7 +284,7 @@ plotPEregs(Xp,Yp,r,M,xlab="",ylab="")
 #  #> 95 percent confidence interval:
 #  #>  3.283383 6.716617
 #  #> sample estimates:
-#  #>          domination number   || Pr(domination number = 3)
+#  #>          domination number   || Pr(domination number <= 2)
 #  #>                            5                            1
 
 ## -----------------------------------------------------------------------------

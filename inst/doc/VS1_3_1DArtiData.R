@@ -9,11 +9,10 @@ a<-0; b<-10; int<-c(a,b)
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-10; ny<-5; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
-xf<-(int[2]-int[1])*.1
-
-set.seed(123)
+xf<-(b-a)*.1
+set.seed(11)
 Xp<-runif(nx,a-xf,b+xf)
-Yp<-runif(ny,-.25,.25)+ 2.5*(0:4) #try also Yp<-runif(ny,a,b)
+Yp<-runif(ny,-1,1)*(b-a)/(10*ny)+ ((b-a)/(ny-1))*(0:(ny-1)) #try also Yp<-runif(ny,a,b)
 
 ## ----arti-data1D-plot, eval=F, fig.cap="The scatterplot of the 1D artificial data set with two classes; black circles are class $X$ and red triangles are class $Y$ points."----
 #  XYpts =c(Xp,Yp) #combined Xp and Yp
@@ -98,11 +97,8 @@ plotPEregs1D(Xp,Yp,r,c,xlab="x",ylab="",centers = TRUE)
 #  #> [1] 4.479377 3.907723 5.337266 9.596209 9.709029 9.709029
 #  #>
 #  #> Parameters of the digraph
-#  #> $`centrality parameter`
-#  #> [1] 0.4
-#  #>
-#  #> $`expansion parameter`
-#  #> [1] 2
+#  #> centrality parameter  expansion parameter
+#  #>                  0.4                  2.0
 #  #>
 #  #> Various quantities of the digraph
 #  #>         number of vertices number of partition points

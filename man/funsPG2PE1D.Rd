@@ -49,12 +49,12 @@ PG2PE1D(r, c, n)
 must be \eqn{\ge 1}.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
-For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
 \item{n}{A positive integer representing the size of the uniform data set.}
 }
 \value{
-\eqn{P(}domination number\eqn{=2)} for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite
+\eqn{P(}domination number\eqn{\le 1)} for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite
 interval \eqn{(a,b)}
 }
 \description{

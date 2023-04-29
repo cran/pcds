@@ -161,7 +161,7 @@ Yp<-cbind(runif(ny),runif(ny))
 del<-.4
 nx<-10;  #try also nx<-100 or 1000;  
 
-## ----segmT, fig.cap="Scatterplot of the $X$ points segregated (in a type I fashion) from the $Y$ points in each Delaunay triangle."----
+## ----segmT, fig.cap="Scatterplot of the $X$ points segregated (in a type I fashion) from the $Y$ points."----
 Xdt<-rsegMT(nx,Yp,del)
 Xdt
 summary(Xdt)
@@ -184,13 +184,13 @@ e<-.15;
 #  #> rseg.circ(n = nx, Yp = Yp, e = e)
 #  #>
 #  #> Type:
-#  #> [1] "Segregation of 10 X points from 5 Y points with circular (or radial) exclusion parameter e = 0.15"
+#  #> [1] "Segregation of 10 X points from 5 Y points with circular exclusion parameter e = 0.15"
 #  summary(Xdt)
 #  #> Call:
 #  #> rseg.circ(n = nx, Yp = Yp, e = e)
 #  #>
 #  #> Type of the Pattern
-#  #> [1] "Segregation of 10 X points from 5 Y points with circular (or radial) exclusion parameter e = 0.15"
+#  #> [1] "Segregation of 10 X points from 5 Y points with circular exclusion parameter e = 0.15"
 #  #>
 #  #> Parameters of the Pattern
 #  #> exclusion parameter
@@ -269,7 +269,7 @@ Yp<-cbind(runif(ny),runif(ny))
 del<-.4
 nx<-10;  #try also nx<-100 or 1000; 
 
-## ----ascmT, fig.cap="Scatterplot of the $X$ points associated (in a type I fashion) with the $Y$ points in each Delaunay triangle."----
+## ----ascmT, fig.cap="Scatterplot of the $X$ points associated (in a type I fashion) with the $Y$ points."----
 Xdt<-rascMT(nx,Yp,del)
 Xdt
 summary(Xdt)
@@ -283,20 +283,20 @@ plot(Xdt)
 #  Yp<-cbind(runif(ny),runif(ny))
 #  nx<-10;  #try also nx<-100 or 1000;
 
-## ----ascmTcirc, eval=F, fig.cap="Scatterplot of the $X$ points associated (in a circular fashion) with the $Y$ points in each Delaunay triangle."----
+## ----ascmTcirc, eval=F, fig.cap="Scatterplot of the $X$ points associated (in a circular fashion) with the $Y$ points."----
 #  Xdt<-rasc.circ(nx,Yp,e)
 #  Xdt
 #  #> Call:
 #  #> rasc.circ(n = nx, Yp = Yp, e = e)
 #  #>
 #  #> Type:
-#  #> [1] "Association of 10 points with 5 Y points with circular (or radial) attraction parameter e = 0.15"
+#  #> [1] "Association of 10 points with 5 Y points with circular attraction parameter e = 0.15"
 #  summary(Xdt)
 #  #> Call:
 #  #> rasc.circ(n = nx, Yp = Yp, e = e)
 #  #>
 #  #> Type of the Pattern
-#  #> [1] "Association of 10 points with 5 Y points with circular (or radial) attraction parameter e = 0.15"
+#  #> [1] "Association of 10 points with 5 Y points with circular attraction parameter e = 0.15"
 #  #>
 #  #> Parameters of the Pattern
 #  #> attraction parameter

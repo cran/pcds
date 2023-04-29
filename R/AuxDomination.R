@@ -170,7 +170,7 @@ IndUBdom <- function(Inc.Mat,k)
 #' @return A \code{list} with two elements
 #' \item{dom.num}{The cardinality of the (exact) minimum dominating set i.e., (exact) domination number of the
 #' graph or digraph whose incidence matrix \code{Inc.Mat} is given as input.}
-#' \item{ind.mds}{Indices of the rows in the incidence matrix \code{Inc.Mat} for the (exact) minimum
+#' \item{ind.mds}{The vector of indices of the rows in the incidence matrix \code{Inc.Mat} for the (exact) minimum
 #' dominating set. The row numbers in the incidence matrix correspond to the indices of the vertices
 #' (i.e., indices of the data points).}
 #'

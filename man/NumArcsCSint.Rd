@@ -23,7 +23,7 @@ A \code{list} with the elements
 i.e., the number of arcs for the entire CS-PCD}
 \item{num.in.range}{Number of \code{Xp} points in the interval \code{int}}
 \item{num.in.ints}{The vector of number of \code{Xp} points in the partition intervals (including the end intervals)}
-\item{int.num.arcs}{The \code{vector} of the number of arcs of the component of the CS-PCD in the
+\item{int.num.arcs}{The \code{vector} of the number of arcs of the components of the CS-PCD in the
 partition intervals (including the end intervals)}
 \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside.
 Partition intervals are numbered from left to right with 1 being the left end interval.}

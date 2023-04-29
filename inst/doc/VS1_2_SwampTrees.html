@@ -12,7 +12,7 @@
 
 <meta name="author" content="Elvan Ceyhan" />
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-04-28" />
 
 <title>VS1.2 - A Real-Life Example: Swamp Tree Data</title>
 
@@ -349,7 +349,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">VS1.2 - A Real-Life Example: Swamp Tree Data</h1>
 <h4 class="author">Elvan Ceyhan</h4>
-<h4 class="date">2023-01-02</h4>
+<h4 class="date">2023-04-28</h4>
 
 
 
@@ -373,7 +373,7 @@ were recorded together with their species.
 Hence, it is an example of a realization of a <em>marked multi-variate point pattern.</em>
 The plot contains 13 different tree species,
 four of which comprising over 90% of the 734 tree stems.
-This dataset consists of the following variables
+This dataset consists of the following variables:
 <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates of the locations of the trees,
 liveness status (as 1 for “live” trees and 0 for “dead” trees),
 and the species of the trees.</p>
@@ -427,7 +427,8 @@ Below is the code for the scatterplot of the live trees together with the Delaun
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#now, we add the Delaunay triangulation based on Y points</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>DT<span class="ot">&lt;-</span>interp<span class="sc">::</span><span class="fu">tri.mesh</span>(Yp[,<span class="dv">1</span>],Yp[,<span class="dv">2</span>],<span class="at">duplicate=</span><span class="st">&quot;remove&quot;</span>)</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>interp<span class="sc">::</span><span class="fu">plot.triSht</span>(DT, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">do.points =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p>Or, alternatively, we can use the <code>plotDeltri</code> function in <code>pcds</code> to obtain the same plot by executing <code>plotDeltri(Xp,Yp,xlab=&quot;x&quot;,ylab=&quot;y&quot;,main=&quot;Live Tree Locations (solid squares) and Delaunay Triangulation of Dead Tree Locations&quot;)</code> command.</p>
+<p>Or, alternatively,
+we can use the <code>plotDeltri</code> function in <code>pcds</code> to obtain the plot of the Delaunay triangulation by executing the line: <code>plotDeltri(Xp,Yp,xlab=&quot;x&quot;,ylab=&quot;y&quot;,main=&quot;Live Tree Locations (solid squares) and Delaunay Triangulation of Dead Tree Locations&quot;)</code>.</p>
 <p>The number of Delaunay triangles based on dead trees is obtained by the function <code>num.del.tri</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">num.del.tri</span>(Yp)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">194</span></span></code></pre></div>

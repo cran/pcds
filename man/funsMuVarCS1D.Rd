@@ -15,7 +15,7 @@ asyvarCS1D(t, c)
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
-For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 \code{muCS1D} returns the mean and \code{asyvarCS1D} returns the asymptotic variance of the

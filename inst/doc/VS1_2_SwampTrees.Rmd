@@ -43,7 +43,7 @@ were recorded together with their species.
 Hence, it is an example of a realization of a *marked multi-variate point pattern.*
 The plot contains 13 different tree species,
 four of which comprising over 90\% of the 734 tree stems.
-This dataset consists of the following variables
+This dataset consists of the following variables:
 $x$ and $y$ coordinates of the locations of the trees,
 liveness status (as 1 for "live" trees and 0 for "dead" trees),
 and the species of the trees.
@@ -95,7 +95,8 @@ DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 interp::plot.triSht(DT, add=TRUE, do.points = TRUE)
 ```
 
-Or, alternatively, we can use the `plotDeltri` function in `pcds` to obtain the same plot by executing `plotDeltri(Xp,Yp,xlab="x",ylab="y",main="Live Tree Locations (solid squares) and Delaunay Triangulation of Dead Tree Locations")` command.
+Or, alternatively, 
+we can use the `plotDeltri` function in `pcds` to obtain the plot of the Delaunay triangulation by executing the line: `plotDeltri(Xp,Yp,xlab="x",ylab="y",main="Live Tree Locations (solid squares) and Delaunay Triangulation of Dead Tree Locations")`.
 
 The number of Delaunay triangles based on dead trees is obtained by the function `num.del.tri`.
 ```{r eval=F}

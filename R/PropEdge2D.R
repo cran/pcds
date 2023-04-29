@@ -1650,9 +1650,9 @@ PEarcdens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
 #' \item{weight.vec}{The \code{vector} of the areas of Delaunay triangles based on \code{Yp} points}
 #' \item{tri.num.arcs}{The \code{vector} of the number of arcs of the component of the PE-PCD in the
 #' Delaunay triangles based on \code{Yp} points}
-#' \item{del.tri.ind}{A \code{vector} of indices of Delaunay triangles based on \code{Yp} points,
-#' each column is the indices of the vertices of one triangle.}
-#' \item{data.tri.ind}{A \code{vector} of indices of Delaunay triangles in which data points reside,
+#' \item{del.tri.ind}{A matrix of indices of vertices of the Delaunay triangles based on \code{Yp} points,
+#' each column corresponds to the vector of indices of the vertices of one triangle.}
+#' \item{data.tri.ind}{A \code{vector} of indices of vertices of the Delaunay triangles in which data points reside,
 #' i.e., column number of \code{del.tri.ind} for each \code{Xp} point.}
 #'
 #' @seealso \code{\link{NumArcsPEtri}}, \code{\link{NumArcsPETe}}, \code{\link{NumArcsCS}},
@@ -1787,8 +1787,8 @@ NumArcsPE <- function(Xp,Yp,r,M=c(1,1,1))
               num.in.conv.hull=NinCH, # number of Xp points in CH of Yp points
               num.in.tris=ni.vec, # vector of number of Xp points in the Delaunay triangles
               weight.vec=Wvec, #areas of Delaunay triangles
-              del.tri.ind=t(Ytri), # indices of the Delaunay triangles, each column is the indices of the vertices of one triangle
-              data.tri.ind=data.tri.ind) #indices of Delaunay triangles in which data points reside, i.e., column number of del.tri for each Xp point
+              del.tri.ind=t(Ytri), # indices of the Delaunay triangles, each column corresponds to the vector of indices of the vertices of one triangle
+              data.tri.ind=data.tri.ind) #indices of vertices of the Delaunay triangles in which data points reside, i.e., column number of del.tri for each Xp point
   }
   res
 } #end of the function
@@ -4782,7 +4782,7 @@ TSDomPEBin <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided", 
   attr(cint, "conf.level") <-conf.level
 
   estimate2 <-x/ndt
-  names(x) <- "# of times domination number is <= 2" #"domination number - 2 * number of Delaunay triangles"
+  names(x) <- "#(domination number is <= 2)" #"domination number - 2 * number of Delaunay triangles"
   names(ndt) <-"number of Delaunay triangles based on Yp points" #paste("number of Delaunay triangles based on ", yname,sep="")
 
   names(p) <-"Pr(Domination Number <=2)"
@@ -4953,18 +4953,19 @@ TSDomPENorm <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided",
     m<-nrow(Yp)  #number of Yp points
     Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
 
-    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2],strict=FALSE)  #logical indices for Xp points in convex hull of Yp points
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2],strict=FALSE)
+    #logical indices for Xp points in convex hull of Yp points
 
     outch<-n-sum(inCH)
     prop.out<-outch/n #observed proportion of points outside convex hull
-    exp.prop.out<-1.7932/m+1.2229/sqrt(m)  #expected proportion of points outside convex hull
+    exp.prop.out<-1.7932/m+1.2229/sqrt(m) #expected proportion of points outside convex hull
 
     TS<-TS0*(1-(prop.out-exp.prop.out))
     method <-c(method, "\n with Convex Hull Correction")
   }
 
   names(estimate1) <-c(" domination number  ")
-  names(estimate2) <-c("|| Pr(domination number = 3)")
+  names(estimate2) <-c("|| Pr(domination number <= 2)")
 
   null.gam<-Exp.Gam
   names(null.gam) <-c("expected domination number")

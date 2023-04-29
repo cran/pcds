@@ -12,7 +12,7 @@ ArcsAS(Xp, Yp, M = "CC")
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
 triangles partition the convex hull of \code{Yp} points.}
 
-\item{M}{The center of the triangle. \code{"CC"} represents the circumcenter of each Delaunay triangle \code{tri}
+\item{M}{The center of the triangle. \code{"CC"} represents the circumcenter of each Delaunay triangle
 or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
 default is \code{M="CC"} i.e., the circumcenter of each triangle. \code{M} must be entered in barycentric coordinates
 unless it is the circumcenter.}

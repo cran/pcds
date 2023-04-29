@@ -5309,8 +5309,8 @@ plotIntervals <- function(Xp,Yp,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NUL
   abline(h=0,lty=1)
   for (i in 1:ny)
   {
-    plotrix::draw.arc(LE[i]+xr*.05, 0,xr*.05, deg1=150,deg2 = 210, col = "blue")
-    plotrix::draw.arc(RE[i]-xr*.05, 0, xr*.05, deg1=-30,deg2 = 30, col = "blue")
+    plotrix::draw.arc(LE[i]+xr*.1, 0,xr*.1, deg1=150,deg2 = 210, col = "blue")
+    plotrix::draw.arc(RE[i]-xr*.1, 0, xr*.1, deg1=-30,deg2 = 30, col = "blue")
   }
 } #end of the function
 #'

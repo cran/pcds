@@ -183,8 +183,8 @@ See @chartrand:2010 and @west:2001 for more on graphs and digraphs.
 In the PCD approach the points correspond to observations from class $\X$ and
 the proximity regions are defined to be (closed) regions (usually convex regions or simply triangles)
 based on class $\X$ and $\Y$ points
-and the proximity region for a class $\X$ point get larger as the distance of this class $\X$ point
-from class $\Y$ points increases.
+and the proximity region for a class $\X$ point, $x$, gets larger as the distance between $x$ 
+and class $\Y$ points increases.
 
 ## Proximity Map Families
 We briefly define three proximity map families.
@@ -205,32 +205,19 @@ in $\R^2$ and $\TY=T(\y_1,\y_2,\y_3)$ be the triangle
 with vertices $\Y_3$.
 Let $\X_n$ be a set of iid random variables from $F$ with
 support $\mS(F) \subseteq \TY$.
-Let $\U(T\left(\Y_3 \right))$ be the uniform distribution on $T\left(\Y_3 \right)$.
-If $F=\U(\TY)$, a composition of translation,
-rotation, reflections, and scaling, denoted $\phi_b(\TY)$,
-will take any given triangle $\TY$
-to the standard basic triangle $T_b=T((0,0),(1,0),(c_1,c_2))$
-with $0 < c_1 \le 1/2$, $c_2>0$,
-and $(1-c_1)^2+c_2^2 \le 1$, preserving uniformity.
-That is, if $X \sim \U(\TY)$ is transformed in the same manner to,
-say $X'$, then we have $X' \sim \U(T_b)$.
-In fact this will hold for data from any distribution $F$
-up to scale.
-Furthermore, $T_b$ can be transformed to the *standard equilateral triangle*
-$T_e=T(A,B,C)$ with vertices $A=(0,0)$, $B=(1,0)$, and $C=(1/2,\sqrt{3}/2)$ by a transformation $\phi_e$
-and $\phi_e(X') \sim \U(T_e)$.
-That is uniform points in any triangle can be mapped to points uniformly distributed in the standard equilateral triangle
-by a composition of $\phi_b(\TY)$ and $\phi_e$ (in the form $\phi_e \circ \phi_b(\TY)$).
 
 ## Arc-Slice Proximity Maps and Associated Proximity Regions {#sec:AS-PCD-construction}
 We define the *arc-slice proximity region* with $M$-vertex regions for a point $x \in \TY$ as follows;
 see also Figure \@ref(fig:NAS-example).
 Using a center $M$ of $\TY$,
 we partition $\TY$ into "vertex regions" $R_V(\y_1)$, $R_V(\y_2)$, and $R_V(\y_3)$.
-If $M$ is in the interior of $\TY$,
-we use line segments from the center $M$ of $\TY$ to the opposite edges
-as extensions of the lines joining the vertices and the center $M$
+If $M$ is the circumcenter of $T(\mathcal{Y}_3)$, 
+we use perpendicular line segments from $M$ to the opposite edges
 to form the vertex regions.
+If $M$ is not the circumcenter but is in the interior of
+$T(\mathcal{Y}_3)$, we use line segments from $M$
+to the opposite edges as extensions of the lines
+joining the vertices and $M$ to form the vertex regions.
 For $x \in \TY \setminus \Y_3$, let $v(x) \in \Y_3$ be the
 vertex in whose region $x$ falls, so $x \in R_V(v(x))$.
 If $x$ falls on the boundary of two vertex regions,
@@ -244,8 +231,8 @@ which implicitly uses the $CC$-vertex regions,
 since $x \in R_{CC}(\y)$ iff $\y=\argmin_{u \in \Y}d(x,u)$.
 <!-- To make this dependence explicit, we use $\NAS(\cdot,M_{CC})$. -->
 See Figure \@ref(fig:NAS-example) for
-$\NAS(x,M_{CC})$ with $x \in R_{CC}(\y_2)$.
-See @ceyhan:comp-geo-2010 for more detail on AS proximity regions.
+$\NAS(x,M_{CC})$ with $x \in R_{CC}(\y_2)$
+and @ceyhan:comp-geo-2010 for more detail on AS proximity regions.
 
 ![(#fig:NAS-example) Illustration of the construction of arc-slice proximity region,
 $\NAS(x,M_{CC})$ with an $x \in R_{CC}(\y_2)$.](NAS_definition.png){width=65%}
@@ -441,13 +428,57 @@ See @ceyhan:dom-num-NPE-SPL  and  @ceyhan:dom-num-NPE-Spat2011
 for the domination number and its use for testing spatial interaction patterns in 2D data
 and @ceyhan:stat-2020 for testing uniformity of 1D data.
 
-The distribution of the domination number and arc density for AS-PCDs do not change for uniform data in a triangle $\TY$
-when the data points are transformed to (uniform) points in the standard basic triangle $T_b$ (using $\phi_b(\TY)$)
-but not when $\phi_e$ is applied to the uniform data in $T_b$.
-So, one can focus on $T_b$ for computations and derivations regarding the AS-PCD invariants for uniform data.
-On the other hand, the distribution of the domination number and arc density for PE- and CS-PCDs do not change for uniform data in a triangle $\TY$
-when the data points are transformed to (uniform) points in the standard equilateral triangle $T_e$ (using $\phi_e \circ \phi_b(\TY)$).
-That is, distribution of these graph invariants are geometry invariant for uniform data in triangles.
-So, one can focus on $T_e$ for computations and derivations regarding the PE- and CS-PCD invariants for uniform data.
+**Geometry Invariance of Arc Density and Domination Number:**
+Let $\mathcal{U}(T\left(\mathcal{Y}_3 \right))$ be the uniform
+distribution on $T\left(\mathcal{Y}_3 \right)$. 
+If $F=\mathcal{U}(T(\mathcal{Y}_3))$, 
+a composition of translation, rotation, reflections, and scaling, 
+denoted $\phi_b(T(\mathcal{Y}_3))$, will take any given triangle
+$T(\mathcal{Y}_3)$ to the standard basic triangle
+$T_b=T((0,0),(1,0),(c_1,c_2))$ with $0 < c_1 \le 1/2$, $c_2>0$,
+and $(1-c_1)^2+c_2^2 \le 1$, preserving uniformity. 
+That is, if $X \sim \mathcal{U}(T(\mathcal{Y}_3))$ is transformed 
+in the same manner to, say $X'=\phi_b(X)$, 
+then we have $X' \sim \mathcal{U}(T_b)$. 
+In fact this will hold for data from any distribution $F$ up to scale.
+Furthermore, 
+$T_b$ can be transformed to the *standard equilateral triangle* $T_e=T(A,B,C)$ 
+with vertices $A=(0,0)$, $B=(1,0)$, and $C=(1/2,\sqrt{3}/2)$ by a transformation $\phi_e$
+and $\phi_e(X') \sim \mathcal{U}(T_e)$. 
+That is uniform points in any triangle can be mapped to 
+points uniformly distributed in the standard equilateral triangle by a composition of $\phi_b$
+and $\phi_e$ (in the form $\phi_e \circ \phi_b$).
+
+The distribution of the domination number and arc density for AS-PCDs do
+not change for uniform data in a triangle $T(\mathcal{Y}_3)$ when the
+data points are transformed to (uniform) points in the standard basic triangle $T_b$ 
+(using $\phi_b$) but not when $\phi_e$ is applied to the uniform data in $T_b$. 
+So, one can focus on $T_b$ for computations and derivations regarding the 
+domination number and arc density of AS-PCD for uniform data. 
+On the other hand, the distribution of the
+domination number and arc density for PE- and CS-PCDs do not change for
+uniform data in a triangle $T(\mathcal{Y}_3)$ when the data points are
+transformed to (uniform) points in the standard equilateral triangle
+$T_e$ (using $\phi_e \circ \phi_b$).
+That is,
+distribution of these graph quantities are *geometry invariant*
+for uniform data in triangles.
+So, one can focus on $T_e$ for computations
+and derivations regarding the PE- and CS-PCD quantities for uniform data.
+A similar geometry invariance holds in 3D setting for uniform data in any tetrahedron
+being transformed to the standard regular tetrahedron for PE- and CS-PCDs.
+Therefore,
+the pcds package has functions customized only for one simplex (i.e., one interval in $\mathbb R$,
+one triangle in $\mathbb R^2$, and one tetrahedron in $\mathbb R^3$).
+However, 
+we don't cover these functions here, as 
+(i) they serve as utility functions in the more realistic case of multiple simplices
+(e.g., multiple triangles occur when there are $m \ge 4$ $\Y$ points)
+and
+(ii) they are mainly used for simulations or verifications or illustrations when $\X$ points are restricted to one simplex.
+See the vignette files 
+"VS2.1 - Illustration of PCDs in One Triangle",
+"VS2.2 - Illustration of PCDs in One Interval", and 
+"VS2.3 - Illustration of PCDs in One Tetrahedron".
 
 # References

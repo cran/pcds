@@ -19,7 +19,7 @@ must be \eqn{\ge 1}.}
 }
 \value{
 A \code{list} with three elements
-\item{dom.num}{Domination number of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r \ge 1} and
+\item{dom.num}{Domination number of PE-PCD with vertex set \code{Xp} and expansion parameter \eqn{r \ge 1} and
 centrality parameter \eqn{c \in (0,1)}.}
 \item{mds}{A minimum dominating set of the PE-PCD.}
 \item{ind.mds}{The data indices of the minimum dominating set of the PE-PCD whose vertices are \code{Xp} points.}
@@ -30,6 +30,8 @@ Returns the domination number, a minimum dominating set of PE-PCD whose vertices
 and the domination numbers for partition intervals based on \code{Yp}.
 
 \code{Yp} determines the end points of the intervals (i.e., partition the real line via intervalization).
+It also includes the domination numbers in the end intervals, with interval label 1 for the left end interval
+and $|Yp|+1$ for the right end interval.
 
 PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}.
 }

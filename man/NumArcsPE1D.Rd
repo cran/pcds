@@ -16,7 +16,7 @@ must be \eqn{\ge 1}.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside the middle (partition) intervals
 with the default \code{c=.5}.
-For an interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+For an interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 A \code{list} with the elements
@@ -27,9 +27,9 @@ i.e., the number of arcs for the entire PE-PCD}
 based on \code{Yp} points}
 \item{weight.vec}{The \code{vector} of the lengths of the middle partition intervals (i.e., end intervals excluded)
 based on \code{Yp} points}
-\item{int.num.arcs}{The \code{vector} of the number of arcs of the component of the PE-PCD in the
+\item{int.num.arcs}{The \code{vector} of the number of arcs of the components of the PE-PCD in the
 partition intervals (including the end intervals) based on \code{Yp} points}
-\item{part.int}{A list of partition intervals based on \code{Yp} points.}
+\item{part.int}{A matrix with columns corresponding to the partition intervals based on \code{Yp} points.}
 \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside,
 i.e., column number of \code{part.int} is provided for each \code{Xp} point. Partition intervals are numbered from left to right
 with 1 being the left end interval.}

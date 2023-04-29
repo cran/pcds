@@ -12,7 +12,7 @@
 
 <meta name="author" content="Elvan Ceyhan" />
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-04-28" />
 
 <title>VS1.1 - Example: An Artificial 2D Dataset</title>
 
@@ -349,7 +349,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">VS1.1 - Example: An Artificial 2D Dataset</h1>
 <h4 class="author">Elvan Ceyhan</h4>
-<h4 class="date">2023-01-02</h4>
+<h4 class="date">2023-04-28</h4>
 
 
 
@@ -429,7 +429,7 @@ which takes the arguments</p>
 <ul>
 <li><code>Xp</code>, a set of 2D points which constitute the vertices of the AS-PCD (i.e., class <span class="math inline">\(\mathcal{X}\)</span> points),</li>
 <li><code>Yp</code>, a set of 2D points which constitute the vertices of the Delaunay triangles (i.e., class <span class="math inline">\(\mathcal{Y}\)</span> points),</li>
-<li><code>M</code>, the center of the triangle used to construct the vertex regions. <code>&quot;CC&quot;</code> stands for circumcenter of each Delaunay triangle <code>tri</code> or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
+<li><code>M</code>, the center of the triangle used to construct the vertex regions. <code>&quot;CC&quot;</code> stands for circumcenter of each Delaunay triangle or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
 default is <code>M=&quot;CC&quot;</code> i.e., the circumcenter of each triangle.</li>
 </ul>
 <p>This function returns the following list as output:</p>
@@ -749,7 +749,7 @@ We only provide the two-sided test below, although both one-sided versions are a
 and returns a <code>list</code> with three elements as output:</p>
 <ul>
 <li><code>dom.num</code>, the overall domination number of the PE-PCD whose vertices are <code>Xp</code> points,</li>
-<li><code>ind.mds</code>, the data indices of the minimum dominating set of the PE-PCD whose vertices are <code>Xp</code> points.,</li>
+<li><code>ind.mds</code>, the data indices of the minimum dominating set of the PE-PCD whose vertices are <code>Xp</code> points,</li>
 <li><code>tri.dom.nums</code>, the vector of domination numbers of the PE-PCD components for the Delaunay triangles.</li>
 </ul>
 <p>This function takes any center in the interior of the triangles as its argument or circumcenter (“CC”).
@@ -762,7 +762,7 @@ but uses one of the non-degeneracy centers in the multiple triangle case
 (hence <code>M</code> is not an argument for this function).
 That is, the center <code>M</code> is one of the three centers that renders the asymptotic distribution of domination number
 to be non-degenerate for a given value of <span class="math inline">\(r \in (1,1.5]\)</span> and <code>M</code> is center of mass for <span class="math inline">\(r=1.5\)</span>.</p>
-<p>These two functions functions are different from the function <code>dom.greedy</code> since they give an exact minimum dominating set and
+<p>These two functions are different from the function <code>dom.greedy</code> since they give an exact minimum dominating set and
 the exact domination number and from <code>dom.exact</code>,
 since they give a minimum dominating set and number in polynomial time (in the number of vertices of the digraph,
 i.e., number of <code>Xp</code> points).</p>
@@ -795,10 +795,10 @@ They return the test statistic, <span class="math inline">\(p\)</span>-value for
 the confidence interval, estimate and null value for the parameter of interest
 (which is <span class="math inline">\(P(\mbox{domination number}\le 2)\)</span>), and method and name of the data set used.</p>
 <p>Under the null hypothesis of uniformity of <code>Xp</code> points in the convex hull of <code>Yp</code> points, probability of success
-(i.e., <span class="math inline">\(P(\mbox{domination number}\le 2)\)</span> equals to its expected value under the uniform distribution) and
+(i.e., <span class="math inline">\(P(\mbox{domination number}\le 2)\)</span>) equals to its expected value under the uniform distribution and
 <code>alternative</code> could be two-sided, or right-sided (i.e., data is accumulated around the <code>Yp</code> points, or association)
 or left-sided (i.e., data is accumulated around the centers of the triangles, or segregation).</p>
-<p>Here, the PE proximity region is constructed with the expansion parameter <span class="math inline">\(r \in (1,1.5]\)</span> and <span class="math inline">\(M\)</span>-vertex regions where <code>M</code>
+<p>In this case, the PE proximity region is constructed with the expansion parameter <span class="math inline">\(r \in (1,1.5]\)</span> and <span class="math inline">\(M\)</span>-vertex regions where <code>M</code>
 is a center that yields non-degenerate asymptotic distribution of the domination number.</p>
 <p>The test statistic in <code>TSDomPEBin</code> is based on the binomial distribution,
 when success is defined as domination number being less than
@@ -836,13 +836,13 @@ and number of <code>Xp</code> points must be at least 7 times more than number o
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3.283383 6.716617</span></span>
 <span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          domination number   || Pr(domination number = 3) </span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          domination number   || Pr(domination number &lt;= 2) </span></span>
 <span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                            5                            1</span></span></code></pre></div>
 <p>See <span class="citation">Ceyhan and Priebe (2007)</span>, <span class="citation">Ceyhan (2011)</span>, and <span class="citation">Ceyhan (2012)</span> for more on the domination number of PE-PCDs
 and their use in testing spatial interaction.</p>
 <p>In all the test functions (based on arc density and domination number) above,
 the option <code>ch.cor</code> is for convex hull correction (default is “no convex hull correction”, i.e., <code>ch.cor=FALSE</code>)
-which is recommended when both <code>Xp</code> and <code>Yp</code> have the same rectangular support.
+which is recommended when <code>Xp</code> points tend to be mostly within the support of the <code>Yp</code> points.
 When the symmetric difference of the supports of <span class="math inline">\(\mathcal{X}\)</span> and <span class="math inline">\(\mathcal{Y}\)</span> is non-negligible,
 the tests can be adjusted to account for the <span class="math inline">\(\mathcal{X}\)</span> points outside the
 convex hull of <span class="math inline">\(\mathcal{Y}\)</span> points with the option <code>ch.cor=TRUE</code>.

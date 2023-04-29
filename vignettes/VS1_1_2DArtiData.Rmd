@@ -112,7 +112,7 @@ which takes the arguments
 
 - `Xp`, a set of 2D points which constitute the vertices of the AS-PCD (i.e., class $\X$ points),
 - `Yp`, a set of 2D points which constitute the vertices of the Delaunay triangles (i.e., class $\Y$ points),
-- `M`, the center of the triangle used to construct the vertex regions. `"CC"` stands for circumcenter of each Delaunay triangle `tri` or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
+- `M`, the center of the triangle used to construct the vertex regions. `"CC"` stands for circumcenter of each Delaunay triangle or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
 default is `M="CC"` i.e., the circumcenter of each triangle.
 
 This function returns the following list as output:
@@ -463,7 +463,7 @@ The function `PEdom` takes the same arguments as `NumArcsPE`
 and returns a `list` with three elements as output:
 
 - `dom.num`, the overall domination number of the PE-PCD whose vertices are `Xp` points,
-- `ind.mds`, the data indices of the minimum dominating set of the PE-PCD whose vertices are `Xp` points.,
+- `ind.mds`, the data indices of the minimum dominating set of the PE-PCD whose vertices are `Xp` points,
 - `tri.dom.nums`, the vector of domination numbers of the PE-PCD components for the Delaunay triangles.
 
 This function takes any center in the interior of the triangles as its argument or circumcenter ("CC").
@@ -478,7 +478,7 @@ but uses one of the non-degeneracy centers in the multiple triangle case
 That is, the center `M` is one of the three centers that renders the asymptotic distribution of domination number
 to be non-degenerate for a given value of $r \in (1,1.5]$ and `M` is center of mass for $r=1.5$.
 
-These two functions functions are different from the function `dom.greedy` since they give an exact minimum dominating set and 
+These two functions are different from the function `dom.greedy` since they give an exact minimum dominating set and 
 the exact domination number and from `dom.exact`, 
 since they give a minimum dominating set and number in polynomial time (in the number of vertices of the digraph,
 i.e., number of `Xp` points).
@@ -516,11 +516,11 @@ the confidence interval, estimate and null value for the parameter of interest
 (which is $P(\mbox{domination number}\le 2)$), and method and name of the data set used.
 
 Under the null hypothesis of uniformity of `Xp` points in the convex hull of `Yp` points, probability of success
-(i.e., $P(\mbox{domination number}\le 2)$ equals to its expected value under the uniform distribution) and
+(i.e., $P(\mbox{domination number}\le 2)$) equals to its expected value under the uniform distribution and
 `alternative` could be two-sided, or right-sided (i.e., data is accumulated around the `Yp` points, or association)
 or left-sided (i.e., data is accumulated around the centers of the triangles, or segregation).
 
-Here, the PE proximity region is constructed with the expansion parameter $r \in (1,1.5]$ and $M$-vertex regions where `M`
+In this case, the PE proximity region is constructed with the expansion parameter $r \in (1,1.5]$ and $M$-vertex regions where `M`
 is a center that yields non-degenerate asymptotic distribution of the domination number.
 
 The test statistic in `TSDomPEBin` is based on the binomial distribution, 
@@ -567,7 +567,7 @@ TSDomPENorm(Xp,Yp,r) #try also TSDomPENorm(Xp,Yp,r,alt="g") or with alt="l"
 #> 95 percent confidence interval:
 #>  3.283383 6.716617
 #> sample estimates:
-#>          domination number   || Pr(domination number = 3) 
+#>          domination number   || Pr(domination number <= 2) 
 #>                            5                            1
 ```
 
@@ -576,7 +576,7 @@ and their use in testing spatial interaction.
 
 In all the test functions (based on arc density and domination number) above, 
 the option `ch.cor` is for convex hull correction (default is "no convex hull correction", i.e., `ch.cor=FALSE`)
-which is recommended when both `Xp` and `Yp` have the same rectangular support.
+which is recommended when `Xp` points tend to be mostly within the support of the `Yp` points.
 When the symmetric difference of the supports of $\X$ and $\Y$ is non-negligible, 
 the tests can be adjusted to account for the $\X$ points outside the
 convex hull of $\Y$ points with the option `ch.cor=TRUE`.

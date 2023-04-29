@@ -17,7 +17,7 @@ that partition the real line.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 with the default \code{c=.5}.
-For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 Incidence matrix for the CS-PCD with vertices being 1D data set, \code{Xp},

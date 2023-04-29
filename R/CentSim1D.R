@@ -25,7 +25,7 @@
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}
 #' with the default \code{c=.5}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param int A \code{vector} of two real numbers representing an interval.
 #' @param rv Index of the end interval containing the point, either \code{1,2} or \code{NULL} (default is \code{NULL}).
 #'
@@ -212,7 +212,7 @@ NumArcsCSmid.int <- function(Xp,int,t,c=.5)
 #'
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return \code{muCS1D} returns the mean and \code{asyvarCS1D} returns the asymptotic variance of the
 #' arc density of CS-PCD for uniform data in an interval
@@ -697,7 +697,7 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
@@ -1326,10 +1326,10 @@ ArcsCSend.int <- function(Xp,Yp,t)
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param Jit A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
-#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by
-#' \code{Jit}).
+#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis
+#' where \code{Jit} equals to the range of the union of \code{Xp} and \code{Yp} points multiplied by \code{Jit}).
 #' @param main An overall title for the plot (default=\code{NULL}).
 #' @param xlab,ylab Titles of the \eqn{x} and \eqn{y} axes in the plot (default=\code{NULL} for both).
 #' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
@@ -1573,8 +1573,8 @@ IndNCSint <- function(p1,p2,int,t,c=.5)
 #' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param int A \code{vector} of two real numbers representing an interval.
 #' @param Jit A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
-#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and proximity region
-#' intervals multiplied by \code{Jit}).
+#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis
+#' where \code{Jit} equals to the range of the union of \code{Xp} and \code{Yp} points multiplied by \code{Jit}).
 #' @param main An overall title for the plot (default=\code{NULL}).
 #' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).
 #' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges.
@@ -1681,7 +1681,7 @@ plotCSregs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' i.e., the number of arcs for the entire CS-PCD}
 #' \item{num.in.range}{Number of \code{Xp} points in the interval \code{int}}
 #' \item{num.in.ints}{The vector of number of \code{Xp} points in the partition intervals (including the end intervals)}
-#' \item{int.num.arcs}{The \code{vector} of the number of arcs of the component of the CS-PCD in the
+#' \item{int.num.arcs}{The \code{vector} of the number of arcs of the components of the CS-PCD in the
 #' partition intervals (including the end intervals)}
 #' \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside.
 #' Partition intervals are numbered from left to right with 1 being the left end interval.}
@@ -1774,7 +1774,7 @@ NumArcsCSint <- function(Xp,int,t,c=.5)
 #' must be \eqn{> 0}.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside the middle (partition) intervals
 #' with the default \code{c=.5}.
-#' For an interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For an interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return A \code{list} with the elements
 #' \item{num.arcs}{Total number of arcs in all intervals (including the end intervals),
@@ -1784,9 +1784,9 @@ NumArcsCSint <- function(Xp,int,t,c=.5)
 #' based on \code{Yp} points}
 #' \item{weight.vec}{The \code{vector} of the lengths of the middle partition intervals (i.e., end intervals excluded)
 #' based on \code{Yp} points}
-#' \item{int.num.arcs}{The \code{vector} of the number of arcs of the component of the CS-PCD in the
+#' \item{int.num.arcs}{The \code{vector} of the number of arcs of the components of the CS-PCD in the
 #' partition intervals (including the end intervals) based on \code{Yp} points}
-#' \item{part.int}{A list of partition intervals based on \code{Yp} points.}
+#' \item{part.int}{A matrix with columns corresponding to the partition intervals based on \code{Yp} points.}
 #' \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside,
 #' i.e., column number of \code{part.int} is provided for each \code{Xp} point. Partition intervals are numbered from left to right
 #' with 1 being the left end interval.}
@@ -2040,7 +2040,7 @@ ArcsCSint <- function(Xp,int,t,c=.5)
   if (length(S)==0)
   {S<-E<-NA}
 
-  param<-list(c,t)
+  param<-c(c,t)
   names(param)<-c("centrality parameter","expansion parameter")
 
   typ<-paste("Central Similarity Proximity Catch Digraph (CS-PCD) for 1D Points with Expansion Parameter t = ",t, " and Centrality Parameter c = ",c,sep="")
@@ -2296,7 +2296,7 @@ plotCSarcs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
@@ -2515,7 +2515,7 @@ ArcsCS1D <- function(Xp,Yp,t,c=.5)
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return Incidence matrix for the CS-PCD with vertices being 1D data set, \code{Xp},
 #' and \code{Yp} determines the end points of the intervals (the multi-interval case)
@@ -2623,10 +2623,10 @@ IncMatCS1D <- function(Xp,Yp,t,c=.5)
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param Jit A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
-#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} and the
-#' proximity regions (intervals) multiplied by \code{Jit}).
+#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis
+#' where \code{Jit} equals to the range of the union of \code{Xp} and \code{Yp} points multiplied by \code{Jit}).
 #' @param main An overall title for the plot (default=\code{NULL}).
 #' @param xlab,ylab Titles of the \eqn{x} and \eqn{y} axes in the plot (default=\code{NULL} for both).
 #' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
