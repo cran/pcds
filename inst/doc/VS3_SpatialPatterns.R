@@ -56,7 +56,7 @@ set.seed(1)
 Yp<-cbind(runif(ny,0,10),runif(ny,0,10))
 
 ## ----CSRmT, fig.cap="Scatterplot of the uniform $X$ points in the Delaunay triangles based on 5 $Y$ points."----
-Xdt<-runifMT(nx,Yp)  #data under CSR in the convex hull of Ypoints
+Xdt<-runif.multi.tri(nx,Yp)  #data under CSR in the convex hull of Ypoints
 Xdt
 summary(Xdt)
 plot(Xdt)
@@ -162,7 +162,7 @@ del<-.4
 nx<-10;  #try also nx<-100 or 1000;  
 
 ## ----segmT, fig.cap="Scatterplot of the $X$ points segregated (in a type I fashion) from the $Y$ points."----
-Xdt<-rsegMT(nx,Yp,del)
+Xdt<-rseg.multi.tri(nx,Yp,del)
 Xdt
 summary(Xdt)
 plot(Xdt)
@@ -178,16 +178,16 @@ e<-.15;
 #  Yp<-cbind(runif(ny),runif(ny))
 
 ## ----segmTcirc, eval=F, fig.cap="Scatterplot of the $X$ points segregated (in a circular fashion) from the $Y$ points in the unit square."----
-#  Xdt<-rseg.circ(nx,Yp,e)
+#  Xdt<-rseg.circular(nx,Yp,e)
 #  Xdt
 #  #> Call:
-#  #> rseg.circ(n = nx, Yp = Yp, e = e)
+#  #> rseg.circular(n = nx, Yp = Yp, e = e)
 #  #>
 #  #> Type:
 #  #> [1] "Segregation of 10 X points from 5 Y points with circular exclusion parameter e = 0.15"
 #  summary(Xdt)
 #  #> Call:
-#  #> rseg.circ(n = nx, Yp = Yp, e = e)
+#  #> rseg.circular(n = nx, Yp = Yp, e = e)
 #  #>
 #  #> Type of the Pattern
 #  #> [1] "Segregation of 10 X points from 5 Y points with circular exclusion parameter e = 0.15"
@@ -224,16 +224,16 @@ del<-.4
 n<-5  #try also n<-100 or 1000
 
 ## ----asc1T, eval=F, fig.cap="Scatterplot of the points associated (in a type I fashion) with the vertices of the triangle $T=T(A,B,C)$ with vertices $A=(1,1)$, $B=(2,0)$, and $C=(1.5,2)$."----
-#  Xdt<-rasc.tri(n,Tr,del)
+#  Xdt<-rassoc.tri(n,Tr,del)
 #  Xdt
 #  #> Call:
-#  #> rasc.tri(n = n, tri = Tr, delta = del)
+#  #> rassoc.tri(n = n, tri = Tr, delta = del)
 #  #>
 #  #> Type:
 #  #> [1] "Type I Association of 5 points in the triangle with vertices (1,1), (2,0) and (1.5,2.33) with attraction parameter delta = 0.4"
 #  summary(Xdt)
 #  #> Call:
-#  #> rasc.tri(n = n, tri = Tr, delta = del)
+#  #> rassoc.tri(n = n, tri = Tr, delta = del)
 #  #>
 #  #> Type of the Pattern
 #  #> [1] "Type I Association of 5 points in the triangle with vertices (1,1), (2,0) and (1.5,2.33) with attraction parameter delta = 0.4"
@@ -270,7 +270,7 @@ del<-.4
 nx<-10;  #try also nx<-100 or 1000; 
 
 ## ----ascmT, fig.cap="Scatterplot of the $X$ points associated (in a type I fashion) with the $Y$ points."----
-Xdt<-rascMT(nx,Yp,del)
+Xdt<-rassoc.multi.tri(nx,Yp,del)
 Xdt
 summary(Xdt)
 plot(Xdt)
@@ -284,16 +284,16 @@ plot(Xdt)
 #  nx<-10;  #try also nx<-100 or 1000;
 
 ## ----ascmTcirc, eval=F, fig.cap="Scatterplot of the $X$ points associated (in a circular fashion) with the $Y$ points."----
-#  Xdt<-rasc.circ(nx,Yp,e)
+#  Xdt<-rassoc.circular(nx,Yp,e)
 #  Xdt
 #  #> Call:
-#  #> rasc.circ(n = nx, Yp = Yp, e = e)
+#  #> rassoc.circular(n = nx, Yp = Yp, e = e)
 #  #>
 #  #> Type:
 #  #> [1] "Association of 10 points with 5 Y points with circular attraction parameter e = 0.15"
 #  summary(Xdt)
 #  #> Call:
-#  #> rasc.circ(n = nx, Yp = Yp, e = e)
+#  #> rassoc.circular(n = nx, Yp = Yp, e = e)
 #  #>
 #  #> Type of the Pattern
 #  #> [1] "Association of 10 points with 5 Y points with circular attraction parameter e = 0.15"
@@ -332,16 +332,16 @@ plot(Xdt)
 #  nx<-10;  #try also nx<-100 or 1000;
 
 ## ----ascmTmat, eval=F, fig.cap="Scatterplot of the $X$ points associated (in a Matérn-like fashion) with the $Y$ points."----
-#  Xdt<-rasc.matern(nx,Yp,e)
+#  Xdt<-rassoc.matern(nx,Yp,e)
 #  Xdt
 #  #> Call:
-#  #> rasc.matern(n = nx, Yp = Yp, e = e)
+#  #> rassoc.matern(n = nx, Yp = Yp, e = e)
 #  #>
 #  #> Type:
 #  #> [1] "Matern-like Association of 10 points with 5 Y points with circular attraction parameter e = 0.15"
 #  summary(Xdt)
 #  #> Call:
-#  #> rasc.matern(n = nx, Yp = Yp, e = e)
+#  #> rassoc.matern(n = nx, Yp = Yp, e = e)
 #  #>
 #  #> Type of the Pattern
 #  #> [1] "Matern-like Association of 10 points with 5 Y points with circular attraction parameter e = 0.15"

@@ -15,16 +15,16 @@ n<-10  #try also n<-20 or 100
 #  Xp<-runif.tri(n,Tr)$g
 
 ## ----cl2eCCvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T=T(A,B,C)$ with vertices $A=(1,1)$, $B=(2,0)$, and $C=(1.5,2)$. The closest points in CC-vertex regions to opposite edges are marked with red crosses."----
-#  Ext<-cl2edgesCC_VR(Xp,Tr)
+#  Ext<-cl2edgesCCvert.reg(Xp,Tr)
 #  Ext
 #  #> Call:
-#  #> cl2edgesCC_VR(Xp = Xp, tri = Tr)
+#  #> cl2edgesCCvert.reg(Xp = Xp, tri = Tr)
 #  #>
 #  #> Type:
 #  #> [1] "Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opoosite Edges"
 #  summary(Ext)
 #  #> Call:
-#  #> cl2edgesCC_VR(Xp = Xp, tri = Tr)
+#  #> cl2edgesCCvert.reg(Xp = Xp, tri = Tr)
 #  #>
 #  #> Type of the Extrema
 #  #> [1] "Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opoosite Edges"
@@ -49,16 +49,16 @@ n<-10  #try also n<-20 or 100
 #  plot(Ext)
 
 ## ----cl2eCMvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T=T(A,B,C)$. The closest points in CM-vertex regions to opposite edges are marked with red crosses."----
-#  Ext<-cl2edgesCM_VR(Xp,Tr)
+#  Ext<-cl2edgesCMvert.reg(Xp,Tr)
 #  Ext
 #  #> Call:
-#  #> cl2edgesCM_VR(Xp = Xp, tri = Tr)
+#  #> cl2edgesCMvert.reg(Xp = Xp, tri = Tr)
 #  #>
 #  #> Type:
 #  #> [1] "Closest Points in CM-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opposite Edges"
 #  summary(Ext)
 #  #> Call:
-#  #> cl2edgesCM_VR(Xp = Xp, tri = Tr)
+#  #> cl2edgesCMvert.reg(Xp = Xp, tri = Tr)
 #  #>
 #  #> Type of the Extrema
 #  #> [1] "Closest Points in CM-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opposite Edges"
@@ -84,16 +84,16 @@ n<-10  #try also n<-20 or 100
 
 ## ----cl2eMvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T=T(A,B,C)$. The closest points in M-vertex regions to opposite edges are marked with red crosses."----
 #  M<-c(1.6,1.0) #try also M<-as.numeric(runif.tri(1,Tr)$g)
-#  Ext<-cl2edgesM_VR(Xp,Tr,M)
+#  Ext<-cl2edgesMvert.reg(Xp,Tr,M)
 #  Ext
 #  #> Call:
-#  #> cl2edgesM_VR(Xp = Xp, tri = Tr, M = M)
+#  #> cl2edgesMvert.reg(Xp = Xp, tri = Tr, M = M)
 #  #>
 #  #> Type:
 #  #> [1] "Closest Points in M-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2)\n to Opposite Edges"
 #  summary(Ext)
 #  #> Call:
-#  #> cl2edgesM_VR(Xp = Xp, tri = Tr, M = M)
+#  #> cl2edgesMvert.reg(Xp = Xp, tri = Tr, M = M)
 #  #>
 #  #> Type of the Extrema
 #  #> [1] "Closest Points in M-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2)\n to Opposite Edges"
@@ -118,16 +118,16 @@ n<-10  #try also n<-20 or 100
 #  plot(Ext)
 
 ## ----cl2CC_CCvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T=T(A,B,C)$ . The closest points in CC-vertex regions to the circumcenter are marked with red crosses."----
-#  Ext<-cl2CC.VR(Xp,Tr)
+#  Ext<-cl2CCvert.reg(Xp,Tr)
 #  Ext
 #  #> Call:
-#  #> cl2CC.VR(Xp = Xp, tri = Tr)
+#  #> cl2CCvert.reg(Xp = Xp, tri = Tr)
 #  #>
 #  #> Type:
 #  #> [1] "Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) to its Circumcenter"
 #  summary(Ext)
 #  #> Call:
-#  #> cl2CC.VR(Xp = Xp, tri = Tr)
+#  #> cl2CCvert.reg(Xp = Xp, tri = Tr)
 #  #>
 #  #> Type of the Extrema
 #  #> [1] "Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) to its Circumcenter"
@@ -152,16 +152,16 @@ n<-10  #try also n<-20 or 100
 #  plot(Ext)
 
 ## ----f2CCvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T=T(A,B,C)$. The furthest points in CC-vertex regions to the vertices are marked with red crosses."----
-#  Ext<-fr2vertsCC_VR(Xp,Tr)
+#  Ext<-fr2vertsCCvert.reg(Xp,Tr)
 #  Ext
 #  #> Call:
-#  #> fr2vertsCC_VR(Xp = Xp, tri = Tr)
+#  #> fr2vertsCCvert.reg(Xp = Xp, tri = Tr)
 #  #>
 #  #> Type:
 #  #> [1] "Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices"
 #  summary(Ext)
 #  #> Call:
-#  #> fr2vertsCC_VR(Xp = Xp, tri = Tr)
+#  #> fr2vertsCCvert.reg(Xp = Xp, tri = Tr)
 #  #>
 #  #> Type of the Extrema
 #  #> [1] "Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices"
@@ -187,16 +187,16 @@ n<-10  #try also n<-20 or 100
 
 ## ----kf2CCvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T=T(A,B,C)$ . The $k=3$ most furthest points in CC-vertex regions to the vertices are marked with red crosses."----
 #  k=3
-#  Ext<-kfr2vertsCC_VR(Xp,Tr,k)
+#  Ext<-kfr2vertsCCvert.reg(Xp,Tr,k)
 #  Ext
 #  #> Call:
-#  #> kfr2vertsCC_VR(Xp = Xp, tri = Tr, k = k)
+#  #> kfr2vertsCCvert.reg(Xp = Xp, tri = Tr, k = k)
 #  #>
 #  #> Type:
 #  #> [1] "3 Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices"
 #  summary(Ext)
 #  #> Call:
-#  #> kfr2vertsCC_VR(Xp = Xp, tri = Tr, k = k)
+#  #> kfr2vertsCCvert.reg(Xp = Xp, tri = Tr, k = k)
 #  #>
 #  #> Type of the Extrema
 #  #> [1] "3 Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices"
@@ -268,16 +268,16 @@ n<-10  #try also n<-20 or 100
 #  plot(Ext,asp=1)
 
 ## ----f2eCMer, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T_e$. The furthest points in CM-edge regions to the corresponding edges are marked with red crosses."----
-#  Ext<-fr2edgesCM_ERstd.tri(Xp)
+#  Ext<-fr2edgesCMedge.reg.std.tri(Xp)
 #  Ext
 #  #> Call:
-#  #> fr2edgesCM_ERstd.tri(Xp = Xp)
+#  #> fr2edgesCMedge.reg.std.tri(Xp = Xp)
 #  #>
 #  #> Type:
 #  #> [1] "Furthest Points in the CM-Edge Regions of the Standard Equilateral Triangle T=(A,B,C) with A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) from its Edges"
 #  summary(Ext)
 #  #> Call:
-#  #> fr2edgesCM_ERstd.tri(Xp = Xp)
+#  #> fr2edgesCMedge.reg.std.tri(Xp = Xp)
 #  #>
 #  #> Type of the Extrema
 #  #> [1] "Furthest Points in the CM-Edge Regions of the Standard Equilateral Triangle T=(A,B,C) with A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) from its Edges"
@@ -348,16 +348,16 @@ Xp<-runif(nx,a,b)
 #  Xp<-runif.tetra(n,tetra)$g  #try also Xp<-cbind(runif(n),runif(n),runif(n))
 
 ## ----cl2fCCvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the tetrahedron $T(A,B,C,D)$. The closest points in CC-vertex regions to opposite faces are marked with red crosses."----
-#  Ext<-cl2facesVRtetra(Xp,tetra,Cent)
+#  Ext<-cl2faces.vert.reg.tetra(Xp,tetra,Cent)
 #  Ext
 #  #> Call:
-#  #> cl2facesVRtetra(Xp = Xp, th = tetra, M = Cent)
+#  #> cl2faces.vert.reg.tetra(Xp = Xp, th = tetra, M = Cent)
 #  #>
 #  #> Type:
 #  #> [1] "Closest Points in CC-Vertex Regions of the Tetrahedron with Vertices A=(-0.12,-0.15,0.06), B=(0.94,0.2,-0.22), C=(0.54,1.09,-0.15), and D=(0.7,0.37,0.65) to the Opposite Faces"
 #  summary(Ext)
 #  #> Call:
-#  #> cl2facesVRtetra(Xp = Xp, th = tetra, M = Cent)
+#  #> cl2faces.vert.reg.tetra(Xp = Xp, th = tetra, M = Cent)
 #  #>
 #  #> Type of the Extrema
 #  #> [1] "Closest Points in CC-Vertex Regions of the Tetrahedron with Vertices A=(-0.12,-0.15,0.06), B=(0.94,0.2,-0.22), C=(0.54,1.09,-0.15), and D=(0.7,0.37,0.65) to the Opposite Faces"

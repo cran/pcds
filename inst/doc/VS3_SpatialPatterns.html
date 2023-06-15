@@ -12,7 +12,7 @@
 
 <meta name="author" content="Elvan Ceyhan" />
 
-<meta name="date" content="2023-04-28" />
+<meta name="date" content="2023-06-13" />
 
 <title>VS3 - Spatial Point Patterns</title>
 
@@ -352,7 +352,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">VS3 - Spatial Point Patterns</h1>
 <h4 class="author">Elvan Ceyhan</h4>
-<h4 class="date">2023-04-28</h4>
+<h4 class="date">2023-06-13</h4>
 
 
 
@@ -362,7 +362,7 @@ font-size: small;
 }
 </style>
 <p>First we load the <code>pcds</code> package:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pcds)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(pcds)</span></code></pre></div>
 <div id="generation-of-points-from-csr-segregation-and-association-patterns" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Generation of Points from CSR, Segregation, and Association Patterns</h1>
 <p>We provide the functions for random point generation from three patterns, namely, complete spatial randomness (CSR)
@@ -384,9 +384,9 @@ hence no specialized functions are provided for the CSR in the 1D setting.</p>
 <h2><span class="header-section-number">2.1</span> Generation of Uniform Points in One Triangle</h2>
 <p>We choose the triangle <span class="math inline">\(T=T(A,B,C)\)</span> with vertices <span class="math inline">\(A=(1,1)\)</span>, <span class="math inline">\(B=(2,0)\)</span>, and <span class="math inline">\(C=(1.5,2)\)</span> as the support of uniform points.
 The same triangle <span class="math inline">\(T\)</span> was used in other <code>pcds</code> Vignette Sections as well.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>); B<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">0</span>); C<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="dv">2</span>);</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Tr<span class="ot">&lt;-</span><span class="fu">rbind</span>(A,B,C)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">5</span>  <span class="co">#try also n&lt;-10, 20, 50 or 100</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>A<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>); B<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">0</span>); C<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="dv">2</span>);</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>Tr<span class="ot">&lt;-</span><span class="fu">rbind</span>(A,B,C)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">5</span>  <span class="co">#try also n&lt;-10, 20, 50 or 100</span></span></code></pre></div>
 <p>We generate <span class="math inline">\(n=\)</span> 5 <span class="math inline">\(\mathcal{X}\)</span> points inside the triangle <span class="math inline">\(T\)</span> using the function <code>runif.tri</code>,
 and provide the summary of these uniform points and the corresponding scatterplot (together with the triangle).
 The function <code>runif.tri</code> is an object of class <code>Uniform</code> and
@@ -401,47 +401,47 @@ the vertices of the support of the uniform distribution (i.e., vertices of <span
 first 6 or fewer of the generated points,
 and the number of points.
 The <code>plot</code> function (or <code>plot.Uniform</code>) returns the plot of the triangle together with the generated points.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">runif.tri</span>(n,Tr)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Xdt</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; runif.tri(n = n, tri = Tr)</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Uniform Distribution in the Triangle with Vertices (1,1), (2,0) and (1.5,2)&quot;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; runif.tri(n = n, tri = Tr)</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern : [1] &quot;Uniform Distribution in the Triangle with Vertices (1,1), (2,0) and (1.5,2)&quot;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 1 2 </span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0 2 </span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support of the Uniform Distribution</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 uniform points in the triangle with vertices (1,1), (2,0) and (1.5,2)  </span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 1.408977 1.7660348</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 1.940467 0.0911130</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 1.528105 1.7848381</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 1.551435 0.9132295</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 1.677571 1.1452668</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of points</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  3 </span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx : the number of uniform points</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ny : the number of vertices of the support region</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">runif.tri</span>(n,Tr)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>Xdt</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; runif.tri(n = n, tri = Tr)</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Uniform Distribution in the Triangle with Vertices (1,1), (2,0) and (1.5,2)&quot;</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; runif.tri(n = n, tri = Tr)</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern : [1] &quot;Uniform Distribution in the Triangle with Vertices (1,1), (2,0) and (1.5,2)&quot;</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 1 2 </span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0 2 </span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support of the Uniform Distribution</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt;  5 uniform points in the triangle with vertices (1,1), (2,0) and (1.5,2)  </span></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]</span></span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">#&gt; [1,] 1.408977 1.7660348</span></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">#&gt; [2,] 1.940467 0.0911130</span></span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt; [3,] 1.528105 1.7848381</span></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt; [4,] 1.551435 0.9132295</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt; [5,] 1.677571 1.1452668</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt; Number of points</span></span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="co">#&gt;  5  3 </span></span>
+<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="co">#&gt; nx : the number of uniform points</span></span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="co">#&gt; ny : the number of vertices of the support region</span></span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
 <p>There is also uniform point generation capability in a standard equilateral triangle, or in the standard basic triangle,
-with the functions <code>runif.std.tri</code> and <code>runif.bas.tri</code>,
+with the functions <code>runif.std.tri</code> and <code>runif.basic.tri</code>,
 with arguments <code>n</code> and <code>n,c1,c2</code>, respectively, see the corresponding help pages for the details.
 These functions are mostly for simulation purposes,
 as PE- and CS-PCDs are geometry invariant, and AS-PCD is
@@ -455,14 +455,14 @@ where <span class="math inline">\(n_x\)</span> is number of <span class="math in
 <span class="math inline">\(\mathcal{Y}\)</span> points constitute the vertices of the Delaunay triangles, and when uniform points are generated in the convex hull
 of nontarget points, then points in each triangle will also be uniformly distributed (restricted to the triangle,
 i.e. normalized by the ratio of the area of the convex hull to the area of the particular triangle).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>; ny<span class="ot">&lt;-</span><span class="dv">5</span>  <span class="co">#try also nx&lt;-40; ny&lt;-5 or nx&lt;-100;  #try also nx&lt;-1000;  ny&lt;-10;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny,<span class="dv">0</span>,<span class="dv">10</span>),<span class="fu">runif</span>(ny,<span class="dv">0</span>,<span class="dv">10</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>; ny<span class="ot">&lt;-</span><span class="dv">5</span>  <span class="co">#try also nx&lt;-40; ny&lt;-5 or nx&lt;-100;  #try also nx&lt;-1000;  ny&lt;-10;</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny,<span class="dv">0</span>,<span class="dv">10</span>),<span class="fu">runif</span>(ny,<span class="dv">0</span>,<span class="dv">10</span>))</span></code></pre></div>
 <p>We first generate 5 <span class="math inline">\(\mathcal{Y}\)</span> points uniformly in the unit square <span class="math inline">\((0,1) \times (0,1)\)</span>
 (which will form the vertices of the Delaunay triangles).</p>
-<p>Next, we generate <span class="math inline">\(n_x=\)</span> 10 <span class="math inline">\(\mathcal{X}\)</span> points uniformly in the convex hull of the 5 <span class="math inline">\(Y\)</span> points (i.e. in the union of the Delaunay triangles based on 5 <span class="math inline">\(Y\)</span> points) using the function <code>runifMT</code>,
+<p>Next, we generate <span class="math inline">\(n_x=\)</span> 10 <span class="math inline">\(\mathcal{X}\)</span> points uniformly in the convex hull of the 5 <span class="math inline">\(Y\)</span> points (i.e. in the union of the Delaunay triangles based on 5 <span class="math inline">\(Y\)</span> points) using the function <code>runif.multi.tri</code>,
 and provide the summary of these uniform points and the corresponding scatterplot (together with the Delaunay triangles).
-The function <code>runifMT</code> is an object of class <code>Uniform</code>
+The function <code>runif.multi.tri</code> is an object of class <code>Uniform</code>
 and takes arguments <code>n,Yp,DTmesh</code> where</p>
 <ul>
 <li><code>n</code>, a positive integer representing the number of uniform points to be generated
@@ -475,50 +475,35 @@ is similar, with the addition of the <span class="math inline">\(x\)</span> and 
 and their indices (labeled <code>$i</code>).
 The <code>plot</code> of the object returns the scatterplot of the <span class="math inline">\(\mathcal{X}\)</span> points
 together with Delaunay triangulation of <span class="math inline">\(\mathcal{Y}\)</span> points.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">runifMT</span>(nx,Yp)  <span class="co">#data under CSR in the convex hull of Ypoints</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Xdt</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; runifMT(n = nx, Yp = Yp)</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Uniform distribution in the convex hull of Yp points&quot;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; runifMT(n = nx, Yp = Yp)</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern : [1] &quot;Uniform distribution in the convex hull of Yp points&quot;</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 2.016819 9.082078 </span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0.6178627 9.446753 </span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  The x and y coordinates of the nodes on the boundary of the convex hull of Y points and their indices (labeled $i) </span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $x</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3.721239 2.655087 2.016819 9.082078</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $y</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 9.4467527 8.9838968 0.6178627 6.2911404</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $i</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2 1 5 4</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  10 uniform points in the convex hull of Yp points  </span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]     [,2]</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 3.472083 2.176663</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 7.455948 5.011995</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 4.701866 7.481841</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 3.904802 4.026822</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 5.422840 5.911363</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 7.862426 6.519682</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of points</span></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  5 </span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx  : the number of Uniform points</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ny  : the number of points whose convex hull determines the support</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">runif.multi.tri</span>(nx,Yp)  <span class="co">#data under CSR in the convex hull of Ypoints</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>Xdt</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; runif.multi.tri(n = nx, Yp = Yp) </span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; Uniform distribution in the convex hull of Yp points</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; runif.multi.tri(n = nx, Yp = Yp) </span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern : Uniform distribution in the convex hull of Yp points </span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 2.016819 9.082078 </span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0.6178627 9.446753 </span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; The x and y coordinates of the nodes on the boundary of the convex hull of Y points and their indices (labeled as i) </span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt;       [,1]     [,2]      [,3]     [,4]</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; x 3.721239 2.655087 2.0168193 9.082078</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; y 9.446753 8.983897 0.6178627 6.291140</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; i 2.000000 1.000000 5.0000000 4.000000</span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt; Number of points</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="co">#&gt; 10  5 </span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt; nx : the number of Uniform points</span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt; ny : the number of points whose convex hull determines the support</span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:CSRmT"></span>
 <img src="data:image/png;base64,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" alt="Scatterplot of the uniform $X$ points in the Delaunay triangles based on 5 $Y$ points." />
 <p class="caption">
@@ -529,10 +514,10 @@ Figure 2.1: Scatterplot of the uniform <span class="math inline">\(X\)</span> po
 <div id="generation-of-uniform-points-in-a-tetrahedron" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Generation of Uniform Points in a Tetrahedron</h2>
 <p>We first generate four 3D points that will form the arbitrary tetrahedron <span class="math inline">\(T=T(A,B,C,D)\)</span> as the support of uniform points.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>A<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,<span class="dv">3</span>); B<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,<span class="dv">3</span>); C<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,<span class="dv">3</span>); D<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,<span class="dv">3</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>tetra<span class="ot">&lt;-</span><span class="fu">rbind</span>(A,B,C,D)<span class="sc">/</span><span class="dv">6</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">5</span> <span class="co">#try also n&lt;-10, 20, 50, or 100</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>A<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,<span class="dv">3</span>); B<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,<span class="dv">3</span>); C<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,<span class="dv">3</span>); D<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,<span class="dv">3</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>tetra<span class="ot">&lt;-</span><span class="fu">rbind</span>(A,B,C,D)<span class="sc">/</span><span class="dv">6</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">5</span> <span class="co">#try also n&lt;-10, 20, 50, or 100</span></span></code></pre></div>
 <p>We generate <span class="math inline">\(n=\)</span> 5 <span class="math inline">\(\mathcal{X}\)</span> points uniformly inside the tetrahedron <span class="math inline">\(T\)</span> using the function <code>runif.tetra</code>,
 and provide the summary of these uniform points and the corresponding scatterplot (together with the tetrahedron).
 The function <code>runif.tetra</code> is an object of class <code>Uniform</code> and takes arguments <code>n,th</code> where</p>
@@ -543,45 +528,45 @@ The function <code>runif.tetra</code> is an object of class <code>Uniform</code>
 <p>Its <code>call</code>, <code>plot</code>, and <code>summary</code>
 are as in <code>runif.tri</code>.
 The <code>plot</code> of the object returns the 3D scatterplot of the <span class="math inline">\(\mathcal{X}\)</span> points together with tetrahedron.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">runif.tetra</span>(n,tetra)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Xdt</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; runif.tetra(n = n, th = tetra)</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Uniform Distribution in the Tetrahedron with Vertices (1.67,0.33,1.33), (1.5,0.17,0.83), (2,1,0.83) and (1,1.17,0.83)&quot;</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; runif.tetra(n = n, th = tetra)</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern : [1] &quot;Uniform Distribution in the Tetrahedron with Vertices (1.67,0.33,1.33), (1.5,0.17,0.83), (2,1,0.83) and (1,1.17,0.83)&quot;</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 1 2 </span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0.1666667 1.166667 </span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support of the Uniform Distribution</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       [,1]      [,2]      [,3]</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A 1.666667 0.3333333 1.3333333</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; B 1.500000 0.1666667 0.8333333</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C 2.000000 1.0000000 0.8333333</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; D 1.000000 1.1666667 0.8333333</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 uniform points in the tetrahedron with vertices (1.67,0.33,1.33), (1.5,0.17,0.83), (2,1,0.83) and (1,1.17,0.83)  </span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]      [,3]</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 1.398149 0.6715843 0.9971730</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 1.642032 0.4435400 0.8851113</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 1.502856 0.7644274 1.0461309</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 1.425548 0.5928684 0.9355892</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 1.239314 0.9320898 0.9298472</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of points</span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  4 </span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx is the number of Uniform points </span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ny is the number of vertices of the support region</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">runif.tetra</span>(n,tetra)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>Xdt</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; runif.tetra(n = n, th = tetra)</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Uniform Distribution in the Tetrahedron with Vertices (1.67,0.33,1.33), (1.5,0.17,0.83), (2,1,0.83) and (1,1.17,0.83)&quot;</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; runif.tetra(n = n, th = tetra)</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern : [1] &quot;Uniform Distribution in the Tetrahedron with Vertices (1.67,0.33,1.33), (1.5,0.17,0.83), (2,1,0.83) and (1,1.17,0.83)&quot;</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 1 2 </span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0.1666667 1.166667 </span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support of the Uniform Distribution</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt;       [,1]      [,2]      [,3]</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; A 1.666667 0.3333333 1.3333333</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt; B 1.500000 0.1666667 0.8333333</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt; C 2.000000 1.0000000 0.8333333</span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="co">#&gt; D 1.000000 1.1666667 0.8333333</span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="co">#&gt;  5 uniform points in the tetrahedron with vertices (1.67,0.33,1.33), (1.5,0.17,0.83), (2,1,0.83) and (1,1.17,0.83)  </span></span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]      [,3]</span></span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="co">#&gt; [1,] 1.398149 0.6715843 0.9971730</span></span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt; [2,] 1.642032 0.4435400 0.8851113</span></span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt; [3,] 1.502856 0.7644274 1.0461309</span></span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt; [4,] 1.425548 0.5928684 0.9355892</span></span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="co">#&gt; [5,] 1.239314 0.9320898 0.9298472</span></span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co">#&gt; Number of points</span></span>
+<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
+<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a><span class="co">#&gt;  5  4 </span></span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="co">#&gt; nx is the number of Uniform points </span></span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="co">#&gt;  ny is the number of vertices of the support region</span></span>
+<span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
 <p>Similarly, there is also uniform point generation capability in a standard regular tetrahedron
 with the function <code>runif.std.tetra</code> with the sole argument <code>n</code>,
 see the corresponding help page for the details.
@@ -611,10 +596,10 @@ The forbidden regions are chosen in such a way that <span class="math inline">\(
 where this distance depends on <code>delta</code>.
 Such a construction preserves geometry invariance for
 arc density and domination number of PE- and CS-PCDs under segregation as well.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>A<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>); B<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">0</span>); C<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="dv">7</span><span class="sc">/</span><span class="dv">3</span>);</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Tr<span class="ot">&lt;-</span><span class="fu">rbind</span>(A,B,C)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>del<span class="ot">&lt;-</span>.<span class="dv">4</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10</span>  <span class="co">#try also n&lt;-100 or 1000</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>A<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>); B<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">0</span>); C<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="dv">7</span><span class="sc">/</span><span class="dv">3</span>);</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>Tr<span class="ot">&lt;-</span><span class="fu">rbind</span>(A,B,C)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>del<span class="ot">&lt;-</span>.<span class="dv">4</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10</span>  <span class="co">#try also n&lt;-100 or 1000</span></span></code></pre></div>
 <p>The same triangle <span class="math inline">\(T\)</span> used in the CSR illustration in Section <a href="#sec:CSR1T">2.1</a> is used here as well
 and the support of the segregated <span class="math inline">\(\mathcal{X}\)</span> points will be subset of this triangle.
 We specify <code>delta=</code> 0.4 for the type I segregation pattern.</p>
@@ -631,44 +616,44 @@ in the triangle, <code>tri</code>.</li>
 </ul>
 <p>Its <code>call</code> and <code>summary</code> are as in <code>runif.tri</code> with the addition of the segregation parameter.
 The <code>plot</code> function (or <code>plot.Patterns</code>) returns the plot of the triangle together with the generated points.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rseg.tri</span>(n,Tr,del)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Xdt</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rseg.tri(n = n, tri = Tr, delta = del)</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Type I Segregation of 10 points in the triangle with vertices (1,1), (2,0) and (1.5,2.33) and exclusion parameter delta = 0.4&quot;</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rseg.tri(n = n, tri = Tr, delta = del)</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Type I Segregation of 10 points in the triangle with vertices (1,1), (2,0) and (1.5,2.33) and exclusion parameter delta = 0.4&quot;</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; exclusion parameter </span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 0.4 </span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 1 2 </span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0 2.333333 </span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Generated Points from Pattern of Type I Segregation of One Class from Vertices of the Triangle  </span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         [,1]      [,2]</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pnt 1.587007 0.5205062</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pnt 1.409048 0.9539932</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pnt 1.669594 0.7064556</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pnt 1.523988 0.5721596</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pnt 1.271635 1.6545486</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pnt 1.674897 1.3032453</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  3 </span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ny = number of reference (i.e. Y) points</span></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rseg.tri</span>(n,Tr,del)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>Xdt</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; rseg.tri(n = n, tri = Tr, delta = del)</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Type I Segregation of 10 points in the triangle with vertices (1,1), (2,0) and (1.5,2.33) and exclusion parameter delta = 0.4&quot;</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; rseg.tri(n = n, tri = Tr, delta = del)</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Type I Segregation of 10 points in the triangle with vertices (1,1), (2,0) and (1.5,2.33) and exclusion parameter delta = 0.4&quot;</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; exclusion parameter </span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt;                 0.4 </span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 1 2 </span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0 2.333333 </span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co">#&gt;  Generated Points from Pattern of Type I Segregation of One Class from Vertices of the Triangle  </span></span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a><span class="co">#&gt;         [,1]      [,2]</span></span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="co">#&gt; pnt 1.587007 0.5205062</span></span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="co">#&gt; pnt 1.409048 0.9539932</span></span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="co">#&gt; pnt 1.669594 0.7064556</span></span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a><span class="co">#&gt; pnt 1.523988 0.5721596</span></span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a><span class="co">#&gt; pnt 1.271635 1.6545486</span></span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="co">#&gt; pnt 1.674897 1.3032453</span></span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="co">#&gt; 10  3 </span></span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="co">#&gt; ny = number of reference (i.e. Y) points</span></span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
 </div>
 <div id="generation-of-points-segregated-in-a-type-i-fashion-from-a-given-set-of-mathcaly-points" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Generation of Points Segregated (in a Type I Fashion) from a Given Set of <span class="math inline">\(\mathcal{Y}\)</span> Points</h2>
@@ -677,17 +662,17 @@ based on the non-target points (i.e., <span class="math inline">\(\mathcal{Y}\)<
 That is, <span class="math inline">\(\mathcal{X}\)</span> points are segregated in type I fashion from the vertices of each Delaunay triangle
 at the same level (i.e., parameterized with the same <code>delta</code>).
 <!-- nx is number of X points (target) and ny is number of Y points (non-target). --></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ny<span class="ot">&lt;-</span><span class="dv">5</span>;</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny),<span class="fu">runif</span>(ny))</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>del<span class="ot">&lt;-</span>.<span class="dv">4</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>;  <span class="co">#try also nx&lt;-100 or 1000;  </span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>ny<span class="ot">&lt;-</span><span class="dv">5</span>;</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny),<span class="fu">runif</span>(ny))</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>del<span class="ot">&lt;-</span>.<span class="dv">4</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>;  <span class="co">#try also nx&lt;-100 or 1000;  </span></span></code></pre></div>
 <p>We first generate 5 <span class="math inline">\(\mathcal{Y}\)</span> points uniformly in the unit square which will form the vertices of the Delaunay triangles,
 and specify <code>delta=</code> 0.4 for type I segregation.</p>
 <p>We generate <span class="math inline">\(n=\)</span> 10 <span class="math inline">\(\mathcal{X}\)</span> points uniformly inside the type I segregation support in the union of
-the Delaunay triangles (i.e. in the convex hull of the <span class="math inline">\(\mathcal{Y}\)</span> points) using the function <code>rsegMT</code>,
+the Delaunay triangles (i.e. in the convex hull of the <span class="math inline">\(\mathcal{Y}\)</span> points) using the function <code>rseg.multi.tri</code>,
 and provide the summary of these segregated points and the corresponding scatterplot (together with the triangles).
-The function <code>rsegMT</code> is an object of class <code>Patterns</code> and takes arguments <code>n,Yp,delta,DTmesh,DTr</code> where</p>
+The function <code>rseg.multi.tri</code> is an object of class <code>Patterns</code> and takes arguments <code>n,Yp,delta,DTmesh,DTr</code> where</p>
 <ul>
 <li><code>n</code>, a positive integer representing the number of points to be generated.</li>
 <li><code>Yp</code>, a set of 2D points from which Delaunay triangulation is constructed.</li>
@@ -702,44 +687,34 @@ in <code>interp</code> package. <code>interp::triangles</code> function yields a
 <p>Its <code>call</code>, <code>summary</code>, and <code>plot</code> are as in <code>rseg.tri</code>.
 The <code>plot</code> of the object is the scatterplot of the <span class="math inline">\(\mathcal{X}\)</span> points
 together with Delaunay triangulation of <span class="math inline">\(\mathcal{Y}\)</span> points.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rsegMT</span>(nx,Yp,del)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Xdt</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rsegMT(n = nx, Yp = Yp, delta = del)</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Type I Segregation of 10 points from 5 Y points with exclusion parameter delta = 0.4&quot;</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rsegMT(n = nx, Yp = Yp, delta = del)</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Type I Segregation of 10 points from 5 Y points with exclusion parameter delta = 0.4&quot;</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; exclusion parameter </span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 0.4 </span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 0.2016819 0.9082078 </span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0.06178627 0.9446753 </span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Generated Points from Pattern of Type I Segregation of One Class from Another  </span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 0.3904802 0.4026822</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.5759425 0.7587002</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 0.7190805 0.6733913</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 0.5391325 0.8221386</span></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 0.4251361 0.5196828</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 0.5260237 0.3552539</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  5 </span></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ny = number of reference (i.e. Y) points</span></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rseg.multi.tri</span>(nx,Yp,del)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>Xdt</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; rseg.multi.tri(n = nx, Yp = Yp, delta = del) </span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; Type I Segregation of 10 points from 5 Y points with exclusion parameter delta = 0.4</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; rseg.multi.tri(n = nx, Yp = Yp, delta = del) </span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; Type I Segregation of 10 points from 5 Y points with exclusion parameter delta = 0.4 </span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; exclusion parameter </span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt;                 0.4 </span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 0.2016819 0.9082078 </span></span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0.06178627 0.9446753 </span></span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
+<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a><span class="co">#&gt; 10  5 </span></span>
+<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
+<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a><span class="co">#&gt; ny = number of reference (i.e. Y) points</span></span>
+<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:segmT"></span>
 <img src="data:image/png;base64,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" alt="Scatterplot of the $X$ points segregated (in a type I fashion) from the $Y$ points." />
 <p class="caption">
@@ -756,16 +731,16 @@ Note that same radius is used for each <span class="math inline">\(\mathcal{Y}\)
 (or the Delaunay triangles).
 Such a construction, although more intuitive, does not preserve the geometry invariance property
 for the arc density and domination number of PE- and CS-PCDs under segregation.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>;  <span class="co">#try also nx&lt;-100 or 1000; </span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ny<span class="ot">&lt;-</span><span class="dv">5</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>e<span class="ot">&lt;-</span>.<span class="dv">15</span>;</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#with default bounding box (i.e., unit square)</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny),<span class="fu">runif</span>(ny))</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>;  <span class="co">#try also nx&lt;-100 or 1000; </span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>ny<span class="ot">&lt;-</span><span class="dv">5</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>e<span class="ot">&lt;-</span>.<span class="dv">15</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co">#with default bounding box (i.e., unit square)</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny),<span class="fu">runif</span>(ny))</span></code></pre></div>
 <p>We first generate 5 <span class="math inline">\(\mathcal{Y}\)</span> points uniformly in the unit square and specify <code>e=</code> 0.15 for circular segregation.</p>
-<p>We generate <span class="math inline">\(n=\)</span> 10 <span class="math inline">\(\mathcal{X}\)</span> points uniformly inside the circular segregation support using the function <code>rseg.circ</code>,
+<p>We generate <span class="math inline">\(n=\)</span> 10 <span class="math inline">\(\mathcal{X}\)</span> points uniformly inside the circular segregation support using the function <code>rseg.circular</code>,
 and provide the summary of these segregated points and the corresponding scatterplot (together with the <span class="math inline">\(\mathcal{Y}\)</span> points).
-The function <code>rseg.circ</code> is an object of class <code>Patterns</code> and takes arguments <code>n,Yp,e,a1,a2,b1,b2)</code> where</p>
+The function <code>rseg.circular</code> is an object of class <code>Patterns</code> and takes arguments <code>n,Yp,e,a1,a2,b1,b2)</code> where</p>
 <ul>
 <li><code>n</code>, a positive integer representing the number of points to be generated.</li>
 <li><code>Yp</code>, a set of 2D points representing the reference points. The generated points are segregated
@@ -778,47 +753,47 @@ balls).</li>
 <li><code>b1,b2</code>, the real numbers representing the range of <span class="math inline">\(y\)</span>-coordinates in the region
 (default is the range of <span class="math inline">\(y\)</span>-coordinates of the <code>Yp</code> points).</li>
 </ul>
-<p>Its <code>call</code>, <code>summary</code>, and <code>plot</code> are as in <code>rsegMT</code>.
+<p>Its <code>call</code>, <code>summary</code>, and <code>plot</code> are as in <code>rseg.multi.tri</code>.
 The <code>plot</code> of the object is the scatterplot of the <span class="math inline">\(\mathcal{X}\)</span> points together with <span class="math inline">\(\mathcal{Y}\)</span> points
 (here we use <code>asp=1</code> so that the prohibited regions are actually depicted as circles).</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rseg.circ</span>(nx,Yp,e)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Xdt</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rseg.circ(n = nx, Yp = Yp, e = e)</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Segregation of 10 X points from 5 Y points with circular exclusion parameter e = 0.15&quot;</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rseg.circ(n = nx, Yp = Yp, e = e)</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Segregation of 10 X points from 5 Y points with circular exclusion parameter e = 0.15&quot;</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; exclusion parameter </span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                0.15 </span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 0.05168193 1.058208 </span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = -0.08821373 1.094675 </span></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Generated Points from Pattern of Segregation of Class X from Class Y  </span></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            [,1]       [,2]</span></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 0.82654723 0.50050923</span></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.77398352 1.08510108</span></span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 0.99248692 0.16272732</span></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 0.70760843 0.06030401</span></span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 0.32064644 0.36851638</span></span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 0.06515965 0.36410878</span></span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  5 </span></span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ny = number of reference (i.e. Y) points</span></span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Xdt,<span class="at">asp=</span><span class="dv">1</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rseg.circular</span>(nx,Yp,e)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>Xdt</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#&gt; rseg.circular(n = nx, Yp = Yp, e = e)</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Segregation of 10 X points from 5 Y points with circular exclusion parameter e = 0.15&quot;</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt; rseg.circular(n = nx, Yp = Yp, e = e)</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Segregation of 10 X points from 5 Y points with circular exclusion parameter e = 0.15&quot;</span></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="co">#&gt; exclusion parameter </span></span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="co">#&gt;                0.15 </span></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 0.05168193 1.058208 </span></span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = -0.08821373 1.094675 </span></span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="co">#&gt;  Generated Points from Pattern of Segregation of Class X from Class Y  </span></span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a><span class="co">#&gt;            [,1]       [,2]</span></span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a><span class="co">#&gt; [1,] 0.82654723 0.50050923</span></span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a><span class="co">#&gt; [2,] 0.77398352 1.08510108</span></span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a><span class="co">#&gt; [3,] 0.99248692 0.16272732</span></span>
+<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a><span class="co">#&gt; [4,] 0.70760843 0.06030401</span></span>
+<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a><span class="co">#&gt; [5,] 0.32064644 0.36851638</span></span>
+<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a><span class="co">#&gt; [6,] 0.06515965 0.36410878</span></span>
+<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-33"><a href="#cb14-33" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
+<span id="cb14-34"><a href="#cb14-34" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
+<span id="cb14-35"><a href="#cb14-35" tabindex="-1"></a><span class="co">#&gt; 10  5 </span></span>
+<span id="cb14-36"><a href="#cb14-36" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
+<span id="cb14-37"><a href="#cb14-37" tabindex="-1"></a><span class="co">#&gt; ny = number of reference (i.e. Y) points</span></span>
+<span id="cb14-38"><a href="#cb14-38" tabindex="-1"></a><span class="fu">plot</span>(Xdt,<span class="at">asp=</span><span class="dv">1</span>) </span></code></pre></div>
 <p>There is also point generation capability from segregation pattern in a standard equilateral triangle with two types of segregation,
 type I segregation is the above described one and type II segregation (described below),
 with the relevant functions <code>rseg.std.tri</code> and <code>rsegII.std.tri</code>,
@@ -852,54 +827,54 @@ The allowed regions are chosen in such a way that <span class="math inline">\(\m
 where this distance depends on <code>delta</code>.
 Such a construction preserves geometry invariance for arc density and domination number of PE- and CS-PCDs
 under association as well.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>A<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>); B<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">0</span>); C<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="dv">7</span><span class="sc">/</span><span class="dv">3</span>);</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>Tr<span class="ot">&lt;-</span><span class="fu">rbind</span>(A,B,C)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>del<span class="ot">&lt;-</span>.<span class="dv">4</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">5</span>  <span class="co">#try also n&lt;-100 or 1000</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>A<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>); B<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">0</span>); C<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="dv">7</span><span class="sc">/</span><span class="dv">3</span>);</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>Tr<span class="ot">&lt;-</span><span class="fu">rbind</span>(A,B,C)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>del<span class="ot">&lt;-</span>.<span class="dv">4</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">5</span>  <span class="co">#try also n&lt;-100 or 1000</span></span></code></pre></div>
 <p>The same triangle <span class="math inline">\(T\)</span> used in the CSR illustration in Section <a href="#sec:CSR1T">2.1</a> is used here as well
 and the support of the segregated <span class="math inline">\(\mathcal{X}\)</span> points will be subset of this triangle.
 We specify <code>delta=</code> 0.4 for the type I association pattern.</p>
-<p>We generate <span class="math inline">\(n=\)</span> 5 <span class="math inline">\(\mathcal{X}\)</span> points uniformly inside the type I association support in <span class="math inline">\(T\)</span> using the function <code>rasc.tri</code>,
+<p>We generate <span class="math inline">\(n=\)</span> 5 <span class="math inline">\(\mathcal{X}\)</span> points uniformly inside the type I association support in <span class="math inline">\(T\)</span> using the function <code>rassoc.tri</code>,
 and provide the summary of these associated points and the corresponding scatterplot (together with the triangle).
 The function <code>racs.tri</code> is an object of class <code>Patterns</code> and has the arguments as <code>rseg.tri</code>.
 Its <code>call</code>, <code>summary</code>, and <code>plot</code> are also as in <code>rseg.tri</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rasc.tri</span>(n,Tr,del)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Xdt</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rasc.tri(n = n, tri = Tr, delta = del)</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Type I Association of 5 points in the triangle with vertices (1,1), (2,0) and (1.5,2.33) with attraction parameter delta = 0.4&quot;</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rasc.tri(n = n, tri = Tr, delta = del)</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Type I Association of 5 points in the triangle with vertices (1,1), (2,0) and (1.5,2.33) with attraction parameter delta = 0.4&quot;</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attraction parameter </span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  0.4 </span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 1 2 </span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0 2.333333 </span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Generated Points from Pattern of Type I Association of One Class with Vertices of the Triangle  </span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         [,1]      [,2]</span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pnt 1.529720 1.8418312</span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pnt 1.477620 2.0094888</span></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pnt 1.478545 1.7880582</span></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pnt 1.476351 2.0817961</span></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pnt 1.757087 0.4729486</span></span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  3 </span></span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ny = number of reference (i.e. Y) points</span></span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rassoc.tri</span>(n,Tr,del)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>Xdt</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co">#&gt; rassoc.tri(n = n, tri = Tr, delta = del)</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Type I Association of 5 points in the triangle with vertices (1,1), (2,0) and (1.5,2.33) with attraction parameter delta = 0.4&quot;</span></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="co">#&gt; rassoc.tri(n = n, tri = Tr, delta = del)</span></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Type I Association of 5 points in the triangle with vertices (1,1), (2,0) and (1.5,2.33) with attraction parameter delta = 0.4&quot;</span></span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co">#&gt; attraction parameter </span></span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="co">#&gt;                  0.4 </span></span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
+<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 1 2 </span></span>
+<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0 2.333333 </span></span>
+<span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-23"><a href="#cb16-23" tabindex="-1"></a><span class="co">#&gt;  Generated Points from Pattern of Type I Association of One Class with Vertices of the Triangle  </span></span>
+<span id="cb16-24"><a href="#cb16-24" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
+<span id="cb16-25"><a href="#cb16-25" tabindex="-1"></a><span class="co">#&gt;         [,1]      [,2]</span></span>
+<span id="cb16-26"><a href="#cb16-26" tabindex="-1"></a><span class="co">#&gt; pnt 1.529720 1.8418312</span></span>
+<span id="cb16-27"><a href="#cb16-27" tabindex="-1"></a><span class="co">#&gt; pnt 1.477620 2.0094888</span></span>
+<span id="cb16-28"><a href="#cb16-28" tabindex="-1"></a><span class="co">#&gt; pnt 1.478545 1.7880582</span></span>
+<span id="cb16-29"><a href="#cb16-29" tabindex="-1"></a><span class="co">#&gt; pnt 1.476351 2.0817961</span></span>
+<span id="cb16-30"><a href="#cb16-30" tabindex="-1"></a><span class="co">#&gt; pnt 1.757087 0.4729486</span></span>
+<span id="cb16-31"><a href="#cb16-31" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-32"><a href="#cb16-32" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
+<span id="cb16-33"><a href="#cb16-33" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
+<span id="cb16-34"><a href="#cb16-34" tabindex="-1"></a><span class="co">#&gt;  5  3 </span></span>
+<span id="cb16-35"><a href="#cb16-35" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
+<span id="cb16-36"><a href="#cb16-36" tabindex="-1"></a><span class="co">#&gt; ny = number of reference (i.e. Y) points</span></span>
+<span id="cb16-37"><a href="#cb16-37" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
 </div>
 <div id="generation-of-points-associated-in-a-type-i-fashion-with-a-given-set-of-mathcaly-points" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Generation of Points Associated (in a Type I Fashion) with a Given Set of <span class="math inline">\(\mathcal{Y}\)</span> Points</h2>
@@ -907,57 +882,47 @@ Its <code>call</code>, <code>summary</code>, and <code>plot</code> are also as i
 based on the non-target points (i.e., <span class="math inline">\(\mathcal{Y}\)</span> points).
 That is, <span class="math inline">\(\mathcal{X}\)</span> points are associated in type I fashion with the vertices of each Delaunay triangle
 at the same level (i.e., parameterized with the same <code>delta</code>).</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ny<span class="ot">&lt;-</span><span class="dv">5</span>;</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny),<span class="fu">runif</span>(ny))</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>del<span class="ot">&lt;-</span>.<span class="dv">4</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>;  <span class="co">#try also nx&lt;-100 or 1000; </span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>ny<span class="ot">&lt;-</span><span class="dv">5</span>;</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny),<span class="fu">runif</span>(ny))</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>del<span class="ot">&lt;-</span>.<span class="dv">4</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>;  <span class="co">#try also nx&lt;-100 or 1000; </span></span></code></pre></div>
 <p>We first generate 5 <span class="math inline">\(\mathcal{Y}\)</span> points uniformly in the unit square
 which will form the vertices of the Delaunay triangles,
 and specify <code>delta=</code> 0.4 for type I association.</p>
 <p>We generate <span class="math inline">\(n=\)</span> 10 <span class="math inline">\(\mathcal{X}\)</span> points uniformly inside the type I association support
 in the union of the Delaunay triangles (or in the convex hull
-of the <span class="math inline">\(\mathcal{Y}\)</span> points) using the function <code>rascMT</code>,
+of the <span class="math inline">\(\mathcal{Y}\)</span> points) using the function <code>rassoc.multi.tri</code>,
 and provide the summary of these associated points and the corresponding scatterplot (together with the triangles).
-The function <code>rascMT</code> is an object of class <code>Patterns</code> and its arguments, <code>call</code>, <code>summary</code>, and <code>plot</code> are as in <code>rsegMT</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rascMT</span>(nx,Yp,del)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>Xdt</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rascMT(n = nx, Yp = Yp, delta = del)</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Type I Association of 10 points with 5 Y points with attraction parameter delta = 0.4&quot;</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rascMT(n = nx, Yp = Yp, delta = del)</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Type I Association of 10 points with 5 Y points with attraction parameter delta = 0.4&quot;</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attraction parameter </span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  0.4 </span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 0.2016819 0.9082078 </span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0.06178627 0.9446753 </span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Generated Points from Pattern of Type I Association of One Class with Y points  </span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 0.3472083 0.2176663</span></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.7455948 0.5011995</span></span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 0.4701866 0.7481841</span></span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 0.5422840 0.5911363</span></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 0.7862426 0.6519682</span></span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 0.7817017 0.6330686</span></span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  5 </span></span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ny = number of reference (i.e. Y) points</span></span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
+The function <code>rassoc.multi.tri</code> is an object of class <code>Patterns</code> and its arguments, <code>call</code>, <code>summary</code>, and <code>plot</code> are as in <code>rseg.multi.tri</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rassoc.multi.tri</span>(nx,Yp,del)</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>Xdt</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="co">#&gt; rassoc.multi.tri(n = nx, Yp = Yp, delta = del) </span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="co">#&gt; Type I Association of 10 points with 5 Y points with attraction parameter delta = 0.4</span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a><span class="co">#&gt; rassoc.multi.tri(n = nx, Yp = Yp, delta = del) </span></span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a><span class="co">#&gt; Type I Association of 10 points with 5 Y points with attraction parameter delta = 0.4 </span></span>
+<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
+<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a><span class="co">#&gt; attraction parameter </span></span>
+<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a><span class="co">#&gt;                  0.4 </span></span>
+<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
+<span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 0.2016819 0.9082078 </span></span>
+<span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = 0.06178627 0.9446753 </span></span>
+<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
+<span id="cb18-24"><a href="#cb18-24" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
+<span id="cb18-25"><a href="#cb18-25" tabindex="-1"></a><span class="co">#&gt; 10  5 </span></span>
+<span id="cb18-26"><a href="#cb18-26" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
+<span id="cb18-27"><a href="#cb18-27" tabindex="-1"></a><span class="co">#&gt; ny = number of reference (i.e. Y) points</span></span>
+<span id="cb18-28"><a href="#cb18-28" tabindex="-1"></a><span class="fu">plot</span>(Xdt)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:ascmT"></span>
 <img src="data:image/png;base64,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" alt="Scatterplot of the $X$ points associated (in a type I fashion) with the $Y$ points." />
 <p class="caption">
@@ -975,56 +940,56 @@ Note that same radius is used for each <span class="math inline">\(\mathcal{Y}\)
 (or the Delaunay triangles).
 Such a construction, although more intuitive, does not preserve the geometry invariance property
 for the arc density and domination number of PE- and CS-PCDs, under association.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ny<span class="ot">&lt;-</span><span class="dv">5</span>;</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>e<span class="ot">&lt;-</span>.<span class="dv">15</span>;</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#with default bounding box (i.e., unit square)</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny),<span class="fu">runif</span>(ny))</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>;  <span class="co">#try also nx&lt;-100 or 1000; </span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>ny<span class="ot">&lt;-</span><span class="dv">5</span>;</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>e<span class="ot">&lt;-</span>.<span class="dv">15</span>;</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="co">#with default bounding box (i.e., unit square)</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny),<span class="fu">runif</span>(ny))</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>;  <span class="co">#try also nx&lt;-100 or 1000; </span></span></code></pre></div>
 <p>We first generate 5 <span class="math inline">\(\mathcal{Y}\)</span> points uniformly in the unit square and specify <code>e=</code> 0.15 for circular association.</p>
-<p>We generate <span class="math inline">\(n=\)</span> 10 <span class="math inline">\(\mathcal{X}\)</span> points uniformly inside the circular association support using the function <code>rasc.circ</code>,
+<p>We generate <span class="math inline">\(n=\)</span> 10 <span class="math inline">\(\mathcal{X}\)</span> points uniformly inside the circular association support using the function <code>rassoc.circular</code>,
 and provide the summary of these associated points and the corresponding scatterplot (together with the <span class="math inline">\(\mathcal{Y}\)</span> points).
-The function <code>rasc.circ</code> is an object of class <code>Patterns</code> and its arguments, <code>call</code>, <code>summary</code>, and <code>plot</code> are as in <code>rseg.circ</code>.
+The function <code>rassoc.circular</code> is an object of class <code>Patterns</code> and its arguments, <code>call</code>, <code>summary</code>, and <code>plot</code> are as in <code>rseg.circular</code>.
 We use <code>asp=1</code> in the <code>plot</code> of the object
 so that the support of the <span class="math inline">\(\mathcal{X}\)</span> points (i.e., the allowed regions) are actually depicted as circles.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rasc.circ</span>(nx,Yp,e)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>Xdt</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rasc.circ(n = nx, Yp = Yp, e = e)</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Association of 10 points with 5 Y points with circular attraction parameter e = 0.15&quot;</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rasc.circ(n = nx, Yp = Yp, e = e)</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Association of 10 points with 5 Y points with circular attraction parameter e = 0.15&quot;</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attraction parameter </span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 0.15 </span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 0.05168193 1.058208 </span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = -0.08821373 1.094675 </span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Generated Points from Pattern of Association of one Class with Class Y  </span></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 0.4341972 0.8314177</span></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.5369080 0.6210061</span></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 0.8844546 0.7025082</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 0.8779856 0.6771867</span></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 0.8397240 0.5659668</span></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 0.1228222 0.0294437</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  5 </span></span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ny = number of reference (i.e. Y) points</span></span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Xdt,<span class="at">asp=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rassoc.circular</span>(nx,Yp,e)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>Xdt</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="co">#&gt; rassoc.circular(n = nx, Yp = Yp, e = e)</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Association of 10 points with 5 Y points with circular attraction parameter e = 0.15&quot;</span></span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a><span class="co">#&gt; rassoc.circular(n = nx, Yp = Yp, e = e)</span></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Association of 10 points with 5 Y points with circular attraction parameter e = 0.15&quot;</span></span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
+<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a><span class="co">#&gt; attraction parameter </span></span>
+<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a><span class="co">#&gt;                 0.15 </span></span>
+<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-19"><a href="#cb20-19" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
+<span id="cb20-20"><a href="#cb20-20" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 0.05168193 1.058208 </span></span>
+<span id="cb20-21"><a href="#cb20-21" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = -0.08821373 1.094675 </span></span>
+<span id="cb20-22"><a href="#cb20-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-23"><a href="#cb20-23" tabindex="-1"></a><span class="co">#&gt;  Generated Points from Pattern of Association of one Class with Class Y  </span></span>
+<span id="cb20-24"><a href="#cb20-24" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
+<span id="cb20-25"><a href="#cb20-25" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]</span></span>
+<span id="cb20-26"><a href="#cb20-26" tabindex="-1"></a><span class="co">#&gt; [1,] 0.4341972 0.8314177</span></span>
+<span id="cb20-27"><a href="#cb20-27" tabindex="-1"></a><span class="co">#&gt; [2,] 0.5369080 0.6210061</span></span>
+<span id="cb20-28"><a href="#cb20-28" tabindex="-1"></a><span class="co">#&gt; [3,] 0.8844546 0.7025082</span></span>
+<span id="cb20-29"><a href="#cb20-29" tabindex="-1"></a><span class="co">#&gt; [4,] 0.8779856 0.6771867</span></span>
+<span id="cb20-30"><a href="#cb20-30" tabindex="-1"></a><span class="co">#&gt; [5,] 0.8397240 0.5659668</span></span>
+<span id="cb20-31"><a href="#cb20-31" tabindex="-1"></a><span class="co">#&gt; [6,] 0.1228222 0.0294437</span></span>
+<span id="cb20-32"><a href="#cb20-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-33"><a href="#cb20-33" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
+<span id="cb20-34"><a href="#cb20-34" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
+<span id="cb20-35"><a href="#cb20-35" tabindex="-1"></a><span class="co">#&gt; 10  5 </span></span>
+<span id="cb20-36"><a href="#cb20-36" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
+<span id="cb20-37"><a href="#cb20-37" tabindex="-1"></a><span class="co">#&gt; ny = number of reference (i.e. Y) points</span></span>
+<span id="cb20-38"><a href="#cb20-38" tabindex="-1"></a><span class="fu">plot</span>(Xdt,<span class="at">asp=</span><span class="dv">1</span>)</span></code></pre></div>
 </div>
 <div id="sec:matern-ascmT" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Generation of Points Associated (in a Matérn-like fashion) with a Given Set of <span class="math inline">\(\mathcal{Y}\)</span> Points</h2>
@@ -1039,68 +1004,68 @@ Then each parent point is replaced by a random cluster of
 being placed and uniformly inside a disc of radius <code>scale</code> centered on the parent point.
 The resulting point pattern is a realization of the classical “stationary Matérn cluster process”
 generated inside the window <code>win</code>.</p>
-<p>The main difference of <code>rasc.matern</code> and <code>rMatClust</code> in <code>spatstat.random</code> package is that in <code>rasc.matern</code>
+<p>The main difference of <code>rassoc.matern</code> and <code>rMatClust</code> in <code>spatstat.random</code> package is that in <code>rassoc.matern</code>
 the “parent” points are <span class="math inline">\(\mathcal{Y}\)</span> points which are given beforehand and are not discarded at the end
 and the offspring points are the points associated with the reference points, <span class="math inline">\(\mathcal{Y}\)</span>.
-Notice that in <code>rasc.matern</code>, the parent and offspring points belong to different classes.
+Notice that in <code>rassoc.matern</code>, the parent and offspring points belong to different classes.
 The argument <code>e</code> must be positive and very large values of <code>e</code> provide patterns closer to CSR pattern.</p>
-<p>This function is also similar to <code>rasc.circ</code>,
-where <code>rasc.circ</code> needs the study window to be specified,
-while <code>rasc.matern</code> does not.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ny<span class="ot">&lt;-</span><span class="dv">5</span>;</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>e<span class="ot">&lt;-</span>.<span class="dv">15</span>;</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#with default bounding box (i.e., unit square)</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny),<span class="fu">runif</span>(ny))</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>;  <span class="co">#try also nx&lt;-100 or 1000; </span></span></code></pre></div>
+<p>This function is also similar to <code>rassoc.circular</code>,
+where <code>rassoc.circular</code> needs the study window to be specified,
+while <code>rassoc.matern</code> does not.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>ny<span class="ot">&lt;-</span><span class="dv">5</span>;</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>e<span class="ot">&lt;-</span>.<span class="dv">15</span>;</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co">#with default bounding box (i.e., unit square)</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny),<span class="fu">runif</span>(ny))</span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>;  <span class="co">#try also nx&lt;-100 or 1000; </span></span></code></pre></div>
 <p>We first generate 5 <span class="math inline">\(\mathcal{Y}\)</span> points and specify <code>e=</code> 0.15 for the Matérn-like association.</p>
-<p>We generate <span class="math inline">\(n=\)</span> 10 <span class="math inline">\(\mathcal{X}\)</span> points from the Matérn-like association using the function <code>rasc.matern</code>,
+<p>We generate <span class="math inline">\(n=\)</span> 10 <span class="math inline">\(\mathcal{X}\)</span> points from the Matérn-like association using the function <code>rassoc.matern</code>,
 and provide the summary of these associated points and the corresponding scatterplot (together with the <span class="math inline">\(\mathcal{Y}\)</span> points).
-The function <code>rasc.matern</code> is an object of class <code>Patterns</code> and its arguments,
-<code>call</code>, <code>summary</code>, and <code>plot</code> are as in <code>rasc.circ</code>.
+The function <code>rassoc.matern</code> is an object of class <code>Patterns</code> and its arguments,
+<code>call</code>, <code>summary</code>, and <code>plot</code> are as in <code>rassoc.circular</code>.
 We use <code>asp=1</code> in the <code>plot</code> of the object so that the support of the <span class="math inline">\(\mathcal{X}\)</span> points
 (i.e., the allowed regions) are actually depicted as circles.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rasc.matern</span>(nx,Yp,e)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>Xdt</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rasc.matern(n = nx, Yp = Yp, e = e)</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Matern-like Association of 10 points with 5 Y points with circular attraction parameter e = 0.15&quot;</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rasc.matern(n = nx, Yp = Yp, e = e)</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Matern-like Association of 10 points with 5 Y points with circular attraction parameter e = 0.15&quot;</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attraction parameter </span></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 0.15 </span></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 0.05168193 1.058208 </span></span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = -0.08821373 1.094675 </span></span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Generated Points from Pattern of Matern-like Association of one Class with Class Y  </span></span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            [,1]       [,2]</span></span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 0.56278796 0.75345984</span></span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.66528156 0.66859254</span></span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 0.32528878 0.83448201</span></span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 0.08626992 0.07483616</span></span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 0.13700582 0.06441234</span></span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 0.42942439 0.83624485</span></span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  5 </span></span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ny = number of reference (i.e. Y) points</span></span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Xdt,<span class="at">asp=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>Xdt<span class="ot">&lt;-</span><span class="fu">rassoc.matern</span>(nx,Yp,e)</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>Xdt</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="co">#&gt; rassoc.matern(n = nx, Yp = Yp, e = e)</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Matern-like Association of 10 points with 5 Y points with circular attraction parameter e = 0.15&quot;</span></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a><span class="fu">summary</span>(Xdt)</span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a><span class="co">#&gt; rassoc.matern(n = nx, Yp = Yp, e = e)</span></span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a><span class="co">#&gt; Type of the Pattern</span></span>
+<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Matern-like Association of 10 points with 5 Y points with circular attraction parameter e = 0.15&quot;</span></span>
+<span id="cb22-14"><a href="#cb22-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-15"><a href="#cb22-15" tabindex="-1"></a><span class="co">#&gt; Parameters of the Pattern</span></span>
+<span id="cb22-16"><a href="#cb22-16" tabindex="-1"></a><span class="co">#&gt; attraction parameter </span></span>
+<span id="cb22-17"><a href="#cb22-17" tabindex="-1"></a><span class="co">#&gt;                 0.15 </span></span>
+<span id="cb22-18"><a href="#cb22-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-19"><a href="#cb22-19" tabindex="-1"></a><span class="co">#&gt; Study Window</span></span>
+<span id="cb22-20"><a href="#cb22-20" tabindex="-1"></a><span class="co">#&gt; range in x-coordinate = 0.05168193 1.058208 </span></span>
+<span id="cb22-21"><a href="#cb22-21" tabindex="-1"></a><span class="co">#&gt; range in y-coordinate = -0.08821373 1.094675 </span></span>
+<span id="cb22-22"><a href="#cb22-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-23"><a href="#cb22-23" tabindex="-1"></a><span class="co">#&gt;  Generated Points from Pattern of Matern-like Association of one Class with Class Y  </span></span>
+<span id="cb22-24"><a href="#cb22-24" tabindex="-1"></a><span class="co">#&gt;  (first 6 or fewer are printed) </span></span>
+<span id="cb22-25"><a href="#cb22-25" tabindex="-1"></a><span class="co">#&gt;            [,1]       [,2]</span></span>
+<span id="cb22-26"><a href="#cb22-26" tabindex="-1"></a><span class="co">#&gt; [1,] 0.56278796 0.75345984</span></span>
+<span id="cb22-27"><a href="#cb22-27" tabindex="-1"></a><span class="co">#&gt; [2,] 0.66528156 0.66859254</span></span>
+<span id="cb22-28"><a href="#cb22-28" tabindex="-1"></a><span class="co">#&gt; [3,] 0.32528878 0.83448201</span></span>
+<span id="cb22-29"><a href="#cb22-29" tabindex="-1"></a><span class="co">#&gt; [4,] 0.08626992 0.07483616</span></span>
+<span id="cb22-30"><a href="#cb22-30" tabindex="-1"></a><span class="co">#&gt; [5,] 0.13700582 0.06441234</span></span>
+<span id="cb22-31"><a href="#cb22-31" tabindex="-1"></a><span class="co">#&gt; [6,] 0.42942439 0.83624485</span></span>
+<span id="cb22-32"><a href="#cb22-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-33"><a href="#cb22-33" tabindex="-1"></a><span class="co">#&gt; Number of points:</span></span>
+<span id="cb22-34"><a href="#cb22-34" tabindex="-1"></a><span class="co">#&gt; nx ny </span></span>
+<span id="cb22-35"><a href="#cb22-35" tabindex="-1"></a><span class="co">#&gt; 10  5 </span></span>
+<span id="cb22-36"><a href="#cb22-36" tabindex="-1"></a><span class="co">#&gt; nx = number of generated points according to the pattern </span></span>
+<span id="cb22-37"><a href="#cb22-37" tabindex="-1"></a><span class="co">#&gt; ny = number of reference (i.e. Y) points</span></span>
+<span id="cb22-38"><a href="#cb22-38" tabindex="-1"></a><span class="fu">plot</span>(Xdt,<span class="at">asp=</span><span class="dv">1</span>)</span></code></pre></div>
 <p>There is also point generation capability from association pattern in a standard equilateral triangle with two types of association.
 Type I is the above described one and Type II association (described below),
-with the relevant functions <code>rasc.std.tri</code> and <code>rascII.std.tri</code>,
+with the relevant functions <code>rassoc.std.tri</code> and <code>rassocII.std.tri</code>,
 with arguments <code>n,eps</code> for both, see the corresponding help pages for the details.
 These functions are mostly for simulation purposes, as arc density and domination number of PE- and CS-PCDs are geometry invariant.
 <em>Type II association</em> is the pattern in which only a region of points inside the triangle

@@ -52,24 +52,30 @@ plot3D::text3D(xc,yc,zc,txt.str, add = TRUE)
 #  #> [4,] 0.37498004 0.3131847 0.52897936
 
 ## ----eval=F-------------------------------------------------------------------
-#  IndNPEtetra(Xp[1,],Xp[2,],tetra,r)  #uses the default M="CM"
+#  IarcPEtetra(Xp[1,],Xp[2,],tetra,r)  #uses the default M="CM"
 #  #> [1] 1
-#  IndNPEtetra(Xp[2,],Xp[1,],tetra,r,M)
+#  IarcPEtetra(Xp[2,],Xp[1,],tetra,r,M)
 #  #> [1] 1
 
 ## ----eval=F-------------------------------------------------------------------
-#  NumArcsPEtetra(Xp,tetra,r,M)
-#  #> $num.arcs
-#  #> [1] 10
+#  Narcs = num.arcsPEtetra(Xp,tetra,r,M)
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsPEtetra(Xp = Xp, th = tetra, r = r, M = M)
 #  #>
-#  #> $num.in.tetra
-#  #> [1] 5
+#  #> Description of the output:
+#  #> Number of Arcs of the PE-PCD with vertices Xp and Quantities Related to the Support Tetrahedron
 #  #>
-#  #> $ind.in.tetra
-#  #> [1] 1 2 3 4 5
+#  #> Number of data (Xp) points in the tetrahedron =  5
+#  #> Number of arcs in the digraph =  10
+#  #>
+#  #> Indices of data points in the tetrahedron:
+#  #> 1 2 3 4 5
+#  #>
+#  #plot(Narcs) #gives error
 
 ## ----eval=F-------------------------------------------------------------------
-#  PEarcdens.tetra(Xp,tetra,r,M)
+#  PEarc.dens.tetra(Xp,tetra,r,M)
 #  #> [1] 0.5
 
 ## ----3DPEPR2, fig.cap="PE proximity regions for one of the $X$ points in the tetrahedron $T$ for better visualization."----
@@ -126,7 +132,7 @@ plotPEregs.tetra(Xp[1,],tetra,r=1.5)  #uses the default M="CM"
 #  #> [4,] 0.04999316 0.0000000 0.0000000
 
 ## ----eval=F-------------------------------------------------------------------
-#  IndNPEstd.tetra(Xp[1,],Xp[3,],r)  #uses the default M="CM"
+#  IarcPEstd.tetra(Xp[1,],Xp[3,],r)  #uses the default M="CM"
 #  #> [1] 1
 
 ## ----3DPEPRsth1, eval=F, fig.cap="PE proximity regions for the 10 uniform $X$ points in $T_{reg}$ used above."----
@@ -140,14 +146,14 @@ plotPEregs.tetra(Xp[1,],tetra,r=1.5)  #uses the default M="CM"
 #  D<-c(1/2,sqrt(3)/6,sqrt(6)/3)+runif(3,-.2,.2);
 #  tetra<-rbind(A,B,C,D)
 #  
-#  CC<-circ.cent.tetra(tetra)
+#  CC<-circumcenter.tetra(tetra)
 #  CC
 #  #> [1] 0.5516851 0.3386671 0.1212977
 
 ## ----eval=F-------------------------------------------------------------------
 #  n<-10  #try also n<-20
 #  Xp<-runif.tetra(n,tetra)$g
-#  rv.tetraCC(Xp[1,],tetra)
+#  rel.vert.tetraCC(Xp[1,],tetra)
 #  #> $rv
 #  #> [1] 2
 #  #>
@@ -160,12 +166,12 @@ plotPEregs.tetra(Xp[1,],tetra,r=1.5)  #uses the default M="CM"
 #  
 #  Rv<-vector()
 #  for (i in 1:n)
-#    Rv<-c(Rv,rv.tetraCC(Xp[i,],tetra)$rv)
+#    Rv<-c(Rv,rel.vert.tetraCC(Xp[i,],tetra)$rv)
 #  Rv
 #  #>  [1] 2 2 1 3 2 1 2 3 2 1
 
 ## ----3DCCVR, eval=F, fig.cap="CC-Vertex regions in the tetrahedron $T=(A,B,C,D)$."----
-#  CC<-circ.cent.tetra(tetra)
+#  CC<-circumcenter.tetra(tetra)
 #  CC
 #  
 #  Xlim<-range(tetra[,1],Xp[,1],CC[1])
@@ -176,7 +182,7 @@ plotPEregs.tetra(Xp[1,],tetra,r=1.5)  #uses the default M="CM"
 #  zd<-Zlim[2]-Zlim[1]
 #  
 #  plot3D::scatter3D(tetra[,1],tetra[,2],tetra[,3], phi =0,theta=40, bty = "g",
-#                    main="Scatterplot of data points \n and CC-vertex regions",
+#                    main="Scatterplot of data points with CC-vertex regions",
 #                    xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
 #                    pch = 20, cex = 1, ticktype = "detailed")
 #  L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
@@ -191,19 +197,19 @@ plotPEregs.tetra(Xp[1,],tetra,r=1.5)  #uses the default M="CM"
 #  L<-rbind(D1,D2,D3,D4,D5,D6); R<-matrix(rep(CC,6),ncol=3,byrow=TRUE)
 #  plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
 #  
-#  F1<-int.line.plane(A,CC,B,C,D)
+#  F1<-intersect.line.plane(A,CC,B,C,D)
 #  L<-matrix(rep(F1,4),ncol=3,byrow=TRUE); R<-rbind(D4,D5,D6,CC)
 #  plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=2, add=TRUE,lty=2)
 #  
-#  F2<-int.line.plane(B,CC,A,C,D)
+#  F2<-intersect.line.plane(B,CC,A,C,D)
 #  L<-matrix(rep(F2,4),ncol=3,byrow=TRUE); R<-rbind(D2,D3,D6,CC)
 #  plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=3, add=TRUE,lty=2)
 #  
-#  F3<-int.line.plane(C,CC,A,B,D)
+#  F3<-intersect.line.plane(C,CC,A,B,D)
 #  L<-matrix(rep(F3,4),ncol=3,byrow=TRUE); R<-rbind(D3,D5,D6,CC)
 #  plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=4, add=TRUE,lty=2)
 #  
-#  F4<-int.line.plane(D,CC,A,B,C)
+#  F4<-intersect.line.plane(D,CC,A,B,C)
 #  L<-matrix(rep(F4,4),ncol=3,byrow=TRUE); R<-rbind(D1,D2,D4,CC)
 #  plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=5, add=TRUE,lty=2)
 #  
@@ -216,7 +222,7 @@ plotPEregs.tetra(Xp[1,],tetra,r=1.5)  #uses the default M="CM"
 #  
 #  n<-10  #try also n<-20
 #  Xp<-runif.std.tetra(n)$g
-#  rv.tetraCM(Xp[1,],tetra)
+#  rel.vert.tetraCM(Xp[1,],tetra)
 #  #> $rv
 #  #> [1] 4
 #  #>
@@ -229,7 +235,7 @@ plotPEregs.tetra(Xp[1,],tetra,r=1.5)  #uses the default M="CM"
 #  
 #  Rv<-vector()
 #  for (i in 1:n)
-#    Rv<-c(Rv, rv.tetraCM(Xp[i,],tetra)$rv )
+#    Rv<-c(Rv, rel.vert.tetraCM(Xp[i,],tetra)$rv )
 #  Rv
 #  #>  [1] 4 4 3 4 4 1 1 3 3 2
 

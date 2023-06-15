@@ -33,8 +33,8 @@ M<-c(1.6,1.2) #try also M<-as.numeric(runif.tri(1,Tr)$g) or M="CC"
 #  p<-c(.4,-.2)
 #  in.circle(p,cent,rad)
 #  
-#  [1] TRUE
-#  [1] FALSE
+#  #> [1] TRUE
+#  #> [1] FALSE
 
 ## ----eval=F-------------------------------------------------------------------
 #  ny<-5
@@ -97,34 +97,41 @@ M<-c(1.6,1.2) #try also M<-as.numeric(runif.tri(1,Tr)$g) or M="CC"
 #  #between two arbitrary points P1 and P2
 #  P1<-as.numeric(runif.tri(1,Tr)$g)
 #  P2<-as.numeric(runif.tri(1,Tr)$g)
-#  IndNAStri(P1,P2,Tr,M)
+#  IarcAStri(P1,P2,Tr,M)
 #  #> [1] 0
 #  #between the first two points in Xp
-#  IndNAStri(Xp[1,],Xp[2,],Tr,M)
+#  IarcAStri(Xp[1,],Xp[2,],Tr,M)
 #  #> [1] 0
 
 ## ----eval=F-------------------------------------------------------------------
-#  NumArcsAStri(Xp,Tr)  #with default M="CC"; try also NumArcsAStri(Xp,Tr,M)
-#  #> $num.arcs
-#  #> [1] 10
+#  Narcs = num.arcsAStri(Xp,Tr)  #with default M="CC"; try also num.arcsAStri(Xp,Tr,M)
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsAStri(Xp = Xp, tri = Tr)
 #  #>
-#  #> $num.in.tri
-#  #> [1] 5
+#  #> Description of the output:
+#  #> Number of Arcs of the AS-PCD and the Related Quantities with vertices Xp in One Triangle
 #  #>
-#  #> $ind.in.tri
-#  #> [1] 1 2 3 4 5
+#  #> Number of data (Xp) points in the triangle =  5
+#  #> Number of arcs in the digraph =  10
+#  #>
+#  #> Indices of data points in the triangle:
+#  #> 1 2 3 4 5
+#  #>
+#  #plot(Narcs)
 
 ## ----eval=F-------------------------------------------------------------------
-#  ASarcdens.tri(Xp,Tr,M)
+#  ASarc.dens.tri(Xp,Tr,M)
 #  #> [1] 0.5
 
 ## ----ASarcs2, fig.cap="Arcs of the AS-PCD with 10 $X$ points, vertex regions are added with dashed lines."----
 plotASarcs.tri(Xp,Tr,M,xlab="",ylab="",vert.reg = TRUE)
 
 ## ----ASarcs3, eval=F, fig.cap="Arcs of the AS-PCD with 10 $X$ points and vertex regions (dashed lines) are based on circumcenter. The vertices and the center are labeled."----
-#  plotASarcs.tri(Xp,Tr,asp=1,xlab="",ylab="",vert.reg = TRUE); M = (ArcsAStri(Xp,Tr)$param)$c
+#  par(pty = "s")
+#  plotASarcs.tri(Xp,Tr,asp=1,xlab="",ylab="",vert.reg = TRUE); M = (arcsAStri(Xp,Tr)$param)$c
 #  
-#  CC<-circ.cent.tri(Tr)
+#  CC<-circumcenter.tri(Tr)
 #  
 #  #determine whether the center used for vertex regions is circumcenter or not
 #  if (identical(M,CC) || identical(M,"CC"))
@@ -135,7 +142,7 @@ plotASarcs.tri(Xp,Tr,M,xlab="",ylab="",vert.reg = TRUE)
 #  } else
 #  {cent<-M
 #  cent.name<-"M"
-#  Ds<-cent2edges.tri(Tr,M)
+#  Ds<-prj.cent2edges(Tr,M)
 #  }
 #  
 #  #add the vertex names and annotation
@@ -147,21 +154,22 @@ plotASarcs.tri(Xp,Tr,M,xlab="",ylab="",vert.reg = TRUE)
 
 ## ----ASPR1, fig.cap="AS proximity regions for the $X$ points used above."-----
 M<-c(1.6,1.2) #try also M<-c(1.6620051,0.8136604) or M="CC"
+par(pty = "s")
 plotASregs.tri(Xp,Tr,M,vert.reg = T,xlab="",ylab="")
 
 ## ----eval=F-------------------------------------------------------------------
 #  M=c(1.6,1.2) #try also M=c(1.6620051,0.8136604)
 #  
-#  Arcs<-ArcsAStri(Xp,Tr,M) #try also Arcs<-ArcsAStri(Xp,Tr) #uses the default center, namely circumcenter for M
+#  Arcs<-arcsAStri(Xp,Tr,M) #try also Arcs<-arcsAStri(Xp,Tr) #uses the default center, namely circumcenter for M
 #  Arcs
 #  #> Call:
-#  #> ArcsAStri(Xp = Xp, tri = Tr, M = M)
+#  #> arcsAStri(Xp = Xp, tri = Tr, M = M)
 #  #>
 #  #> Type:
 #  #> [1] "Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in the Triangle with Center M = (1.6,1.2)"
 #  summary(Arcs)
 #  #> Call:
-#  #> ArcsAStri(Xp = Xp, tri = Tr, M = M)
+#  #> arcsAStri(Xp = Xp, tri = Tr, M = M)
 #  #>
 #  #> Type of the digraph:
 #  #> [1] "Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in the Triangle with Center M = (1.6,1.2)"
@@ -220,40 +228,44 @@ r<-1.5  #try also r<-2
 ## ----eval=F-------------------------------------------------------------------
 #  P1<-as.numeric(runif.tri(1,Tr)$g)
 #  P2<-as.numeric(runif.tri(1,Tr)$g)
-#  IndNPEtri(P1,P2,Tr,r,M)
+#  IarcPEtri(P1,P2,Tr,r,M)
 #  #> [1] 1
-#  IndNPEtri(Xp[1,],Xp[5,],Tr,r,M) #try also IndNPEtri(Xp[5,],Xp[1,],Tr,r,M)
+#  IarcPEtri(Xp[1,],Xp[5,],Tr,r,M) #try also IarcPEtri(Xp[5,],Xp[1,],Tr,r,M)
 #  #> [1] 0
 
 ## ----eval=F-------------------------------------------------------------------
-#  NumArcsPEtri(Xp,Tr,r,M)
-#  #> $num.arcs
-#  #> [1] 7
+#  Narcs = num.arcsPEtri(Xp,Tr,r,M)
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsPEtri(Xp = Xp, tri = Tr, r = r, M = M)
 #  #>
-#  #> $num.in.tri
-#  #> [1] 5
+#  #> Description of the output:
+#  #> Number of Arcs of the PE-PCD with vertices Xp and Quantities Related to the Support Triangle
 #  #>
-#  #> $ind.in.tri
-#  #> [1] 1 2 3 4 5
+#  #> Number of data (Xp) points in the triangle =  5
+#  #> Number of arcs in the digraph =  7
+#  #>
+#  #> Indices of data points in the triangle:
+#  #> 1 2 3 4 5
+#  #>
+#  #plot(Narcs)
 
 ## ----eval=F-------------------------------------------------------------------
-#  PEarcdens.tri(Xp,Tr,r,M)
+#  PEarc.dens.tri(Xp,Tr,r,M)
 #  #> $arc.dens
 #  #> [1] 0.35
 
 ## ----PEarcs3, fig.cap="Arcs of the PE-PCD with 10 $X$ points and vertex regions (dashed lines) are based on $M$. The vertices and the center are labeled."----
 plotPEarcs.tri(Xp,Tr,r,M,xlab="",ylab="",vert.reg = TRUE)
+#add vertex labels and text to the figure (with vertex regions)
+ifelse(isTRUE(all.equal(M,circumcenter.tri(Tr))),
+       {Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2); cent.name="CC"},{Ds<-prj.cent2edges(Tr,M); cent.name="M"})
 
-## ----eval=F-------------------------------------------------------------------
-#  #add vertex labels and text to the figure (with vertex regions)
-#  ifelse(isTRUE(all.equal(M,circ.cent.tri(Tr))),
-#         {Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2); cent.name="CC"},{Ds<-cent2edges.tri(Tr,M); cent.name="M"})
-#  
-#  txt<-rbind(Tr,M,Ds)
-#  xc<-txt[,1]+c(-.02,.02,.02,.02,.04,-0.03,-.01)
-#  yc<-txt[,2]+c(.02,.02,.02,.05,.02,.04,-.06)
-#  txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
-#  text(xc,yc,txt.str)
+txt<-rbind(Tr,M,Ds)
+xc<-txt[,1]+c(-.02,.02,.02,.02,.04,-0.03,-.01)
+yc<-txt[,2]+c(.02,.02,.02,.05,.02,.04,-.06)
+txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
+text(xc,yc,txt.str)
 
 ## ----PEPR1, fig.cap="PE proximity regions for the $X$ points used above."-----
 M<-c(1.6,1.2) #try also M<-c(1.6620051,0.8136604) or M="CC"
@@ -328,53 +340,56 @@ tau<-1.5
 ## ----eval=F-------------------------------------------------------------------
 #  P1<-as.numeric(runif.tri(1,Tr)$g)
 #  P2<-as.numeric(runif.tri(1,Tr)$g)
-#  IndNCStri(P1,P2,Tr,tau,M)
+#  IarcCStri(P1,P2,Tr,tau,M)
 #  #> [1] 1
-#  IndNCStri(Xp[1,],Xp[2,],Tr,tau,M)
+#  IarcCStri(Xp[1,],Xp[2,],Tr,tau,M)
 #  #> [1] 0
 
 ## ----eval=F-------------------------------------------------------------------
-#  NumArcsCStri(Xp,Tr,t=.5,M)
-#  #> $num.arcs
-#  #> [1] 0
+#  Narcs = num.arcsCStri(Xp,Tr,t=.5,M)
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsCStri(Xp = Xp, tri = Tr, t = 0.5, M = M)
 #  #>
-#  #> $num.in.tri
-#  #> [1] 5
+#  #> Description of the output:
+#  #> Number of Arcs of the CS-PCD with vertices Xp and Quantities Related to the Support Triangle
 #  #>
-#  #> $ind.in.tri
-#  #> [1] 1 2 3 4 5
+#  #> Number of data (Xp) points in the triangle =  5
+#  #> Number of arcs in the digraph =  0
+#  #>
+#  #> Indices of data points in the triangle:
+#  #> 1 2 3 4 5
+#  #>
+#  #plot(Narcs)
 
 ## ----eval=F-------------------------------------------------------------------
-#  CSarcdens.tri(Xp,Tr,tau,M)
+#  CSarc.dens.tri(Xp,Tr,tau,M)
 #  #> $arc.dens
 #  #> [1] 0.35
 
 ## ----CSarcs3, fig.cap="Arcs of the CS-PCD with 10 $X$ points and edge regions (dashed lines) are based on M. The vertices and the center are labeled."----
 t<-1.5  #try also t<-2
 plotCSarcs.tri(Xp,Tr,t,M,xlab="",ylab="",edge.reg = TRUE)
-
-## ----eval=F-------------------------------------------------------------------
-#  #add vertex labels and text to the figure (with edge regions)
-#  txt<-rbind(Tr,M)
-#  xc<-txt[,1]+c(-.02,.02,.02,.03)
-#  yc<-txt[,2]+c(.02,.02,.02,.03)
-#  txt.str<-c("A","B","C","M")
-#  text(xc,yc,txt.str)
+txt<-rbind(Tr,M)
+xc<-txt[,1]+c(-.02,.02,.02,.03)
+yc<-txt[,2]+c(.02,.02,.02,.03)
+txt.str<-c("A","B","C","M")
+text(xc,yc,txt.str)
 
 ## ----CSPR1, fig.cap="CS proximity regions for the $X$ points used above."-----
 plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 
 ## ----eval=F-------------------------------------------------------------------
-#  Arcs<-ArcsCStri(Xp,Tr,t,M)
+#  Arcs<-arcsCStri(Xp,Tr,t,M)
 #  Arcs
 #  #> Call:
-#  #> ArcsCStri(Xp = Xp, tri = Tr, t = t, M = M)
+#  #> arcsCStri(Xp = Xp, tri = Tr, t = t, M = M)
 #  #>
 #  #> Type:
 #  #> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 2D Points in the Triangle with Expansion Parameter t = 1.5 and Center M = (1.6,1.2)"
 #  summary(Arcs)
 #  #> Call:
-#  #> ArcsCStri(Xp = Xp, tri = Tr, t = t, M = M)
+#  #> arcsCStri(Xp = Xp, tri = Tr, t = t, M = M)
 #  #>
 #  #> Type of the digraph:
 #  #> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 2D Points in the Triangle with Expansion Parameter t = 1.5 and Center M = (1.6,1.2)"
@@ -444,42 +459,54 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 #  P1<-as.numeric(runif.tri(1,Te)$g)
 #  P2<-as.numeric(runif.tri(1,Te)$g)
 #  r=2
-#  IndNPETe(P1,P2,r,M)
+#  IarcPEstd.tri(P1,P2,r,M)
 #  #> [1] 1
-#  IndNPETe(Xp[1,],Xp[2,],r,M)
+#  IarcPEstd.tri(Xp[1,],Xp[2,],r,M)
 #  #> [1] 1
 
 ## ----eval=F-------------------------------------------------------------------
-#  NumArcsPETe(Xp,r=1.25,M)
-#  #> $num.arcs
-#  #> [1] 24
+#  Narcs = num.arcsPEstd.tri(Xp,r=1.25,M)
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsPEstd.tri(Xp = Xp, r = 1.25, M = M)
 #  #>
-#  #> $num.in.tri
-#  #> [1] 10
+#  #> Description of the output:
+#  #> Number of Arcs of the PE-PCD and the Related Quantities with vertices Xp in the Standard Equilateral Triangle
 #  #>
-#  #> $ind.in.tri
-#  #>  [1]  1  2  3  4  5  6  7  8  9 10
+#  #> Number of data (Xp) points in the triangle =  5
+#  #> Number of arcs in the digraph =  5
+#  #>
+#  #> Indices of data points in the triangle:
+#  #> 1 2 3 4 5
+#  #>
+#  #plot(Narcs)
 
 ## ----eval=F-------------------------------------------------------------------
 #  P1<-as.numeric(runif.tri(1,Te)$g)
 #  P2<-as.numeric(runif.tri(1,Te)$g)
 #  tau=1
-#  IndNCSTe(P1,P1,tau,M)
-#  IndNCSTe(P1,P2,tau,M)
-#  IndNCSTe(Xp[1,],Xp[2,],tau,M)
+#  IarcCSstd.tri(P1,P1,tau,M)
+#  IarcCSstd.tri(P1,P2,tau,M)
+#  IarcCSstd.tri(Xp[1,],Xp[2,],tau,M)
 
 ## ----eval=F-------------------------------------------------------------------
 #  set.seed(123)
 #  M<-as.numeric(runif.std.tri(1)$g)  #try also M<-c(.6,.2)
-#  NumArcsCStri(Xp,Te,t=1.5,M)
-#  #> $num.arcs
-#  #> [1] 25
+#  Narcs = num.arcsCStri(Xp,Te,t=1.5,M)
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsCStri(Xp = Xp, tri = Te, t = 1.5, M = M)
 #  #>
-#  #> $num.in.tri
-#  #> [1] 10
+#  #> Description of the output:
+#  #> Number of Arcs of the CS-PCD with vertices Xp and Quantities Related to the Support Triangle
 #  #>
-#  #> $ind.in.tri
-#  #>  [1]  1  2  3  4  5  6  7  8  9 10
+#  #> Number of data (Xp) points in the triangle =  5
+#  #> Number of arcs in the digraph =  3
+#  #>
+#  #> Indices of data points in the triangle:
+#  #> 1 2 3 4 5
+#  #>
+#  #plot(Narcs)
 
 ## ----eval=F-------------------------------------------------------------------
 #  A<-c(1,1); B<-c(2,0); C<-c(1.5,2); p<-c(1.4,1.2)
@@ -494,7 +521,7 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 ## ----eval=F-------------------------------------------------------------------
 #  A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #  Tr<-rbind(A,B,C);  #the vertices of the triangle Tr
-#  (CC<-circ.cent.tri(Tr)) #the circumcenter
+#  (CC<-circumcenter.tri(Tr)) #the circumcenter
 #  #> [1] 2.083333 1.083333
 
 ## ----CC, eval=F, fig.cap="Circumcenter of an obtuse triangle."----------------
@@ -507,7 +534,9 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 #  yd<-Ylim[2]-Ylim[1]
 #  
 #  par(pty="s")
-#  plot(A,asp=1,pch=".",xlab="",ylab="",main="Circumcenter of a triangle",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+#  plot(A,asp=1,pch=".",xlab="",ylab="",
+#       main="Circumcenter of a Triangle",
+#       axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #  polygon(Tr)
 #  points(rbind(CC))
 #  L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
@@ -523,7 +552,7 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 #  A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #  Tr<-rbind(A,B,C);
 #  r<-1.35
-#  (Ms<-cent.nondegPE(Tr,r))
+#  (Ms<-center.nondegPE(Tr,r))
 #  #>        [,1]      [,2]
 #  #> M1 1.388889 1.0000000
 #  #> M2 1.611111 0.7777778
@@ -535,7 +564,9 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 #  xd<-Xlim[2]-Xlim[1]
 #  yd<-Ylim[2]-Ylim[1]
 #  
-#  plot(Tr,pch=".",xlab="",ylab="",main="Centers of nondegeneracy\n for the PE-PCD in a triangle",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+#  plot(Tr,pch=".",xlab="",ylab="",
+#       main="Centers of nondegeneracy of the domination number\n of the PE-PCD in a triangle",
+#       axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #  polygon(Tr)
 #  points(Ms,pch=".",col=1)
 #  polygon(Ms,lty=2)
@@ -554,13 +585,14 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 #  A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #  Tr<-rbind(A,B,C);
 #  M<-c(1.6,1.0)  #try also M<-as.numeric(runif.tri(1,Tr)$g)
-#  (Ds<-cent2edges.tri(Tr,M))  #try also cent2edges.tri(Tr,M=c(1,1))
+#  (Ds<-prj.cent2edges(Tr,M))  #try also prj.cent2edges(Tr,M=c(1,1))
 #  #>          [,1]      [,2]
 #  #> [1,] 1.750000 1.0000000
 #  #> [2,] 1.333333 1.6666667
 #  #> [3,] 1.666667 0.3333333
 
 ## ----C2e, eval=F, fig.cap="Projection of a center M to the edges in the triangle $T$."----
+#  M<-c(1.6,1.0)
 #  Xlim<-range(Tr[,1])
 #  Ylim<-range(Tr[,2])
 #  xd<-Xlim[2]-Xlim[1]
@@ -568,7 +600,8 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 #  
 #  if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
 #  
-#  plot(Tr,pch=".",xlab="",ylab="",main="Projection of Center M on the edges of a triangle",axes=TRUE,
+#  plot(Tr,pch=".",xlab="",ylab="",
+#       main="Projection of Center M to the edges of a triangle",axes=TRUE,
 #       xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #  polygon(Tr)
 #  L<-rbind(M,M,M); R<-Ds
@@ -589,24 +622,25 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 #  A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #  Tr<-rbind(A,B,C);
 #  r<-1.35
-#  cent.ndPE2edges(Tr,r,cent=2)
+#  prj.nondegPEcent2edges(Tr,r,cent=2)
 #  #>       [,1] [,2]
 #  #> [1,] 1.825 0.70
 #  #> [2,] 1.250 1.50
 #  #> [3,] 1.650 0.35
 
 ## ----ndC2e, eval=F, fig.cap="Projection of a nondegeneracy center to the edges in the triangle $T$."----
-#  Ms<-cent.nondegPE(Tr,r)
+#  Ms<-center.nondegPE(Tr,r)
 #  M1=Ms[1,]
 #  
-#  Ds<-cent.ndPE2edges(Tr,r,cent=1)
+#  Ds<-prj.nondegPEcent2edges(Tr,r,cent=1)
 #  
 #  Xlim<-range(Tr[,1])
 #  Ylim<-range(Tr[,2])
 #  xd<-Xlim[2]-Xlim[1]
 #  yd<-Ylim[2]-Ylim[1]
 #  
-#  plot(Tr,pch=".",xlab="",ylab="",main="Projections from a non-degeneracy center\n to the edges of the triangle",
+#  plot(Tr,pch=".",xlab="",ylab="",
+#       main="Projections from a non-degeneracy center for domination number\n of PE-PCD to the edges of the triangle",
 #       axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #  polygon(Tr)
 #  points(Ms,pch=".",col=1)
@@ -663,7 +697,7 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 ## ----eval=F-------------------------------------------------------------------
 #  c1<-.4; c2<-.6
 #  A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-#  as.bas.tri(rbind(B,C,A))
+#  as.basic.tri(rbind(B,C,A))
 #  #> $tri
 #  #>   [,1] [,2]
 #  #> A  0.0  0.0
@@ -677,7 +711,7 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 #  #> [1] 3 1 2
 #  
 #  x<-c(1,1); y<-c(2,0); z<-c(1.5,2);
-#  as.bas.tri(rbind(x,y,z))
+#  as.basic.tri(rbind(x,y,z))
 #  #> $tri
 #  #>   [,1] [,2]
 #  #> A  1.5    2
@@ -689,7 +723,7 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 #  #>
 #  #> $orig.order
 #  #> [1] 3 2 1
-#  as.bas.tri(rbind(x,y,z),scaled = TRUE)
+#  as.basic.tri(rbind(x,y,z),scaled = TRUE)
 #  #> $tri
 #  #>        [,1]      [,2]
 #  #> A 0.7276069 0.9701425
@@ -705,7 +739,7 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 ## ----eval=F-------------------------------------------------------------------
 #  c1<-.4; c2<-.6
 #  A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-#  tri2std.bas.tri(rbind(B,C,A))
+#  tri2std.basic.tri(rbind(B,C,A))
 #  #> $Cvec
 #  #> [1] 0.4 0.6
 #  #>
@@ -713,7 +747,7 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 #  #> [1] 3 1 2
 #  
 #  A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#  tri2std.bas.tri(rbind(A,B,C))
+#  tri2std.basic.tri(rbind(A,B,C))
 #  #> $Cvec
 #  #> [1] 0.4117647 0.3529412
 #  #>
@@ -743,18 +777,18 @@ ny<-5 #number of Y points (nontarget)
 #  set.seed(1)
 #  Yp<-cbind(runif(ny),runif(ny))
 #  
-#  Xp<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
+#  Xp<-runif.multi.tri(nx,Yp)$g #data under CSR in the convex hull of Ypoints
 #  #try also Xp<-cbind(runif(nx),runif(nx))
 #  
-#  ind.del.tri(Xp[10,],Yp)
+#  index.delaunay.tri(Xp[10,],Yp)
 #  #> [1] 2
 #  
 #  #or use
 #  DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
-#  ind.del.tri(Xp[10,],Yp,DTY)
+#  index.delaunay.tri(Xp[10,],Yp,DTY)
 #  #> [1] 2
 #  
-#  (tr.ind<-indices.del.tri(Xp,Yp,DTY))  #indices of the Delaunay triangles
+#  (tr.ind<-indices.delaunay.tri(Xp,Yp,DTY))  #indices of the Delaunay triangles
 #  #>  [1] 3 3 1 4 3 2 3 3 2 2
 
 ## ----ptsDT, eval=F, fig.cap="Scatterplot of Uniform $X$ Points in Convex Hull of $Y$ points. Points are marked with the indices of the Delaunay triangle it resides in."----
@@ -763,7 +797,7 @@ ny<-5 #number of Y points (nontarget)
 #  xd<-Xlim[2]-Xlim[1]
 #  yd<-Ylim[2]-Ylim[1]
 #  
-#  plot of the data in the convex hull of Y points together with the Delaunay triangulation
+#  # plot of the data in the convex hull of Y points together with the Delaunay triangulation
 #  #par(pty="s")
 #  plot(Xp,main="X Points in Delaunay Triangles for Y Points", xlab=" ", ylab=" ",
 #       xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
@@ -776,7 +810,7 @@ ny<-5 #number of Y points (nontarget)
 #  M<-c(1.6,1.0)
 #  
 #  P<-c(1.8,.5)
-#  rv.tri.cent(P,Tr,M)
+#  rel.vert.tri(P,Tr,M)
 #  #> $rv
 #  #> [1] 2
 #  #>
@@ -796,10 +830,10 @@ n<-5  #try also n<-10, 50, or 100
 #  
 #  Rv<-vector()
 #  for (i in 1:n)
-#  {Rv<-c(Rv,rv.tri.cent(Xp[i,],Tr,M)$rv)}
+#  {Rv<-c(Rv,rel.vert.tri(Xp[i,],Tr,M)$rv)}
 #  Rv
 #  
-#  Ds<-cent2edges.tri(Tr,M)
+#  Ds<-prj.cent2edges(Tr,M)
 #  
 #  Xlim<-range(Tr[,1],Xp[,1])
 #  Ylim<-range(Tr[,2],Xp[,2])
@@ -837,7 +871,7 @@ n<-5  #try also n<-10, 50, or 100
 #  Xp<-runif.tri(n,Tr)$g
 #  M<-c(1.6,1.0)  #try also M<-as.numeric(runif.tri(1,Tr)$g)
 #  
-#  (rv<-rel.verts.tri.cent(Xp,Tr,M))
+#  (rv<-rel.verts.tri(Xp,Tr,M))
 #  #> $rv
 #  #> [1] 1 2 3 1 1
 #  #>
@@ -852,7 +886,7 @@ n<-5  #try also n<-10, 50, or 100
 #  Tr<-rbind(A,B,C);
 #  
 #  P<-c(1.3,1.2)
-#  rv.triCC(P,Tr)
+#  rel.vert.triCC(P,Tr)
 #  #> $rv
 #  #> [1] 1
 #  #>
@@ -880,7 +914,7 @@ n<-5  #try also n<-10, 50, or 100
 #  #> vertex 3  1.5    2
 
 ## ----CCVR2, eval=F,fig.cap="CC-Vertex regions in an obtuse triangle. Also plotted are 10 X points which are labeled according to the vertex region they reside in."----
-#  CC<-circ.cent.tri(Tr)
+#  CC<-circumcenter.tri(Tr)
 #  D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 #  Ds<-rbind(D1,D2,D3)
 #  
@@ -889,7 +923,8 @@ n<-5  #try also n<-10, 50, or 100
 #  xd<-Xlim[2]-Xlim[1]
 #  yd<-Ylim[2]-Ylim[1]
 #  
-#  plot(Tr,pch=".",asp=1,xlab="",ylab="",main="Scatterplot of data points \n and the CC-vertex regions",
+#  plot(Tr,pch=".",asp=1,xlab="",ylab="",
+#       main="Scatterplot of data points with the CC-vertex regions",
 #       axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #  polygon(Tr)
 #  points(Xp,pch=".",col=1)
@@ -915,7 +950,7 @@ n<-5  #try also n<-10, 50, or 100
 #  
 #  P<-c(1.4,1.2)
 #  M<-c(1.6,1.2) #try also set.seed(1234); M<-as.numeric(runif.tri(1,Tr)$g)
-#  re.tri.cent(P,Tr,M)
+#  rel.edge.tri(P,Tr,M)
 #  #> $re
 #  #> [1] 2
 #  #>
@@ -937,7 +972,7 @@ n<-5  #try also n<-10, 50, or 100
 #  
 #  M<-c(1.6,1.2)  #try also M<-as.numeric(runif.tri(1,Tr)$g)
 #  
-#  (re<-rel.edges.tri.cent(Xp,Tr,M))
+#  (re<-rel.edges.tri(Xp,Tr,M))
 #  #> $re
 #  #> [1] 3 3 2 3 2
 #  #>
@@ -961,7 +996,8 @@ n<-5  #try also n<-10, 50, or 100
 #  
 #  if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
 #  
-#  plot(Tr,pch=".",xlab="",ylab="",main="Scatterplot of data points \n and the M-edge regions",axes=TRUE,
+#  plot(Tr,pch=".",xlab="",ylab="",
+#       main="Scatterplot of data points with the M-edge regions",axes=TRUE,
 #       xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #  polygon(Tr)
 #  points(Xp,pch=".",col=1)

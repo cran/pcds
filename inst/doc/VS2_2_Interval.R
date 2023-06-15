@@ -21,7 +21,8 @@ Xlim<-range(Xp2)
 Ylim<-.005*c(-1,1)
 xd<-Xlim[2]-Xlim[1]
 plot(Xp2,rep(0,n+2),xlab="x", ylab=" ",xlim=Xlim+xd*c(-.05,.05), yaxt='n',
-     ylim=Ylim,pch=".",cex=3,main="X Points with One Interval")
+     ylim=Ylim,pch=".",cex=3,
+     main="X Points and One Interval (based on Y points)")
 abline(h=0,lty=2)
 #now, we add the intervals based on Y points
 par(new=TRUE)
@@ -38,27 +39,33 @@ r<-1.5
 #  #> [1] 0.000000 3.676395
 
 ## ----eval=F-------------------------------------------------------------------
-#  IndNPEint(7,7,int,r,c)
+#  IarcPEint(7,7,int,r,c)
 #  #> [1] 1
-#  IndNPEint(Xp[1],Xp[2],int,r,c)
+#  IarcPEint(Xp[1],Xp[2],int,r,c)
 #  #> [1] 0
 
 ## ----eval=F-------------------------------------------------------------------
-#  NumArcsPEint(Xp,int,r,c)
-#  #> $num.arcs
-#  #> [1] 2
+#  Narcs = num.arcsPEint(Xp,int,r,c)
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsPEint(Xp = Xp, int = int, r = r, c = c)
 #  #>
-#  #> $num.in.range
-#  #> [1] 4
+#  #> Description of the output:
+#  #> Number of Arcs of the CS-PCD with vertices Xp and Quantities Related to the Support Interval
 #  #>
-#  #> $num.in.intervals
-#  #> [1] 0 4 1
+#  #> Number of data (Xp) points in the range of Yp (nontarget) points =  4
+#  #> Number of data points in the partition intervals based on Yp points =  0 4 1
+#  #> Number of arcs in the entire digraph =  2
+#  #> Numbers of arcs in the induced subdigraphs in the partition intervals =  0 2 0
 #  #>
-#  #> $int.num.arcs
-#  #> [1] 0 2 0
+#  #> End points of the support interval:
+#  #>  0 10
+#  #> Indices of data points in the intervals:
+#  #> left end interval:  NA
+#  #> middle interval:  1 2 3 4
+#  #> right end interval:  5
 #  #>
-#  #> $data.interval.indices
-#  #> [1] 2 2 2 2 3
+#  #plot(Narcs)
 
 ## ----1dPEarcs2, fig.cap="The arcs of the PE-PCD for a 1D data set, the end points of the interval (red) and the center (green) are plotted with vertical dashed lines."----
 jit<-.1
@@ -70,16 +77,16 @@ set.seed(1)
 plotPEregs.int(Xp,int,r,c,xlab="x",ylab="",center = TRUE)
 
 ## ----PEarcs1i, eval=F, fig.cap="Arcs of the PE-PCD for $X$ points in the interval $(0,10)$. Arcs are jittered along the $y$-axis for better visualization."----
-#  Arcs<-ArcsPEint(Xp,int,r,c)
+#  Arcs<-arcsPEint(Xp,int,r,c)
 #  Arcs
 #  #> Call:
-#  #> ArcsPEint(Xp = Xp, int = int, r = r, c = c)
+#  #> arcsPEint(Xp = Xp, int = int, r = r, c = c)
 #  #>
 #  #> Type:
 #  #> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points with Expansion Parameter r = 1.5 and Centrality Parameter c = 0.4"
 #  summary(Arcs)
 #  #> Call:
-#  #> ArcsPEint(Xp = Xp, int = int, r = r, c = c)
+#  #> arcsPEint(Xp = Xp, int = int, r = r, c = c)
 #  #>
 #  #> Type of the digraph:
 #  #> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points with Expansion Parameter r = 1.5 and Centrality Parameter c = 0.4"
@@ -121,25 +128,31 @@ tau<-1.5
 #  #> [1]  0 10
 
 ## ----eval=F-------------------------------------------------------------------
-#  IndNCSint(Xp[1],Xp[2],int,tau,c) #try also IndNCSint(Xp[2],Xp[1],int,tau,c)
+#  IarcCSint(Xp[1],Xp[2],int,tau,c) #try also IarcCSint(Xp[2],Xp[1],int,tau,c)
 #  #> [1] 0
 
 ## ----eval=F-------------------------------------------------------------------
-#  NumArcsCSint(Xp,int,tau,c)
-#  #> $num.arcs
-#  #> [1] 5
+#  Narcs = num.arcsCSint(Xp,int,tau,c)
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsCSint(Xp = Xp, int = int, t = tau, c = c)
 #  #>
-#  #> $num.in.range
-#  #> [1] 4
+#  #> Description of the output:
+#  #> Number of Arcs of the CS-PCD with vertices Xp and Quantities Related to the Support Interval
 #  #>
-#  #> $num.in.ints
-#  #> [1] 0 4 1
+#  #> Number of data (Xp) points in the range of Yp (nontarget) points =  4
+#  #> Number of data points in the partition intervals based on Yp points =  0 4 1
+#  #> Number of arcs in the entire digraph =  5
+#  #> Numbers of arcs in the induced subdigraphs in the partition intervals =  0 5 0
 #  #>
-#  #> $int.num.arcs
-#  #> [1] 0 5 0
+#  #> End points of the support interval:
+#  #>  0 10
+#  #> Indices of data points in the intervals:
+#  #> left end interval:  NA
+#  #> middle interval:  1 2 3 4
+#  #> right end interval:  5
 #  #>
-#  #> $data.int.ind
-#  #> [1] 2 2 2 2 3
+#  #plot(Narcs)
 
 ## ----1dCSarcs2, fig.cap="The arcs of the CS-PCD for a 1D data set, the end points of the interval (red) and the center (green) are plotted with vertical dashed lines."----
 set.seed(1)
@@ -150,16 +163,16 @@ set.seed(1)
 plotCSregs.int(Xp,int,tau,c,xlab="x",ylab="",center=TRUE)
 
 ## ----CSarcs1i, eval=F, fig.cap="Arcs of the CS-PCD for points in the interval $(0,10)$. Arcs are jittered along the $y$-axis for better visualization."----
-#  Arcs<-ArcsCSint(Xp,int,tau,c)
+#  Arcs<-arcsCSint(Xp,int,tau,c)
 #  Arcs
 #  #> Call:
-#  #> ArcsCSint(Xp = Xp, int = int, t = tau, c = c)
+#  #> arcsCSint(Xp = Xp, int = int, t = tau, c = c)
 #  #>
 #  #> Type:
 #  #> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 1D Points with Expansion Parameter t = 1.5 and Centrality Parameter c = 0.4"
 #  summary(Arcs)
 #  #> Call:
-#  #> ArcsCSint(Xp = Xp, int = int, t = tau, c = c)
+#  #> arcsCSint(Xp = Xp, int = int, t = tau, c = c)
 #  #>
 #  #> Type of the digraph:
 #  #> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 1D Points with Expansion Parameter t = 1.5 and Centrality Parameter c = 0.4"
@@ -195,7 +208,7 @@ plotCSregs.int(Xp,int,tau,c,xlab="x",ylab="",center=TRUE)
 #  c<-.4 #try also c<-runif(1)
 #  a<-0; b<-10
 #  int = c(a,b)
-#  centMc(int,c)
+#  centerMc(int,c)
 #  #> [1] 4
 #  
 #  n<-5 #try also n=10, 50, 100
@@ -206,7 +219,7 @@ plotCSregs.int(Xp,int,tau,c,xlab="x",ylab="",center=TRUE)
 ## ----eval=F-------------------------------------------------------------------
 #  c<-.4
 #  a<-0; b<-10; int = c(a,b)
-#  rv.mid.int(6,int,c)
+#  rel.vert.mid.int(6,int,c)
 #  #> $rv
 #  #> [1] 2
 #  #>
@@ -218,7 +231,7 @@ plotCSregs.int(Xp,int,tau,c,xlab="x",ylab="",center=TRUE)
 n<-5 #try also n=10, 50, 100
 
 ## ----1DVR, eval=F, fig.cap="$M_c$-Vertex regions in the interval $(0,10)$. Also plotted are the $X$ points which are labeled according to the vertex region they reside in.", echo=FALSE----
-#  Mc<-centMc(int,c)
+#  Mc<-centerMc(int,c)
 #  n<-10  #try also n<-20
 #  xr<-range(a,b,Mc)
 #  xf<-(int[2]-int[1])*.5
@@ -226,7 +239,7 @@ n<-5 #try also n=10, 50, 100
 #  
 #  Rv<-vector()
 #  for (i in 1:n)
-#    Rv<-c(Rv,rv.mid.int(Xp[i],int,c)$rv)
+#    Rv<-c(Rv,rel.vert.mid.int(Xp[i],int,c)$rv)
 #  #Rv
 #  
 #  jit<-.1
@@ -235,7 +248,7 @@ n<-5 #try also n=10, 50, 100
 #  Xlim<-range(a,b,Xp)
 #  xd<-Xlim[2]-Xlim[1]
 #  
-#  plot(cbind(Mc,0),main="Vertex region indices for the points", xlab=" ", ylab=" ",
+#  plot(cbind(Mc,0),main="Vertex region indices for the X points", xlab=" ", ylab=" ",
 #       xlim=Xlim+xd*c(-.05,.05),ylim=3*range(yjit),pch=".",cex=3)
 #  abline(h=0)
 #  points(Xp,yjit,pch=".",cex=3)
@@ -245,14 +258,14 @@ n<-5 #try also n=10, 50, 100
 
 ## ----eval=F-------------------------------------------------------------------
 #  a<-0; b<-10; int<-c(a,b)
-#  rv.end.int(-6,int)
+#  rel.vert.end.int(-6,int)
 #  #> $rv
 #  #> [1] 1
 #  #>
 #  #> $int
 #  #> vertex 1 vertex 2
 #  #>        0       10
-#  rv.end.int(16,int)
+#  rel.vert.end.int(16,int)
 #  #> $rv
 #  #> [1] 2
 #  #>

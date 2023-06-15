@@ -29,40 +29,47 @@ DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 interp::plot.triSht(DT, add=TRUE, do.points = TRUE)
 
 ## ----eval=F-------------------------------------------------------------------
-#  num.del.tri(Yp)
+#  num.delaunay.tri(Yp)
 #  #> [1] 4
 
 ## -----------------------------------------------------------------------------
 M<-"CC" #try also M<-c(1,1,1) #or M<-c(1,2,3)
 
-## ----eval=F-------------------------------------------------------------------
-#  NumArcsAS(Xp,Yp,M)
-#  #> $num.arcs
-#  #> [1] 3
+## ----numarcsASpr1, eval=F, fig.cap="The number of arcs of AS-PCD at the Delaunay triangles based on the $Y$ points (dashed lines)."----
+#  Narcs = num.arcsAS(Xp,Yp,M)
+#  Narcs
+#  #> Call:
+#  #> num.arcsAS(Xp = Xp, Yp = Yp, M = M)
 #  #>
-#  #> $tri.num.arcs
-#  #> [1] 0 0 0 3
+#  #> Description:
+#  #> Number of Arcs of the AS-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles
+#  
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsAS(Xp = Xp, Yp = Yp, M = M)
 #  #>
-#  #> $num.in.conv.hull
-#  #> [1] 7
+#  #> Description of the output:
+#  #> Number of Arcs of the AS-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles
 #  #>
-#  #> $num.in.tris
-#  #> [1] 2 1 1 3
+#  #> Number of data (Xp) points in the convex hull of Yp (nontarget) points =  7
+#  #> Number of data points in the Delaunay triangles based on Yp points =  2 1 1 3
+#  #> Number of arcs in the entire digraph =  3
+#  #> Numbers of arcs in the induced subdigraphs in the Delaunay triangles =  0 0 0 3
+#  #> Areas of the Delaunay triangles (used as weights in the arc density of multi-triangle case):
+#  #> 0.2214646 0.2173192 0.2593852 0.2648197
 #  #>
-#  #> $weight.vec
-#  #> [1] 0.2214646 0.2173192 0.2593852 0.2648197
-#  #>
-#  #> $del.tri.ind
+#  #> Indices of the vertices of the Delaunay triangles (each column refers to a triangle):
 #  #>      [,1] [,2] [,3] [,4]
 #  #> [1,]    1    5    3    3
 #  #> [2,]    3    2    4    1
 #  #> [3,]    2    3    5    4
 #  #>
-#  #> $data.tri.ind
-#  #>  [1]  1  4  1  3 NA NA  4 NA  4  2
+#  #> Indices of the Delaunay triangles data points resides:
+#  #>  1  4  1  3 NA NA  4 NA  4  2
+#  plot(Narcs)
 
 ## ----eval=F-------------------------------------------------------------------
-#  IM<-IncMatAS(Xp,Yp,M)
+#  IM<-inci.matAS(Xp,Yp,M)
 #  IM[1:6,1:6]
 #  #>      [,1] [,2] [,3] [,4] [,5] [,6]
 #  #> [1,]    1    0    0    0    0    0
@@ -73,7 +80,7 @@ M<-"CC" #try also M<-c(1,1,1) #or M<-c(1,2,3)
 #  #> [6,]    0    0    0    0    0    1
 
 ## ----eval=F-------------------------------------------------------------------
-#  dom.greedy(IM)  #try also dom.exact(IM)  #this might take a longer time for large  nx (i.e. nx >= 19)
+#  dom.num.greedy(IM)  #try also dom.num.exact(IM)  #this might take a longer time for large  nx (i.e. nx >= 19)
 #  #> $approx.dom.num
 #  #> [1] 8
 #  #>
@@ -87,16 +94,16 @@ plotASarcs(Xp,Yp,M,asp=1,xlab="",ylab="")
 plotASregs(Xp,Yp,M,xlab="",ylab="")
 
 ## ----adASarcs2, eval=F, fig.cap="The arcs of the AS-PCD for the 2D artificial data set using the CC-vertex regions together with the Delaunay triangles based on the $Y$ points (dashed lines)."----
-#  Arcs<-ArcsAS(Xp,Yp,M)
+#  Arcs<-arcsAS(Xp,Yp,M)
 #  Arcs
 #  #> Call:
-#  #> ArcsAS(Xp = Xp, Yp = Yp, M = M)
+#  #> arcsAS(Xp = Xp, Yp = Yp, M = M)
 #  #>
 #  #> Type:
 #  #> [1] "Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in Multiple Triangles with CC-Vertex Regions"
 #  summary(Arcs)
 #  #> Call:
-#  #> ArcsAS(Xp = Xp, Yp = Yp, M = M)
+#  #> arcsAS(Xp = Xp, Yp = Yp, M = M)
 #  #>
 #  #> Type of the digraph:
 #  #> [1] "Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in Multiple Triangles with CC-Vertex Regions"
@@ -136,33 +143,34 @@ M<-c(1,1,1) #try also M<-c(1,2,3) #or M<-"CC"
 r<-1.5 #try also r<-2 or r=1.25
 
 ## ----eval=F-------------------------------------------------------------------
-#  NumArcsPE(Xp,Yp,r,M)
-#  #> $num.arcs
-#  #> [1] 3
+#  Narcs = num.arcsPE(Xp,Yp,r,M)
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsPE(Xp = Xp, Yp = Yp, r = r, M = M)
 #  #>
-#  #> $tri.num.arcs
-#  #> [1] 1 0 0 2
+#  #> Description of the output:
+#  #> Number of Arcs of the PE-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles
 #  #>
-#  #> $num.in.conv.hull
-#  #> [1] 7
+#  #> Number of data (Xp) points in the convex hull of Yp (nontarget) points =  7
+#  #> Number of data points in the Delaunay triangles based on Yp points =  2 1 1 3
+#  #> Number of arcs in the entire digraph =  3
+#  #> Numbers of arcs in the induced subdigraphs in the Delaunay triangles =  1 0 0 2
+#  #> Areas of the Delaunay triangles (used as weights in the arc density of multi-triangle case):
+#  #> 0.2214646 0.2173192 0.2593852 0.2648197
 #  #>
-#  #> $num.in.tris
-#  #> [1] 2 1 1 3
-#  #>
-#  #> $weight.vec
-#  #> [1] 0.2214646 0.2173192 0.2593852 0.2648197
-#  #>
-#  #> $del.tri.ind
+#  #> Indices of the vertices of the Delaunay triangles (each column refers to a triangle):
 #  #>      [,1] [,2] [,3] [,4]
 #  #> [1,]    1    5    3    3
 #  #> [2,]    3    2    4    1
 #  #> [3,]    2    3    5    4
 #  #>
-#  #> $data.tri.ind
-#  #>  [1]  1  4  1  3 NA NA  4 NA  4  2
+#  #> Indices of the Delaunay triangles data points resides:
+#  #>  1  4  1  3 NA NA  4 NA  4  2
+#  
+#  plot(Narcs)
 
 ## ----include=FALSE------------------------------------------------------------
-IM<-IncMatPE(Xp,Yp,r,M)
+IM<-inci.matPE(Xp,Yp,r,M)
 head(IM)
 
 ## ----adPEarcs1, fig.cap="The arcs of the PE-PCD for the 2D artificial data set using the CM-vertex regions and expansion parameter $r=1.5$ together with the Delaunay triangles based on the $Y$ points (dashed lines)."----
@@ -172,16 +180,16 @@ plotPEarcs(Xp,Yp,r,M,xlab="",ylab="")
 plotPEregs(Xp,Yp,r,M,xlab="",ylab="")
 
 ## ----adPEarcs2, eval=F, fig.cap="The arcs of the PE-PCD for the 2D artificial data set using the CM-vertex regions and expansion parameter $r=1.5$ together with the Delaunay triangles based on the $Y$ points (dashed lines)."----
-#  Arcs<-ArcsPE(Xp,Yp,r,M)
+#  Arcs<-arcsPE(Xp,Yp,r,M)
 #  Arcs
 #  #> Call:
-#  #> ArcsPE(Xp = Xp, Yp = Yp, r = r, M = M)
+#  #> arcsPE(Xp = Xp, Yp = Yp, r = r, M = M)
 #  #>
 #  #> Type:
 #  #> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D points in Multiple Triangles with Expansion parameter r = 1.5 and Center M = (1,1,1)"
 #  summary(Arcs)
 #  #> Call:
-#  #> ArcsPE(Xp = Xp, Yp = Yp, r = r, M = M)
+#  #> arcsPE(Xp = Xp, Yp = Yp, r = r, M = M)
 #  #>
 #  #> Type of the digraph:
 #  #> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D points in Multiple Triangles with Expansion parameter r = 1.5 and Center M = (1,1,1)"
@@ -220,7 +228,7 @@ plotPEregs(Xp,Yp,r,M,xlab="",ylab="")
 #  plot(Arcs)
 
 ## ----eval=F-------------------------------------------------------------------
-#  TSArcDensPE(Xp,Yp,r) #try also TSArcDensPE(Xp,Yp,r,alt="l") or with alt="g"
+#  PEarc.dens.test(Xp,Yp,r) #try also PEarc.dens.test(Xp,Yp,r,alt="l") or with alt="g"
 #  #>
 #  #>  Large Sample z-Test Based on Arc Density of PE-PCD for Testing
 #  #>  Uniformity of 2D Data ---
@@ -236,7 +244,7 @@ plotPEregs(Xp,Yp,r,M,xlab="",ylab="")
 #  #>  0.09159807
 
 ## ----eval=F-------------------------------------------------------------------
-#  PEdom(Xp,Yp,r,M) #try also PEdom(Xp,Yp,r=2,M)
+#  PEdom.num(Xp,Yp,r,M) #try also PEdom.num(Xp,Yp,r=2,M)
 #  #> $dom.num
 #  #> [1] 5
 #  #>
@@ -245,7 +253,7 @@ plotPEregs(Xp,Yp,r,M,xlab="",ylab="")
 #  #>
 #  #> $tri.dom.nums
 #  #> [1] 1 1 1 2
-#  PEdom.nd(Xp,Yp,r) #try also PEdom.nd(Xp,Yp,r=1.25)
+#  PEdom.num.nondeg(Xp,Yp,r) #try also PEdom.num.nondeg(Xp,Yp,r=1.25)
 #  #> $dom.num
 #  #> [1] 5
 #  #>
@@ -256,7 +264,7 @@ plotPEregs(Xp,Yp,r,M,xlab="",ylab="")
 #  #> [1] 1 1 1 2
 
 ## ----eval=F-------------------------------------------------------------------
-#  TSDomPEBin(Xp,Yp,r) #try also TSDomPEBin(Xp,Yp,r,alt="g") or with alt="l"
+#  PEdom.num.binom.test(Xp,Yp,r) #try also PEdom.num.binom.test(Xp,Yp,r,alt="g") or with alt="l"
 #  #>
 #  #>  Large Sample Binomial Test based on the Domination Number of PE-PCD for
 #  #>  Testing Uniformity of 2D Data ---
@@ -272,7 +280,7 @@ plotPEregs(Xp,Yp,r,M,xlab="",ylab="")
 #  #>                             5                             1
 
 ## ----eval=F-------------------------------------------------------------------
-#  TSDomPENorm(Xp,Yp,r) #try also TSDomPENorm(Xp,Yp,r,alt="g") or with alt="l"
+#  PEdom.num.norm.test(Xp,Yp,r) #try also PEdom.num.norm.test(Xp,Yp,r,alt="g") or with alt="l"
 #  #>
 #  #>  Normal Approximation to the Domination Number of PE-PCD for Testing
 #  #>  Uniformity of 2D Data ---
@@ -292,33 +300,34 @@ M<-c(1,1,1) #try also M<-c(1,2,3)
 tau<-1.5 #try also tau<-2
 
 ## ----eval=F-------------------------------------------------------------------
-#  NumArcsCS(Xp,Yp,tau,M)
-#  #> $num.arcs
-#  #> [1] 3
+#  Narcs = num.arcsCS(Xp,Yp,tau,M)
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsCS(Xp = Xp, Yp = Yp, t = tau, M = M)
 #  #>
-#  #> $tri.num.arcs
-#  #> [1] 1 0 0 2
+#  #> Description of the output:
+#  #> Number of Arcs of the CS-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles
 #  #>
-#  #> $num.in.conv.hull
-#  #> [1] 7
+#  #> Number of data (Xp) points in the convex hull of Yp (nontarget) points =  7
+#  #> Number of data points in the Delaunay triangles based on Yp points =  2 1 1 3
+#  #> Number of arcs in the entire digraph =  3
+#  #> Numbers of arcs in the induced subdigraphs in the Delaunay triangles =  1 0 0 2
+#  #> Areas of the Delaunay triangles (used as weights in the arc density of multi-triangle case):
+#  #> 0.2214646 0.2173192 0.2593852 0.2648197
 #  #>
-#  #> $num.in.tris
-#  #> [1] 2 1 1 3
-#  #>
-#  #> $weight.vec
-#  #> [1] 0.2214646 0.2173192 0.2593852 0.2648197
-#  #>
-#  #> $del.tri.ind
+#  #> Indices of the vertices of the Delaunay triangles (each column refers to a triangle):
 #  #>      [,1] [,2] [,3] [,4]
 #  #> [1,]    1    5    3    3
 #  #> [2,]    3    2    4    1
 #  #> [3,]    2    3    5    4
 #  #>
-#  #> $data.tri.ind
-#  #>  [1]  1  4  1  3 NA NA  4 NA  4  2
+#  #> Indices of the Delaunay triangles data points resides:
+#  #>  1  4  1  3 NA NA  4 NA  4  2
+#  #>
+#  #plot(Narcs)
 
 ## ----include=FALSE------------------------------------------------------------
-IM<-IncMatCS(Xp,Yp,tau,M)
+IM<-inci.matCS(Xp,Yp,tau,M)
 head(IM)
 
 ## ----adCSarcs1, fig.cap="The arcs of the CS-PCD for the 2D artificial data set using the CM-edge regions and expansion parameter $t=1.5$ together with the Delaunay triangles based on the $Y$ points (dashed lines)."----
@@ -328,16 +337,16 @@ plotCSarcs(Xp,Yp,tau,M,xlab="",ylab="")
 plotCSregs(Xp,Yp,tau,M,xlab="",ylab="")
 
 ## ----adCSarcs2, eval=F, fig.cap="The arcs of the CS-PCD for the 2D artificial data set using the CM-edge regions and expansion parameter $t=1.5$ together with the Delaunay triangles based on the $Y$ points (dashed lines)."----
-#  Arcs<-ArcsCS(Xp,Yp,tau,M)
+#  Arcs<-arcsCS(Xp,Yp,tau,M)
 #  Arcs
 #  #> Call:
-#  #> ArcsCS(Xp = Xp, Yp = Yp, t = tau, M = M)
+#  #> arcsCS(Xp = Xp, Yp = Yp, t = tau, M = M)
 #  #>
 #  #> Type:
 #  #> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 2D Points in the Multiple Triangles with Expansion Parameter t = 1.5 and Center M = (1,1,1)"
 #  summary(Arcs)
 #  #> Call:
-#  #> ArcsCS(Xp = Xp, Yp = Yp, t = tau, M = M)
+#  #> arcsCS(Xp = Xp, Yp = Yp, t = tau, M = M)
 #  #>
 #  #> Type of the digraph:
 #  #> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 2D Points in the Multiple Triangles with Expansion Parameter t = 1.5 and Center M = (1,1,1)"
@@ -376,7 +385,7 @@ plotCSregs(Xp,Yp,tau,M,xlab="",ylab="")
 #  plot(Arcs)
 
 ## ----eval=F-------------------------------------------------------------------
-#  TSArcDensCS(Xp,Yp,tau) #try also TSArcDensCS(Xp,Yp,tau,alt="l") or with alt="g"
+#  CSarc.dens.test(Xp,Yp,tau) #try also CSarc.dens.test(Xp,Yp,tau,alt="l") or with alt="g"
 #  #>
 #  #>  Large Sample z-Test Based on Arc Density of CS-PCD for Testing
 #  #>  Uniformity of 2D Data ---

@@ -37,29 +37,30 @@ r<-2 #try also r=1.5
 c<-.4  #try also c=.3
 
 ## ----eval=F-------------------------------------------------------------------
-#  NumArcsPE1D(Xp,Yp,r,c)
-#  #> $num.arcs
-#  #> [1] 6
+#  Narcs = num.arcsPE1D(Xp,Yp,r,c)
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsPE1D(Xp = Xp, Yp = Yp, r = r, c = c)
 #  #>
-#  #> $num.in.range
-#  #> [1] 8
+#  #> Description of the output:
+#  #> Number of Arcs of the PE-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Partition Intervals
 #  #>
-#  #> $num.in.intervals
-#  #> [1] 1 1 2 2 3 1
+#  #> Number of data (Xp) points in the range of Yp (nontarget) points =  6
+#  #> Number of data points in the partition intervals based on Yp points =  3 3 2 0 1 1
+#  #> Number of arcs in the entire digraph =  5
+#  #> Numbers of arcs in the induced subdigraphs in the partition intervals =  4 1 0 0 0 0
+#  #> Lengths of the (middle) partition intervals (used as weights in the arc density of multi-interval case):
+#  #> 2.606255 2.686573 2.477544 2.453178
 #  #>
-#  #> $weight.vec
-#  #> [1] 2.248250 2.612118 2.447531 2.265146
+#  #> End points of the partition intervals (each column refers to a partition interval):
+#  #>            [,1]       [,2]     [,3]     [,4]      [,5]     [,6]
+#  #> [1,]       -Inf -0.1299548 2.476300 5.162873  7.640417 10.09359
+#  #> [2,] -0.1299548  2.4763001 5.162873 7.640417 10.093595      Inf
 #  #>
-#  #> $int.num.arcs
-#  #> [1] 0 0 2 1 3 0
+#  #> Indices of the partition intervals data points resides:
+#  #> 2 1 3 1 1 6 2 3 5 2
 #  #>
-#  #> $partition.intervals
-#  #>           [,1]      [,2]     [,3]     [,4]     [,5]     [,6]
-#  #> [1,]      -Inf 0.2284167 2.476667 5.088785 7.536317 9.801462
-#  #> [2,] 0.2284167 2.4766671 5.088785 7.536317 9.801462      Inf
-#  #>
-#  #> $data.interval.indices
-#  #>  [1] 2 5 3 5 6 1 4 5 4 3
+#  #plot(Narcs)
 
 ## ----AD1dPEarcs2, fig.cap="The arcs of the PE-PCD for the 1D artificial data set with centrality parameter $c=.4$, the end points of the $Y$ intervals (red) and the centers (green) are plotted with vertical dashed lines."----
 jit<-.1
@@ -71,16 +72,16 @@ set.seed(12)
 plotPEregs1D(Xp,Yp,r,c,xlab="x",ylab="",centers = TRUE)
 
 ## ----AD1dPEarcs3, eval=F, fig.cap="The arcs of the PE-PCD for the 1D artificial data set; the end points of the intervals are plotted with vertical dashed lines."----
-#  Arcs<-ArcsPE1D(Xp,Yp,r,c)
+#  Arcs<-arcsPE1D(Xp,Yp,r,c)
 #  Arcs
 #  #> Call:
-#  #> ArcsPE1D(Xp = Xp, Yp = Yp, r = r, c = c)
+#  #> arcsPE1D(Xp = Xp, Yp = Yp, r = r, c = c)
 #  #>
 #  #> Type:
 #  #> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points with Expansion Parameter r = 2 and Centrality Parameter c = 0.4"
 #  summary(Arcs)
 #  #> Call:
-#  #> ArcsPE1D(Xp = Xp, Yp = Yp, r = r, c = c)
+#  #> arcsPE1D(Xp = Xp, Yp = Yp, r = r, c = c)
 #  #>
 #  #> Type of the digraph:
 #  #> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points with Expansion Parameter r = 2 and Centrality Parameter c = 0.4"
@@ -112,7 +113,7 @@ plotPEregs1D(Xp,Yp,r,c,xlab="x",ylab="",centers = TRUE)
 #  plot(Arcs)
 
 ## ----eval=F-------------------------------------------------------------------
-#  TSArcDensPE1D(Xp,Yp,int,r,c) # try also TSArcDensPE1D(Xp,Yp,int,r,c,alt="l")
+#  PEarc.dens.test1D(Xp,Yp,r,c) # try also PEarc.dens.test1D(Xp,Yp,r,c,alt="l")
 #  #>
 #  #>  Large Sample z-Test Based on Arc Density of PE-PCD for Testing
 #  #>  Uniformity of 1D Data ---
@@ -128,7 +129,7 @@ plotPEregs1D(Xp,Yp,r,c,xlab="x",ylab="",centers = TRUE)
 #  #>   0.1075517
 
 ## ----eval=F-------------------------------------------------------------------
-#  PEdom1D(Xp,Yp,r,c)
+#  PEdom.num1D(Xp,Yp,r,c)
 #  #> $dom.num
 #  #> [1] 6
 #  #>
@@ -140,7 +141,7 @@ plotPEregs1D(Xp,Yp,r,c,xlab="x",ylab="",centers = TRUE)
 #  #>
 #  #> $int.dom.nums
 #  #> [1] 1 1 1 1 1 0 0 1
-#  PEdom1D.nd(Xp,Yp,r)
+#  PEdom.num1Dnondeg(Xp,Yp,r)
 #  #> $dom.num
 #  #> [1] 7
 #  #>
@@ -154,7 +155,7 @@ plotPEregs1D(Xp,Yp,r,c,xlab="x",ylab="",centers = TRUE)
 #  #> [1] 1 1 1 1 2 0 0 1
 
 ## ----eval=F-------------------------------------------------------------------
-#  TSDomPEBin1D(Xp,Yp,int,c) #try also TSDomPEBin1D(Xp,Yp,int,c,alt="l")
+#  PEdom.num.binom.test1D(Xp,Yp,c) #try also PEdom.num.binom.test1D(Xp,Yp,c,alt="l")
 #  #>
 #  #>  Large Sample Binomial Test based on the Domination Number of PE-PCD for
 #  #>  Testing Uniformity of 1D Data ---
@@ -173,29 +174,30 @@ plotPEregs1D(Xp,Yp,r,c,xlab="x",ylab="",centers = TRUE)
 tau<-2; c<-.4
 
 ## ----eval=F-------------------------------------------------------------------
-#  NumArcsCS1D(Xp,Yp,tau,c)
-#  #> $num.arcs
-#  #> [1] 8
+#  Narcs = num.arcsCS1D(Xp,Yp,tau,c)
+#  summary(Narcs)
+#  #> Call:
+#  #> num.arcsCS1D(Xp = Xp, Yp = Yp, t = tau, c = c)
 #  #>
-#  #> $num.in.range
-#  #> [1] 8
+#  #> Description of the output:
+#  #> Number of Arcs of the CS-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Partition Intervals
 #  #>
-#  #> $num.in.intervals
-#  #> [1] 1 1 2 2 3 1
+#  #> Number of data (Xp) points in the range of Yp (nontarget) points =  6
+#  #> Number of data points in the partition intervals based on Yp points =  3 3 2 0 1 1
+#  #> Number of arcs in the entire digraph =  6
+#  #> Numbers of arcs in the induced subdigraphs in the partition intervals =  4 2 0 0 0 0
+#  #> Lengths of the (middle) partition intervals (used as weights in the arc density of multi-interval case):
+#  #> 2.606255 2.686573 2.477544 2.453178
 #  #>
-#  #> $weight.vec
-#  #> [1] 2.248250 2.612118 2.447531 2.265146
+#  #> End points of the partition intervals (each column refers to a partition interval):
+#  #>            [,1]       [,2]     [,3]     [,4]      [,5]     [,6]
+#  #> [1,]       -Inf -0.1299548 2.476300 5.162873  7.640417 10.09359
+#  #> [2,] -0.1299548  2.4763001 5.162873 7.640417 10.093595      Inf
 #  #>
-#  #> $int.num.arcs
-#  #> [1] 0 0 2 2 4 0
-#  #>
-#  #> $partition.intervals
-#  #>           [,1]      [,2]     [,3]     [,4]     [,5]     [,6]
-#  #> [1,]      -Inf 0.2284167 2.476667 5.088785 7.536317 9.801462
-#  #> [2,] 0.2284167 2.4766671 5.088785 7.536317 9.801462      Inf
-#  #>
-#  #> $data.interval.indices
-#  #>  [1] 2 5 3 5 6 1 4 5 4 3
+#  #> Indices of the partition intervals data points resides:
+#  #> 2 1 3 1 1 6 2 3 5 2
+#  
+#  #plot(Narcs)
 
 ## ----AD1dCSarcs2, fig.cap="The arcs of the CS-PCD for the 1D artificial data set with centrality parameter $c=.4$, the end points of the $Y$ intervals (red) and the centers (green) are plotted with vertical dashed lines."----
 set.seed(1)
@@ -205,16 +207,16 @@ plotCSarcs1D(Xp,Yp,tau,c,jit,xlab="",ylab="",centers=TRUE)
 plotCSregs1D(Xp,Yp,tau,c,xlab="",ylab="",centers = TRUE)
 
 ## ----AD1dCSarcs3, eval=F, fig.cap="The arcs of the CS-PCD for the 1D artificial data set; the end points of the intervals are plotted with vertical dashed lines."----
-#  Arcs<-ArcsCS1D(Xp,Yp,tau,c)
+#  Arcs<-arcsCS1D(Xp,Yp,tau,c)
 #  Arcs
 #  #> Call:
-#  #> ArcsCS1D(Xp = Xp, Yp = Yp, t = tau, c = c)
+#  #> arcsCS1D(Xp = Xp, Yp = Yp, t = tau, c = c)
 #  #>
 #  #> Type:
 #  #> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 1D Points with Expansion Parameter t = 2 and Centrality Parameter c = 0.4"
 #  summary(Arcs)
 #  #> Call:
-#  #> ArcsCS1D(Xp = Xp, Yp = Yp, t = tau, c = c)
+#  #> arcsCS1D(Xp = Xp, Yp = Yp, t = tau, c = c)
 #  #>
 #  #> Type of the digraph:
 #  #> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 1D Points with Expansion Parameter t = 2 and Centrality Parameter c = 0.4"
@@ -243,7 +245,7 @@ plotCSregs1D(Xp,Yp,tau,c,xlab="",ylab="",centers = TRUE)
 #  plot(Arcs)
 
 ## ----eval=F-------------------------------------------------------------------
-#  TSArcDensCS1D(Xp,Yp,int,tau,c) #try also TSArcDensCS1D(Xp,Yp,int,tau,c,alt="l")
+#  CSarc.dens.test1D(Xp,Yp,tau,c) #try also CSarc.dens.test1D(Xp,Yp,tau,c,alt="l")
 #  #>
 #  #>  Large Sample z-Test Based on Arc Density of CS-PCD for Testing
 #  #>  Uniformity of 1D Data ---

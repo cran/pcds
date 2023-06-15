@@ -12,7 +12,7 @@
 
 <meta name="author" content="Elvan Ceyhan" />
 
-<meta name="date" content="2023-04-28" />
+<meta name="date" content="2023-06-13" />
 
 <title>VS4 - Extrema in Delaunay Cells</title>
 
@@ -349,7 +349,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">VS4 - Extrema in Delaunay Cells</h1>
 <h4 class="author">Elvan Ceyhan</h4>
-<h4 class="date">2023-04-28</h4>
+<h4 class="date">2023-06-13</h4>
 
 
 
@@ -359,7 +359,7 @@ font-size: small;
 }
 </style>
 <p>First we load the <code>pcds</code> package:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pcds)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(pcds)</span></code></pre></div>
 <div id="finding-the-extrema-among-a-point-set-in-a-delaunay-cell" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Finding the Extrema among a Point Set in a Delaunay Cell</h1>
 <p>Recall that a Delaunay cell is an interval in 1D space, a triangle in 2D space, and a tetrahedron in 3D space.
@@ -371,14 +371,14 @@ Such points are usually the best candidates for the (minimum) dominating sets fo
 <div id="the-extreme-points-in-a-general-triangle" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> The Extreme Points in a General Triangle</h1>
 <p>First we define the same triangle <span class="math inline">\(T\)</span> used in the previous sections</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>); B<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">0</span>); C<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="dv">2</span>);</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Tr<span class="ot">&lt;-</span><span class="fu">rbind</span>(A,B,C);</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10</span>  <span class="co">#try also n&lt;-20 or 100</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>A<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>); B<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">0</span>); C<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="dv">2</span>);</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>Tr<span class="ot">&lt;-</span><span class="fu">rbind</span>(A,B,C);</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10</span>  <span class="co">#try also n&lt;-20 or 100</span></span></code></pre></div>
 <p>And we generate <span class="math inline">\(n=\)</span> 10 uniform points in it
 using the function <code>runif.tri</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Xp<span class="ot">&lt;-</span><span class="fu">runif.tri</span>(n,Tr)<span class="sc">$</span>g</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>Xp<span class="ot">&lt;-</span><span class="fu">runif.tri</span>(n,Tr)<span class="sc">$</span>g</span></code></pre></div>
 <div id="closest-points-in-vertex-regions-to-the-opposite-edges" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Closest Points in Vertex Regions to the Opposite Edges</h2>
 <p>Here an <em>extrema point</em> in each <span class="math inline">\(M\)</span>-vertex region in a triangle <span class="math inline">\(T\)</span>, where <span class="math inline">\(M\)</span> is a center,
@@ -392,7 +392,7 @@ since a subset (possibly all) of this type of extrema points constitutes a minim
 (see <span class="citation">Ceyhan and Priebe (2007)</span>, <span class="citation">Ceyhan and Priebe (2005)</span>, and <span class="citation">Ceyhan (2011)</span> for more details).</p>
 <p>With <code>M=CC</code> (i.e., when the center is the circumcenter),
 the extrema point here is the closest <span class="math inline">\(\mathcal{X}\)</span> point in CC-vertex
-region to the opposite edge, and is found by the function <code>cl2edgesCC_VR</code>
+region to the opposite edge, and is found by the function <code>cl2edgesCCvert.reg</code>
 which is an object of class <code>Extrema</code>
 and has arguments <code>Xp,tri</code> where</p>
 <ul>
@@ -406,82 +406,82 @@ vertices of the support of the data points.
 The <code>plot</code> function (or <code>plot.Extrema</code>) would return
 the plot of the triangle together with the CC-vertex regions and
 the generated points with extrema being marked with red crosses.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2edgesCC_VR</span>(Xp,Tr)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Ext</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2edgesCC_VR(Xp = Xp, tri = Tr)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opoosite Edges&quot;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2edgesCC_VR(Xp = Xp, tri = Tr)</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opoosite Edges&quot;</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in CC-Vertex Regions of the Triangle to its Edges </span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to vertex region i for i=1,2,3) </span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 1.723711 0.8225489</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 1.794240 0.2158873</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 1.380035 1.5548904</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)&quot;</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Distances between the Edges and the Closest Points to the Edges in CC-Vertex Regions </span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex region i for i=1,2,3) </span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.06854235 1.06105561 0.66109225</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Triangle </span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Ext)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2edgesCCvert.reg</span>(Xp,Tr)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>Ext</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; cl2edgesCCvert.reg(Xp = Xp, tri = Tr)</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opoosite Edges&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; cl2edgesCCvert.reg(Xp = Xp, tri = Tr)</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opoosite Edges&quot;</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in CC-Vertex Regions of the Triangle to its Edges </span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to vertex region i for i=1,2,3) </span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; [1,] 1.723711 0.8225489</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt; [2,] 1.794240 0.2158873</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#&gt; [3,] 1.380035 1.5548904</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)&quot;</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt;  Distances between the Edges and the Closest Points to the Edges in CC-Vertex Regions </span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex region i for i=1,2,3) </span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; [1] 0.06854235 1.06105561 0.66109225</span></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Triangle </span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a><span class="fu">plot</span>(Ext)</span></code></pre></div>
 <p>With <code>M=CM</code> (i.e., when the center is the center of mass),
 the extrema point here is the closest <span class="math inline">\(\mathcal{X}\)</span> point in CM-vertex
-region to the opposite edge, and is found by the function <code>cl2edgesCM_VR</code>
+region to the opposite edge, and is found by the function <code>cl2edgesCMvert.reg</code>
 which is an object of class <code>Extrema</code>.
-Its arguments, <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCC_VR</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2edgesCM_VR</span>(Xp,Tr)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Ext</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2edgesCM_VR(Xp = Xp, tri = Tr)</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CM-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opposite Edges&quot;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2edgesCM_VR(Xp = Xp, tri = Tr)</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CM-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opposite Edges&quot;</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in CM-Vertex Regions of the Triangle to its Edges </span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to vertex region i for i=1,2,3) </span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 1.316272 1.0372685</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 1.687023 0.7682074</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 1.482080 1.1991317</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)&quot;</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Distances between the Edges and the Closest Points to the Edges in CM-Vertex Regions </span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex region i for i=1,2,3) </span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.4117393 0.7181527 0.4816895</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Triangle </span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Ext)</span></code></pre></div>
+Its arguments, <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCCvert.reg</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2edgesCMvert.reg</span>(Xp,Tr)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>Ext</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; cl2edgesCMvert.reg(Xp = Xp, tri = Tr)</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CM-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opposite Edges&quot;</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; cl2edgesCMvert.reg(Xp = Xp, tri = Tr)</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CM-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opposite Edges&quot;</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in CM-Vertex Regions of the Triangle to its Edges </span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to vertex region i for i=1,2,3) </span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; [1,] 1.316272 1.0372685</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; [2,] 1.687023 0.7682074</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; [3,] 1.482080 1.1991317</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)&quot;</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt;  Distances between the Edges and the Closest Points to the Edges in CM-Vertex Regions </span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex region i for i=1,2,3) </span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="co">#&gt; [1] 0.4117393 0.7181527 0.4816895</span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Triangle </span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="fu">plot</span>(Ext)</span></code></pre></div>
 <p>With a general center <code>M</code> in the interior of the triangle <span class="math inline">\(T\)</span>,
 the extrema point here is the closest <span class="math inline">\(\mathcal{X}\)</span> point in <span class="math inline">\(M\)</span>-vertex
 region to the opposite edge,
-and is found by the function <code>cl2edgesM_VR</code>
+and is found by the function <code>cl2edgesMvert.reg</code>
 which is an object of class <code>Extrema</code> and has arguments <code>Xp,tri,M,alt</code> where</p>
 <ul>
-<li><code>Xp,tri</code> are as in <code>cl2edgesCC_VR</code>.</li>
+<li><code>Xp,tri</code> are as in <code>cl2edgesCCvert.reg</code>.</li>
 <li><code>M</code>, a 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle <code>tri</code> or the circumcenter of <code>tri</code>;
 which may be entered as “CC” as well;</li>
@@ -491,43 +491,43 @@ to the opposite edge and the relevant extrema objects, and when <code>alt=TRUE</
 it first partitions the data set according which vertex regions they reside, and
 then finds the minimum distance to the opposite edge and the relevant extrema on each partition.</li>
 </ul>
-<p>Its <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCC_VR</code>.
+<p>Its <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCCvert.reg</code>.
 We comment the <code>plot(Ext)</code> out below for brevity in the exposition,
-as the plot is similar to the one in <code>cl2edgesCM_VR</code> above.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>M<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">1.6</span>,<span class="fl">1.0</span>) <span class="co">#try also M&lt;-as.numeric(runif.tri(1,Tr)$g)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2edgesM_VR</span>(Xp,Tr,M)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Ext</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2edgesM_VR(Xp = Xp, tri = Tr, M = M)</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in M-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2)\n to Opposite Edges&quot;</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2edgesM_VR(Xp = Xp, tri = Tr, M = M)</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in M-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2)\n to Opposite Edges&quot;</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in M-Vertex Regions of the Triangle to its Edges </span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to vertex region i for i=1,2,3) </span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 1.482080 1.1991317</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 1.687023 0.7682074</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 1.380035 1.5548904</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)&quot;</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Distances between the Edges and the Closest Points to the Edges in M-Vertex Regions </span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex region i for i=1,2,3) </span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.2116239 0.7181527 0.6610922</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Triangle </span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Ext)</span></code></pre></div>
-<p>There is also the function <code>cl2edgesVRbas.tri</code> which takes arguments <code>Xp,c1,c2,M</code>
+as the plot is similar to the one in <code>cl2edgesCMvert.reg</code> above.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>M<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">1.6</span>,<span class="fl">1.0</span>) <span class="co">#try also M&lt;-as.numeric(runif.tri(1,Tr)$g)</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2edgesMvert.reg</span>(Xp,Tr,M)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>Ext</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; cl2edgesMvert.reg(Xp = Xp, tri = Tr, M = M)</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in M-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2)\n to Opposite Edges&quot;</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; cl2edgesMvert.reg(Xp = Xp, tri = Tr, M = M)</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in M-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2)\n to Opposite Edges&quot;</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in M-Vertex Regions of the Triangle to its Edges </span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to vertex region i for i=1,2,3) </span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]</span></span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt; [1,] 1.482080 1.1991317</span></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="co">#&gt; [2,] 1.687023 0.7682074</span></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; [3,] 1.380035 1.5548904</span></span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)&quot;</span></span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="co">#&gt;  Distances between the Edges and the Closest Points to the Edges in M-Vertex Regions </span></span>
+<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex region i for i=1,2,3) </span></span>
+<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="co">#&gt; [1] 0.2116239 0.7181527 0.6610922</span></span>
+<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Triangle </span></span>
+<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
+<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
+<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
+<span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
+<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a><span class="fu">plot</span>(Ext)</span></code></pre></div>
+<p>There is also the function <code>cl2edges.vert.reg.basic.tri</code> which takes arguments <code>Xp,c1,c2,M</code>
 and finds the closest points in a data set <code>Xp</code>
 in the <span class="math inline">\(M\)</span>-vertex regions to the corresponding (opposite) edges in the standard basic triangle, <span class="math inline">\(T_b\)</span>
 where the <em>standard basic triangle</em> is <span class="math inline">\(T_b=T((0,0),(1,0),(c_1,c_2))\)</span>
@@ -541,50 +541,50 @@ is the point in the given data set, <span class="math inline">\(\mathcal{X}_n\)<
 That is, for the triangle <span class="math inline">\(T(A,B,C)\)</span>, if the <span class="math inline">\(CC\)</span>-vertex region is <span class="math inline">\(V(A)\)</span>,
 the closest point in <span class="math inline">\(\mathcal X_n \cap V(A)\)</span> to the circumcenter is found
 (if there are no data points in <span class="math inline">\(V(A)\)</span>, the function returns <code>NA</code> for the vertex region <span class="math inline">\(V(A)\)</span>).</p>
-<p>The description and summary of extrema points and their plot can be obtained using the function <code>cl2CC.VR</code>
+<p>The description and summary of extrema points and their plot can be obtained using the function <code>cl2CCvert.reg</code>
 which is an object of class <code>Extrema</code> and takes arguments <code>Xp,tri,ch.all.intri</code> where</p>
 <ul>
-<li><code>Xp,tri</code> are as in <code>cl2edgesCC_VR</code> and</li>
+<li><code>Xp,tri</code> are as in <code>cl2edgesCCvert.reg</code> and</li>
 <li><code>ch.all.intri</code> is a logical argument (default=<code>FALSE</code>) to check whether all data points are inside
 the triangle <code>tri</code>. So, if it is <code>TRUE</code>,
 the function checks if all data points are inside the closure of the triangle (i.e., interior and boundary
 combined) else it does not.</li>
 </ul>
-<p>Its <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCC_VR</code>, except in <code>summary</code>
+<p>Its <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCCvert.reg</code>, except in <code>summary</code>
 distances between the circumcenter and the closest points to the circumcenter in CC-vertex regions are provided.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2CC.VR</span>(Xp,Tr)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Ext</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2CC.VR(Xp = Xp, tri = Tr)</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) to its Circumcenter&quot;</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2CC.VR(Xp = Xp, tri = Tr)</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) to its Circumcenter&quot;</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in CC-Vertex Regions of the Triangle to its Circumcenter </span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to vertex i for i=1,2,3) </span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 1.723711 0.8225489</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 1.794240 0.2158873</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 1.529720 1.5787125</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)&quot;</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Distances between the Circumcenter and the Closest Points to the Circumcenter in CC-Vertex Regions </span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex i for i=1,2,3) </span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.4442261 0.9143510 0.7428921</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Triangle </span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Ext)  </span></code></pre></div>
-<p>There is also the function <code>cl2CC.VRbas.tri</code> which takes arguments <code>Xp,c1,c2,ch.all.intri</code> and
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2CCvert.reg</span>(Xp,Tr)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>Ext</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; cl2CCvert.reg(Xp = Xp, tri = Tr)</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) to its Circumcenter&quot;</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; cl2CCvert.reg(Xp = Xp, tri = Tr)</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) to its Circumcenter&quot;</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in CC-Vertex Regions of the Triangle to its Circumcenter </span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to vertex i for i=1,2,3) </span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; [1,] 1.723711 0.8225489</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; [2,] 1.794240 0.2158873</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; [3,] 1.529720 1.5787125</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)&quot;</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="co">#&gt;  Distances between the Circumcenter and the Closest Points to the Circumcenter in CC-Vertex Regions </span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex i for i=1,2,3) </span></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="co">#&gt; [1] 0.4442261 0.9143510 0.7428921</span></span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Triangle </span></span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="fu">plot</span>(Ext)  </span></code></pre></div>
+<p>There is also the function <code>cl2CCvert.reg.basic.tri</code> which takes arguments <code>Xp,c1,c2,ch.all.intri</code> and
 finds the closest points in a data set <code>Xp</code> in the CC-vertex regions to the circumcenter in the standard basic triangle, <span class="math inline">\(T_b\)</span>.</p>
 </div>
 <div id="furthest-points-from-vertices-in-cc-vertex-regions" class="section level2" number="2.3">
@@ -594,46 +594,46 @@ is the point in the given data set, <span class="math inline">\(\mathcal{X}_n\)<
 That is, for the triangle <span class="math inline">\(T(A,B,C)\)</span>, if the <span class="math inline">\(CC\)</span>-vertex region is <span class="math inline">\(V(A)\)</span>,
 the furthest point in <span class="math inline">\(\mathcal X_n \cap V(A)\)</span> from the vertex <span class="math inline">\(A\)</span> is found
 (if there are no data points in <span class="math inline">\(V(A)\)</span>, the function returns <code>NA</code> for the vertex region <span class="math inline">\(V(A)\)</span>).</p>
-<p>The description and summary of extrema points and their plot can be obtained using the function <code>fr2vertsCC_VR</code>
+<p>The description and summary of extrema points and their plot can be obtained using the function <code>fr2vertsCCvert.reg</code>
 which is an object of class <code>Extrema</code>.
-Its arguments, <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCC_VR</code>,
+Its arguments, <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCCvert.reg</code>,
 except in <code>summary</code> distances between the vertices and
 the furthest points in the CC-vertex regions are provided.
 We comment the <code>plot(Ext)</code> out below for brevity in the exposition,
-as the plot is a special case of the one in <code>kfr2vertsCC_VR</code> with <span class="math inline">\(k=1\)</span> below.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">fr2vertsCC_VR</span>(Xp,Tr)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Ext</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fr2vertsCC_VR(Xp = Xp, tri = Tr)</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices&quot;</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fr2vertsCC_VR(Xp = Xp, tri = Tr)</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices&quot;</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Furthest Points in CC-Vertex Regions of the Triangle from its Vertices </span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to vertex i for i=1,2,3) </span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 1.723711 0.8225489</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 1.794240 0.2158873</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 1.380035 1.5548904</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)&quot;</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Distances between the vertices and the furthest points in the vertex regions </span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex i for i=1,2,3) </span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.7451486 0.2982357 0.4609925</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Triangle </span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Ext) </span></code></pre></div>
-<p>There is also the function <code>fr2vertsCC_VRbas.tri</code> which takes the same arguments as <code>cl2CC.VRbas.tri</code> and
+as the plot is a special case of the one in <code>kfr2vertsCCvert.reg</code> with <span class="math inline">\(k=1\)</span> below.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">fr2vertsCCvert.reg</span>(Xp,Tr)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>Ext</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; fr2vertsCCvert.reg(Xp = Xp, tri = Tr)</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices&quot;</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; fr2vertsCCvert.reg(Xp = Xp, tri = Tr)</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices&quot;</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Furthest Points in CC-Vertex Regions of the Triangle from its Vertices </span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to vertex i for i=1,2,3) </span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt; [1,] 1.723711 0.8225489</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt; [2,] 1.794240 0.2158873</span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt; [3,] 1.380035 1.5548904</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)&quot;</span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt;  Distances between the vertices and the furthest points in the vertex regions </span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex i for i=1,2,3) </span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt; [1] 0.7451486 0.2982357 0.4609925</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Triangle </span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="fu">plot</span>(Ext) </span></code></pre></div>
+<p>There is also the function <code>fr2vertsCCvert.reg.basic.tri</code> which takes the same arguments as <code>cl2CCvert.reg.basic.tri</code> and
 returns the furthest points in a data set in the vertex regions from the vertices in the standard basic triangle, <span class="math inline">\(T_b\)</span>.</p>
 </div>
 <div id="k-furthest-points-from-vertices-in-cc-vertex-regions" class="section level2" number="2.4">
@@ -644,55 +644,55 @@ That is, for the triangle <span class="math inline">\(T(A,B,C)\)</span>, if the 
 the <span class="math inline">\(k\)</span> most furthest points in <span class="math inline">\(\mathcal X_n \cap V(A)\)</span> from the vertex <span class="math inline">\(A\)</span> are found
 (if there are <span class="math inline">\(k&#39;\)</span> with <span class="math inline">\(k&#39;&lt; k\)</span> data points in <span class="math inline">\(V(A)\)</span>,
 the function returns <span class="math inline">\(k-k&#39;\)</span> <code>NA</code>’s for at the end of the extrema vector for the vertex region <span class="math inline">\(V(A)\)</span>).</p>
-<p>The description and summary of extrema points and their plot can be obtained using the function <code>kfr2vertsCC_VR</code>.
+<p>The description and summary of extrema points and their plot can be obtained using the function <code>kfr2vertsCCvert.reg</code>.
 which is an object of class <code>Extrema</code> and takes arguments <code>Xp,tri,k,ch.all.intri</code>
-where <code>Xp,tri,ch.all.intri</code> are as in <code>fr2vertsCC_VR</code> and <code>k</code> represents the number of furthest points from each vertex.
-Its <code>call</code>, <code>summary</code> and <code>plot</code> are also as in <code>fr2vertsCC_VR</code>,
+where <code>Xp,tri,ch.all.intri</code> are as in <code>fr2vertsCCvert.reg</code> and <code>k</code> represents the number of furthest points from each vertex.
+Its <code>call</code>, <code>summary</code> and <code>plot</code> are also as in <code>fr2vertsCCvert.reg</code>,
 except in <code>summary</code> distances between the vertices and
 the <span class="math inline">\(k\)</span> most furthest points to the vertices in the CC-vertex regions are provided.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>k<span class="ot">=</span><span class="dv">3</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">kfr2vertsCC_VR</span>(Xp,Tr,k)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Ext</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; kfr2vertsCC_VR(Xp = Xp, tri = Tr, k = k)</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;3 Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices&quot;</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; kfr2vertsCC_VR(Xp = Xp, tri = Tr, k = k)</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;3 Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices&quot;</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: 3 Furthest Points in CC-Vertex Regions of the Triangle from its Vertices </span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to vertex i for i=1,2,3) </span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                               [,1]      [,2]</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1. furthest from vertex 1 1.723711 0.8225489</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2. furthest from vertex 1 1.687023 0.7682074</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3. furthest from vertex 1 1.482080 1.1991317</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1. furthest from vertex 2 1.794240 0.2158873</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2. furthest from vertex 2       NA        NA</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3. furthest from vertex 2       NA        NA</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1. furthest from vertex 3 1.380035 1.5548904</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2. furthest from vertex 3 1.529720 1.5787125</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3. furthest from vertex 3 1.477620 1.7224190</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, and C=3 (where vertex i corresponds to row numbers 3(i-1) to 3i in Extremum Points)&quot;</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Distances between the vertices and the 3 furthest points in the vertex regions </span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex i for i=1,2,3) </span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]      [,3]</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 0.3686516 0.7250712 0.3511223</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.2982357        NA        NA</span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 0.4609925 0.4223345 0.2784818</span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Triangle </span></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Ext)</span></code></pre></div>
-<p>There is also the function <code>kfr2vertsCC_VRbas.tri</code> which takes arguments <code>Xp,c1,c2,k,ch.all.intri</code> and
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>k<span class="ot">=</span><span class="dv">3</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">kfr2vertsCCvert.reg</span>(Xp,Tr,k)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>Ext</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; kfr2vertsCCvert.reg(Xp = Xp, tri = Tr, k = k)</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;3 Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices&quot;</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; kfr2vertsCCvert.reg(Xp = Xp, tri = Tr, k = k)</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; [1] &quot;3 Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices&quot;</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: 3 Furthest Points in CC-Vertex Regions of the Triangle from its Vertices </span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to vertex i for i=1,2,3) </span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt;                               [,1]      [,2]</span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; 1. furthest from vertex 1 1.723711 0.8225489</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; 2. furthest from vertex 1 1.687023 0.7682074</span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#&gt; 3. furthest from vertex 1 1.482080 1.1991317</span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="co">#&gt; 1. furthest from vertex 2 1.794240 0.2158873</span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co">#&gt; 2. furthest from vertex 2       NA        NA</span></span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="co">#&gt; 3. furthest from vertex 2       NA        NA</span></span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a><span class="co">#&gt; 1. furthest from vertex 3 1.380035 1.5548904</span></span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="co">#&gt; 2. furthest from vertex 3 1.529720 1.5787125</span></span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="co">#&gt; 3. furthest from vertex 3 1.477620 1.7224190</span></span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, and C=3 (where vertex i corresponds to row numbers 3(i-1) to 3i in Extremum Points)&quot;</span></span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a><span class="co">#&gt;  Distances between the vertices and the 3 furthest points in the vertex regions </span></span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex i for i=1,2,3) </span></span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]      [,3]</span></span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="co">#&gt; [1,] 0.3686516 0.7250712 0.3511223</span></span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt; [2,] 0.2982357        NA        NA</span></span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="co">#&gt; [3,] 0.4609925 0.4223345 0.2784818</span></span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Triangle </span></span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="co">#&gt;   [,1] [,2]</span></span>
+<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a><span class="co">#&gt; A  1.0    1</span></span>
+<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a><span class="co">#&gt; B  2.0    0</span></span>
+<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a><span class="co">#&gt; C  1.5    2</span></span>
+<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a><span class="fu">plot</span>(Ext)</span></code></pre></div>
+<p>There is also the function <code>kfr2vertsCCvert.reg.basic.tri</code> which takes arguments <code>Xp,c1,c2,k,ch.all.intri</code> and
 finds the <span class="math inline">\(k\)</span> most furthest points in a data set <code>Xp</code> in the vertex regions from
 the corresponding vertices in the standard basic triangle, <span class="math inline">\(T_b\)</span>.</p>
 </div>
@@ -702,45 +702,45 @@ the corresponding vertices in the standard basic triangle, <span class="math inl
 That is, for the triangle <span class="math inline">\(T_e\)</span> the closest points
 in <span class="math inline">\(\mathcal X_n \cap T_e\)</span> to the edges of <span class="math inline">\(T_e\)</span> are found.</p>
 <p>First we generate <span class="math inline">\(n=20\)</span> uniform points in the standard equilateral triangle <span class="math inline">\(T_e\)</span>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10</span>  <span class="co">#try also n&lt;-20</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Xp<span class="ot">&lt;-</span><span class="fu">runif.std.tri</span>(n)<span class="sc">$</span>gen.points</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10</span>  <span class="co">#try also n&lt;-20</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>Xp<span class="ot">&lt;-</span><span class="fu">runif.std.tri</span>(n)<span class="sc">$</span>gen.points</span></code></pre></div>
 <p>The description and summary of extrema points and their plot can be obtained using the function <code>cl2edges.std.tri</code>
-which is an object of class <code>Extrema</code> with arguments <code>Xp,ch.all.intri</code> which are as in <code>cl2CC.VR</code>.
-Its <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCC_VR</code>,
+which is an object of class <code>Extrema</code> with arguments <code>Xp,ch.all.intri</code> which are as in <code>cl2CCvert.reg</code>.
+Its <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCCvert.reg</code>,
 except in <code>summary</code> distances between the edges and the closest points to the edges in the standard equilateral triangle.
 We used the option <code>asp=1</code> in plotting so that <span class="math inline">\(T_e\)</span> is actually depicted as an equilateral triangle.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2edges.std.tri</span>(Xp)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Ext</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2edges.std.tri(Xp = Xp)</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in the Standard Equilateral Triangle Te=T(A,B,C) with Vertices A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) to its Edges&quot;</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2edges.std.tri(Xp = Xp)</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in the Standard Equilateral Triangle Te=T(A,B,C) with Vertices A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) to its Edges&quot;</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in the Standard Equilateral Triangle to its Edges  </span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to edge i for i=1,2,3)   </span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 0.4763512 0.7726664</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.4763512 0.7726664</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 0.7111212 0.1053883</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Edge labels are AB=3, BC=1, and AC=2 (correspond to row number in Extremum Points)&quot;</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Distances between Edges and the Closest Points in the Standard Equilateral Triangle </span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to edge i for i=1,2,3) </span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.06715991 0.02619907 0.10538830</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Standard Equilateral Triangle </span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [,1]      [,2]</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A  0.0 0.0000000</span></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; B  1.0 0.0000000</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C  0.5 0.8660254</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Ext,<span class="at">asp=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2edges.std.tri</span>(Xp)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>Ext</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; cl2edges.std.tri(Xp = Xp)</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in the Standard Equilateral Triangle Te=T(A,B,C) with Vertices A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) to its Edges&quot;</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; cl2edges.std.tri(Xp = Xp)</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in the Standard Equilateral Triangle Te=T(A,B,C) with Vertices A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) to its Edges&quot;</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in the Standard Equilateral Triangle to its Edges  </span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to edge i for i=1,2,3)   </span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]</span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; [1,] 0.4763512 0.7726664</span></span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; [2,] 0.4763512 0.7726664</span></span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; [3,] 0.7111212 0.1053883</span></span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Edge labels are AB=3, BC=1, and AC=2 (correspond to row number in Extremum Points)&quot;</span></span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt;  Distances between Edges and the Closest Points in the Standard Equilateral Triangle </span></span>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to edge i for i=1,2,3) </span></span>
+<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a><span class="co">#&gt; [1] 0.06715991 0.02619907 0.10538830</span></span>
+<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Standard Equilateral Triangle </span></span>
+<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a><span class="co">#&gt;   [,1]      [,2]</span></span>
+<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a><span class="co">#&gt; A  0.0 0.0000000</span></span>
+<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a><span class="co">#&gt; B  1.0 0.0000000</span></span>
+<span id="cb11-31"><a href="#cb11-31" tabindex="-1"></a><span class="co">#&gt; C  0.5 0.8660254</span></span>
+<span id="cb11-32"><a href="#cb11-32" tabindex="-1"></a><span class="fu">plot</span>(Ext,<span class="at">asp=</span><span class="dv">1</span>)</span></code></pre></div>
 </div>
 <div id="furthest-points-to-edges-in-cm-edge-regions-of-the-standard-equilateral-triangle" class="section level2" number="2.6">
 <h2><span class="header-section-number">2.6</span> Furthest Points to Edges in CM-Edge Regions of the Standard Equilateral Triangle</h2>
@@ -750,53 +750,53 @@ That is, for the triangle <span class="math inline">\(T_e\)</span>, if the <span
 the furthest point in <span class="math inline">\(\mathcal X_n \cap E(AB)\)</span> from the edge <span class="math inline">\(AB\)</span> is found
 (if there are no data points in <span class="math inline">\(E(AB)\)</span>,
 the function returns <code>NA</code> for the edge region <span class="math inline">\(E(AB)\)</span>).</p>
-<p>The description and summary of extrema points and their plot can be obtained using the function <code>fr2edgesCM_ERstd.tri</code>
+<p>The description and summary of extrema points and their plot can be obtained using the function <code>fr2edgesCMedge.reg.std.tri</code>
 which is an object of class <code>Extrema</code> which takes the same arguments as <code>cl2edges.std.tri</code>.
-Its <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCC_VR</code>,
+Its <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCCvert.reg</code>,
 except in <code>summary</code> distances between the edges and the furthest points in the CM-edge regions to the edges are provided.
 We used the option <code>asp=1</code> in plotting so that <span class="math inline">\(T_e\)</span> is actually depicted as an equilateral triangle.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">fr2edgesCM_ERstd.tri</span>(Xp)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Ext</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fr2edgesCM_ERstd.tri(Xp = Xp)</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Furthest Points in the CM-Edge Regions of the Standard Equilateral Triangle T=(A,B,C) with A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) from its Edges&quot;</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fr2edgesCM_ERstd.tri(Xp = Xp)</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Furthest Points in the CM-Edge Regions of the Standard Equilateral Triangle T=(A,B,C) with A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) from its Edges&quot;</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Furthest Points in the CM-Edge Regions of the Standard Equilateral Triangle from its Edges </span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to edge i for i=1,2,3) </span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 0.6508705 0.2234491</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.4590657 0.2878622</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 0.7111212 0.1053883</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Edge Labels are AB=3, BC=1, and AC=2 (correspond to row number in Extremum Points)&quot;</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Distances between the edges and the furthest points in the edge regions </span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to edge i for i=1,2,3) </span></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.1906305 0.2536315 0.1053883</span></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Standard Equilateral Triangle </span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [,1]      [,2]</span></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A  0.0 0.0000000</span></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; B  1.0 0.0000000</span></span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C  0.5 0.8660254</span></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Ext,<span class="at">asp=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">fr2edgesCMedge.reg.std.tri</span>(Xp)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>Ext</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">#&gt; fr2edgesCMedge.reg.std.tri(Xp = Xp)</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Furthest Points in the CM-Edge Regions of the Standard Equilateral Triangle T=(A,B,C) with A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) from its Edges&quot;</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">#&gt; fr2edgesCMedge.reg.std.tri(Xp = Xp)</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Furthest Points in the CM-Edge Regions of the Standard Equilateral Triangle T=(A,B,C) with A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) from its Edges&quot;</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Furthest Points in the CM-Edge Regions of the Standard Equilateral Triangle from its Edges </span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to edge i for i=1,2,3) </span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]</span></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="co">#&gt; [1,] 0.6508705 0.2234491</span></span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="co">#&gt; [2,] 0.4590657 0.2878622</span></span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a><span class="co">#&gt; [3,] 0.7111212 0.1053883</span></span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Edge Labels are AB=3, BC=1, and AC=2 (correspond to row number in Extremum Points)&quot;</span></span>
+<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a><span class="co">#&gt;  Distances between the edges and the furthest points in the edge regions </span></span>
+<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to edge i for i=1,2,3) </span></span>
+<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a><span class="co">#&gt; [1] 0.1906305 0.2536315 0.1053883</span></span>
+<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Standard Equilateral Triangle </span></span>
+<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a><span class="co">#&gt;   [,1]      [,2]</span></span>
+<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a><span class="co">#&gt; A  0.0 0.0000000</span></span>
+<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a><span class="co">#&gt; B  1.0 0.0000000</span></span>
+<span id="cb12-31"><a href="#cb12-31" tabindex="-1"></a><span class="co">#&gt; C  0.5 0.8660254</span></span>
+<span id="cb12-32"><a href="#cb12-32" tabindex="-1"></a><span class="fu">plot</span>(Ext,<span class="at">asp=</span><span class="dv">1</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="the-extreme-points-in-an-interval" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> The Extreme Points in an Interval</h1>
 <p>We use the same interval <span class="math inline">\((a,b)=(0,10)\)</span> as in the previous sections.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>c<span class="ot">&lt;-</span>.<span class="dv">4</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="dv">0</span>; b<span class="ot">&lt;-</span><span class="dv">10</span>; int<span class="ot">&lt;-</span><span class="fu">c</span>(a,b)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>Xp<span class="ot">&lt;-</span><span class="fu">runif</span>(nx,a,b)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>c<span class="ot">&lt;-</span>.<span class="dv">4</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="dv">0</span>; b<span class="ot">&lt;-</span><span class="dv">10</span>; int<span class="ot">&lt;-</span><span class="fu">c</span>(a,b)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>Xp<span class="ot">&lt;-</span><span class="fu">runif</span>(nx,a,b)</span></code></pre></div>
 <p>And we generate <span class="math inline">\(n_x=\)</span> 10 uniform points in it by using the basic <code>R</code> function <code>runif</code>.</p>
 <div id="closest-points-to-m_c-in-m_c-vertex-regions" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Closest Points to <span class="math inline">\(M_c\)</span> in <span class="math inline">\(M_c\)</span>-Vertex Regions</h2>
@@ -821,37 +821,37 @@ in the interval <code>int</code>.</li>
 <li><code>c</code>, a positive real number in <span class="math inline">\((0,1)\)</span> parameterizing the center inside <code>int</code><span class="math inline">\(=(a,b)\)</span>.
 For the interval, <code>int</code><span class="math inline">\(=(a,b)\)</span>, the parameterized center is <span class="math inline">\(M_c=a+c(b-a)\)</span>.
 .
-Its <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCC_VR</code>,
+Its <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCCvert.reg</code>,
 except in <code>summary</code> distances between the center <span class="math inline">\(M_c\)</span> and
 the closest points to <span class="math inline">\(M_c\)</span> in <span class="math inline">\(M_c\)</span>-vertex regions are provided.</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2Mc.int</span>(Xp,int,c)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Ext</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2Mc.int(Xp = Xp, int = int, c = c)</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in Mc-Vertex Regions of the Interval (a,b) = (0,10) to its Center Mc = 4&quot;</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2Mc.int(Xp = Xp, int = int, c = c)</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in Mc-Vertex Regions of the Interval (a,b) = (0,10) to its Center Mc = 4&quot;</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in Mc-Vertex Regions of the Interval to its Center </span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex i for i=1,2) </span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.454885 4.100841</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex Labels are a=1 and b=2 for the interval (a,b)&quot;</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Distances between the Center Mc and the Closest Points to Mc in Mc-Vertex Regions </span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex i for i=1,2) </span></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1.5451149 0.1008408</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Interval </span></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  a  b </span></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0 10</span></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Ext)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2Mc.int</span>(Xp,int,c)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>Ext</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#&gt; cl2Mc.int(Xp = Xp, int = int, c = c)</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in Mc-Vertex Regions of the Interval (a,b) = (0,10) to its Center Mc = 4&quot;</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt; cl2Mc.int(Xp = Xp, int = int, c = c)</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in Mc-Vertex Regions of the Interval (a,b) = (0,10) to its Center Mc = 4&quot;</span></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in Mc-Vertex Regions of the Interval to its Center </span></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex i for i=1,2) </span></span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="co">#&gt; [1] 2.454885 4.100841</span></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex Labels are a=1 and b=2 for the interval (a,b)&quot;</span></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="co">#&gt;  Distances between the Center Mc and the Closest Points to Mc in Mc-Vertex Regions </span></span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex i for i=1,2) </span></span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a><span class="co">#&gt; [1] 1.5451149 0.1008408</span></span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Interval </span></span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a><span class="co">#&gt;  a  b </span></span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a><span class="co">#&gt;  0 10</span></span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a><span class="fu">plot</span>(Ext)</span></code></pre></div>
 </div>
 </div>
 <div id="the-extreme-points-in-a-tetrahedron" class="section level1" number="4">
@@ -859,14 +859,14 @@ the closest points to <span class="math inline">\(M_c\)</span> in <span class="m
 <p>We illustrate the extrema for a tetrahedron which is obtained by slightly jittering the vertices of
 the standard regular tetrahedron (for better visualization) and
 generate <span class="math inline">\(n=20\)</span> uniform <span class="math inline">\(\mathcal{X}\)</span> points in it using the function <code>runif.tetra</code>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>A<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>); B<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>); C<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>,<span class="fu">sqrt</span>(<span class="dv">3</span>)<span class="sc">/</span><span class="dv">2</span>,<span class="dv">0</span>); D<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>,<span class="fu">sqrt</span>(<span class="dv">3</span>)<span class="sc">/</span><span class="dv">6</span>,<span class="fu">sqrt</span>(<span class="dv">6</span>)<span class="sc">/</span><span class="dv">3</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>tetra<span class="ot">&lt;-</span><span class="fu">rbind</span>(A,B,C,D)<span class="sc">+</span><span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">12</span>,<span class="sc">-</span>.<span class="dv">25</span>,.<span class="dv">25</span>),<span class="at">ncol=</span><span class="dv">3</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10</span>  <span class="co">#try also n&lt;-20</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>Cent<span class="ot">&lt;-</span><span class="st">&quot;CC&quot;</span>  <span class="co">#try also &quot;CM&quot;</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10</span>  <span class="co">#try also n&lt;-20</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>Xp<span class="ot">&lt;-</span><span class="fu">runif.tetra</span>(n,tetra)<span class="sc">$</span>g  <span class="co">#try also Xp&lt;-cbind(runif(n),runif(n),runif(n))</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>A<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>); B<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>); C<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>,<span class="fu">sqrt</span>(<span class="dv">3</span>)<span class="sc">/</span><span class="dv">2</span>,<span class="dv">0</span>); D<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>,<span class="fu">sqrt</span>(<span class="dv">3</span>)<span class="sc">/</span><span class="dv">6</span>,<span class="fu">sqrt</span>(<span class="dv">6</span>)<span class="sc">/</span><span class="dv">3</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>tetra<span class="ot">&lt;-</span><span class="fu">rbind</span>(A,B,C,D)<span class="sc">+</span><span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">12</span>,<span class="sc">-</span>.<span class="dv">25</span>,.<span class="dv">25</span>),<span class="at">ncol=</span><span class="dv">3</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10</span>  <span class="co">#try also n&lt;-20</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>Cent<span class="ot">&lt;-</span><span class="st">&quot;CC&quot;</span>  <span class="co">#try also &quot;CM&quot;</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10</span>  <span class="co">#try also n&lt;-20</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>Xp<span class="ot">&lt;-</span><span class="fu">runif.tetra</span>(n,tetra)<span class="sc">$</span>g  <span class="co">#try also Xp&lt;-cbind(runif(n),runif(n),runif(n))</span></span></code></pre></div>
 <div id="closest-points-in-vertex-regions-to-the-opposite-faces" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Closest Points in Vertex Regions to the Opposite Faces</h2>
 <p>Here an <em>extrema point</em> in each <span class="math inline">\(M\)</span>-vertex region, where <span class="math inline">\(M\)</span> is a center of the tetrahedron,
@@ -876,51 +876,51 @@ the opposite face is the triangular face <span class="math inline">\(T(B,C,D)\)<
 in <span class="math inline">\(\mathcal X_n \cap V(A)\)</span> to face <span class="math inline">\(T(B,C,D)\)</span> is found
 (if there are no data points in <span class="math inline">\(V(A)\)</span>, the function returns <code>NA</code> for the vertex region <span class="math inline">\(V(A)\)</span>).</p>
 <p>With <code>M=CC</code> (i.e., when the center is the circumcenter), the extrema point here is the closest <span class="math inline">\(\mathcal{X}\)</span> point in CC-vertex
-region to the opposite face, and is found by the function <code>cl2facesVRtetra</code>
+region to the opposite face, and is found by the function <code>cl2faces.vert.reg.tetra</code>
 which is an object of class <code>Extrema</code> and takes arguments <code>Xp,th,M</code> where</p>
 <ul>
 <li>`Xp1, a set of 3D points representing the set of data points.</li>
 <li>`th1, a <span class="math inline">\(4 \times 3\)</span> matrix with each row representing a vertex of the tetrahedron.</li>
 <li><code>M1, the center to be used in the construction of the vertex regions in the tetrahedron,</code>th<code>. Currently it only takes</code>“CC”<code>for circumcenter and</code>“CM”<code>for center of mass; default=</code>“CM”`.</li>
 </ul>
-<p>This function is the 3D version of the function <code>cl2edgesCC_VR</code>
-Its <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCC_VR</code>,
+<p>This function is the 3D version of the function <code>cl2edgesCCvert.reg</code>
+Its <code>call</code>, <code>summary</code> and <code>plot</code> are as in <code>cl2edgesCCvert.reg</code>,
 except in <code>summary</code> distances between the faces and
 the closest points to the faces in CC-vertex regions are provided.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2facesVRtetra</span>(Xp,tetra,Cent)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Ext</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2facesVRtetra(Xp = Xp, th = tetra, M = Cent)</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CC-Vertex Regions of the Tetrahedron with Vertices A=(-0.12,-0.15,0.06), B=(0.94,0.2,-0.22), C=(0.54,1.09,-0.15), and D=(0.7,0.37,0.65) to the Opposite Faces&quot;</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cl2facesVRtetra(Xp = Xp, th = tetra, M = Cent)</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CC-Vertex Regions of the Tetrahedron with Vertices A=(-0.12,-0.15,0.06), B=(0.94,0.2,-0.22), C=(0.54,1.09,-0.15), and D=(0.7,0.37,0.65) to the Opposite Faces&quot;</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in CC-Vertex Regions of the Tetrahedron to its Faces</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to face i for i=1,2,3,4) </span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]       [,3]</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 0.1073281 0.0109421 0.19871179</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.6535570 0.2922984 0.15795015</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 0.5199352 0.6610763 0.08954581</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 0.5127296 0.5449680 0.24057920</span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, C=3, and D=4 (correspond to row number in Extremum Points)&quot;</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Distances between Faces and the Closest Points to the Faces in CC-Vertex Regions</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex region i for i=1,2,3,4) </span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.7554212 0.2773495 0.4803672 0.3509001</span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Tetrahedron </span></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         [,1]       [,2]        [,3]</span></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A -0.1172457 -0.1491590  0.06455702</span></span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; B  0.9360619  0.1991948 -0.21910686</span></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C  0.5364267  1.0883630 -0.14701271</span></span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; D  0.7041039  0.3690740  0.65477496</span></span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Ext)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>Ext<span class="ot">&lt;-</span><span class="fu">cl2faces.vert.reg.tetra</span>(Xp,tetra,Cent)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>Ext</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co">#&gt; cl2faces.vert.reg.tetra(Xp = Xp, th = tetra, M = Cent)</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co">#&gt; Type:</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CC-Vertex Regions of the Tetrahedron with Vertices A=(-0.12,-0.15,0.06), B=(0.94,0.2,-0.22), C=(0.54,1.09,-0.15), and D=(0.7,0.37,0.65) to the Opposite Faces&quot;</span></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="fu">summary</span>(Ext)</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="co">#&gt; cl2faces.vert.reg.tetra(Xp = Xp, th = tetra, M = Cent)</span></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#&gt; Type of the Extrema</span></span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Closest Points in CC-Vertex Regions of the Tetrahedron with Vertices A=(-0.12,-0.15,0.06), B=(0.94,0.2,-0.22), C=(0.54,1.09,-0.15), and D=(0.7,0.37,0.65) to the Opposite Faces&quot;</span></span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="co">#&gt;  Extremum Points: Closest Points in CC-Vertex Regions of the Tetrahedron to its Faces</span></span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co">#&gt;  (Row i corresponds to face i for i=1,2,3,4) </span></span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]       [,3]</span></span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a><span class="co">#&gt; [1,] 0.1073281 0.0109421 0.19871179</span></span>
+<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a><span class="co">#&gt; [2,] 0.6535570 0.2922984 0.15795015</span></span>
+<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a><span class="co">#&gt; [3,] 0.5199352 0.6610763 0.08954581</span></span>
+<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a><span class="co">#&gt; [4,] 0.5127296 0.5449680 0.24057920</span></span>
+<span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vertex labels are A=1, B=2, C=3, and D=4 (correspond to row number in Extremum Points)&quot;</span></span>
+<span id="cb16-23"><a href="#cb16-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-24"><a href="#cb16-24" tabindex="-1"></a><span class="co">#&gt;  Distances between Faces and the Closest Points to the Faces in CC-Vertex Regions</span></span>
+<span id="cb16-25"><a href="#cb16-25" tabindex="-1"></a><span class="co">#&gt;  (i-th entry corresponds to vertex region i for i=1,2,3,4) </span></span>
+<span id="cb16-26"><a href="#cb16-26" tabindex="-1"></a><span class="co">#&gt; [1] 0.7554212 0.2773495 0.4803672 0.3509001</span></span>
+<span id="cb16-27"><a href="#cb16-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-28"><a href="#cb16-28" tabindex="-1"></a><span class="co">#&gt;  Vertices of the Support Tetrahedron </span></span>
+<span id="cb16-29"><a href="#cb16-29" tabindex="-1"></a><span class="co">#&gt;         [,1]       [,2]        [,3]</span></span>
+<span id="cb16-30"><a href="#cb16-30" tabindex="-1"></a><span class="co">#&gt; A -0.1172457 -0.1491590  0.06455702</span></span>
+<span id="cb16-31"><a href="#cb16-31" tabindex="-1"></a><span class="co">#&gt; B  0.9360619  0.1991948 -0.21910686</span></span>
+<span id="cb16-32"><a href="#cb16-32" tabindex="-1"></a><span class="co">#&gt; C  0.5364267  1.0883630 -0.14701271</span></span>
+<span id="cb16-33"><a href="#cb16-33" tabindex="-1"></a><span class="co">#&gt; D  0.7041039  0.3690740  0.65477496</span></span>
+<span id="cb16-34"><a href="#cb16-34" tabindex="-1"></a><span class="fu">plot</span>(Ext)</span></code></pre></div>
 <p><strong>References</strong></p>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-ceyhan:dom-num-CCCD-NonUnif" class="csl-entry">
