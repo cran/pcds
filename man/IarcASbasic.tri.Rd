@@ -2,7 +2,8 @@
 % Please edit documentation in R/ArcSliceFunctions.R
 \name{IarcASbasic.tri}
 \alias{IarcASbasic.tri}
-\title{The indicator for the presence of an arc from a point to another for Arc Slice Proximity Catch Digraphs
+\title{The indicator for the presence of an arc from a point to another
+for Arc Slice Proximity Catch Digraphs
 (AS-PCDs) - standard basic triangle case}
 \usage{
 IarcASbasic.tri(p1, p2, c1, c2, M = "CC", rv = NULL)
@@ -28,29 +29,34 @@ default is \code{M="CC"} i.e., the circumcenter of \eqn{T_b}.}
 (i.e., if there is an arc from \code{p1} to \code{p2}), returns 0 otherwise.
 }
 \description{
-Returns \eqn{I(p2 \in N_{AS}(p1))} for points \code{p1} and \code{p2}, that is, returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0
+Returns \eqn{I(p2 \in N_{AS}(p1))} for points \code{p1} and \code{p2},
+that is, returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0
 otherwise, where \eqn{N_{AS}(x)} is the AS proximity region for point \eqn{x}.
 
 AS proximity region is constructed in the standard basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
 where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
-Vertex regions are based on the center \code{M="CC"} for circumcenter of \eqn{T_b};
-or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of \eqn{T_b}; default is \code{M="CC"} i.e., circumcenter of \eqn{T_b}.
+Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the standard basic triangle \eqn{T_b}
+or based on circumcenter of \eqn{T_b};
+default is \code{M="CC"}, i.e., circumcenter of \eqn{T_b}.
 \code{rv} is the index of the vertex region \code{p1} resides, with default=\code{NULL}.
 
 If \code{p1} and \code{p2} are distinct and either of them are outside \eqn{T_b}, the function returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 
 Any given triangle can be mapped to the standard basic triangle
-by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
-preserving uniformity of the points in the original triangle. Hence standard basic triangle is useful for simulation
+by a combination of rigid body motions
+(i.e., translation, rotation and reflection) and scaling,
+preserving uniformity of the points in the original triangle.
+Hence standard basic triangle is useful for simulation
 studies under the uniformity hypothesis.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)

@@ -43,7 +43,7 @@ then \eqn{CC} and \eqn{CM} (center of mass) coincide.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 set.seed(123)
 A<-c(0,0,0)+runif(3,-.2,.2);
 B<-c(1,0,0)+runif(3,-.2,.2);

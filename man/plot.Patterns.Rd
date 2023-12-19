@@ -28,7 +28,7 @@ Plots the points generated from the pattern
 study window
 }
 \examples{
-\dontrun{
+\donttest{
 nx<-10; #try also 100 and 1000
 ny<-5; #try also 1
 e<-.15;

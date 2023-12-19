@@ -33,7 +33,7 @@ Loops are allowed, so the diagonal entries are all equal to 1.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
 n<-10

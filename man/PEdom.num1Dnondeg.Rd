@@ -28,12 +28,16 @@ whose vertices are \code{Xp} points.}
 \item{int.dom.nums}{Domination numbers of the PE-PCD components for the partition intervals.}
 }
 \description{
-Returns the domination number, a minimum dominating set of PE-PCD whose vertices are the 1D data set \code{Xp},
+Returns the domination number,
+a minimum dominating set of PE-PCD whose vertices are the 1D data set \code{Xp},
 and the domination numbers for partition intervals based on \code{Yp}
 when PE-PCD is constructed with vertex regions based on non-degeneracy centers.
 
 \code{Yp} determines the end points of the intervals
 (i.e., partition the real line via intervalization).
+If there are duplicates of \code{Yp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 
 PE proximity regions are defined with respect to the intervals based on \code{Yp} points with
 expansion parameter \eqn{r \ge 1} and
@@ -47,7 +51,7 @@ and the corresponding centers are called
 nondegeneracy centers.
 }
 \examples{
-\dontrun{
+\donttest{
 a<-0; b<-10
 r<-1.5
 

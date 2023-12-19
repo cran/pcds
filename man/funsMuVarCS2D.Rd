@@ -3,26 +3,26 @@
 \name{funsMuVarCS2D}
 \alias{funsMuVarCS2D}
 \alias{muCS2D}
-\alias{asyvarCS2D}
+\alias{asy.varCS2D}
 \title{Returns the mean and (asymptotic) variance of arc density of  Central Similarity Proximity Catch Digraph (CS-PCD)
 for 2D uniform data in one triangle}
 \usage{
 muCS2D(t)
 
-asyvarCS2D(t)
+asy.varCS2D(t)
 }
 \arguments{
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 }
 \value{
-\code{muCS2D} returns the mean and \code{asyvarCS2D} returns the (asymptotic) variance of the
+\code{muCS2D} returns the mean and \code{asy.varCS2D} returns the (asymptotic) variance of the
 arc density of CS-PCD for uniform data in any triangle
 }
 \description{
-Two functions: \code{muCS2D} and \code{asyvarCS2D}.
+Two functions: \code{muCS2D} and \code{asy.varCS2D}.
 
 \code{muCS2D} returns the mean of the (arc) density of CS-PCD
-and \code{asyvarCS2D} returns the asymptotic variance of the arc density of CS-PCD
+and \code{asy.varCS2D} returns the asymptotic variance of the arc density of CS-PCD
 with expansion parameter \eqn{t>0} for 2D uniform data in a triangle.
 
 CS proximity regions are defined with respect to the triangle and
@@ -31,7 +31,7 @@ vertex regions are based on center of mass, \eqn{CM} of the triangle.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for muCS2D
 muCS2D(.5)
 
@@ -47,21 +47,23 @@ for (i in 1:ltseq)
 plot(tseq, mu,type="l",xlab="t",ylab=expression(mu(t)),lty=1,xlim=range(tseq))
 }
 
-\dontrun{
-#Examples for asyvarCS2D
-asyvarCS2D(.5)
+\donttest{
+#Examples for asy.varCS2D
+asy.varCS2D(.5)
 
 tseq<-seq(0.01,10,by=.1)
 ltseq<-length(tseq)
 
-asyvar<-vector()
+asy.var<-vector()
 for (i in 1:ltseq)
 {
-  asyvar<-c(asyvar,asyvarCS2D(tseq[i]))
+  asy.var<-c(asy.var,asy.varCS2D(tseq[i]))
 }
 
-par(mar=c(5,5,4,2))
-plot(tseq, asyvar,type="l",xlab="t",ylab=expression(paste(sigma^2,"(t)")),lty=1,xlim=range(tseq))
+oldpar <- par(mar=c(5,5,4,2))
+plot(tseq, asy.var,type="l",xlab="t",
+    ylab=expression(paste(sigma^2,"(t)")),lty=1,xlim=range(tseq))
+par(oldpar)
 }
 
 }
@@ -69,7 +71,7 @@ plot(tseq, asyvar,type="l",xlab="t",ylab=expression(paste(sigma^2,"(t)")),lty=1,
 \insertAllCited{}
 }
 \seealso{
-\code{\link{muPE2D}} and \code{\link{asyvarPE2D}}
+\code{\link{muPE2D}} and \code{\link{asy.varPE2D}}
 }
 \author{
 Elvan Ceyhan

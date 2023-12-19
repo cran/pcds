@@ -123,7 +123,7 @@ the number of \code{Yp} points.
 See also (\insertCite{ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 nx<-100; ny<-5 #try also nx<-1000; ny<-10
 r<-1.5  #try also r<-2 or r<-1.25
 

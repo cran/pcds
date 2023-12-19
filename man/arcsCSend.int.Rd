@@ -2,7 +2,8 @@
 % Please edit documentation in R/CentSim1D.R
 \name{arcsCSend.int}
 \alias{arcsCSend.int}
-\title{The arcs of Central Similarity Proximity Catch Digraph (CS-PCD) for 1D data - end interval case}
+\title{The arcs of Central Similarity Proximity Catch Digraph (CS-PCD)
+for 1D data - end-interval case}
 \usage{
 arcsCSend.int(Xp, Yp, t)
 }
@@ -17,26 +18,29 @@ arcsCSend.int(Xp, Yp, t)
 A \code{list} with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, it is the expansion parameter.}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the intervalization based on \code{Yp}.}
-\item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed,
+here, tessellation is the intervalization based on \code{Yp}.}
+\item{tess.name}{Name of the tessellation points \code{tess.points}}
 \item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitutes the vertices of the digraph}
-\item{S}{Tails (or sources) of the arcs of CS-PCD for 1D data in the end intervals}
-\item{E}{Heads (or arrow ends) of the arcs of CS-PCD for 1D data in the end intervals}
+\item{S}{Tails (or sources) of the arcs of CS-PCD for 1D data in the end-intervals}
+\item{E}{Heads (or arrow ends) of the arcs of CS-PCD for 1D data in the end-intervals}
 \item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
-number of intervals (which is 2 for end intervals), number of arcs, and arc density.}
+number of intervals (which is 2 for end-intervals), number of arcs, and arc density.}
 }
 \description{
 An object of class \code{"PCDs"}.
-Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
-of CS-PCD and related parameters and the quantities of the digraph.
-\code{Yp} determines the end points of the end intervals.
+Returns arcs of CS-PCD as tails (or sources) and heads (or arrow ends)
+and related parameters and the quantities of the digraph.
+The vertices of the CS-PCD are the 1D data points in \code{Xp}
+in the end-interval case.
+\code{Yp} determines the end points of the end-intervals.
 
 For this function, CS proximity regions are constructed data points outside the intervals based on
 \code{Yp} points with expansion parameter \eqn{t>0}. That is, for this function,
-arcs may exist for points only inside end intervals.
+arcs may exist for points only inside end-intervals.
 It also provides various descriptions and quantities about the arcs of the CS-PCD
 such as number of arcs, arc density, etc.
 
@@ -73,7 +77,7 @@ Xlim<-range(a,b,Xp,Yp)
 xd<-Xlim[2]-Xlim[1]
 
 plot(cbind(a,0),pch=".",
-main="arcs of CS-PCD with vertices (jittered along y-axis)\n in end intervals ",
+main="arcs of CS-PCD with vertices (jittered along y-axis)\n in end-intervals ",
      xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit))
 abline(h=0,lty=1)
 points(Xp, yjit,pch=".",cex=3)

@@ -62,7 +62,7 @@ with the parameter \code{t}
 being provided in \code{vector} \code{t}.
 }
 \examples{
-\dontrun{
+\donttest{
 P<-c(1,10,4); Q<-c(1,1,3); R<-c(3,9,12)
 
 vecs<-rbind(P,R-Q)

@@ -43,7 +43,7 @@ where \eqn{M_c=a+c(b-a)}.
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c<-.4
 a<-0; b<-10; int = c(a,b)
 

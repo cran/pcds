@@ -46,7 +46,7 @@ See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
 for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-\dontrun{
+\donttest{
 nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)

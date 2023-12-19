@@ -32,12 +32,10 @@ A \code{list} with the elements
 \item{parameters}{Parameters of the digraph,
 the center \code{M} used to
 construct the vertex regions and the expansion parameter \code{r}.}
-\item{tess.points}{Points on which the tessellation of the study region
-is performed, here, tessellation
-is the support triangle.}
-\item{tess.name}{Name of data set
-(i.e. points from the non-target class) used in the tessellation
-of the space (here, vertices of the triangle)}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed,
+here, tessellation points are the vertices of the support triangle \code{tri}.}
+\item{tess.name}{Name of the tessellation points \code{tess.points}}
 \item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set
 which constitutes the vertices of the digraph}
@@ -55,9 +53,10 @@ number of triangles, number of arcs, and arc density.}
 }
 \description{
 An object of class \code{"PCDs"}.
-Returns arcs as tails (or sources) and heads (or arrow ends)
-for data set \code{Xp} as the vertices of PE-PCD
+Returns arcs of PE-PCD as tails (or sources) and heads (or arrow ends)
 and related parameters and the quantities of the digraph.
+The vertices of the PE-PCD are the data points in \code{Xp}
+in the one triangle case.
 
 PE proximity regions are constructed
 with respect to the triangle \code{tri} with expansion
@@ -85,7 +84,7 @@ and domination number the PE-PCDs based on uniform data.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10

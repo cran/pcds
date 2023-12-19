@@ -8,12 +8,17 @@ and quantities related to the triangle - one triangle case}
 num.arcsAStri(Xp, tri, M = "CC")
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the digraph (i.e., AS-PCD).}
+\item{Xp}{A set of 2D points which constitute
+the vertices of the digraph (i.e., AS-PCD).}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
+\item{tri}{Three 2D points, stacked row-wise,
+each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
-a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
+\item{M}{The center of the triangle.
+\code{"CC"} stands for circumcenter of the triangle \code{tri}
+or a 2D point in Cartesian coordinates or
+a 3D point in barycentric coordinates which serves as a center
+in the interior of \code{tri};
 default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 }
 \value{
@@ -21,10 +26,14 @@ A \code{list} with the elements
 \item{desc}{A short description of the output: number of arcs
 and quantities related to the triangle}
 \item{num.arcs}{Number of arcs of the AS-PCD}
+\item{tri.num.arcs}{Number of arcs of the induced subdigraph of the AS-PCD
+for vertices in the triangle \code{tri}}
 \item{num.in.tri}{Number of \code{Xp} points in the triangle, \code{tri}}
-\item{ind.in.tri}{The vector of indices of the \code{Xp} points that reside in the triangle}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the support triangle.}
+\item{ind.in.tri}{The vector of indices of the \code{Xp} points
+that reside in the triangle}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed,
+here, tessellation points are the vertices of the support triangle \code{tri}.}
 \item{vertices}{Vertices of the digraph, \code{Xp}.}
 }
 \description{
@@ -35,19 +44,22 @@ It also provides number of vertices (i.e., number of data points inside the tria
 and indices of the data points that reside in the triangle.
 
 The data points could be inside or outside a general
-triangle \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)}, with vertices of \code{tri} stacked row-wise.
+triangle \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)},
+with vertices of \code{tri} stacked row-wise.
 
-AS proximity regions are defined with respect to the triangle \code{tri} and vertex regions are
-based on the center \code{M="CC"} for circumcenter of \code{tri};
-or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
+AS proximity regions are defined with respect to the triangle \code{tri}
+and vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri}
+or based on circumcenter of  \code{tri};
+default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
 For the number of arcs, loops are not allowed,
 so arcs are only possible for points inside the triangle, \code{tri}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 
@@ -68,7 +80,8 @@ plot(Narcs)
 \insertAllCited{}
 }
 \seealso{
-\code{\link{num.arcsAS}}, \code{\link{num.arcsPEtri}}, and \code{\link{num.arcsCStri}}
+\code{\link{num.arcsAS}}, \code{\link{num.arcsPEtri}},
+and \code{\link{num.arcsCStri}}
 }
 \author{
 Elvan Ceyhan

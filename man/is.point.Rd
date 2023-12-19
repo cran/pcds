@@ -22,7 +22,7 @@ is a \code{numeric} point of dimension \code{dim}
 (default is \code{dim=2}); otherwise returns \code{FALSE}.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75,4)
 is.point(A)
 is.point(A,1)

@@ -11,8 +11,7 @@
 
 \item{Jit}{A positive real number
 that determines the amount of jitter along the \eqn{y}-axis,
-default is 0.1, for the
-1D case,
+default is 0.1, for the 1D case,
 the vertices of the PCD are jittered
 according to \eqn{U(-Jit,Jit)} distribution
 along the \eqn{y}-axis where
@@ -32,7 +31,7 @@ cells (i.e., intervals in the 1D case
 and triangles in the 2D case)
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10
@@ -45,7 +44,6 @@ plot(Arcs)
 
 }
 \seealso{
-\code{\link{print.PCDs}},
-\code{\link{summary.PCDs}},
+\code{\link{print.PCDs}}, \code{\link{summary.PCDs}},
 and \code{\link{print.summary.PCDs}}
 }

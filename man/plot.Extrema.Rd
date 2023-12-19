@@ -31,7 +31,7 @@ among these points together with the reference object
 (e.g., boundary of the support region)
 }
 \examples{
-\dontrun{
+\donttest{
 n<-10
 Xp<-runif.std.tri(n)$gen.points
 Ext<-cl2edges.std.tri(Xp)

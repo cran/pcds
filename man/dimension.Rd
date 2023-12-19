@@ -25,7 +25,7 @@ columns of \code{x}.
  while \code{dim} yields \code{NULL} for such arguments.
 }
 \examples{
-\dontrun{
+\donttest{
 dimension(3)
 dim(3)
 

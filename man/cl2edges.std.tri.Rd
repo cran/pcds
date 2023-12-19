@@ -74,7 +74,7 @@ inside \eqn{T_e}).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:masa-2007;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 n<-20  #try also n<-100
 Xp<-runif.std.tri(n)$gen.points
 

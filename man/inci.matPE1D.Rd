@@ -25,8 +25,13 @@ Incidence matrix for the PE-PCD with vertices being 1D data set, \code{Xp},
 and \code{Yp} determines the end points of the intervals (in the multi-interval case)
 }
 \description{
-Returns the incidence matrix for the PE-PCD for a given 1D numerical data set, \code{Xp},
-as the vertices of the digraph and \code{Yp} determines the end points of the intervals (in the multi-interval case).
+Returns the incidence matrix for the PE-PCD
+for a given 1D numerical data set, \code{Xp},
+as the vertices of the digraph
+and \code{Yp} determines the end points of the intervals (in the multi-interval case).
+If there are duplicates of \code{Yp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 Loops are allowed, so the diagonal entries are all equal to 1.
 
 PE proximity region is constructed
@@ -35,7 +40,7 @@ with an expansion parameter \eqn{r \ge 1} and a centrality parameter \eqn{c \in 
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 r<-2
 c<-.4
 a<-0; b<-10;

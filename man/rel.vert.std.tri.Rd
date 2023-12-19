@@ -44,7 +44,7 @@ joining vertices and \code{M}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 n<-20  #try also n<-40

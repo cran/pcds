@@ -30,7 +30,7 @@ distances from extrema to the reference \code{object}
 some of the data points (from which extrema is found).
 }
 \examples{
-\dontrun{
+\donttest{
 n<-10
 Xp<-runif.std.tri(n)$gen.points
 Ext<-cl2edges.std.tri(Xp)

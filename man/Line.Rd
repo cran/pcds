@@ -61,7 +61,7 @@ would yield the same straight line
 (i.e., the line with the same coefficients.)
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75)
 
 xr<-range(A,B);

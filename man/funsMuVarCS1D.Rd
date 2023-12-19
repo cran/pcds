@@ -3,13 +3,13 @@
 \name{funsMuVarCS1D}
 \alias{funsMuVarCS1D}
 \alias{muCS1D}
-\alias{asyvarCS1D}
+\alias{asy.varCS1D}
 \title{Returning the mean and (asymptotic) variance of arc density of Central Similarity Proximity Catch Digraph (CS-PCD)
 for 1D data - middle interval case}
 \usage{
 muCS1D(t, c)
 
-asyvarCS1D(t, c)
+asy.varCS1D(t, c)
 }
 \arguments{
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
@@ -18,14 +18,14 @@ asyvarCS1D(t, c)
 For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
-\code{muCS1D} returns the mean and \code{asyvarCS1D} returns the asymptotic variance of the
+\code{muCS1D} returns the mean and \code{asy.varCS1D} returns the asymptotic variance of the
 arc density of CS-PCD for uniform data in an interval
 }
 \description{
-Two functions: \code{muCS1D} and \code{asyvarCS1D}.
+Two functions: \code{muCS1D} and \code{asy.varCS1D}.
 
 \code{muCS1D} returns the mean of the (arc) density of CS-PCD
-and \code{asyvarCS1D} returns the (asymptotic) variance of the arc density of CS-PCD
+and \code{asy.varCS1D} returns the (asymptotic) variance of the arc density of CS-PCD
 for a given centrality parameter \eqn{c \in (0,1)} and an expansion parameter \eqn{t>0} and 1D uniform data in a
 finite interval \eqn{(a,b)}, i.e., data from \eqn{U(a,b)} distribution.
 
@@ -56,8 +56,8 @@ shade = 0.05, ticktype = "detailed")
 }
 
 \donttest{
-#Examples for asyvarCS1D
-asyvarCS1D(1.2,.8)
+#Examples for asy.varCS1D
+asy.varCS1D(1.2,.8)
 
 tseq<-seq(0.01,5,by=.05)
 cseq<-seq(0.01,.99,by=.05)
@@ -69,7 +69,7 @@ var.grid<-matrix(0,nrow=ltseq,ncol=lcseq)
 for (i in 1:ltseq)
   for (j in 1:lcseq)
   {
-    var.grid[i,j]<-asyvarCS1D(tseq[i],cseq[j])
+    var.grid[i,j]<-asy.varCS1D(tseq[i],cseq[j])
   }
 
 persp(tseq,cseq,var.grid, xlab="t", ylab="c", zlab="var(t,c)", theta = -30,
@@ -82,7 +82,7 @@ shade = 0.05, ticktype = "detailed")
 \insertAllCited{}
 }
 \seealso{
-\code{\link{muPE1D}} and \code{\link{asyvarPE1D}}
+\code{\link{muPE1D}} and \code{\link{asy.varPE1D}}
 }
 \author{
 Elvan Ceyhan

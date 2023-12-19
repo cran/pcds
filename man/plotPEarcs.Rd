@@ -62,6 +62,9 @@ Plots the arcs of Proportional Edge Proximity Catch Digraph
 (PE-PCD) whose vertices are the data
 points in \code{Xp} in the multiple triangle case
 and the Delaunay triangles based on \code{Yp} points.
+If there are duplicates of  \code{Xp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 
 PE proximity regions are defined
 with respect to the Delaunay triangles based on \code{Yp} points
@@ -72,11 +75,6 @@ in barycentric coordinates in the interior of each Delaunay triangle
 or based on circumcenter of
 each Delaunay triangle (default for \eqn{M=(1,1,1)}
 which is the center of mass of the triangle).
-Each Delaunay triangle is first converted to
-an (nonscaled) basic triangle so that \code{M} will be the same
-type of center for each Delaunay triangle
-(this conversion is not necessary
-when \code{M} is \eqn{CM}).
 
 Convex hull of \code{Yp} is partitioned by
 the Delaunay triangles based on \code{Yp} points
@@ -92,7 +90,7 @@ Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pc
 for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-\dontrun{
+\donttest{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 

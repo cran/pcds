@@ -39,7 +39,7 @@ An object of class \code{"Uniform"}.
 Generates \code{n} points uniformly in a given triangle, \code{tri}
 }
 \examples{
-\dontrun{
+\donttest{
 n<-100
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C)

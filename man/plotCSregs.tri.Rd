@@ -63,7 +63,7 @@ default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10

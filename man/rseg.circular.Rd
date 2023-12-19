@@ -86,7 +86,7 @@ to the minimum of the \eqn{y}-coordinates of the \code{Yp} points,
 to the maximum of the \eqn{y}-coordinates of the \code{Yp} points.
 }
 \examples{
-\dontrun{
+\donttest{
 nx<-100; ny<-4;  #try also nx<-1000; ny<-10
 e<-.15;  #try also e<- -.1; #a negative e provides a CSR realization
 #with default bounding box (i.e., unit square)

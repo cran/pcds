@@ -36,9 +36,12 @@ with the horizontal line crossing the point \code{p}}
 Returns the end points of the line segments and arc-slices that constitute the boundary of AS proximity
 region for a point in the triangle \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)}.
 
-Vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
-or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
-default is \code{M="CC"} the circumcenter of \code{tri}. \code{rv} is the index of the vertex region \code{p1} resides,
+Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri}
+or based on circumcenter of  \code{tri};
+default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
+\code{rv} is the index of the vertex region \code{p1} resides,
 with default=\code{NULL}.
 
 If \code{p} is outside of \code{tri}, it returns \code{NULL} for the proximity region.
@@ -49,7 +52,7 @@ in the decimals).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 

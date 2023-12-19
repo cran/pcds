@@ -173,7 +173,7 @@ print.summary.Lines <- function(x, ...)
 #' and \code{\link{print.summary.Lines}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(-1.22,-2.33); B<-c(2.55,3.75)
 #' xr<-range(A,B);
 #' xf<-(xr[2]-xr[1])*.1
@@ -269,7 +269,7 @@ plot.Lines<-function (x, asp=NA, xlab="x",ylab="y",...)
 #' and \code{\link{plot.TriLines}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' xfence<-abs(A[1]-B[1])*.25
@@ -331,7 +331,7 @@ print.TriLines <- function(x, ...)
 #' and \code{\link{plot.TriLines}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' xfence<-abs(A[1]-B[1])*.25
@@ -509,7 +509,7 @@ plot.TriLines<-function (x,xlab="x",ylab="y", ...)
 #' and \code{\link{plot.Lines3D}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P<-c(1,10,3); Q<-c(1,1,3);
 #' vecs<-rbind(P,Q)
 #' Line3D(P,Q,.1)
@@ -570,7 +570,7 @@ print.Lines3D <- function(x, ...)
 #' and \code{\link{plot.Lines3D}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P<-c(1,10,3); Q<-c(1,1,3);
 #' vecs<-rbind(P,Q)
 #' Line3D(P,Q,.1)
@@ -685,7 +685,7 @@ print.summary.Lines3D <- function(x, ...)
 #' and \code{\link{print.summary.Lines3D}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P<-c(1,10,3); Q<-c(1,1,3);
 #' vecs<-rbind(P,Q)
 #' Line3D(P,Q,.1)
@@ -826,7 +826,7 @@ plot.Lines3D<-function (x,xlab="x",ylab="y",zlab="z",phi = 40, theta = 40,...)
 #' and \code{\link{plot.Planes}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P<-c(1,10,3); Q<-c(1,1,3); C<-c(3,9,12)
 #' pts<-rbind(P,Q,C)
 #'
@@ -886,7 +886,7 @@ print.Planes <- function(x, ...)
 #' and \code{\link{plot.Planes}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P<-c(1,10,3); Q<-c(1,1,3); C<-c(3,9,12)
 #' pts<-rbind(P,Q,C)
 #'
@@ -1001,7 +1001,7 @@ print.summary.Planes <- function(x, ...)
 #' and \code{\link{print.summary.Planes}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P<-c(1,10,3); Q<-c(1,1,3); C<-c(3,9,12)
 #' pts<-rbind(P,Q,C)
 #'
@@ -1091,7 +1091,7 @@ plot.Planes<-function (x, x.grid.size=10, y.grid.size=10,xlab="x",ylab="y",zlab=
 #' and \code{\link{plot.Patterns}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-10; #try also 20, 100, and 1000
 #' ny<-5; #try also 1
 #' e<-.15;
@@ -1102,7 +1102,7 @@ plot.Planes<-function (x, x.grid.size=10, y.grid.size=10,xlab="x",ylab="y",zlab=
 #' Xdt
 #' print(Xdt)
 #'
-#' typeof(Xdt))
+#' typeof(Xdt)
 #' attributes(Xdt)
 #' }
 #'
@@ -1148,7 +1148,7 @@ print.Patterns <- function(x, ...)
 #' and \code{\link{plot.Patterns}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-10; #try also 10, 100, and 1000
 #' ny<-5; #try also 1
 #' e<-.15;
@@ -1258,7 +1258,7 @@ print.summary.Patterns <- function(x, ...)
 #' and \code{\link{print.summary.Patterns}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-10; #try also 100 and 1000
 #' ny<-5; #try also 1
 #' e<-.15;
@@ -1321,7 +1321,7 @@ plot.Patterns<-function (x, asp=NA,xlab="x",ylab="y",...)
 #' and \code{\link{plot.Uniform}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-10 #try also 20, 100, and 1000
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C)
@@ -1330,7 +1330,7 @@ plot.Patterns<-function (x, asp=NA,xlab="x",ylab="y",...)
 #' Xdt
 #' print(Xdt)
 #'
-#' typeof(Xdt))
+#' typeof(Xdt)
 #' attributes(Xdt)
 #' }
 #'
@@ -1381,7 +1381,7 @@ print.Uniform <- function(x, ...)
 #' and \code{\link{plot.Uniform}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-10 #try also 20, 100, and 1000
 #' A<-c(1,1); B<-c(2,0); R<-c(1.5,2);
 #' Tr<-rbind(A,B,R)
@@ -1521,7 +1521,7 @@ print.summary.Uniform <- function(x, ...)
 #' and \code{\link{print.summary.Uniform}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-10 #try also 20, 100, and 1000
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C)
@@ -1611,14 +1611,14 @@ plot.Uniform<-function (x,asp=NA,xlab="x",ylab="y",zlab="z", ...)
 #' and \code{\link{plot.Extrema}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-10
 #' Xp<-runif.std.tri(n)$gen.points
 #' Ext<-cl2edges.std.tri(Xp)
 #' Ext
 #' print(Ext)
 #'
-#' typeof(Ext))
+#' typeof(Ext)
 #' attributes(Ext)
 #' }
 #'
@@ -1665,7 +1665,7 @@ print.Extrema <- function(x, ...)
 #' and \code{\link{plot.Extrema}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-10
 #' Xp<-runif.std.tri(n)$gen.points
 #' Ext<-cl2edges.std.tri(Xp)
@@ -1728,24 +1728,18 @@ print.summary.Extrema <- function(x, ...)
 {
   cat("Call:\n")
   cat(format(x$call),"\n")
-  #print(x$call)
 
   cat("\nType of the Extrema\n")
   cat(format(x$type),"\n")
-  #print(x$type)
 
   cat("\nExtremum Points:",x$desc,"\n")
-  #cat(format(x$extr),"\n")
   print(x$extr)
   cat(format(x$txt1),"\n")
-  #print(x$txt1)
 
   cat("\n", x$txt2 ,"\n")
   cat(format(x$d2ref),"\n")
-  #print(x$d2ref)
 
   cat("\nVertices of the Support",x$Supp.type,"\n")
-  #cat(format(x$yvec),"\n")
   print(x$yvec)
 
 } #end of the function
@@ -1778,7 +1772,7 @@ print.summary.Extrema <- function(x, ...)
 #' and \code{\link{print.summary.Extrema}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-10
 #' Xp<-runif.std.tri(n)$gen.points
 #' Ext<-cl2edges.std.tri(Xp)
@@ -1898,7 +1892,7 @@ plot.Extrema<-function (x,asp=NA,xlab="",ylab="",zlab="", ...)
 #' @description Prints the \code{call} of the \code{object}
 #' of class \code{"PCDs"}
 #' and also the \code{type} (i.e. a brief description)
-#' of the proximity catch digraph (PCD.
+#' of the proximity catch digraph (PCD).
 #'
 #' @param x A \code{PCDs} \code{object}.
 #' @param \dots Additional arguments for the S3 method \code{'print'}.
@@ -1906,14 +1900,14 @@ plot.Extrema<-function (x,asp=NA,xlab="",ylab="",zlab="", ...)
 #' @return
 #' The \code{call} of the \code{object} of class \code{"PCDs"}
 #' and also the \code{type} (i.e. a brief description)
-#' of the proximity catch digraph (PCD.
+#' of the proximity catch digraph (PCD).
 #'
 #' @seealso \code{\link{summary.PCDs}},
 #' \code{\link{print.summary.PCDs}},
 #' and \code{\link{plot.PCDs}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -1923,7 +1917,7 @@ plot.Extrema<-function (x,asp=NA,xlab="",ylab="",zlab="", ...)
 #' Arcs
 #' print(Arcs)
 #'
-#' typeof(Arcs))
+#' typeof(Arcs)
 #' attributes(Arcs)
 #' }
 #'
@@ -1935,10 +1929,9 @@ print.PCDs <- function(x, ...)
 
   cat("Call:\n")
   cat(format(x$call),"\n")
-  #print(x$call)
+
   cat("\nType:\n")
   cat(format(x$type),"\n")
-  #print(x$type)
 } #end of the function
 #'
 ########################
@@ -1982,7 +1975,7 @@ print.PCDs <- function(x, ...)
 #' and \code{\link{plot.PCDs}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -2010,8 +2003,7 @@ summary.PCDs <- function(object, ...)
   ifelse(!is.null(object$E),
          ev<-as.matrix(object$E),
          ev<-NA)
-  # nx<-min(6,nrow(xv))
-  # ny<-min(6,nrow(yv))
+
   na<-min(6,nrow(sv))
 
   ifelse(!is.na(sv),
@@ -2024,8 +2016,6 @@ summary.PCDs <- function(object, ...)
   res <- list(txt=object$txt1,
               call=object$call,
               Vname=object$vert.name, Tname=object$tess.name,
-              #xvec=xv[1:nx,],
-              # yvec=yv[1:ny,],
               svec=svec,
               evec=evec,
               param=object$parameters,
@@ -2058,11 +2048,9 @@ print.summary.PCDs <- function(x, ...)
 {
   cat("Call:\n")
   cat(format(x$call),"\n")
-  #print(x$call)
 
   cat("\nType of the digraph:\n")
   cat(format(x$type),"\n")
-  #print(x$type)
 
   cat("\nVertices of the digraph = ",  x$Vname, "\nPartition points of the region = ", x$Tname,"\n")
 
@@ -2070,7 +2058,7 @@ print.summary.PCDs <- function(x, ...)
   #cat(format(x$param),"\n")
   print(x$param)
 
-  cat("Various quantities of the digraph:\n")
+  cat("\nVarious quantities of the digraph:\n")
   #cat(format(x$Quant),"\n")
   print(x$Quant)
 } #end of the function
@@ -2088,8 +2076,7 @@ print.summary.PCDs <- function(x, ...)
 #' @param x Object of class \code{PCDs}.
 #' @param Jit A positive real number
 #' that determines the amount of jitter along the \eqn{y}-axis,
-#' default is 0.1, for the
-#' 1D case,
+#' default is 0.1, for the 1D case,
 #' the vertices of the PCD are jittered
 #' according to \eqn{U(-Jit,Jit)} distribution
 #' along the \eqn{y}-axis where
@@ -2100,12 +2087,11 @@ print.summary.PCDs <- function(x, ...)
 #' @return
 #' None
 #'
-#' @seealso \code{\link{print.PCDs}},
-#' \code{\link{summary.PCDs}},
+#' @seealso \code{\link{print.PCDs}}, \code{\link{summary.PCDs}},
 #' and \code{\link{print.summary.PCDs}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -2130,7 +2116,7 @@ plot.PCDs<-function (x, Jit=0.1, ...)
   nx<-length(Xp); ny<-length(Yp)
   S<-x$S; ns = length(S)
   E<-x$E
-  cent = x$param[[1]] #as.numeric(x$param[[1]])
+  cent = x$param[[1]]
   yjit<-runif(ns,-Jit,Jit)
 
   if (dimn==1)
@@ -2144,7 +2130,7 @@ plot.PCDs<-function (x, Jit=0.1, ...)
     abline(h=0,lty=1)
     abline(v=Yp,lty=2)
     if (!is.null(S))
-      {arrows(S, yjit, E, yjit, length = 0.05, col= 4)}
+    {arrows(S, yjit, E, yjit, length = 0.05, col= 4)}
   } else if (dimn==2 && nrow(Yp)==3)
   {
     Xlim<-range(Yp[,1],Xp[,1],cent[1])
@@ -2178,6 +2164,7 @@ plot.PCDs<-function (x, Jit=0.1, ...)
   {stop('Currently only digraphs with vertices of dimension 1 or 2 are plotted.')}
 } #end of the function
 #'
+
 ###############################################
 #Auxiliary functions for class NumArcs
 ###############################################
@@ -2186,8 +2173,7 @@ plot.PCDs<-function (x, Jit=0.1, ...)
 #'
 #' @description Prints the \code{call} of the \code{object}
 #' of class \code{"NumArcs"}
-#' and also the \code{desc} (i.e. a brief description)
-#' of the output.
+#' and also the \code{desc} (i.e. a brief description) of the output.
 #'
 #' @param x A \code{NumArcs} \code{object}.
 #' @param \dots Additional arguments for the S3 method \code{'print'}.
@@ -2202,7 +2188,7 @@ plot.PCDs<-function (x, Jit=0.1, ...)
 #' and \code{\link{plot.NumArcs}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-15; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
@@ -2241,7 +2227,9 @@ print.NumArcs <- function(x, ...)
 #' @description Returns the below information about the \code{object}:
 #'
 #' \code{call} of the function defining the \code{object},
-#' the description of the proximity catch digraph (PCD), \code{desc}.
+#' the description of the output, \code{desc}:
+#' number of arcs in the proximity catch digraph (PCD) and
+#' related quantities in the induced subdigraphs for points in the Delaunay cells.
 #' In the one Delaunay cell case, the function provides
 #' the total number of arcs in the digraph,
 #' vertices of Delaunay cell, and
@@ -2260,13 +2248,13 @@ print.NumArcs <- function(x, ...)
 #'
 #' @return
 #' The \code{call} of the \code{object} of class \code{"NumArcs"},
-#' the \code{desc} of the proximity catch digraph (PCD),
+#' the \code{desc} of the output:
 #' total number of arcs in the digraph.
 #' Moreover, in the one Delaunay cell case, the function also provides
 #' vertices of Delaunay cell, and
 #' indices of target points in the Delaunay cell;
 #' and in the multiple Delaunay cell case, it also provides
-#' number of arcs for the induced digraphs for points in the Delaunay cells,
+#' number of arcs for the induced subdigraphs for points in the Delaunay cells,
 #' vertices of Delaunay cells or indices of points that form the the Delaunay cells,
 #' indices of target points in the convex hull of nontarget points,
 #' indices of Delaunay cells in which points reside,
@@ -2276,7 +2264,7 @@ print.NumArcs <- function(x, ...)
 #' and \code{\link{plot.NumArcs}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -2338,8 +2326,8 @@ summary.NumArcs <- function(object, ...)
                      cell.num.arcs = cell.num.arcs,#vector of number of arcs for the partition intervals
                      num.in.cells = num.in.cells, # vector of number of Xp points in the partition intervals
                      ind.in.mid = ind.in.mid, #indices of data points in the middle interval
-                     ind.in.left = ind.in.left, #indices of data points in the left end interval
-                     ind.in.right = ind.in.right, #indices of data points in the right end interval
+                     ind.in.left = ind.in.left, #indices of data points in the left end-interval
+                     ind.in.right = ind.in.right, #indices of data points in the right end-interval
                      cell.verts = cell.verts, # indices of the vertices of the Delaunay cells, i.e., each column corresponds to the one partition interval
                      data.cell.ind = data.cell.ind #indices of the partition intervals in which data points reside, i.e., column number of cell.verts for each Xp point
     )}
@@ -2350,19 +2338,21 @@ summary.NumArcs <- function(object, ...)
       {
         num.in.ch = object$num.in.tri
         ind.in.cell = object$ind.in.tri
+        cell.num.arcs = object$tri.num.arcs
 
         res <- list(call = object$call,
                     desc=object$desc, #description of the output
                     vertices=object$vertices,
                     tess.points=object$tess.points,
                     num.arcs=object$num.arcs, #number of arcs for the entire PCD
+                    cell.num.arcs = cell.num.arcs,#vector of number of arcs for the Delaunay cell
                     num.in.ch = num.in.ch, # number of Xp points in CH of Yp points
                     ind.in.cell = ind.in.cell#, #indices of data points inside the one Delaunay cell (one cell case)
         )
       } else {
         num.in.ch = object$num.in.conv.hull
         cell.num.arcs = object$tri.num.arcs
-        ind.in.cell = NULL
+        ind.in.cell = object$ind.in.conv.hull
         num.in.cells = object$num.in.tris
         cell.weights = object$weight.vec
         cell.vert.ind = object$del.tri.ind
@@ -2386,12 +2376,14 @@ summary.NumArcs <- function(object, ...)
     {
       num.in.ch = object$num.in.tetra
       ind.in.cell = object$ind.in.tetra
+      cell.num.arcs = object$tetra.num.arcs
 
       res <- list(call = object$call,
                   desc=object$desc, #description of the output
                   vertices=object$vertices,
                   tess.points=object$tess.points,
                   num.arcs=object$num.arcs, #number of arcs for the entire PCD
+                  cell.num.arcs = cell.num.arcs,#vector of number of arcs for the Delaunay cells
                   num.in.ch = num.in.ch, # number of Xp points in CH of Yp points
                   ind.in.cell = ind.in.cell#, #indices of data points inside the one Delaunay cell (one cell case)
       )
@@ -2427,38 +2419,37 @@ print.summary.NumArcs <- function(x, ...)
 
   Xp<-as.matrix(x$vertices)
   Yp<-as.matrix(x$tess.points)
-  nx=length(Xp)
-  ny=length(Yp)
+  nx=length(Xp); ny=length(Yp)
 
   dimn<-dimension(Xp)
 
   if (dimn == 1)
   {
     cat("\nNumber of data (Xp) points in the range of Yp (nontarget) points = ",  x$num.in.ch,"\n")
-    cat("Number of data points in the partition intervals based on Yp points = ",  x$num.in.cells,"\n")
-    cat("Number of arcs in the entire digraph = ",  x$num.arcs,"\n")
-    cat("Numbers of arcs in the induced subdigraphs in the partition intervals = ",  x$cell.num.arcs,"\n")
+    cat("\nNumber of data points in the partition intervals based on Yp points = ",  x$num.in.cells,"\n")
+    cat("\nNumber of arcs in the entire digraph = ",  x$num.arcs,"\n")
+    cat("\nNumbers of arcs in the induced subdigraphs in the partition intervals = ",  x$cell.num.arcs,"\n")
 
     if (grepl("1D", as.character(x$call)[1]))
     {
 
-      cat("Lengths of the (middle) partition intervals (used as weights in the arc density of multi-interval case):\n")
+      cat("\nLengths of the (middle) partition intervals (used as weights in the arc density of multi-interval case):\n")
       cat(format(x$cell.weights),"\n")
 
       cat("\nEnd points of the partition intervals (each column refers to a partition interval):\n")
       print(x$cell.verts)
 
-      cat("\nIndices of the partition intervals data points resides:\n")
+      cat("\nIndices of the partition intervals in which data points resides:\n")
       cat(format(x$data.cell.ind),"\n")
     } else
     {
       cat("\nEnd points of the support interval:\n")
       cat(format(x$cell.verts),"\n")
 
-      cat("Indices of data points in the intervals:\n")
-      cat("left end interval: ",  x$ind.in.left ,"\n")
+      cat("\nIndices of data points in the intervals:\n")
+      cat("\nleft end-interval: ",  x$ind.in.left ,"\n")
       cat("middle interval: ",  x$ind.in.mid ,"\n")
-      cat("right end interval: ",  x$ind.in.right ,"\n")
+      cat("right end-interval: ",  x$ind.in.right ,"\n")
     }
 
   } else
@@ -2467,43 +2458,37 @@ print.summary.NumArcs <- function(x, ...)
       if ( grepl("tri", as.character(x$call)[1]) )
       {
         cat("\nNumber of data (Xp) points in the triangle = ",  x$num.in.ch,"\n")
-        cat("Number of arcs in the digraph = ",  x$num.arcs,"\n")
+        cat("\nNumber of arcs in the digraph = ",  x$num.arcs,"\n")
+        cat("\nNumbers of arcs in the induced subdigraph in the triangle = ",  x$cell.num.arcs,"\n")
 
-        if (!is.null(x$ind.in.cell))
-        {cat("\nIndices of data points in the triangle:\n")
-          cat(format(x$ind.in.cell),"\n")
-        }
+        cat("\nIndices of data points in the triangle:\n")
+        cat(format(x$ind.in.cell),"\n")
       } else
-      {
-        cat("\nNumber of data (Xp) points in the convex hull of Yp (nontarget) points = ",  x$num.in.ch,"\n")
-        cat("Number of data points in the Delaunay triangles based on Yp points = ",  x$num.in.cells,"\n")
-        cat("Number of arcs in the entire digraph = ",  x$num.arcs,"\n")
-        cat("Numbers of arcs in the induced subdigraphs in the Delaunay triangles = ",  x$cell.num.arcs,"\n")
-        cat("Areas of the Delaunay triangles (used as weights in the arc density of multi-triangle case):\n")
-        cat(format(x$cell.weights),"\n")
+      { ny = nrow(x$tess.points)
+      cat("\nNumber of data (Xp) points in the convex hull of Yp (nontarget) points = ",  x$num.in.ch,"\n")
+      cat("\nNumber of data points in the Delaunay",  ifelse(ny==3,"triangle","triangles"),"based on Yp points = ",  x$num.in.cells,"\n")
+      cat("\nNumber of arcs in the entire digraph = ",  x$num.arcs,"\n")
+      cat("\nNumbers of arcs in the induced",ifelse(ny==3,"subdigraph in the Delaunay triangle","subdigraphs in the Delaunay triangles"), " = ",  x$cell.num.arcs,"\n")
+      cat(ifelse(ny==3,"\nArea of the Delaunay triangle","\nAreas of the Delaunay triangles (used as weights in the arc density of multi-triangle case)"),":\n")
+      cat(format(x$cell.weights),"\n")
 
+      cat("\nIndices of data points in the",ifelse(ny==3, "triangle","triangles"),":\n")
+      cat(format(x$ind.in.cell),"\n")
 
-        if (!is.null(x$ind.in.cell))
-        {cat("Indices of data points in the triangles:\n")
-          cat(format(x$ind.in.cell),"\n")
-        }
+      cat("\nIndices of the vertices of the Delaunay",ifelse(ny==3,"triangle","triangles (each column refers to a triangle)"), ":\n")
+      print(x$cell.vert.ind)
 
-        cat("\nIndices of the vertices of the Delaunay triangles (each column refers to a triangle):\n")
-        print(x$cell.vert.ind)
-
-        cat("\nIndices of the Delaunay triangles data points resides:\n")
-        cat(format(x$data.cell.ind),"\n")
+      cat("\n",ifelse(ny==3,"Index of the Delaunay triangle","Indices of the Delaunay triangles"),"in which the data points resides:\n")
+      cat(format(x$data.cell.ind),"\n")
       }
     } else
     {
       cat("\nNumber of data (Xp) points in the tetrahedron = ",  x$num.in.ch,"\n")
-      cat("Number of arcs in the digraph = ",  x$num.arcs,"\n")
+      cat("\nNumber of arcs in the digraph = ",  x$num.arcs,"\n")
+      cat("\nNumbers of arcs in the induced subdigraph in the tetrahedron = ",  x$cell.num.arcs,"\n")
 
-      if (!is.null(x$ind.in.cell))
-      {cat("\nIndices of data points in the tetrahedron:\n")
-        cat(format(x$ind.in.cell),"\n")
-      }
-
+      cat("\nIndices of data points in the tetrahedron:\n")
+      cat(format(x$ind.in.cell),"\n")
     }
 } #end of the function
 #'
@@ -2533,7 +2518,7 @@ print.summary.NumArcs <- function(x, ...)
 #' and \code{\link{print.summary.NumArcs}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -2573,7 +2558,7 @@ plot.NumArcs<-function (x, Jit=0.1, ...)
 
     CMvec = (min(Yp)+Xlim[1])/2
     if (grepl("1D", as.character(x$call)[1]))
-    {CMvec = c(CMvec,colMeans(x$partition.intervals[,2:ny]))
+    {CMvec = c(CMvec,colMeans(x$partition.intervals)[2:ny])
     } else
     {
       CMvec = c(CMvec,mean(Yp))
@@ -2584,8 +2569,7 @@ plot.NumArcs<-function (x, Jit=0.1, ...)
   {
     Xlim<-range(Yp[,1],Xp[,1])
     Ylim<-range(Yp[,2],Xp[,2])
-    xd<-Xlim[2]-Xlim[1]
-    yd<-Ylim[2]-Ylim[1]
+    xd<-Xlim[2]-Xlim[1];  yd<-Ylim[2]-Ylim[1]
     plot(Yp,pch=".",
          main=c(paste("Target Points and the Number of Arcs of the ", substring(as.character(x$call)[1],9,10),"-PCD \n in the Triangle", sep="")),
          xlab="",ylab="", axes=TRUE,
@@ -2595,15 +2579,14 @@ plot.NumArcs<-function (x, Jit=0.1, ...)
     points(Xp,pch=1,col=1)
     CMvec = colMeans(Yp)
 
-    text(CMvec[1],CMvec[2],labels=x$num.arcs)
+    text(CMvec[1],CMvec[2],labels=x$tri.num.arcs)
   } else if (dimn==2 && nrow(Yp)>3)
   {
     DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
     Xlim<-range(Xp[,1],Yp[,1])
     Ylim<-range(Xp[,2],Yp[,2])
-    xd<-Xlim[2]-Xlim[1]
-    yd<-Ylim[2]-Ylim[1]
+    xd<-Xlim[2]-Xlim[1]; yd<-Ylim[2]-Ylim[1]
 
     plot(Xp,
          main=c(paste("Target Points and the Number of Arcs of the ",substring(as.character(x$call)[1],9,10),"-PCD \n in each Delaunay Triangle", sep="")),

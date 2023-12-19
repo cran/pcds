@@ -2,7 +2,8 @@
 % Please edit documentation in R/ArcSliceFunctions.R
 \name{plotASarcs.tri}
 \alias{plotASarcs.tri}
-\title{The plot of the arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set - one triangle case}
+\title{The plot of the arcs of Arc Slice Proximity Catch Digraph (AS-PCD)
+for a 2D data set - one triangle case}
 \usage{
 plotASarcs.tri(
   Xp,
@@ -21,45 +22,66 @@ plotASarcs.tri(
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
+\item{tri}{Three 2D points, stacked row-wise,
+each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
-barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
+\item{M}{The center of the triangle.
+\code{"CC"} stands for circumcenter of the triangle \code{tri}
+or a 2D point in Cartesian coordinates or a 3D point in
+barycentric coordinates which serves as a center
+in the interior of the triangle \eqn{T_b};
 default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 
-\item{asp}{A \code{numeric} value, giving the aspect ratio for \eqn{y} axis to \eqn{x}-axis \eqn{y/x} (default is \code{NA}),
+\item{asp}{A \code{numeric} value, giving the aspect ratio for \eqn{y} axis
+to \eqn{x}-axis \eqn{y/x} (default is \code{NA}),
 see the official help page for \code{asp} by typing "\code{? asp}".}
 
 \item{main}{An overall title for the plot (default=\code{NULL}).}
 
-\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes,
+respectively (default=\code{NULL} for both).}
 
-\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2,
+giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
-\item{vert.reg}{A logical argument to add vertex regions to the plot, default is \code{vert.reg=FALSE}.}
+\item{vert.reg}{A logical argument to add vertex regions to the plot,
+default is \code{vert.reg=FALSE}.}
 
 \item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
-A plot of the arcs of the AS-PCD for a 2D data set \code{Xp} where AS proximity regions
-are defined with respect to the triangle \code{tri}; also plots the triangle \code{tri}
+A plot of the arcs of the AS-PCD for a 2D data set \code{Xp}
+where AS proximity regions
+are defined with respect to the triangle \code{tri};
+also plots the triangle \code{tri}
 }
 \description{
-Plots the arcs of AS-PCD whose vertices are the data points, \code{Xp} and the triangle \code{tri}. AS proximity regions
-are constructed with respect to the triangle \code{tri}, i.e., only for \code{Xp} points inside the triangle \code{tri}.
+Plots the arcs of AS-PCD whose vertices are the data points, \code{Xp}
+and also the triangle \code{tri}.
+AS proximity regions are constructed
+with respect to the triangle \code{tri},
+i.e., only for \code{Xp} points inside the triangle \code{tri}.
+If there are duplicates of \code{Xp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 
-Vertex regions are based on the center \code{M="CC"} for
-circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric
-coordinates in the interior of the triangle \code{tri}; default is \code{M="CC"} the circumcenter of \code{tri}.
-When the center is the circumcenter, \code{CC}, the vertex regions are constructed based on the
-orthogonal projections to the edges, while with any interior center \code{M}, the vertex regions are constructed using the extensions
+Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri}
+or based on circumcenter of  \code{tri};
+default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
+When the center is the circumcenter, \code{CC},
+the vertex regions are constructed based on the
+orthogonal projections to the edges,
+while with any interior center \code{M},
+the vertex regions are constructed using the extensions
 of the lines combining vertices with \code{M}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10

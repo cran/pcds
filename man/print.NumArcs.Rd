@@ -20,11 +20,10 @@ related quantities in the induced subdigraphs for points in the Delaunay cells.
 \description{
 Prints the \code{call} of the \code{object}
 of class \code{"NumArcs"}
-and also the \code{desc} (i.e. a brief description)
-of the output.
+and also the \code{desc} (i.e. a brief description) of the output.
 }
 \examples{
-\dontrun{
+\donttest{
 nx<-15; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)

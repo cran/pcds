@@ -32,7 +32,7 @@ which may be entered as "CC" as well;
 default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.}
 }
 \value{
-I(\code{p} is in U_{x in \code{S}} N_{PE}(x,r)),
+\eqn{I(}\code{p} is in \eqn{U_{x in S} N_{PE}(x,r))},
 that is, returns 1 if \code{p} is in \code{S}
 or inside \eqn{N_{PE}(x,r)} for at least
 one \eqn{x} in \code{S}, and returns 0 otherwise,
@@ -65,7 +65,7 @@ then it always returns 1 regardless of its location
 (i.e., loops are allowed).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10

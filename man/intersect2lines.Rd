@@ -27,7 +27,7 @@ The points are chosen so that lines are well
 defined.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75); C<-c(0,6); D<-c(3,-2)
 
 ip<-intersect2lines(A,B,C,D)

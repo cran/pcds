@@ -11,10 +11,10 @@
 #' for 2D uniform data in one triangle
 #'
 #' @description
-#' Two functions: \code{muCS2D} and \code{asyvarCS2D}.
+#' Two functions: \code{muCS2D} and \code{asy.varCS2D}.
 #'
 #' \code{muCS2D} returns the mean of the (arc) density of CS-PCD
-#' and \code{asyvarCS2D} returns the asymptotic variance of the arc density of CS-PCD
+#' and \code{asy.varCS2D} returns the asymptotic variance of the arc density of CS-PCD
 #' with expansion parameter \eqn{t>0} for 2D uniform data in a triangle.
 #'
 #' CS proximity regions are defined with respect to the triangle and
@@ -24,13 +24,13 @@
 #'
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #'
-#' @return \code{muCS2D} returns the mean and \code{asyvarCS2D} returns the (asymptotic) variance of the
+#' @return \code{muCS2D} returns the mean and \code{asy.varCS2D} returns the (asymptotic) variance of the
 #' arc density of CS-PCD for uniform data in any triangle
 #'
 #' @name funsMuVarCS2D
 NULL
 #'
-#' @seealso \code{\link{muPE2D}} and \code{\link{asyvarPE2D}}
+#' @seealso \code{\link{muPE2D}} and \code{\link{asy.varPE2D}}
 #'
 #' @rdname funsMuVarCS2D
 #'
@@ -40,7 +40,7 @@ NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for muCS2D
 #' muCS2D(.5)
 #'
@@ -75,37 +75,39 @@ muCS2D <- function(t)
 #' @rdname funsMuVarCS2D
 #'
 #' @examples
-#' \dontrun{
-#' #Examples for asyvarCS2D
-#' asyvarCS2D(.5)
+#' \donttest{
+#' #Examples for asy.varCS2D
+#' asy.varCS2D(.5)
 #'
 #' tseq<-seq(0.01,10,by=.1)
 #' ltseq<-length(tseq)
 #'
-#' asyvar<-vector()
+#' asy.var<-vector()
 #' for (i in 1:ltseq)
 #' {
-#'   asyvar<-c(asyvar,asyvarCS2D(tseq[i]))
+#'   asy.var<-c(asy.var,asy.varCS2D(tseq[i]))
 #' }
 #'
-#' par(mar=c(5,5,4,2))
-#' plot(tseq, asyvar,type="l",xlab="t",ylab=expression(paste(sigma^2,"(t)")),lty=1,xlim=range(tseq))
+#' oldpar <- par(mar=c(5,5,4,2))
+#' plot(tseq, asy.var,type="l",xlab="t",
+#'     ylab=expression(paste(sigma^2,"(t)")),lty=1,xlim=range(tseq))
+#' par(oldpar)
 #' }
 #'
 #' @export
-asyvarCS2D <- function(t)
+asy.varCS2D <- function(t)
 {
   if (!is.point(t,1) || t<=0)
   {stop('the argument must be a scalar greater than 0')}
 
-  asyvar<-0;
+  asy.var<-0;
   if (t < 1)
   {
-    asyvar<-(t^4*(6*t^5-3*t^4-25*t^3+t^2+49*t+14))/(45*(t+1)*(2*t+1)*(t+2)) ;
+    asy.var<-(t^4*(6*t^5-3*t^4-25*t^3+t^2+49*t+14))/(45*(t+1)*(2*t+1)*(t+2)) ;
   } else {
-    asyvar<-(168*t^7+886*t^6+1122*t^5+45*t^4-470*t^3-114*t^2+48*t+16)/(5*(2*t+1)^4*(t+2)^4);
+    asy.var<-(168*t^7+886*t^6+1122*t^5+45*t^4-470*t^3-114*t^2+48*t+16)/(5*(2*t+1)^4*(t+2)^4);
   }
-  asyvar
+  asy.var
 } #end of the function
 #'
 
@@ -332,7 +334,7 @@ Idom.num2CS.Te.onesixth <- function(p1,p2,Xp,ch.data.pnts=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' tau<-1.5
@@ -369,7 +371,7 @@ NCStri <- function(p,tri,t,M=c(1,1,1),re=NULL)
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(M) && !is.point(M,3) )
   {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates')}
@@ -378,7 +380,7 @@ NCStri <- function(p,tri,t,M=c(1,1,1),re=NULL)
   {M<-bary2cart(M,tri)}
 
   if (in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   if (!in.triangle(p,tri,boundary=TRUE)$in.tri)
   {reg<-NULL; return(reg); stop}
@@ -506,7 +508,7 @@ NCStri <- function(p,tri,t,M=c(1,1,1),re=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' tau<-1.5
@@ -544,7 +546,7 @@ IarcCStri <- function(p1,p2,tri,t,M,re=NULL)
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(M) && !is.point(M,3) )
   {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates')}
@@ -553,7 +555,7 @@ IarcCStri <- function(p1,p2,tri,t,M,re=NULL)
   {M<-bary2cart(M,tri)}
 
   if (in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -645,7 +647,7 @@ IarcCStri <- function(p1,p2,tri,t,M,re=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
@@ -694,7 +696,7 @@ IarcCSbasic.tri <- function(p1,p2,t,c1,c2,M=c(1,1,1),re=NULL)
   {M<-bary2cart(M,Tb)}
 
   if (!(in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -777,7 +779,7 @@ IarcCSbasic.tri <- function(p1,p2,t,c1,c2,M=c(1,1,1),re=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' n<-3
@@ -815,7 +817,7 @@ IarcCSstd.tri <- function(p1,p2,t,M=c(1,1,1),re=NULL)
   m1=M[1]; m2=M[2]
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -902,7 +904,7 @@ NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for IarcCSt1.std.triRAB
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
@@ -945,7 +947,7 @@ IarcCSt1.std.triRAB <- function(p1,p2)
 #' @rdname funsCSt1EdgeRegs
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for IarcCSt1.std.triRBC
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
@@ -985,7 +987,7 @@ IarcCSt1.std.triRBC <- function(p1,p2)
 #' @rdname funsCSt1EdgeRegs
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for IarcCSt1.std.triRAC
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
@@ -1048,7 +1050,7 @@ IarcCSt1.std.triRAC <- function(p1,p2)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-3
@@ -1136,7 +1138,7 @@ NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for IarcCSstd.triRAB
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
@@ -1172,7 +1174,7 @@ IarcCSstd.triRAB <- function(p1,p2,t,M)
   {M<-bary2cart(M,Te)}
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -1218,7 +1220,7 @@ IarcCSstd.triRAB <- function(p1,p2,t,M)
 #' @rdname funsCSEdgeRegs
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for IarcCSstd.triRBC
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
@@ -1254,7 +1256,7 @@ IarcCSstd.triRBC <- function(p1,p2,t,M)
   {M<-bary2cart(M,Te)}
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -1300,7 +1302,7 @@ IarcCSstd.triRBC <- function(p1,p2,t,M)
 #' @rdname funsCSEdgeRegs
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for IarcCSstd.triRAC
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
@@ -1336,7 +1338,7 @@ IarcCSstd.triRAC <- function(p1,p2,t,M)
   {M<-bary2cart(M,Te)}
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -1426,7 +1428,7 @@ IarcCSstd.triRAC <- function(p1,p2,t,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-3
@@ -1464,7 +1466,7 @@ IarcCSedge.reg.std.tri <- function(p1,p2,t,M=c(1,1,1),re=NULL)
   {M<-bary2cart(M,Te)}
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -1525,7 +1527,7 @@ IarcCSedge.reg.std.tri <- function(p1,p2,t,M=c(1,1,1),re=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-10
@@ -1571,14 +1573,14 @@ inci.matCSstd.tri <- function(Xp,t,M=c(1,1,1))
   {M<-bary2cart(M,Te)}
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
 
   inc.mat<-matrix(0, nrow=n, ncol=n)
   for (i in 1:n)
   {p1<-Xp[i,]
-  for (j in ((1:n)) )
+  for (j in (1:n) )
   {p2<-Xp[j,]
   inc.mat[i,j]<-IarcCSstd.tri(p1,p2,t,M)
   }
@@ -1622,10 +1624,13 @@ inci.matCSstd.tri <- function(Xp,t,M=c(1,1,1))
 #' \item{desc}{A short description of the output: number of arcs
 #' and quantities related to the standard equilateral triangle}
 #' \item{num.arcs}{Number of arcs of the CS-PCD}
+#' \item{tri.num.arcs}{Number of arcs of the induced subdigraph of the CS-PCD
+#' for vertices in the standard equilateral triangle \eqn{T_e}}
 #' \item{num.in.tri}{Number of \code{Xp} points in the standard equilateral triangle, \eqn{T_e}}
 #' \item{ind.in.tri}{The vector of indices of the \code{Xp} points that reside in \eqn{T_e}}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the support triangle \eqn{T_e}.}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation points are the vertices of the support triangle \eqn{T_e}.}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
 #' @seealso \code{\link{num.arcsCStri}}, \code{\link{num.arcsCS}}, and \code{\link{num.arcsPEstd.tri}},
@@ -1636,7 +1641,7 @@ inci.matCSstd.tri <- function(Xp,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' n<-10  #try also n<-20
 #'
@@ -1648,8 +1653,9 @@ inci.matCSstd.tri <- function(Xp,t,M=c(1,1,1))
 #' Narcs = num.arcsCSstd.tri(Xp,t=.5,M)
 #' Narcs
 #' summary(Narcs)
-#' par(pty="s")
+#' oldpar <- par(pty="s")
 #' plot(Narcs,asp=1)
+#' par(oldpar)
 #' }
 #'
 #' @export num.arcsCSstd.tri
@@ -1679,42 +1685,40 @@ num.arcsCSstd.tri <- function(Xp,t,M=c(1,1,1))
   {M<-bary2cart(M,Te)}
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
-  arcs<-0
+  tot.arcs<-arcs.in.tri<-0
   ind.in.tri = NULL
   if (n<=0)
   {
-    arcs<-0
+    tot.arcs<-arcs.in.tri<-0
   } else
   {
-  for (i in 1:n)
-  {p1<-as.numeric(Xp[i,])
-  if (!in.triangle(p1,Te,boundary = TRUE)$in.tri) {
-    arcs<-arcs+0
-  } else
-  {
-    ind.in.tri = c(ind.in.tri,i)
+    for (i in 1:n)
+    {p1<-Xp[i,]
+    if (in.triangle(p1,Te,boundary = TRUE)$in.tri)
+    {  #rv<-rel.vert.std.tri(p1,M)$rv
+      ind.in.tri = c(ind.in.tri,i)
+      for (k in (1:n)[-i])  #to avoid loops
+      {
+        arcs.in.tri<-arcs.in.tri+IarcCSstd.tri(p1,Xp[k,],t,M) #,rv)
+      }
+    }
 
-    for (j in ((1:n)[-i]) ) #to avoid loops
-    {p2<-as.numeric(Xp[j,])
-    if (!in.triangle(p2,Te,boundary = TRUE)$in.tri)
-    {arcs<-arcs+0
-    } else
-    {
-      arcs<-arcs + IarcCSstd.tri(p1,p2,t,M)
+    for (j in (1:n)[-i])  #to avoid loops
+    {p2<-Xp[j,]
+    tot.arcs<-tot.arcs+IarcCSstd.tri(p1,p2,t,M)#,rv)
     }
     }
   }
-  }
-}
 
   NinTri = length(ind.in.tri)
   desc<-"Number of Arcs of the CS-PCD and the Related Quantities with vertices Xp in the Standard Equilateral Triangle"
 
   res<-list(desc=desc, #description of the output
-            num.arcs=arcs, #number of arcs for the AS-PCD
+            num.arcs=tot.arcs, #number of arcs for the CS-PCD
+            tri.num.arcs=arcs.in.tri, #vector of number of arcs for the std eq triangle
             num.in.tri=NinTri, # number of Xp points in CH of Yp points
             ind.in.tri=ind.in.tri, #indices of data points inside the triangle
             tess.points=Te, #tessellation points
@@ -1762,10 +1766,13 @@ num.arcsCSstd.tri <- function(Xp,t,M=c(1,1,1))
 #' \item{desc}{A short description of the output: number of arcs
 #' and quantities related to the triangle}
 #' \item{num.arcs}{Number of arcs of the CS-PCD}
+#' \item{tri.num.arcs}{Number of arcs of the induced subdigraph of the CS-PCD
+#' for vertices in the triangle \code{tri}}
 #' \item{num.in.tri}{Number of \code{Xp} points in the triangle, \code{tri}}
 #' \item{ind.in.tri}{The vector of indices of the \code{Xp} points that reside in the triangle}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the support triangle.}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation points are the vertices of the support triangle \code{tri}.}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
 #' @seealso \code{\link{num.arcsCSstd.tri}}, \code{\link{num.arcsCS}}, \code{\link{num.arcsPEtri}},
@@ -1777,7 +1784,7 @@ num.arcsCSstd.tri <- function(Xp,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -1814,7 +1821,7 @@ num.arcsCStri <- function(Xp,tri,t,M=c(1,1,1))
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
@@ -1827,14 +1834,14 @@ num.arcsCStri <- function(Xp,tri,t,M=c(1,1,1))
   {M<-bary2cart(M,tri)}
 
   if (in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
-  arcs<-0
+  tot.arcs<-arcs.in.tri<-0
   ind.in.tri = NULL
   if (n<=0)
   {
-    arcs<-0
+    tot.arcs<-arcs.in.tri<-0
   } else
   {
     for (i in 1:n)
@@ -1842,18 +1849,25 @@ num.arcsCStri <- function(Xp,tri,t,M=c(1,1,1))
     if (in.triangle(Xpi,tri,boundary=TRUE)$in.tri)
     {   edgei<-rel.edges.tri(Xpi,tri,M)$re
     ind.in.tri = c(ind.in.tri,i)
+    for (k in (1:n)[-i])  #to avoid loops
+    {
+      arcs.in.tri<-arcs.in.tri+IarcCStri(Xpi,Xp[k,],tri,t,M,re=edgei)
+    }
+    }
+
     for (j in (1:n)[-i])  #to avoid loops
     { Xpj<-as.numeric(Xp[j,])
-    arcs<-arcs+IarcCStri(Xpi,Xpj,tri,t,M,re=edgei)
+    tot.arcs<-tot.arcs+IarcCStri(Xpi,Xpj,tri,t,M) #,re=edgei)
     }
-    }
+    # }
     }
   }
   NinTri = length(ind.in.tri)
   desc<-"Number of Arcs of the CS-PCD with vertices Xp and Quantities Related to the Support Triangle"
 
   res<-list(desc=desc, #description of the output
-            num.arcs=arcs, #number of arcs for the AS-PCD
+            num.arcs=tot.arcs, #number of arcs for the CS-PCD
+            tri.num.arcs=arcs.in.tri, #vector of number of arcs for the triangle
             num.in.tri=NinTri, # number of Xp points in CH of Yp points
             ind.in.tri=ind.in.tri, #indices of data points inside the triangle
             tess.points=tri, #tessellation points
@@ -1888,9 +1902,12 @@ num.arcsCStri <- function(Xp,tri,t,M=c(1,1,1))
 #' Each Delaunay triangle is first converted to an (nonscaled) basic triangle so that \code{M} will be the same
 #' type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
 #'
-#' Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
-#' (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-#' convex hull of \code{Yp} points). For the number of arcs, loops are not allowed so arcs are only possible
+#' Convex hull of \code{Yp} is partitioned
+#' by the Delaunay triangles based on \code{Yp} points
+#' (i.e., multiple triangles are the set of these Delaunay triangles
+#' whose union constitutes the
+#' convex hull of \code{Yp} points).
+#' For the number of arcs, loops are not allowed so arcs are only possible
 #' for points inside the convex hull of \code{Yp} points.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
@@ -1905,18 +1922,19 @@ num.arcsCStri <- function(Xp,tri,t,M=c(1,1,1))
 #' @return A \code{list} with the elements
 #' \item{desc}{A short description of the output: number of arcs
 #' and related quantities for the induced subdigraphs in the Delaunay triangles}
-#' \item{num.arcs}{Total number of arcs in all triangles, i.e., the number of arcs for the entire PE-PCD}
-#' \item{num.in.conhull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
+#' \item{num.arcs}{Total number of arcs in all triangles, i.e., the number of arcs for the entire CS-PCD}
+#' \item{num.in.conv.hull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
 #' \item{num.in.tris}{The vector of number of \code{Xp} points in the Delaunay triangles based on \code{Yp} points}
 #' \item{weight.vec}{The \code{vector} of the areas of Delaunay triangles based on \code{Yp} points}
-#' \item{tri.num.arcs}{The \code{vector} of the number of arcs of the component of the PE-PCD in the
+#' \item{tri.num.arcs}{The \code{vector} of the number of arcs of the components of the CS-PCD in the
 #' Delaunay triangles based on \code{Yp} points}
 #' \item{del.tri.ind}{A matrix of indices of vertices of the Delaunay triangles based on \code{Yp} points,
 #' each column corresponds to the vector of indices of the vertices of one triangle.}
 #' \item{data.tri.ind}{A \code{vector} of indices of vertices of the Delaunay triangles in which data points reside,
 #' i.e., column number of \code{del.tri.ind} for each \code{Xp} point.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the Delaunay triangulation based on \code{Yp} points.}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation is the Delaunay triangulation based on \code{Yp} points.}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
 #' @seealso \code{\link{num.arcsCStri}}, \code{\link{num.arcsCSstd.tri}}, \code{\link{num.arcsPE}},
@@ -1928,7 +1946,7 @@ num.arcsCStri <- function(Xp,tri,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -1982,54 +2000,60 @@ num.arcsCS <- function(Xp,Yp,t,M=c(1,1,1))
   Wvec=vector()
   for (i in 1:ndt)
   {
-    ifelse(ndt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
+    ifelse(ndt==1,
+           Tri<-Yp[Ytri,],
+           Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
     Wvec<-c(Wvec,area.polygon(Tri))
   }
 
   if (ny==3)
-  { tri<-as.basic.tri(Yp)$tri
-  NumArcs = num.arcsCStri(Xdt,tri,t,M)
-  NinTri<-NumArcs$num.in.tri #number of points in the triangle
+  { #tri<-as.basic.tri(Yp)$tri
+    # NumArcs = num.arcsCStri(Xp,tri,t,M)
+    NinTri<-NinCH #NinTri<-NumArcs$num.in.tri #number of points in the triangle
 
-  if (NinTri==0)
-  {Tot.Arcs<-0;
-  ni.vec<-arcs<-rep(0,ndt)
-  data.tri.ind = NA
-  } else
-  {
-    Xdt<-matrix(Xp[NumArcs$ind.in.tri,],ncol=2)
-    tri<-as.basic.tri(Yp)$tri #convert the triangle Yp into an nonscaled basic triangle, see as.basic.tri help page
-    Wvec<-area.polygon(tri)
-    Tot.Arcs<- NumArcs$num.arcs #number of arcs in the triangle Yp
-    ni.vec = NumArcs$num.in.tri
-    Tri.Ind = NumArcs$ind.in.tri
-    data.tri.ind = rep(NA,nx)
-    data.tri.ind[Tri.Ind] =1
-    arcs = NumArcs$num.arcs
-  }
+    if (NinTri==0)
+    {Tot.Arcs<-0;
+    ni.vec<-arcs<-rep(0,ndt)
+    data.tri.ind = ind.in.CH = NA
+    } else
+    {
+      Xdt<-matrix(Xp[inCH,],ncol=2)
+      tri<-as.basic.tri(Yp)$tri #convert the triangle Yp into an nonscaled basic triangle, see as.basic.tri help page
+      NumArcs = num.arcsCStri(Xp,tri,t,M)
+      #Wvec<-area.polygon(tri)
+      Tot.Arcs<- NumArcs$num.arcs #number of arcs in the triangle Yp
+      ni.vec = NumArcs$num.in.tri
+      Tri.Ind = NumArcs$ind.in.tri
+      data.tri.ind = rep(NA,nx)
+      data.tri.ind[Tri.Ind] = 1
+      arcs = NumArcs$num.arcs
+      ind.in.CH = which(inCH) #which(!is.na(Tri.Ind))
+    }
+    Tot.Arcs = Tot.Arcs + 2 * sum(duplicated(Xp[!inCH,]))
 
-  desc<-"Number of Arcs of the CS-PCD with vertices Xp and Related Quantities for the Induced Subdigraph for the Points in the Delaunay Triangles"
-  res<-list(desc=desc, #description of the output
-            num.arcs=Tot.Arcs,
-            tri.num.arcs=arcs,
-            num.in.conv.hull=NinTri,
-            num.in.tris=ni.vec,
-            weight.vec=Wvec,
-            del.tri.ind=t(Ytri),
-            data.tri.ind=data.tri.ind,
-            tess.points=Yp, #tessellation points
-            vertices=Xp #vertices of the digraph
-  )
+    desc<-"Number of Arcs of the CS-PCD with vertices Xp and Related Quantities for the Induced Subdigraph for the Points in the Delaunay Triangles"
+    res<-list(desc=desc, #description of the output
+              num.arcs=Tot.Arcs,
+              tri.num.arcs=arcs,
+              num.in.conv.hull=NinTri,
+              ind.in.conv.hull= ind.in.CH, #indices of Xp points in the triangle
+              num.in.tris=ni.vec,
+              weight.vec=Wvec,
+              del.tri.ind=t(Ytri),
+              data.tri.ind=data.tri.ind,
+              tess.points=Yp, #tessellation points
+              vertices=Xp #vertices of the digraph
+    )
   } else
   {
     if (NinCH==0)
     {Tot.Arcs<-0;
     ni.vec<-arcs<-rep(0,ndt)
-    data.tri.ind =NULL
+    data.tri.ind = ind.in.CH =  NA
     } else
     {
       Tri.Ind<-indices.delaunay.tri(Xp,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
-      ind.in.CH = which(!is.na(Tri.Ind))
+      ind.in.CH = which(inCH) #which(!is.na(Tri.Ind))
       #calculation of the total number of arcs
       ni.vec<-arcs<-vector()
       data.tri.ind = rep(NA,nx)
@@ -2037,7 +2061,7 @@ num.arcsCS <- function(Xp,Yp,t,M=c(1,1,1))
       {
         dt.ind=which(Tri.Ind==i) #which indices of data points residing in ith Delaunay triangle
         Xpi<-Xp[dt.ind,] #points in ith Delaunay triangle
-        data.tri.ind[dt.ind] =i #assigning the index of the Delaunay triangle that contains the data point
+        data.tri.ind[dt.ind] = i #assigning the index of the Delaunay triangle that contains the data point
         ifelse(ndt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
         tri<-as.basic.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.basic.tri help page
         ni.vec<-c(ni.vec,length(Xpi)/2)  #number of points in ith Delaunay triangle
@@ -2049,6 +2073,8 @@ num.arcsCS <- function(Xp,Yp,t,M=c(1,1,1))
 
       Tot.Arcs<-sum(arcs)  #the total number of arcs in all triangles
     }
+
+    Tot.Arcs = Tot.Arcs + 2 * sum(duplicated(Xp[!inCH,]))
 
     desc<-"Number of Arcs of the CS-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles"
 
@@ -2102,7 +2128,11 @@ num.arcsCS <- function(Xp,Yp,t,M=c(1,1,1))
 #' Furthermore, the test is a large sample test when \code{Xp} points are substantially larger than \code{Yp} points,
 #' say at least 5 times more.
 #' This test is more appropriate when supports of \code{Xp} and \code{Yp} has a substantial overlap.
-#' Currently, the \code{Xp} points outside the convex hull of \code{Yp} points are handled with a convex hull correction factor
+#' Currently, the \code{Xp} points
+#' outside the convex hull of \code{Yp} points
+#' are handled with a convex hull correction factor, \code{ch.cor},
+#' which is derived under the assumption of
+#' uniformity of \code{Xp} and \code{Yp} points in the study window,
 #' (see the description below and the function code.)
 #' However, in the special case of no \code{Xp} points in the convex hull of \code{Yp} points, arc density is taken to be 1,
 #' as this is clearly a case of segregation. Removing the conditioning and extending it to the case of non-concurring supports is
@@ -2142,7 +2172,7 @@ num.arcsCS <- function(Xp,Yp,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-100; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -2179,6 +2209,11 @@ CSarc.dens.test <- function(Xp,Yp,t,ch.cor=FALSE,
   {stop('Xp must be of dimension nx2')}
   }
 
+  n<-nrow(Xp)  #number of X points
+  if (n<=1)
+  {stop('The graph is void or has only one vertex!
+    So, there are not enough Xp points to compute the arc density!')}
+
   Yp<-as.matrix(Yp)
   if (ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be of dimension kx2 with k>=3')}
@@ -2193,7 +2228,7 @@ CSarc.dens.test <- function(Xp,Yp,t,ch.cor=FALSE,
   Arcs<-num.arcsCS(Xp,Yp,t,M=c(1,1,1))  #use the default, i.e., CM for the center M
   NinCH<-Arcs$num.in.con
 
-  num.arcs<-Arcs$num.arcs #total number of arcs in the PE-PCD
+  num.arcs<-Arcs$num.arcs #total number of arcs in the CS-PCD
   num.arcs.tris = Arcs$tri.num.arcs #vector of number of arcs in the Delaunay triangles
   num.dat.tris = Arcs$num.in.tris #vector of number of data points in the Delaunay triangles
   Wvec<-Arcs$w
@@ -2217,10 +2252,9 @@ CSarc.dens.test <- function(Xp,Yp,t,ch.cor=FALSE,
   asy.mean0<-muCS2D(t)  #asy mean value for the t value
   asy.mean<-asy.mean0*sum(LW^2)
 
-  asy.var0<-asyvarCS2D(t)  #asy variance value for the t value
+  asy.var0<-asy.varCS2D(t)  #asy variance value for the t value
   asy.var<-asy.var0*sum(LW^3)+4*asy.mean0^2*(sum(LW^3)-(sum(LW^2))^2)
 
-  n<-nrow(Xp)  #number of X points
   if (NinCH == 0)
   {warning('There is no Xp point in the convex hull of Yp points to compute arc density,
            but as this is clearly a segregation pattern, arc density is taken to be 1!')
@@ -2230,8 +2264,7 @@ CSarc.dens.test <- function(Xp,Yp,t,ch.cor=FALSE,
   {  arc.dens<-num.arcs/(NinCH*(NinCH-1))
   TS0<-sqrt(NinCH)*(arc.dens-asy.mean)/sqrt(asy.var)  #standardized test stat}  #arc density
   }
-  estimate1<-arc.dens
-  estimate2<-asy.mean
+  estimate1<-arc.dens; estimate2<-asy.mean
 
   method <-c("Large Sample z-Test Based on Arc Density of CS-PCD for Testing Uniformity of 2D Data ---")
   if (ch.cor==FALSE)
@@ -2294,8 +2327,10 @@ CSarc.dens.test <- function(Xp,Yp,t,ch.cor=FALSE,
 #'
 #' @description
 #' An object of class \code{"PCDs"}.
-#' Returns arcs as tails (or sources) and heads (or arrow ends) for data set \code{Xp} as the vertices
-#' of CS-PCD and related parameters and the quantities of the digraph.
+#' Returns arcs of CS-PCD as tails (or sources) and heads (or arrow ends)
+#' and related parameters and the quantities of the digraph.
+#' The vertices of the CS-PCD are the data points in \code{Xp}
+#' in the one triangle case.
 #'
 #' CS proximity regions are constructed with respect to the triangle \code{tri} with expansion
 #' parameter \eqn{t>0}, i.e., arcs may exist for points only inside \code{tri}.
@@ -2319,9 +2354,10 @@ CSarc.dens.test <- function(Xp,Yp,t,ch.cor=FALSE,
 #' \item{type}{A description of the type of the digraph}
 #' \item{parameters}{Parameters of the digraph, the center \code{M} used to
 #' construct the edge regions and the expansion parameter \code{t}.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the support triangle.}
-#' \item{tess.name}{Name of data set used in tessellation (i.e., vertices of the triangle)}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation points are the vertices of the support triangle \code{tri}.}
+#' \item{tess.name}{Name of the tessellation points \code{tess.points}}
 #' \item{vertices}{Vertices of the digraph, \code{Xp} points}
 #' \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 #' \item{S}{Tails (or sources) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
@@ -2338,7 +2374,7 @@ CSarc.dens.test <- function(Xp,Yp,t,ch.cor=FALSE,
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -2392,7 +2428,7 @@ arcsCStri <- function(Xp,tri,t,M=c(1,1,1))
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
@@ -2404,13 +2440,13 @@ arcsCStri <- function(Xp,tri,t,M=c(1,1,1))
   {M<-bary2cart(M,tri)}
 
   if (in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
 
   in.tri<-rep(0,n)
   for (i in 1:n)
-    {in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri } #indices the Xp points inside the triangle
+  {in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri } #indices the Xp points inside the triangle
 
   Xtri<-Xp[in.tri==1,] #the Xp points inside the triangle
   n2<-length(Xtri)/2
@@ -2425,7 +2461,7 @@ arcsCStri <- function(Xp,tri,t,M=c(1,1,1))
       for (k in (1:n2)[-j])  #to avoid loops
       {
         p2<-Xtri[k,];
-       # print(IarcCStri(p1,p2,tri,t,M,RE1))
+        # print(IarcCStri(p1,p2,tri,t,M,RE1))
         if (IarcCStri(p1,p2,tri,t,M,RE1)==1)
         {
           S <-rbind(S,Xtri[j,]); E <-rbind(E,Xtri[k,]);
@@ -2499,7 +2535,7 @@ arcsCStri <- function(Xp,tri,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #'
 #' Tr<-rbind(A,B,C);
@@ -2539,7 +2575,7 @@ inci.matCStri <- function(Xp,tri,t,M=c(1,1,1))
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
@@ -2550,23 +2586,23 @@ inci.matCStri <- function(Xp,tri,t,M=c(1,1,1))
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (isTRUE(all.equal(M,circumcenter.tri(tri)))==FALSE & in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
+  {stop('M is not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
 
   inc.mat<-matrix(0, nrow=n, ncol=n)
-  if (n>1)
-  {
-    for (i in 1:n)
-    {p1<-Xp[i,]
-    RE<-rel.edge.tri(p1,tri,M)$re
-    for (j in 1:n )
-    {p2<-Xp[j,]
-    inc.mat[i,j]<-IarcCStri(p1,p2,tri,t,M,re=RE)
-    }
-    }
+  #if (n>1)
+  # {
+  for (i in 1:n)
+  {p1<-Xp[i,]
+  RE<-rel.edge.tri(p1,tri,M)$re
+  for (j in 1:n )
+  {p2<-Xp[j,]
+  inc.mat[i,j]<-IarcCStri(p1,p2,tri,t,M,re=RE)
   }
+  }
+  # }
   diag(inc.mat)<-1
   inc.mat
 } #end of the function
@@ -2577,12 +2613,18 @@ inci.matCStri <- function(Xp,tri,t,M=c(1,1,1))
 #' @title The plot of the arcs of Central Similarity Proximity Catch Digraph (CS-PCD) for a
 #' 2D data set - one triangle case
 #'
-#' @description Plots the arcs of CS-PCD whose vertices are the data points, \code{Xp} and the triangle \code{tri}. CS proximity regions
-#' are constructed with respect to the triangle \code{tri} with expansion parameter \eqn{t>0}, i.e., arcs may exist only
+#' @description Plots the arcs of CS-PCD whose vertices are the data points, \code{Xp}
+#' and the triangle \code{tri}. CS proximity regions
+#' are constructed with respect to the triangle \code{tri}
+#' with expansion parameter \eqn{t>0}, i.e., arcs may exist only
 #' for \code{Xp} points inside the triangle \code{tri}.
+#' If there are duplicates of \code{Xp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
 #' Edge regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates
-#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}; default
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}; default
 #' is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
@@ -2612,7 +2654,7 @@ inci.matCStri <- function(Xp,tri,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10  #try also n<-20
@@ -2624,7 +2666,8 @@ inci.matCStri <- function(Xp,tri,t,M=c(1,1,1))
 #'
 #' t<-1.5  #try also t<-2
 #'
-#' plotCSarcs.tri(Xp,Tr,t,M,main="Arcs of CS-PCD with t=1.5",xlab="",ylab="",edge.reg = TRUE)
+#' plotCSarcs.tri(Xp,Tr,t,M,main="Arcs of CS-PCD with t=1.5",
+#' xlab="",ylab="",edge.reg = TRUE)
 #'
 #' # or try the default center
 #' #plotCSarcs.tri(Xp,Tr,t,main="Arcs of CS-PCD with t=1.5",xlab="",ylab="",edge.reg = TRUE);
@@ -2643,6 +2686,11 @@ inci.matCStri <- function(Xp,tri,t,M=c(1,1,1))
 plotCSarcs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,
                            xlim=NULL,ylim=NULL,edge.reg=FALSE,...)
 {
+  if( any(duplicated(as.data.frame(Xp))) ) #if there are duplicates for Xp values, only one is taken for each
+  {Xp = unique(as.data.frame(Xp))
+  warning("There were duplicate Xp values;
+          only one value is kept for each duplicate Xp value (to avoid arcs of zero length)!")}
+
   arcsCS<-arcsCStri(Xp,tri,t,M)
   S<-arcsCS$S
   E<-arcsCS$E
@@ -2717,7 +2765,7 @@ plotCSarcs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -2767,7 +2815,7 @@ plotCSregs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
@@ -2779,7 +2827,7 @@ plotCSregs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
   {M<-bary2cart(M,tri)}
 
   if (in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
 
@@ -2836,9 +2884,10 @@ plotCSregs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
 #'
 #' @description
 #' An object of class \code{"PCDs"}.
-#' Returns arcs as tails (or sources) and heads (or arrow ends) of Central Similarity Proximity Catch Digraph
-#' (CS-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case
+#' Returns arcs of CS-PCD as tails (or sources) and heads (or arrow ends)
 #' and related parameters and the quantities of the digraph.
+#' The vertices of the CS-PCD are the data points in \code{Xp}
+#' in the multiple triangle case.
 #'
 #' CS proximity regions are
 #' defined with respect to the Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{t>0} and
@@ -2847,9 +2896,12 @@ plotCSregs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
 #' the triangle). Each Delaunay triangle is first converted to an (nonscaled) basic triangle so that
 #' \code{M} will be the same type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
 #'
-#' Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
-#' (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-#' convex hull of \code{Yp} points). For the number of arcs, loops are not allowed so arcs are only possible
+#' Convex hull of \code{Yp} is partitioned
+#' by the Delaunay triangles based on \code{Yp} points
+#' (i.e., multiple triangles are the set of these Delaunay triangles
+#' whose union constitutes the
+#' convex hull of \code{Yp} points).
+#' For the number of arcs, loops are not allowed so arcs are only possible
 #' for points inside the convex hull of \code{Yp} points.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
@@ -2864,9 +2916,10 @@ plotCSregs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
 #' \item{parameters}{Parameters of the digraph, here, it is the center used to construct the edge regions.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is Delaunay triangulation based on \code{Yp} points.}
-#' \item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation is Delaunay triangulation based on \code{Yp} points.}
+#' \item{tess.name}{Name of the tessellation points \code{tess.points}}
 #' \item{vertices}{Vertices of the digraph, \code{Xp} points}
 #' \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 #' \item{S}{Tails (or sources) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
@@ -2883,7 +2936,7 @@ plotCSregs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-15; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -3056,7 +3109,7 @@ arcsCS <- function(Xp,Yp,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -3115,32 +3168,34 @@ inci.matCS <- function(Xp,Yp,t,M=c(1,1,1))
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
     nt<-nrow(DTr)  #number of Delaunay triangles
 
-    if (nx>1)
-    {
-      i.tr<-rep(0,nx)  #the vector of indices for the triangles that contain the Xp points
-      for (i in 1:nx)
-        for (j in 1:nt)
-        {
-          tri<-Yp[DTr[j,],]
-          if (in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri )
-            i.tr[i]<-j
-        }
-
-      for (i in 1:nx)
-      {p1<-Xp[i,]
-      if (i.tr[i]!=0)
+    #  if (nx>1)
+    #  {
+    i.tr<-rep(0,nx)  #the vector of indices for the triangles that contain the Xp points
+    for (i in 1:nx)
+      for (j in 1:nt)
       {
-        Yi.Tri<-Yp[DTr[i.tr[i],],] #vertices of the ith triangle
-        Yi.tri<-as.basic.tri(Yi.Tri)$tri #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.basic.tri help page
+        tri<-Yp[DTr[j,],]
+        if (in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri )
+          i.tr[i]<-j
+      }
 
-        edge<-rel.edge.tri(p1,Yi.tri,M)$re
-        for (j in 1:nx )
-        {p2<-Xp[j,]
-        inc.mat[i,j]<-IarcCStri(p1,p2,Yi.tri,t,M,re=edge)
-        }
-      }
-      }
+    for (i in 1:nx)
+    {p1<-Xp[i,]
+    Yi.tri<-Yp[DTr[1,],]
+
+    if (i.tr[i]!=0)
+    {
+      Yi.Tri<-Yp[DTr[i.tr[i],],] #vertices of the ith triangle
+      Yi.tri<-as.basic.tri(Yi.Tri)$tri #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.basic.tri help page
     }
+    edge<-rel.edge.tri(p1,Yi.tri,M)$re
+    for (j in 1:nx )
+    {p2<-Xp[j,]
+    inc.mat[i,j]<-IarcCStri(p1,p2,Yi.tri,t,M,re=edge)
+    }
+    # }
+    }
+    # }
     diag(inc.mat)<-1
   }
   inc.mat
@@ -3152,15 +3207,21 @@ inci.matCS <- function(Xp,Yp,t,M=c(1,1,1))
 #' @title The plot of the arcs of Central Similarity Proximity Catch Digraph (CS-PCD) for a
 #' 2D data set - multiple triangle case
 #'
-#' @description Plots the arcs of Central Similarity Proximity Catch Digraph (CS-PCD) whose vertices are the data
-#' points in \code{Xp} in the multiple triangle case and the Delaunay triangles based on \code{Yp} points.
+#' @description Plots the arcs of Central Similarity Proximity Catch Digraph (CS-PCD)
+#' whose vertices are the data
+#' points in \code{Xp} in the multiple triangle case and the Delaunay triangles
+#' based on \code{Yp} points.
+#' If there are duplicates of \code{Xp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
-#' CS proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
-#' expansion parameter \eqn{t>0} and edge regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
-#' in barycentric coordinates in the interior of each Delaunay triangle (default for \eqn{M=(1,1,1)}
-#' which is the center of mass of the triangle). Each Delaunay triangle is first converted to an (nonscaled)
-#' basic triangle so that \code{M} will be the same type of center for each Delaunay triangle (this conversion is
-#' not necessary when \code{M} is \eqn{CM}).
+#' CS proximity regions are defined with respect to the Delaunay triangles
+#' based on \code{Yp} points with
+#' expansion parameter \eqn{t>0} and edge regions in each triangle are
+#' based on the center \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates in the interior of each Delaunay triangle
+#' (default for \eqn{M=(1,1,1)}
+#' which is the center of mass of the triangle).
 #'
 #' Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 #' (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
@@ -3192,7 +3253,7 @@ inci.matCS <- function(Xp,Yp,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-15; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -3208,11 +3269,17 @@ inci.matCS <- function(Xp,Yp,t,M=c(1,1,1))
 #' }
 #'
 #' @export
-plotCSarcs <- function(Xp,Yp,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,...)
+plotCSarcs <- function(Xp,Yp,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,
+                       xlim=NULL,ylim=NULL,...)
 {
   Yp<-as.matrix(Yp)
   if (ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be of dimension kx2 with k>=3')}
+
+  if( any(duplicated(as.data.frame(Xp))) ) #if there are duplicates for Xp values, only one is taken for each
+  {Xp = unique(as.data.frame(Xp))
+  warning("There were duplicate Xp values;
+          only one value is kept for each duplicate Xp value (to avoid arcs of zero length)!")}
 
   if (nrow(Yp)==3)
   {
@@ -3292,7 +3359,7 @@ plotCSarcs <- function(Xp,Yp,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-15; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -3449,7 +3516,7 @@ plotCSregs <- function(Xp,Yp,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-10
@@ -3543,7 +3610,7 @@ IarcCSset2pnt.std.tri <- function(S,p,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -3592,7 +3659,7 @@ IarcCSset2pnt.tri <- function(S,p,tri,t,M=c(1,1,1))
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(M) && !is.point(M,3) )
   {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates')}
@@ -3601,7 +3668,7 @@ IarcCSset2pnt.tri <- function(S,p,tri,t,M=c(1,1,1))
   {M<-bary2cart(M,tri)}
 
   if (in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   k<-nrow(S);
   dom<-0; i<-1;
@@ -3652,7 +3719,7 @@ IarcCSset2pnt.tri <- function(S,p,tri,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-10
@@ -3706,7 +3773,7 @@ Idom.setCSstd.tri <- function(S,Xp,t,M=c(1,1,1))
   Te<-rbind(A,B,C);
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   k<-nrow(S);
   n<-nrow(Xp);
@@ -3760,7 +3827,7 @@ Idom.setCSstd.tri <- function(S,Xp,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -3810,7 +3877,7 @@ Idom.setCStri <- function(S,Xp,tri,t,M=c(1,1,1))
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(M) && !is.point(M,3) )
   {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates')}
@@ -3818,8 +3885,8 @@ Idom.setCStri <- function(S,Xp,tri,t,M=c(1,1,1))
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (isTRUE(all.equal(M,circumcenter.tri(tri)))==FALSE & in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
+  {stop('M is not a center in the interior of the triangle')}
 
   k<-nrow(S);
   n<-nrow(Xp);
@@ -3880,7 +3947,7 @@ Idom.setCStri <- function(S,Xp,tri,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-10
@@ -3926,7 +3993,7 @@ Idom.numCSup.bnd.std.tri <- function(Xp,k,t,M=c(1,1,1))
   Te<-rbind(A,B,C);
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   n<-nrow(Xp);
   xc<-combinat::combn(1:n,k); N1<-choose(n,k);
@@ -3993,7 +4060,7 @@ Idom.numCSup.bnd.std.tri <- function(Xp,k,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -4035,7 +4102,7 @@ Idom.numCSup.bnd.tri <- function(Xp,k,tri,t,M=c(1,1,1))
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(M) && !is.point(M,3) )
   {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates')}
@@ -4044,7 +4111,7 @@ Idom.numCSup.bnd.tri <- function(Xp,k,tri,t,M=c(1,1,1))
   {M<-bary2cart(M,tri)}
 
   if (in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   n<-nrow(Xp);
   xc<-combinat::combn(1:n,k); N1<-choose(n,k);
@@ -4103,7 +4170,7 @@ Idom.numCSup.bnd.tri <- function(Xp,k,tri,t,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' Te<-rbind(A,B,C);
@@ -4224,7 +4291,7 @@ Idom.num1CSt1std.tri <- function(p,Xp,re=NULL,ch.data.pnt=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' Te<-rbind(A,B,C);
@@ -4349,7 +4416,7 @@ NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' set.seed(123)
 #' #Examples for Idom.num2CSstd.tri
 #' t<-1.5
@@ -4410,7 +4477,7 @@ Idom.num2CSstd.tri <- function(p1,p2,Xp,t,ch.data.pnts=FALSE)
 #' @rdname funsCSGamTe
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for Idom.num3CSstd.tri
 #' t<-1.5
 #' n<-10 #try also 10, 20 (it may take longer for larger n)
@@ -4470,7 +4537,7 @@ Idom.num3CSstd.tri <- function(p1,p2,p3,Xp,t,ch.data.pnts=FALSE)
 #' @rdname funsCSGamTe
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for Idom.num4CSstd.tri
 #' t<-1.5
 #' n<-10 #try also 10, 20 (it may take longer for larger n)
@@ -4536,7 +4603,7 @@ Idom.num4CSstd.tri <- function(p1,p2,p3,p4,Xp,t,ch.data.pnts=FALSE)
 #' @rdname funsCSGamTe
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for Idom.num5CSstd.tri
 #' t<-1.5
 #' n<-10 #try also 10, 20 (it may take longer for larger n)
@@ -4602,7 +4669,7 @@ Idom.num5CSstd.tri <- function(p1,p2,p3,p4,p5,Xp,t,ch.data.pnts=FALSE)
 #' @rdname funsCSGamTe
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for Idom.num6CSstd.tri
 #' t<-1.5
 #' n<-10 #try also 10, 20 (it may take longer for larger n)
@@ -4707,7 +4774,7 @@ Idom.num6CSstd.tri <- function(p1,p2,p3,p4,p5,p6,Xp,t,ch.data.pnts=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.6,2);
 #' Tr<-rbind(A,B,C);
 #' t<-1.5
@@ -4742,7 +4809,7 @@ IarcCStri.alt <- function(p1,p2,tri,t,re=NULL)
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -4794,11 +4861,15 @@ IarcCStri.alt <- function(p1,p2,tri,t,re=NULL)
 #' of CS-PCD for uniform data in the triangle \code{tri}
 #' only when \code{M} is the center of mass. For the number of arcs, loops are not allowed.
 #'
-#' \code{tri.cor} is a logical argument for triangle correction (default is \code{TRUE}), if \code{TRUE}, only the points inside the
-#' triangle are considered (i.e., digraph induced by these vertices are considered) in computing the arc density,
-#' otherwise all points are considered (for the number of vertices in the denominator of arc density).
+#' \code{} is a logical argument (default is \code{FALSE}) for considering only the points
+#' inside the triangle or all the points as the vertices of the digraph.
+#' if \code{in.tri.only=TRUE}, arc density is computed only for
+#' the points inside the triangle (i.e., arc density of the subdigraph
+#' induced by the vertices in the triangle is computed),
+#' otherwise arc density of the entire digraph (i.e., digraph with all the vertices) is computed.
 #'
-#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
+#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds})
+#' for more on CS-PCDs.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the CS-PCD.
 #' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
@@ -4806,9 +4877,12 @@ IarcCStri.alt <- function(p1,p2,tri,t,re=NULL)
 #' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 #' which serves as a center in the interior of the triangle \code{tri};
 #' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' @param tri.cor A logical argument for computing the arc density for only the points inside the triangle,
-#' \code{tri} (default is \code{tri.cor=FALSE}), i.e., if \code{tri.cor=TRUE} only the induced digraph with the vertices
-#' inside \code{tri} are considered in the computation of arc density.
+#' @param in.tri.only  A logical argument (default is \code{=FALSE})
+#' for computing the arc density for only the points inside the triangle, \code{tri}.
+#' That is,
+#' if \code{=TRUE} arc density of the induced subdigraph with the vertices
+#' inside \code{tri} is computed, otherwise
+#' otherwise arc density of the entire digraph (i.e., digraph with all the vertices) is computed.
 #'
 #' @return A \code{list} with the elements
 #' \item{arc.dens}{Arc density of CS-PCD whose vertices are the 2D numerical data set, \code{Xp};
@@ -4824,7 +4898,7 @@ IarcCStri.alt <- function(p1,p2,tri,t,re=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10  #try also n<-20
@@ -4835,12 +4909,12 @@ IarcCStri.alt <- function(p1,p2,tri,t,re=NULL)
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' CSarc.dens.tri(Xp,Tr,t=.5,M)
-#' CSarc.dens.tri(Xp,Tr,t=.5,M,tri.cor = FALSE)
+#' CSarc.dens.tri(Xp,Tr,t=.5,M, in.tri.only= FALSE)
 #' #try also t=1 and t=1.5 above
 #' }
 #'
 #' @export CSarc.dens.tri
-CSarc.dens.tri <- function(Xp,tri,t,M=c(1,1,1),tri.cor=FALSE)
+CSarc.dens.tri <- function(Xp,tri,t,M=c(1,1,1),in.tri.only=FALSE)
 {
   if (!is.numeric(as.matrix(Xp)) )
   {stop('Xp must be numeric')}
@@ -4853,6 +4927,11 @@ CSarc.dens.tri <- function(Xp,tri,t,M=c(1,1,1),tri.cor=FALSE)
   {stop('Xp must be of dimension nx2')}
   }
 
+  nx<-nrow(Xp)
+  if (nx<=1)
+  {stop('The graph is void or has only one vertex!
+    So, there are not enough Xp points to compute the arc density!')}
+
   tri<-as.matrix(tri)
   if (!is.numeric(tri) || nrow(tri)!=3 || ncol(tri)!=2)
   {stop('tri must be numeric and of dimension 3x2')}
@@ -4860,7 +4939,7 @@ CSarc.dens.tri <- function(Xp,tri,t,M=c(1,1,1),tri.cor=FALSE)
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
@@ -4871,16 +4950,14 @@ CSarc.dens.tri <- function(Xp,tri,t,M=c(1,1,1),tri.cor=FALSE)
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (isTRUE(all.equal(M,circumcenter.tri(tri)))==FALSE & in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
-
-  nx<-nrow(Xp)
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
+  {stop('M is not a center in the interior of the triangle')}
 
   narcs<-num.arcsCStri(Xp,tri,t,M)$num.arcs
   mean.rho<-muCS2D(t)
-  var.rho<-asyvarCS2D(t)
+  var.rho<-asy.varCS2D(t)
 
-  if (tri.cor==TRUE)
+  if (in.tri.only==TRUE)
   {
     ind.it<-c()
     for (i in 1:nx)

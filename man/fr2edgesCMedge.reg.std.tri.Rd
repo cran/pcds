@@ -56,7 +56,7 @@ whether all data points are inside \eqn{T_e} (default is \code{FALSE}).
 See also (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 n<-20
 Xp<-runif.std.tri(n)$gen.points
 

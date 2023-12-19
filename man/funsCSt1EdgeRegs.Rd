@@ -40,7 +40,7 @@ That is, each function returns 1 if \code{p2} is in \eqn{N_{CS}(p1,t=1)}, return
 CS proximity region for point \eqn{x} with expansion parameter \eqn{t=1}.
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for IarcCSt1.std.triRAB
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
@@ -54,7 +54,7 @@ IarcCSt1.std.triRAB(Xp[1,],Xp[2,])
 IarcCSt1.std.triRAB(c(.2,.5),Xp[2,])
 }
 
-\dontrun{
+\donttest{
 #Examples for IarcCSt1.std.triRBC
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
@@ -68,7 +68,7 @@ IarcCSt1.std.triRBC(Xp[1,],Xp[2,])
 IarcCSt1.std.triRBC(c(.2,.5),Xp[2,])
 }
 
-\dontrun{
+\donttest{
 #Examples for IarcCSt1.std.triRAC
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3

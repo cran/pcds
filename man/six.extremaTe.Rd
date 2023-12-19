@@ -73,7 +73,7 @@ then it returns "\code{NA} \code{NA}" for \eqn{i}-th row in the extrema.
 whether all data points are in \eqn{T_e} (default is \code{FALSE}).
 }
 \examples{
-\dontrun{
+\donttest{
 n<-20  #try also n<-100
 Xp<-runif.std.tri(n)$gen.points
 

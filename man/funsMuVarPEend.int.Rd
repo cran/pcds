@@ -3,34 +3,34 @@
 \name{funsMuVarPEend.int}
 \alias{funsMuVarPEend.int}
 \alias{muPEend.int}
-\alias{asyvarPEend.int}
+\alias{asy.varPEend.int}
 \title{Returns the mean and (asymptotic) variance of arc density of Proportional Edge Proximity Catch Digraph
-(PE-PCD) for 1D data - end interval case}
+(PE-PCD) for 1D data - end-interval case}
 \usage{
 muPEend.int(r)
 
-asyvarPEend.int(r)
+asy.varPEend.int(r)
 }
 \arguments{
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 }
 \value{
-\code{muPEend.int} returns the mean and \code{asyvarPEend.int} returns the asymptotic variance of the
-arc density of PE-PCD for uniform data in end intervals
+\code{muPEend.int} returns the mean and \code{asy.varPEend.int} returns the asymptotic variance of the
+arc density of PE-PCD for uniform data in end-intervals
 }
 \description{
-Two functions: \code{muPEend.int} and \code{asyvarPEend.int}.
+Two functions: \code{muPEend.int} and \code{asy.varPEend.int}.
 
 \code{muPEend.int} returns the mean of the arc density of PE-PCD
-and \code{asyvarPEend.int} returns the asymptotic variance of the arc density of PE-PCD
-for a given expansion parameter \eqn{r \ge 1} for 1D uniform data in the left and right end intervals
+and \code{asy.varPEend.int} returns the asymptotic variance of the arc density of PE-PCD
+for a given expansion parameter \eqn{r \ge 1} for 1D uniform data in the left and right end-intervals
 for the interval \eqn{(a,b)}.
 
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for muPEend.int
 muPEend.int(1.2)
 
@@ -47,9 +47,9 @@ plot(rseq, mu.end,type="l",
 ylab=expression(paste(mu,"(r)")),xlab="r",lty=1,xlim=range(rseq),ylim=c(0,1))
 }
 
-\dontrun{
-#Examples for asyvarPEend.int
-asyvarPEend.int(1.2)
+\donttest{
+#Examples for asy.varPEend.int
+asy.varPEend.int(1.2)
 
 rseq<-seq(1.01,5,by=.1)
 lrseq<-length(rseq)
@@ -57,12 +57,13 @@ lrseq<-length(rseq)
 var.end<-vector()
 for (i in 1:lrseq)
 {
-  var.end<-c(var.end,asyvarPEend.int(rseq[i]))
+  var.end<-c(var.end,asy.varPEend.int(rseq[i]))
 }
 
-par(mar=c(5,5,4,2))
+oldpar <- par(mar=c(5,5,4,2))
 plot(rseq, var.end,type="l",
 xlab="r",ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
+par(oldpar)
 }
 
 }
@@ -70,7 +71,7 @@ xlab="r",ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
 \insertAllCited{}
 }
 \seealso{
-\code{\link{muCSend.int}} and \code{\link{asyvarCSend.int}}
+\code{\link{muCSend.int}} and \code{\link{asy.varCSend.int}}
 }
 \author{
 Elvan Ceyhan

@@ -35,9 +35,11 @@ Point, \code{p}, is in the region of vertex \code{rv} (default is \code{NULL}); 
 in the order they are stacked row-wise in \code{tri}.
 
 AS proximity regions are defined with respect to the
-triangle \code{tri} and vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
-or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
-default is \code{M="CC"} the circumcenter of \code{tri}.
+triangle \code{tri} and vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri}
+or based on circumcenter of  \code{tri};
+default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
 
 \code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Xp} or not (default is \code{FALSE}),
 so by default this function checks whether the point \code{p} would be a dominating point
@@ -46,7 +48,7 @@ if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10

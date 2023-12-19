@@ -39,7 +39,7 @@ of the interval is not relevant for \code{rel.vert.end.int}.)
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 a<-0; b<-10; int<-c(a,b)
 
 rel.vert.end.int(-6,int)

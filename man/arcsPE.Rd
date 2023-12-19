@@ -31,12 +31,10 @@ A \code{list} with the elements
 \item{parameters}{Parameters of the digraph,
 the center used to construct the vertex regions
 and the expansion parameter.}
-\item{tess.points}{Points on which the tessellation
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation
 of the study region is performed,
-here, tessellation
-is Delaunay triangulation based on \code{Yp} points.}
-\item{tess.name}{Name of data set used in tessellation,
-it is \code{Yp} for this function}
+here, tessellation is the Delaunay triangulation based on \code{Yp} points.}
+\item{tess.name}{Name of the tessellation points \code{tess.points}}
 \item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set
 which constitute the vertices of the digraph}
@@ -52,11 +50,10 @@ number of triangles, number of arcs, and arc density.}
 }
 \description{
 An object of class \code{"PCDs"}.
-Returns arcs as tails (or sources) and heads (or arrow ends) of
-Proportional Edge Proximity Catch Digraph
-(PE-PCD) whose vertices are the data points in \code{Xp}
-in the multiple triangle case
+Returns arcs of PE-PCD as tails (or sources) and heads (or arrow ends)
 and related parameters and the quantities of the digraph.
+The vertices of the PE-PCD are the data points in \code{Xp}
+in the multiple triangle case.
 
 PE proximity regions are
 defined with respect to the Delaunay triangles
@@ -87,7 +84,7 @@ Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pc
 for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-\dontrun{
+\donttest{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 

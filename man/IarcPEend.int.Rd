@@ -3,7 +3,7 @@
 \name{IarcPEend.int}
 \alias{IarcPEend.int}
 \title{The indicator for the presence of an arc from a point to another for
-Proportional Edge Proximity Catch Digraphs (PE-PCDs) - end interval case}
+Proportional Edge Proximity Catch Digraphs (PE-PCDs) - end-interval case}
 \usage{
 IarcPEend.int(p1, p2, int, r, rv = NULL)
 }
@@ -18,7 +18,7 @@ IarcPEend.int(p1, p2, int, r, rv = NULL)
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{rv}{Index of the end interval containing the point, either \code{1,2} or \code{NULL} (default is \code{NULL}).}
+\item{rv}{Index of the end-interval containing the point, either \code{1,2} or \code{NULL} (default is \code{NULL}).}
 }
 \value{
 \eqn{I(p_2 \in N_{PE}(p_1,r))} for points \eqn{p_1} and \eqn{p_2}, that is, returns 1 if \eqn{p_2} is in \eqn{N_{PE}(p_1,r)}
@@ -30,7 +30,7 @@ otherwise, where \eqn{N_{PE}(x,r)} is the PE proximity region for point \eqn{x} 
 for the region outside the interval \eqn{(a,b)}.
 
 \code{rv} is the index of the end vertex region \eqn{p_1} resides, with default=\code{NULL},
-and \code{rv=1} for left end interval and \code{rv=2} for the right end interval.
+and \code{rv=1} for left end-interval and \code{rv=2} for the right end-interval.
 If \eqn{p_1} and \eqn{p_2} are distinct and either of them are inside interval \code{int}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 

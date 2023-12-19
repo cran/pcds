@@ -35,7 +35,7 @@ number non-degenerate for the given value of \code{r} in \eqn{(1,1.5]}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 Pdom.num2PEtri(r=1.5)
 Pdom.num2PEtri(r=1.4999999999)
 

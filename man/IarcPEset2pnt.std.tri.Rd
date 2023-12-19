@@ -31,7 +31,7 @@ default is \eqn{M=(1,1,1)}
 i.e., the center of mass of \eqn{T_e}.}
 }
 \value{
-\eqn{I(}\code{p} is in U_{x in \code{S}} \eqn{N_{PE}(x,r))}
+\eqn{I(}\code{p} is in \eqn{U_{x in S} N_{PE}(x,r))}
 for \code{S} in the standard equilateral triangle,
 that is, returns 1 if \code{p} is in \code{S}
 or inside \eqn{N_{PE}(x,r)} for at least
@@ -68,7 +68,7 @@ then it always returns 1 regardless of its location
 (i.e., loops are allowed).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
 n<-10

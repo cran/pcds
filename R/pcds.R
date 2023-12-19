@@ -4,13 +4,13 @@
 #' visualization of proximity catch digraphs (PCDs)
 #' and computation of two graph invariants of the PCDs and
 #' testing spatial patterns using these invariants.
+#'
 #' The PCD families considered are Arc-Slice (AS) PCDs,
 #' Proportional-Edge (PE) PCDs
 #' and Central Similarity (CS) PCDs.
 #'
 #' The graph invariants used in testing spatial point data are
-#' the domination number
-#' (\insertCite{ceyhan:dom-num-NPE-Spat2011;textual}{pcds})
+#' the domination number (\insertCite{ceyhan:dom-num-NPE-Spat2011;textual}{pcds})
 #' and arc density (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS;textual}{pcds})
 #' of for two-dimensional data.
 #'
@@ -23,12 +23,12 @@
 #' (see (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 #'
 #' Moreover, the package has visualization tools for these digraphs for 1D-3D vertices.
-#' The AS-PCD related tools are provided for 1D and 2D data;
-#' PE-PCD related tools are provided for 1D-3D data,
-#' and CS-PCD tools are provided for 1D and 2D data.
+#' The AS-PCD and CS-PCD tools are provided for 1D and 2D data
+#' and PE-PCD related tools are provided for 1D-3D data.
 #'
 #' @section The \code{pcds} functions:
-#' The \code{pcds} functions can be grouped as Auxiliary Functions,
+#' The \code{pcds} functions can be grouped as
+#' Auxiliary Functions,
 #' AS-PCD Functions,
 #' PE-PCD Functions,
 #' and CS-PCD Functions.
@@ -69,5 +69,6 @@
 #' \insertAllCited{}
 #'
 #' @docType package
-#' @name pcds
+#' @name pcds-package
+"_PACKAGE"
 NULL

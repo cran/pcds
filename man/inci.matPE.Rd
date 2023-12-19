@@ -48,11 +48,6 @@ or based on circumcenter of each Delaunay triangle
 (default for \eqn{M=(1,1,1)}
 which is the center of mass of the triangle).
 
-Each Delaunay triangle is first converted to
-an (nonscaled) basic triangle so that \code{M} will be the same
-type of center for each Delaunay triangle
-(this conversion is not necessary when \code{M} is \eqn{CM}).
-
 Convex hull of \code{Yp} is partitioned
 by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles
@@ -67,7 +62,7 @@ Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pc
 for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-\dontrun{
+\donttest{
 nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)

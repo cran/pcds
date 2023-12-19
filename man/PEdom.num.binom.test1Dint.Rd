@@ -86,7 +86,7 @@ When \code{asy.bin=FALSE}, the finite sample probability of success for the bino
 of trials equals to expected number of \code{Xp} points per partition interval.
 }
 \examples{
-\dontrun{
+\donttest{
 a<-0; b<-10; supp<-c(a,b)
 c<-.4
 

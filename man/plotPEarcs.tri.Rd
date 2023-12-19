@@ -69,6 +69,9 @@ PE proximity regions
 are constructed with respect to the triangle \code{tri}
 with expansion parameter \eqn{r \ge 1}, i.e., arcs may exist only
 for \code{Xp} points inside the triangle \code{tri}.
+If there are duplicates of \code{Xp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 
 Vertex regions are based on center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates
@@ -90,7 +93,7 @@ and domination number the PE-PCDs based on uniform data.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10  #try also n<-20

@@ -24,21 +24,22 @@ For an interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 A \code{list} with the elements
 \item{desc}{A short description of the output: number of arcs
 and related quantities for the induced subdigraphs in the partition intervals}
-\item{num.arcs}{Total number of arcs in all intervals (including the end intervals),
+\item{num.arcs}{Total number of arcs in all intervals (including the end-intervals),
 i.e., the number of arcs for the entire PE-PCD}
 \item{num.in.range}{Number of \code{Xp} points in the range or convex hull of \code{Yp} points}
-\item{num.in.ints}{The vector of number of \code{Xp} points in the partition intervals (including the end intervals)
+\item{num.in.ints}{The vector of number of \code{Xp} points in the partition intervals (including the end-intervals)
 based on \code{Yp} points}
-\item{weight.vec}{The \code{vector} of the lengths of the middle partition intervals (i.e., end intervals excluded)
+\item{weight.vec}{The \code{vector} of the lengths of the middle partition intervals (i.e., end-intervals excluded)
 based on \code{Yp} points}
 \item{int.num.arcs}{The \code{vector} of the number of arcs of the components of the PE-PCD in the
-partition intervals (including the end intervals) based on \code{Yp} points}
+partition intervals (including the end-intervals) based on \code{Yp} points}
 \item{part.int}{A matrix with columns corresponding to the partition intervals based on \code{Yp} points.}
 \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside,
 i.e., column number of \code{part.int} is provided for each \code{Xp} point. Partition intervals are numbered from left to right
-with 1 being the left end interval.}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the partition intervals based on \code{Yp} points.}
+with 1 being the left end-interval.}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed,
+here, tessellation is the partition intervals based on \code{Yp} points.}
 \item{vertices}{Vertices of the digraph, \code{Xp}.}
 }
 \description{
@@ -48,18 +49,26 @@ for Proportional Edge Proximity Catch Digraph
 (PE-PCD) whose vertices are the data points in \code{Xp}
 in the multiple interval case.
 
-For this function, PE proximity regions are constructed data points inside or outside the intervals based
-on \code{Yp} points with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
-arcs may exist for points in the middle or end intervals.
+For this function,
+PE proximity regions are constructed data points inside or outside the intervals based
+on \code{Yp} points with expansion parameter \eqn{r \ge 1}
+and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
+arcs may exist for points in the middle or end-intervals.
 
-Range (or convex hull) of \code{Yp} (i.e., the interval \eqn{(\min(Yp),\max(Yp))}) is partitioned by the spacings based on
-\code{Yp} points (i.e., multiple intervals are these partition intervals based on the order statistics of \code{Yp} points
-whose union constitutes the range of \code{Yp} points). For the number of arcs, loops are not counted.
+Range (or convex hull) of \code{Yp} (i.e., the interval \eqn{(\min(Yp),\max(Yp))})
+is partitioned by the spacings based on
+\code{Yp} points (i.e., multiple intervals are these partition intervals
+based on the order statistics of \code{Yp} points
+whose union constitutes the range of \code{Yp} points).
+If there are duplicates of \code{Yp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
+For the number of arcs, loops are not counted.
 
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 r<-2
 c<-.4
 a<-0; b<-10; int<-c(a,b);

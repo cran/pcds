@@ -23,7 +23,7 @@ intersection. The line segments are \eqn{[ba]} and \eqn{[bc]} when the arguments
 The smaller of the angle between the line segments is provided by the function.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(.3,.2); B<-c(.6,.3); C<-c(1,1)
 pts<-rbind(A,B,C)
 

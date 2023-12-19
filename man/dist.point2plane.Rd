@@ -28,13 +28,13 @@ Returns the distance from a point \code{p} to the plane
 passing through points \code{a}, \code{b}, and \code{c} in 3D space.
 }
 \examples{
-\dontrun{
+\donttest{
 P<-c(5,2,40)
 P1<-c(1,2,3); P2<-c(3,9,12); P3<-c(1,1,3);
 
 dis<-dist.point2plane(P,P1,P2,P3);
 dis
-Pr<-dis$proj #projection on the plane
+Pr<-dis$prj #projection on the plane
 
 xseq<-seq(0,10,l=5)  #try also l=10, 20, or 100
 yseq<-seq(0,10,l=5)  #try also l=10, 20, or 100

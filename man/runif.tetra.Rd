@@ -44,7 +44,7 @@ in the general tetrahedron \code{th}
 whose vertices are stacked row-wise.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-sample(1:12,3); B<-sample(1:12,3);
 C<-sample(1:12,3); D<-sample(1:12,3)
 tetra<-rbind(A,B,C,D)
@@ -81,10 +81,8 @@ add=TRUE,lwd=2)
 plot3D::text3D(tetra[,1],tetra[,2],tetra[,3],
 labels=c("A","B","C","D"), add=TRUE)
 
-#need to install scatterplot3d package and call "library(scatterplot3d)"
-s3d<-scatterplot3d(Xp, highlight.3d=TRUE,
-xlab="x",ylab="y",zlab="z",
-                    col.axis="blue", col.grid="lightblue",
+s3d<-scatterplot3d::scatterplot3d(Xp, highlight.3d=TRUE,
+xlab="x",ylab="y",zlab="z", col.axis="blue", col.grid="lightblue",
                     main="3D Scatterplot of the data", pch=20)
  s3d$points3d(tetra,pch=20,col="blue")
  }

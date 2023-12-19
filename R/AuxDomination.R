@@ -138,7 +138,7 @@ dom.num.greedy <- function(Inc.Mat)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-10
 #' M<-matrix(sample(c(0,1),n^2,replace=TRUE),nrow=n)
 #' diag(M)<-1
@@ -225,7 +225,7 @@ Idom.num.up.bnd <- function(Inc.Mat,k)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-10
 #' M<-matrix(sample(c(0,1),n^2,replace=TRUE),nrow=n)
 #' diag(M)<-1

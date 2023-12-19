@@ -43,7 +43,7 @@ For information on barycentric coordinates,
 see (\insertCite{weisstein-barycentric;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for cart2bary
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
@@ -53,7 +53,7 @@ cart2bary(A,Tr)
 cart2bary(c(.3,.2),Tr)
 }
 
-\dontrun{
+\donttest{
 #Examples for bary2cart
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);

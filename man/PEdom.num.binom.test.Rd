@@ -138,7 +138,7 @@ an ongoing topic of research of the author of the package.
 See also (\insertCite{ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 nx<-100; ny<-5 #try also nx<-1000; ny<-10
 r<-1.4  #try also r<-1.5
 

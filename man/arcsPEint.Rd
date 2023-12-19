@@ -2,7 +2,8 @@
 % Please edit documentation in R/PropEdge1D.R
 \name{arcsPEint}
 \alias{arcsPEint}
-\title{The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - one interval case}
+\title{The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD)
+for 1D data - one interval case}
 \usage{
 arcsPEint(Xp, int, r, c = 0.5)
 }
@@ -22,9 +23,10 @@ For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a
 A \code{list} with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, they are expansion and centrality parameters.}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the intervalization of the real line based on \code{int} points.}
-\item{tess.name}{Name of data set used in tessellation, it is \code{int} for this function}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed,
+here, tessellation points are the end points of the support interval \code{int}.}
+\item{tess.name}{Name of the tessellation points \code{tess.points}}
 \item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 \item{S}{Tails (or sources) of the arcs of PE-PCD for 1D data}
@@ -35,19 +37,22 @@ number of intervals, number of arcs, and arc density.}
 }
 \description{
 An object of class \code{"PCDs"}.
-Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
-of PE-PCD.  \code{int} determines the end points of the interval.
+Returns arcs of PE-PCD as tails (or sources) and heads (or arrow ends)
+and related parameters and the quantities of the digraph.
+The vertices of the PE-PCD are the 1D data points in \code{Xp}
+in the one interval case.
+\code{int} determines the end points of the interval.
 
 For this function, PE proximity regions are constructed data points inside or outside the interval based
 on \code{int} points with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
-arcs may exist for points in the middle or end intervals.
+arcs may exist for points in the middle or end-intervals.
 It also provides various descriptions and quantities about the arcs of the PE-PCD
 such as number of arcs, arc density, etc.
 
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 r<-2
 c<-.4
 a<-0; b<-10; int<-c(a,b);

@@ -2,55 +2,74 @@
 % Please edit documentation in R/ArcSliceFunctions.R
 \name{arcsAStri}
 \alias{arcsAStri}
-\title{The arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for 2D data - one triangle case}
+\title{The arcs of Arc Slice Proximity Catch Digraph (AS-PCD)
+for 2D data - one triangle case}
 \usage{
 arcsAStri(Xp, tri, M = "CC")
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
+\item{tri}{Three 2D points, stacked row-wise,
+each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
-barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
+\item{M}{The center of the triangle.
+\code{"CC"} stands for circumcenter of the triangle \code{tri}
+or a 2D point in Cartesian coordinates or a 3D point in
+barycentric coordinates which serves as a center
+in the interior of the triangle \eqn{T_b};
 default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 }
 \value{
 A \code{list} with the elements
 \item{type}{A description of the type of the digraph}
-\item{parameters}{Parameters of the digraph, here, it is the center used to construct the vertex regions.}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the support triangle.}
-\item{tess.name}{Name of data set used in tessellation (i.e., vertices of the triangle).}
+\item{parameters}{Parameters of the digraph,
+here, it is the center used to construct the vertex regions.}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed,
+here, tessellation points are the vertices of the support triangle \code{tri}.}
+\item{tess.name}{Name of the tessellation points \code{tess.points}}
 \item{vertices}{Vertices of the digraph, \code{Xp}.}
-\item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-\item{S}{Tails (or sources) of the arcs of AS-PCD for 2D data set \code{Xp} as vertices of the digraph}
-\item{E}{Heads (or arrow ends) of the arcs of AS-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{vert.name}{Name of the data set
+which constitute the vertices of the digraph}
+\item{S}{Tails (or sources) of the arcs of AS-PCD
+for 2D data set \code{Xp} as vertices of the digraph}
+\item{E}{Heads (or arrow ends) of the arcs of AS-PCD
+for 2D data set \code{Xp} as vertices of the digraph}
 \item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
-\item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
+\item{quant}{Various quantities for the digraph: number of vertices,
+number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
 An object of class \code{"PCDs"}.
-Returns arcs as tails (or sources) and heads (or arrow ends) for data set \code{Xp} as the vertices
-of AS-PCD and related parameters and the quantities of the digraph.
+Returns arcs of AS-PCD as tails (or sources) and heads (or arrow ends)
+and related parameters and the quantities of the digraph.
+The vertices of the AS-PCD are the data points in \code{Xp}
+in the one triangle case.
 
-AS proximity regions are constructed with respect to the triangle \code{tri}, i.e.,
+AS proximity regions are constructed
+with respect to the triangle \code{tri}, i.e.,
 arcs may exist for points only inside \code{tri}.
-It also provides various descriptions and quantities about the arcs of the AS-PCD
+It also provides various descriptions
+and quantities about the arcs of the AS-PCD
 such as number of arcs, arc density, etc.
 
-Vertex regions are based on the center \code{M="CC"} for
-circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric
-coordinates in the interior of the triangle \code{tri}; default is \code{M="CC"} the circumcenter of \code{tri}.
-The different consideration of circumcenter vs any other interior center of the triangle is because
-the projections from circumcenter are orthogonal to the edges, while projections of \code{M} on the edges are on the extensions
+Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri}
+or based on circumcenter of  \code{tri};
+default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
+The different consideration of circumcenter
+vs any other interior center of the triangle
+is because the projections from circumcenter are orthogonal to the edges,
+while projections of \code{M} on the edges are on the extensions
 of the lines connecting \code{M} and the vertices.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 
 Tr<-rbind(A,B,C);
@@ -98,8 +117,8 @@ text(xc,yc,txt.str)
 \insertAllCited{}
 }
 \seealso{
-\code{\link{arcsAS}}, \code{\link{arcsPEtri}}, \code{\link{arcsCStri}}, \code{\link{arcsPE}},
-and \code{\link{arcsCS}}
+\code{\link{arcsAS}}, \code{\link{arcsPEtri}}, \code{\link{arcsCStri}},
+\code{\link{arcsPE}}, and \code{\link{arcsCS}}
 }
 \author{
 Elvan Ceyhan

@@ -27,7 +27,7 @@ Plots the line together with the defining vectors
 (i.e., the initial and direction vectors).
 }
 \examples{
-\dontrun{
+\donttest{
 P<-c(1,10,3); Q<-c(1,1,3);
 vecs<-rbind(P,Q)
 Line3D(P,Q,.1)

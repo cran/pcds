@@ -32,7 +32,7 @@ outside the triangle, \code{tri}, depending on the value of
 \code{delta} (i.e., for small values of \code{delta}).
 }
 \examples{
-\dontrun{
+\donttest{
 #for a general triangle
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
@@ -44,7 +44,7 @@ Ylim<-range(Tr[,2],Tseg[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-par(pty="s")
+oldpar <- par(pty="s")
 plot(Tr,pch=".",xlab="",ylab="",
 main="segregation support is the intersection\n of these two triangles",
 axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
@@ -56,6 +56,7 @@ xc<-txt[,1]+c(-.03,.03,.03,.06,.04,-.04)
 yc<-txt[,2]+c(.02,.02,.04,-.03,0,0)
 txt.str<-c("A","B","C","T1","T2","T3")
 text(xc,yc,txt.str)
+par(oldpar)
 }
 
 }

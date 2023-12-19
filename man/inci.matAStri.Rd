@@ -2,7 +2,8 @@
 % Please edit documentation in R/ArcSliceFunctions.R
 \name{inci.matAStri}
 \alias{inci.matAStri}
-\title{Incidence matrix for Arc Slice Proximity Catch Digraphs (AS-PCDs) - one triangle case}
+\title{Incidence matrix for Arc Slice Proximity Catch Digraphs
+(AS-PCDs) - one triangle case}
 \usage{
 inci.matAStri(Xp, tri, M = "CC")
 }
@@ -16,24 +17,27 @@ a 3D point in barycentric coordinates which serves as a center in the interior o
 default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 }
 \value{
-Incidence matrix for the AS-PCD whose vertices are 2D data set, \code{Xp},
+Incidence matrix for the AS-PCD whose vertices are the 2D data set, \code{Xp},
 and AS proximity regions are defined with respect to the triangle \code{tri} and
-vertex regions based on circumcenter.
+vertex regions based on the center \code{M}.
 }
 \description{
-Returns the incidence matrix for the AS-PCD whose vertices are the given 2D numerical data set, \code{Xp}.
+Returns the incidence matrix of the AS-PCD
+whose vertices are the given 2D numerical data set, \code{Xp},
+in the triangle \code{tri}\eqn{=T(v=1,v=2,v=3)}.
 
 AS proximity regions are defined with respect to the triangle \code{tri}\eqn{=T(v=1,v=2,v=3)} and
-vertex regions based on the center \code{M="CC"} for circumcenter of \code{tri};
-or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
+vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri}
+or based on circumcenter of  \code{tri};
+default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
 Loops are allowed, so the diagonal entries are all equal to 1.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
-
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10
@@ -43,7 +47,7 @@ Xp<-runif.tri(n,Tr)$g
 
 M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 
-IM<-IncMatAStri(Xp,Tr,M)
+IM<-inci.matAStri(Xp,Tr,M)
 IM
 
 dom.num.greedy(IM)

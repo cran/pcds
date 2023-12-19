@@ -69,7 +69,7 @@ there are no data points inside \code{tri}).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10  #try also n<-20

@@ -14,10 +14,10 @@ representing the number of points to be generated.}
 \item{Yp}{A set of 2D points
 from which Delaunay triangulation is constructed.}
 
-\item{delta}{A positive real number in \eqn{(0,4/9)}.
-\code{delta} is the parameter of association (that is, only
-\eqn{\delta 100} \% area around each vertex
-in each Delaunay triangle is allowed for point generation).}
+\item{delta}{A positive real number in \eqn{(0,1)}.
+\code{delta} is the parameter of association
+(that is, only \eqn{\delta 100} \% area around vertices of
+each Delaunay triangle is allowed for point generation).}
 
 \item{DTmesh}{Delaunay triangulation of \code{Yp}, default is \code{NULL},
 which is computed via \code{\link[interp]{tri.mesh}} function
@@ -37,8 +37,8 @@ A \code{list} with the elements
 \item{mtitle}{The \code{"main"} title for the plot of the point pattern}
 \item{parameters}{Attraction parameter, \code{delta},
 of the Type I association pattern.
-\code{delta} is in \eqn{(0,4/9)}
-only \eqn{\delta 100} \% of the area around each vertex in each Delaunay triangle
+\code{delta} is in \eqn{(0,1)} and
+only \eqn{\delta 100} \% of the area around vertices of each Delaunay triangle
 is allowed for point generation.}
 \item{ref.points}{The input set of points \code{Yp};
 reference points, i.e., points with which generated points are associated.}
@@ -93,7 +93,7 @@ Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pc
 for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-\dontrun{
+\donttest{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-100; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 

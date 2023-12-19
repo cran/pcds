@@ -51,7 +51,7 @@ but if they are identical, then it returns 1 regardless of their location (i.e.,
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for IarcCSstd.triRAB
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
@@ -68,7 +68,7 @@ IarcCSstd.triRAB(Xp[1,],Xp[2,],t,M)
 IarcCSstd.triRAB(c(.2,.5),Xp[2,],t,M)
 }
 
-\dontrun{
+\donttest{
 #Examples for IarcCSstd.triRBC
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
@@ -85,7 +85,7 @@ IarcCSstd.triRBC(Xp[1,],Xp[2,],t,M)
 IarcCSstd.triRBC(c(.2,.5),Xp[2,],t,M)
 }
 
-\dontrun{
+\donttest{
 #Examples for IarcCSstd.triRAC
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3

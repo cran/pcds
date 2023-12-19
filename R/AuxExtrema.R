@@ -68,7 +68,7 @@
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -273,7 +273,7 @@ fr2vertsCCvert.reg.basic.tri <- function(Xp,c1,c2,ch.all.intri=FALSE)
 #' in each vertex region to the corresponding vertex}
 #'
 #' @seealso \code{\link{fr2vertsCCvert.reg.basic.tri}}, \code{\link{fr2edgesCMedge.reg.std.tri}},
-#' \code{\link{fr2vertsCCvert.reg.basic.tri}} and \code{\link{kfr2vertsCCvert.reg}}
+#' \code{\link{kfr2vertsCCvert.reg.basic.tri}} and \code{\link{kfr2vertsCCvert.reg}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -281,7 +281,7 @@ fr2vertsCCvert.reg.basic.tri <- function(Xp,c1,c2,ch.all.intri=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10  #try also n<-20
@@ -497,7 +497,7 @@ fr2vertsCCvert.reg <- function(Xp,tri,ch.all.intri=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -507,7 +507,7 @@ fr2vertsCCvert.reg <- function(Xp,tri,ch.all.intri=FALSE)
 #' set.seed(1)
 #' Xp<-runif.basic.tri(n,c1,c2)$g
 #'
-#' Ext<-fr2vertsCCvert.reg.basic.tri(Xp,c1,c2,k)
+#' Ext<-kfr2vertsCCvert.reg.basic.tri(Xp,c1,c2,k)
 #' Ext
 #' summary(Ext)
 #' plot(Ext)
@@ -540,7 +540,7 @@ fr2vertsCCvert.reg <- function(Xp,tri,ch.all.intri=FALSE)
 #' }
 #'
 #' @export
-fr2vertsCCvert.reg.basic.tri <- function(Xp,c1,c2,k,ch.all.intri=FALSE)
+kfr2vertsCCvert.reg.basic.tri <- function(Xp,c1,c2,k,ch.all.intri=FALSE)
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -752,7 +752,7 @@ fr2vertsCCvert.reg.basic.tri <- function(Xp,c1,c2,k,ch.all.intri=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10  #try also n<-20
@@ -985,7 +985,7 @@ kfr2vertsCCvert.reg <- function(Xp,tri,k,ch.all.intri=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -1201,7 +1201,7 @@ cl2CCvert.reg.basic.tri <- function(Xp,c1,c2,ch.all.intri=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10  #try also n<-20
@@ -1417,7 +1417,7 @@ cl2CCvert.reg <- function(Xp,tri,ch.all.intri=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
 #'
@@ -1466,17 +1466,17 @@ cl2Mc.int <- function(Xp,int,c)
   {stop('interval is degenerate or void,
         left end must be smaller than right end')}
 
-  Mc<-y1+c*(y2-y1)
+  Mc <- y1+c*(y2-y1)
 
   indices.int = which((Xp>=y1 & Xp<=y2))
   #indices of original data Xp in the interval int
   Xp<-Xp[indices.int] #data in the interval int
 
-  indL<-which(Xp<=Mc)
+  indL<-which(Xp <= Mc)
   #indices of data in the interval to the left of center
-  indices.int.left =indices.int[indL]
+  indices.int.left = indices.int[indL]
   #indices of original data  in the interval and to the left of center
-  XpL =Xp[indL] #data in the interval to the left of center
+  XpL = unique(Xp[indL]) #data in the interval to the left of center
 
   U<-rep(NA,2)# closest data points to the center in vertex regions
   ind.ext<-rep(NA,2)  # data indices of U points
@@ -1491,7 +1491,7 @@ cl2Mc.int <- function(Xp,int,c)
   indR<-which(Xp>Mc) #indices of data in the interval to the right of center
   ind.indR =indices.int[indR]
   #indices of original data  in the interval and to the right of center
-  XpR =Xp[indR] #data in the interval to the right of center
+  XpR = unique(Xp[indR]) #data in the interval to the right of center
 
   if (length(XpR)>0)
   {ext.indR = which(XpR == min(XpR))
@@ -1602,7 +1602,7 @@ cl2Mc.int <- function(Xp,int,c)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-20
 #' Xp<-runif.std.tri(n)$gen.points
 #'
@@ -1806,7 +1806,7 @@ fr2edgesCMedge.reg.std.tri <- function(Xp,ch.all.intri=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-20  #try also n<-100
 #' Xp<-runif.std.tri(n)$gen.points
 #'
@@ -1991,7 +1991,7 @@ cl2edges.std.tri <- function(Xp,ch.all.intri=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-20  #try also n<-100
 #' Xp<-runif.std.tri(n)$gen.points
 #'
@@ -2206,7 +2206,7 @@ six.extremaTe <- function(Xp,ch.all.intri=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4;  c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
@@ -2283,7 +2283,7 @@ cl2edges.vert.reg.basic.tri <- function(Xp,c1,c2,M)
 
   if (isTRUE(all.equal(M,circumcenter.tri(Tb)))==FALSE &
       in.triangle(M,Tb,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(M,circumcenter.tri(Tb)))==TRUE)
   {
@@ -2297,7 +2297,7 @@ cl2edges.vert.reg.basic.tri <- function(Xp,c1,c2,M)
     L<-rbind(M,M,M); R<-Ds
 
     if (in.triangle(M,Tb,boundary=FALSE)$in.tri==FALSE)
-    {stop('center is not in the interior of the standard basic triangle')}
+    {stop('M is not a center in the interior of the standard basic triangle')}
 
     mdt<-rep(1,3);
     #maximum distance from a point in the basic tri to its vertices
@@ -2457,7 +2457,7 @@ cl2edges.vert.reg.basic.tri <- function(Xp,c1,c2,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #'
 #' Tr<-rbind(A,B,C);
@@ -2541,8 +2541,7 @@ cl2edgesMvert.reg <- function(Xp,tri,M,alt=FALSE)
   {M<-bary2cart(M,tri)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   y1<-tri[1,]; y2<-tri[2,]; y3<-tri[3,];
 
@@ -2740,7 +2739,7 @@ cl2edgesMvert.reg <- function(Xp,tri,M,alt=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -2960,7 +2959,7 @@ cl2edgesCMvert.reg <- function(Xp,tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -3230,7 +3229,7 @@ cl2edgesCCvert.reg <- function(Xp,tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0);
 #' D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' set.seed(1)
@@ -3439,7 +3438,7 @@ NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for rank.dist2edges.std.tri
 #' n<-10
 #' set.seed(1)
@@ -3518,7 +3517,7 @@ rank.dist2edges.std.tri <- function(Xp,dec=TRUE)
 #' @rdname funsRankOrderTe
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for order.dist2edges.std.tri
 #' n<-10
 #' set.seed(1)

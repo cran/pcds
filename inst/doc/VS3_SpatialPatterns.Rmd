@@ -130,7 +130,7 @@ that is, in the convex hull of non-target points,
 where $n_x$ is number of $\X$ (i.e. target) points and $n_y$ is number of $\Y$ (nontarget) points.
 $\Y$ points constitute the vertices of the Delaunay triangles, and when uniform points are generated in the convex hull
 of nontarget points, then points in each triangle will also be uniformly distributed (restricted to the triangle,
-i.e. normalized by the ratio of the area of the convex hull to the area of the particular triangle).
+i.e. scaled by the ratio of the area of the convex hull to the area of the particular triangle).
 
 ```{r SPch2}
 nx<-10; ny<-5  #try also nx<-40; ny<-5 or nx<-100;  #try also nx<-1000;  ny<-10;
@@ -245,8 +245,8 @@ See @ceyhan:arc-density-PE, @ceyhan:arc-density-CS, and @ceyhan:dom-num-NPE-Spat
 
 ## Generation of Points Segregated (in a Type I Fashion) from the Vertices of a Triangle
 Here, the points are generated in type I segregation, parameterized by `delta`, 
-which is a positive real number in $(0,4/9)$ so that $\delta 100$ \% area 
-around each vertex in each Delaunay triangle is forbidden for $\X$ points.
+which is a positive real number in $(0,1)$ so that $\delta 100$ \% area 
+around vertices of each Delaunay triangle is forbidden for $\X$ points.
 The forbidden regions are chosen in such a way that $\X$ points can not be further from a distance to the opposite edge
 where this distance depends on `delta`.
 Such a construction preserves geometry invariance for 
@@ -270,8 +270,8 @@ and has arguments `n,tri,delta` where
 - `n`, a positive integer representing the number of points to be generated from the segregation pattern
 in the triangle, `tri`.
 - `tri`, a $3 \times 2$ matrix with each row representing a vertex of the triangle.
-- `delta`, a positive real number in $(0,4/9)$. `delta` is the parameter of segregation (that is,
-$\delta \, 100$ \% area around each vertex in each Delaunay triangle is forbidden for point generation).
+- `delta`, a positive real number in $(0,1)$. `delta` is the parameter of segregation (that is,
+$\delta \, 100$ \% area around vertices of each Delaunay triangle is forbidden for point generation).
 
 Its `call` and `summary` are as in `runif.tri` with the addition of the segregation parameter.
 The `plot` function (or `plot.Patterns`) returns the plot of the triangle together with the generated points.
@@ -341,8 +341,9 @@ The function `rseg.multi.tri` is an object of class `Patterns` and takes argumen
 
 - `n`, a positive integer representing the number of points to be generated.
 - `Yp`, a set of 2D points from which Delaunay triangulation is constructed.
-- `delta`, a positive real number in $(0,4/9)$. `delta` is the parameter of segregation (that is, $\delta 100$ %
-area around each vertex in each Delaunay triangle is forbidden for point generation).
+- `delta`, a positive real number in $(0,1)$. `delta` is the parameter of segregation 
+(that is, $\delta 100$ % area around vertices of each Delaunay triangle is 
+forbidden for point generation).
 - `DTmesh`, the Delaunay triangulation of `Yp`, default is `NULL`, which is computed via `interp::tri.mesh` function
 in `interp` package. `interp::tri.mesh` function yields the triangulation nodes with their neighbors, and
 creates a triangulation object.
@@ -465,8 +466,8 @@ See @ceyhan:arc-density-PE, @ceyhan:arc-density-CS, and @ceyhan:dom-num-NPE-Spat
 
 ## Generation of Points Associated (in a Type I Fashion) with the Vertices of a Triangle
 Here, the points are generated in type I association, parameterized by `delta`, 
-which is a positive real number in $(0,4/9)$ so that 
-$\delta 100$ \% area around each vertex in each Delaunay triangle is the only region allowed for $\X$ points.
+which is a positive real number in $(0,1)$ so that 
+$\delta 100$ \% area around vertices of each Delaunay triangle is the only region allowed for $\X$ points.
 The allowed regions are chosen in such a way that $\X$ points must be further from a distance to the opposite edge
 where this distance depends on `delta`.
 Such a construction preserves geometry invariance for arc density and domination number of PE- and CS-PCDs

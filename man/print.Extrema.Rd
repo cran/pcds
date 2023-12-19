@@ -23,14 +23,14 @@ and also the \code{type}
 (i.e. a brief description) of the extrema).
 }
 \examples{
-\dontrun{
+\donttest{
 n<-10
 Xp<-runif.std.tri(n)$gen.points
 Ext<-cl2edges.std.tri(Xp)
 Ext
 print(Ext)
 
-typeof(Ext))
+typeof(Ext)
 attributes(Ext)
 }
 

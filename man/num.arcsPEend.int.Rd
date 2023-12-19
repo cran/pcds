@@ -2,7 +2,7 @@
 % Please edit documentation in R/PropEdge1D.R
 \name{num.arcsPEend.int}
 \alias{num.arcsPEend.int}
-\title{Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - end interval case}
+\title{Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - end-interval case}
 \usage{
 num.arcsPEend.int(Xp, int, r)
 }
@@ -16,7 +16,7 @@ must be \eqn{\ge 1}.}
 }
 \value{
 Number of arcs for the PE-PCD with vertices being 1D data set, \code{Xp},
-expansion parameter, \eqn{r \ge 1}, for the end intervals.
+expansion parameter, \eqn{r \ge 1}, for the end-intervals.
 }
 \description{
 Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) whose
@@ -31,7 +31,7 @@ the interval, \code{int}, for this function.
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 a<-0; b<-10; int<-c(a,b)
 
 n<-5

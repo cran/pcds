@@ -50,13 +50,21 @@ as a vertical line in the plot, else center of the interval is not plotted.}
 Plot of the CS proximity regions for 1D points in or outside the interval \code{int}
 }
 \description{
-Plots the points in and outside of the interval \code{int} and also the CS proximity regions (which are also intervals).
-CS proximity regions are constructed with expansion parameter \eqn{t > 0} and centrality parameter \eqn{c \in (0,1)}.
+Plots the points in and outside of the interval \code{int}
+and also the CS proximity regions (which are also intervals).
+CS proximity regions are constructed with expansion parameter \eqn{t > 0}
+and centrality parameter \eqn{c \in (0,1)}.
 
-For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)} (default is \eqn{Jit=.1}) times range of proximity
+For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)}
+(default is \eqn{Jit=.1}) times range of proximity
 regions and \code{Xp}) is added to the \eqn{y}-direction.
-\code{center} is a logical argument, if \code{TRUE}, plot includes the
-center of the interval as a vertical line in the plot, else center of the interval is not plotted.
+#' If there are duplicates of \code{Xp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
+\code{center} is a logical argument, if \code{TRUE},
+plot includes the
+center of the interval as a vertical line in the plot,
+else center of the interval is not plotted.
 }
 \examples{
 c<-.4

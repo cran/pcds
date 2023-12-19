@@ -2,7 +2,8 @@
 % Please edit documentation in R/CentSim1D.R
 \name{plotCSarcs1D}
 \alias{plotCSarcs1D}
-\title{The plot of the arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) for 1D data
+\title{The plot of the arcs of Central Similarity Proximity Catch Digraphs
+(CS-PCDs) for 1D data
 (vertices jittered along \eqn{y}-coordinate) - multiple interval case}
 \usage{
 plotCSarcs1D(
@@ -52,16 +53,27 @@ A plot of the arcs of CS-PCD whose vertices are the 1D data set \code{Xp} in whi
 along \eqn{y}-axis for better visualization.
 }
 \description{
-Plots the arcs of CS-PCD whose vertices are the 1D points, \code{Xp}. CS proximity regions are constructed with
-expansion parameter \eqn{t>0} and centrality parameter \eqn{c \in (0,1)} and the intervals are based on \code{Yp} points (i.e.
-the intervalization is based on \code{Yp} points). That is, data set \code{Xp}
-constitutes the vertices of the digraph and \code{Yp} determines the end points of the intervals.
+Plots the arcs of CS-PCD whose vertices are the 1D points, \code{Xp}.
+CS proximity regions are constructed with
+expansion parameter \eqn{t>0} and centrality parameter \eqn{c \in (0,1)}
+and the intervals are based on \code{Yp} points (i.e.
+the intervalization is based on \code{Yp} points).
+That is, data set \code{Xp}
+constitutes the vertices of the digraph
+and \code{Yp} determines the end points of the intervals.
+If there are duplicates of \code{Yp} or \code{Xp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 
-For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)} (default for \eqn{Jit=.1}) is added to
-the \eqn{y}-direction where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by \code{Jit} with default for \eqn{Jit=.1}).
+For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)}
+(default for \eqn{Jit=.1}) is added to
+the \eqn{y}-direction where \code{Jit} equals to
+the range of \code{Xp} and \code{Yp} multiplied by \code{Jit} with default for \eqn{Jit=.1}).
 
-\code{centers} is a logical argument, if \code{TRUE}, plot includes the centers of the intervals
-as vertical lines in the plot, else centers of the intervals are not plotted.
+\code{centers} is a logical argument, if \code{TRUE},
+plot includes the centers of the intervals
+as vertical lines in the plot,
+else centers of the intervals are not plotted.
 
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }

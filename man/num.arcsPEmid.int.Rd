@@ -38,7 +38,7 @@ loops are not allowed so arcs are only possible for points inside the middle int
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c<-.4
 r<-2
 a<-0; b<-10; int<-c(a,b)

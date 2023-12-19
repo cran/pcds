@@ -72,7 +72,7 @@ in the direction of \code{vector} \code{v}
 with the parameter \code{t} being provided in \code{vector} \code{t}.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,10,3); B<-c(1,1,3);
 
 vecs<-rbind(A,B)

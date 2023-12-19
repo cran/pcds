@@ -23,10 +23,13 @@ A \code{list} with the elements
 \item{desc}{A short description of the output: number of arcs
 and quantities related to the triangle}
 \item{num.arcs}{Number of arcs of the CS-PCD}
+\item{tri.num.arcs}{Number of arcs of the induced subdigraph of the CS-PCD
+for vertices in the triangle \code{tri}}
 \item{num.in.tri}{Number of \code{Xp} points in the triangle, \code{tri}}
 \item{ind.in.tri}{The vector of indices of the \code{Xp} points that reside in the triangle}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the support triangle.}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed,
+here, tessellation points are the vertices of the support triangle \code{tri}.}
 \item{vertices}{Vertices of the digraph, \code{Xp}.}
 }
 \description{
@@ -48,7 +51,7 @@ arcs are only possible for points inside \code{tri} for this function.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 

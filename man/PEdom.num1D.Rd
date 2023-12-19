@@ -2,7 +2,8 @@
 % Please edit documentation in R/PropEdge1D.R
 \name{PEdom.num1D}
 \alias{PEdom.num1D}
-\title{The domination number of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data}
+\title{The domination number of Proportional Edge Proximity Catch Digraph
+(PE-PCD) for 1D data}
 \usage{
 PEdom.num1D(Xp, Yp, r, c = 0.5)
 }
@@ -26,17 +27,25 @@ centrality parameter \eqn{c \in (0,1)}.}
 \item{int.dom.nums}{Domination numbers of the PE-PCD components for the partition intervals.}
 }
 \description{
-Returns the domination number, a minimum dominating set of PE-PCD whose vertices are the 1D data set \code{Xp},
+Returns the domination number,
+a minimum dominating set of PE-PCD whose vertices are the 1D data set \code{Xp},
 and the domination numbers for partition intervals based on \code{Yp}.
 
-\code{Yp} determines the end points of the intervals (i.e., partition the real line via intervalization).
-It also includes the domination numbers in the end intervals, with interval label 1 for the left end interval
-and $|Yp|+1$ for the right end interval.
+\code{Yp} determines the end points of the intervals
+(i.e., partition the real line via intervalization).
+It also includes the domination numbers in the end-intervals,
+with interval label 1 for the left end-interval
+and $|Yp|+1$ for the right end-interval.
 
-PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}.
+If there are duplicates of \code{Yp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
+
+PE proximity region is constructed with expansion parameter \eqn{r \ge 1}
+and centrality parameter \eqn{c \in (0,1)}.
 }
 \examples{
-\dontrun{
+\donttest{
 a<-0; b<-10
 c<-.4
 r<-2

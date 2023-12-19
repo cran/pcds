@@ -2,8 +2,8 @@
 % Please edit documentation in R/CentSim1D.R
 \name{CSarc.dens.test.int}
 \alias{CSarc.dens.test.int}
-\title{A test of uniformity of 1D data in a given interval based on Central Similarity Proximity Catch Digraph
-(CS-PCD)}
+\title{A test of uniformity of 1D data in a given interval based
+on Central Similarity Proximity Catch Digraph (CS-PCD)}
 \usage{
 CSarc.dens.test.int(
   Xp,

@@ -41,9 +41,12 @@ and also scatter plot of \code{Xp} points
 \description{
 Plots the \code{Xp} points
 and the intervals based on \code{Yp} points.
+If there are duplicates of \code{Yp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 }
 \examples{
-\dontrun{
+\donttest{
 a<-0; b<-10;
 
 #nx is number of X points (target) and ny is number of Y points (nontarget)

@@ -50,7 +50,7 @@ NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for lineD1CCinTb
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the standard basic triangle Tb
@@ -145,7 +145,7 @@ lineD1CCinTb <- function(x,c1,c2)
 #' @rdname funsTbMid2CC
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for lineD2CCinTb
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the standard basic triangle Tb
@@ -255,7 +255,7 @@ lineD2CCinTb <- function(x,c1,c2)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(.3,.2); B<-c(.6,.3); C<-c(1,1)
 #' pts<-rbind(A,B,C)
 #'
@@ -340,7 +340,7 @@ angle3pnts <- function(a,b,c,radian=TRUE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(.3,.2); B<-c(.6,.3); C<-c(1,1)
 #'
 #' pts<-rbind(A,B,C)
@@ -467,7 +467,7 @@ angle.str2end <- function(a,b,c,radian=TRUE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P1<-c(.3,.2)*100
 #' P2<-c(.6,.3)*100
 #' cent<-c(1.1,1.1)*100
@@ -590,9 +590,11 @@ intersect.line.circle <- function(p1,p2,cent,rad)
 #' AS proximity region for a point in the standard basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
 #' where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 #'
-#' Vertex regions are based on the center \code{M="CC"} for circumcenter of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian
-#' coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_b};
-#' default is \code{M="CC"} the circumcenter of \eqn{T_b}.
+#' Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the standard basic triangle \eqn{T_b}
+#' or based on circumcenter of \eqn{T_b};
+#' default is \code{M="CC"}, i.e., circumcenter of \eqn{T_b}.
 #' \code{rv} is the index of the vertex region \code{p} resides, with default=\code{NULL}.
 #'
 #' If \code{p} is outside \eqn{T_b}, it returns \code{NULL} for the proximity region.
@@ -633,7 +635,7 @@ intersect.line.circle <- function(p1,p2,cent,rad)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6  #try also c1<-.2; c2<-.2;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -750,7 +752,7 @@ NASbasic.tri <- function(p,c1,c2,M="CC",rv=NULL,dec=4)
   {M<-bary2cart(M,Tb)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   #If p is outside the closed triangle
   if (!in.triangle(p,Tb,boundary=TRUE)$in.tri)
@@ -943,26 +945,32 @@ NASbasic.tri <- function(p,c1,c2,M="CC",rv=NULL,dec=4)
 
 #################################################################
 
-#' @title The indicator for the presence of an arc from a point to another for Arc Slice Proximity Catch Digraphs
+#' @title The indicator for the presence of an arc from a point to another
+#' for Arc Slice Proximity Catch Digraphs
 #' (AS-PCDs) - standard basic triangle case
 #'
-#' @description Returns \eqn{I(p2 \in N_{AS}(p1))} for points \code{p1} and \code{p2}, that is, returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0
+#' @description Returns \eqn{I(p2 \in N_{AS}(p1))} for points \code{p1} and \code{p2},
+#' that is, returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0
 #' otherwise, where \eqn{N_{AS}(x)} is the AS proximity region for point \eqn{x}.
 #'
 #' AS proximity region is constructed in the standard basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
 #' where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 #'
-#' Vertex regions are based on the center \code{M="CC"} for circumcenter of \eqn{T_b};
-#' or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of \eqn{T_b}; default is \code{M="CC"} i.e., circumcenter of \eqn{T_b}.
+#' Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the standard basic triangle \eqn{T_b}
+#' or based on circumcenter of \eqn{T_b};
+#' default is \code{M="CC"}, i.e., circumcenter of \eqn{T_b}.
 #' \code{rv} is the index of the vertex region \code{p1} resides, with default=\code{NULL}.
 #'
 #' If \code{p1} and \code{p2} are distinct and either of them are outside \eqn{T_b}, the function returns 0,
 #' but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 #'
 #' Any given triangle can be mapped to the standard basic triangle
-#' by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
-#' preserving uniformity of the points in the original triangle. Hence standard basic triangle is useful for simulation
+#' by a combination of rigid body motions
+#' (i.e., translation, rotation and reflection) and scaling,
+#' preserving uniformity of the points in the original triangle.
+#' Hence standard basic triangle is useful for simulation
 #' studies under the uniformity hypothesis.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
@@ -989,7 +997,7 @@ NASbasic.tri <- function(p,c1,c2,M="CC",rv=NULL,dec=4)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -1051,7 +1059,7 @@ IarcASbasic.tri <- function(p1,p2,c1,c2,M="CC",rv=NULL)
   {M<-bary2cart(M,Tb)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -1089,9 +1097,12 @@ IarcASbasic.tri <- function(p1,p2,c1,c2,M="CC",rv=NULL)
 #' @description Returns the end points of the line segments and arc-slices that constitute the boundary of AS proximity
 #' region for a point in the triangle \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)}.
 #'
-#' Vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
-#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
-#' default is \code{M="CC"} the circumcenter of \code{tri}. \code{rv} is the index of the vertex region \code{p1} resides,
+#' Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on circumcenter of  \code{tri};
+#' default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
+#' \code{rv} is the index of the vertex region \code{p1} resides,
 #' with default=\code{NULL}.
 #'
 #' If \code{p} is outside of \code{tri}, it returns \code{NULL} for the proximity region.
@@ -1129,7 +1140,7 @@ IarcASbasic.tri <- function(p1,p2,c1,c2,M="CC",rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -1232,7 +1243,7 @@ NAStri <- function(p,tri,M="CC",rv=NULL,dec=4)
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
@@ -1246,7 +1257,7 @@ NAStri <- function(p,tri,M="CC",rv=NULL,dec=4)
   {M<-bary2cart(M,tri)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   #If p is outside the closed triangle
   if (!in.triangle(p,tri,boundary=TRUE)$in.tri)
@@ -1442,34 +1453,47 @@ NAStri <- function(p,tri,M="CC",rv=NULL,dec=4)
 
 #################################################################
 
-#' @title The indicator for the presence of an arc from a point to another for Arc Slice Proximity Catch Digraphs
-#' (AS-PCDs) - one triangle case
+#' @title The indicator for the presence of an arc from a point to another for
+#' Arc Slice Proximity Catch Digraphs (AS-PCDs) - one triangle case
 #'
-#' @description Returns \eqn{I(p2 \in N_{AS}(p1))} for points \code{p1} and \code{p2}, that is, returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0
+#' @description Returns \eqn{I(p2 \in N_{AS}(p1))} for points \code{p1} and \code{p2},
+#' that is, returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0
 #' otherwise, where \eqn{N_{AS}(x)} is the AS proximity region for point \eqn{x}.
 #'
-#' AS proximity regions are constructed with respect to the triangle, \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)},
-#' and vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri};
-#' or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
-#' \code{rv} is the index of the vertex region \code{p1} resides, with default=\code{NULL}.
+#' AS proximity regions are constructed with respect to the triangle,
+#' \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)},
+#' and vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on circumcenter of  \code{tri};
+#' default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
+#' \code{rv} is the index of the vertex region \code{p1} resides,
+#' with default=\code{NULL}.
 #'
-#' If \code{p1} and \code{p2} are distinct and either of them are outside \code{tri}, the function returns 0,
-#' but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+#' If \code{p1} and \code{p2} are distinct
+#' and either of them are outside \code{tri}, the function returns 0,
+#' but if they are identical,
+#' then it returns 1 regardless of their locations (i.e., it allows loops).
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 #'
 #' @param p1 A 2D point whose AS proximity region is constructed.
-#' @param p2 A 2D point. The function determines whether \code{p2} is inside the AS proximity region of
-#' \code{p1} or not.
-#' @param tri Three 2D points, stacked row-wise, each row representing a vertex of the triangle.
-#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
-#' a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
+#' @param p2 A 2D point. The function determines whether \code{p2} is
+#' inside the AS proximity region of \code{p1} or not.
+#' @param tri Three 2D points, stacked row-wise,
+#' each row representing a vertex of the triangle.
+#' @param M The center of the triangle.
+#' \code{"CC"} stands for circumcenter of the triangle \code{tri}
+#' or a 2D point in Cartesian coordinates or
+#' a 3D point in barycentric coordinates
+#' which serves as a center in the interior of \code{tri};
 #' default is \code{M="CC"} i.e., the circumcenter of \code{tri}.
-#' @param rv The index of the \code{M}-vertex region in \code{tri} containing the point, either \code{1,2,3} or \code{NULL}
+#' @param rv The index of the \code{M}-vertex region in \code{tri}
+#' containing the point, either \code{1,2,3} or \code{NULL}
 #' (default is \code{NULL}).
 #'
-#' @return \eqn{I(p2 \in N_{AS}(p1))} for \code{p1}, that is, returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0 otherwise
+#' @return \eqn{I(p2 \in N_{AS}(p1))} for \code{p1}, that is,
+#' returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0 otherwise
 #'
 #' @seealso \code{\link{IarcASbasic.tri}}, \code{\link{IarcPEtri}}, and \code{\link{IarcCStri}}
 #'
@@ -1479,7 +1503,7 @@ NAStri <- function(p,tri,M="CC",rv=NULL,dec=4)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #'
 #' Tr<-rbind(A,B,C);
@@ -1527,7 +1551,7 @@ IarcAStri <- function(p1,p2,tri,M="CC",rv=NULL)
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
@@ -1541,7 +1565,7 @@ IarcAStri <- function(p1,p2,tri,M="CC",rv=NULL)
   {M<-bary2cart(M,tri)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -1585,34 +1609,47 @@ IarcAStri <- function(p1,p2,tri,M="CC",rv=NULL)
 #' and indices of the data points that reside in the triangle.
 #'
 #' The data points could be inside or outside a general
-#' triangle \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)}, with vertices of \code{tri} stacked row-wise.
+#' triangle \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)},
+#' with vertices of \code{tri} stacked row-wise.
 #'
-#' AS proximity regions are defined with respect to the triangle \code{tri} and vertex regions are
-#' based on the center \code{M="CC"} for circumcenter of \code{tri};
-#' or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
+#' AS proximity regions are defined with respect to the triangle \code{tri}
+#' and vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on circumcenter of  \code{tri};
+#' default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
 #' For the number of arcs, loops are not allowed,
 #' so arcs are only possible for points inside the triangle, \code{tri}.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the digraph (i.e., AS-PCD).
-#' @param tri Three 2D points, stacked row-wise, each row representing a vertex of the triangle.
-#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
-#' a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
+#' @param Xp A set of 2D points which constitute
+#' the vertices of the digraph (i.e., AS-PCD).
+#' @param tri Three 2D points, stacked row-wise,
+#' each row representing a vertex of the triangle.
+#' @param M The center of the triangle.
+#' \code{"CC"} stands for circumcenter of the triangle \code{tri}
+#' or a 2D point in Cartesian coordinates or
+#' a 3D point in barycentric coordinates which serves as a center
+#' in the interior of \code{tri};
 #' default is \code{M="CC"} i.e., the circumcenter of \code{tri}.
 #'
 #' @return A \code{list} with the elements
 #' \item{desc}{A short description of the output: number of arcs
 #' and quantities related to the triangle}
 #' \item{num.arcs}{Number of arcs of the AS-PCD}
+#' \item{tri.num.arcs}{Number of arcs of the induced subdigraph of the AS-PCD
+#' for vertices in the triangle \code{tri}}
 #' \item{num.in.tri}{Number of \code{Xp} points in the triangle, \code{tri}}
-#' \item{ind.in.tri}{The vector of indices of the \code{Xp} points that reside in the triangle}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the support triangle.}
+#' \item{ind.in.tri}{The vector of indices of the \code{Xp} points
+#' that reside in the triangle}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation points are the vertices of the support triangle \code{tri}.}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{num.arcsAS}}, \code{\link{num.arcsPEtri}}, and \code{\link{num.arcsCStri}}
+#' @seealso \code{\link{num.arcsAS}}, \code{\link{num.arcsPEtri}},
+#' and \code{\link{num.arcsCStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1620,7 +1657,7 @@ IarcAStri <- function(p1,p2,tri,M="CC",rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -1657,7 +1694,7 @@ num.arcsAStri <- function(Xp,tri,M="CC")
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate!')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
@@ -1671,14 +1708,14 @@ num.arcsAStri <- function(Xp,tri,M="CC")
   {M<-bary2cart(M,tri)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
-  arcs<-0
+  tot.arcs<-arcs.in.tri<-0
   ind.in.tri = NULL
   if (n<=0)
   {
-    arcs<-0
+    tot.arcs<-arcs.in.tri<-0
   } else
   {
     for (i in 1:n)
@@ -1686,11 +1723,15 @@ num.arcsAStri <- function(Xp,tri,M="CC")
     if (in.triangle(p1,tri,boundary=TRUE)$in.tri)
     { vert<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p1,tri)$rv,rel.vert.tri(p1,tri,M)$rv)  #vertex region for pt
     ind.in.tri = c(ind.in.tri,i)
+    for (k in (1:n)[-i])  #to avoid loops
+    {
+      arcs.in.tri<-arcs.in.tri+IarcAStri(p1,Xp[k,],tri,M,rv=vert)
+    }
+    }
 
     for (j in (1:n)[-i])  #to avoid loops
     {
-      arcs<-arcs+IarcAStri(p1,Xp[j,],tri,M,rv=vert)
-    }
+      tot.arcs<-tot.arcs+IarcAStri(p1,Xp[j,],tri,M,rv=vert)
     }
     }
   }
@@ -1699,7 +1740,8 @@ num.arcsAStri <- function(Xp,tri,M="CC")
   desc<-"Number of Arcs of the AS-PCD and the Related Quantities with vertices Xp in One Triangle"
 
   res<-list(desc=desc, #description of the output
-            num.arcs=arcs, #number of arcs for the AS-PCD
+            num.arcs=tot.arcs, #number of arcs for the AS-PCD
+            tri.num.arcs=arcs.in.tri, #vector of number of arcs for the triangle
             num.in.tri=NinTri, # number of Xp points in CH of Yp points
             ind.in.tri=ind.in.tri, #indices of data points inside the triangle
             tess.points=tri, #tessellation points
@@ -1720,17 +1762,19 @@ num.arcsAStri <- function(Xp,tri,M="CC")
 #' @description Returns the arc density of AS-PCD whose vertex set is the given 2D numerical data set, \code{Xp},
 #' (some of its members are) in the triangle \code{tri}.
 #'
-#' AS proximity regions is defined with respect to \code{tri}
+#' AS proximity regions are defined with respect to \code{tri}
 #' and vertex regions are defined with the center \code{M="CC"} for circumcenter of \code{tri};
 #' or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
 #' interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
 #' For the number of arcs, loops are not allowed so arcs are only possible for points inside \code{tri}
 #' for this function.
 #'
-#' \code{tri.cor} is a logical argument for triangle correction (default is \code{TRUE}),
-#' if \code{TRUE}, only the points inside the triangle are considered (i.e., digraph induced by these vertices
-#' are considered) in computing the arc density, otherwise all points are considered
-#' (for the number of vertices in the denominator of arc density).
+#' \code{in.tri.only} is a logical argument (default is \code{FALSE}) for considering only the points
+#' inside the triangle or all the points as the vertices of the digraph.
+#' if \code{in.tri.only=TRUE}, arc density is computed only for
+#' the points inside the triangle (i.e., arc density of the subdigraph
+#' induced by the vertices in the triangle is computed),
+#' otherwise arc density of the entire digraph (i.e., digraph with all the vertices) is computed.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 #'
@@ -1739,9 +1783,12 @@ num.arcsAStri <- function(Xp,tri,M="CC")
 #' @param M The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 #' a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
 #' default is \code{M="CC"} i.e., the circumcenter of \code{tri}.
-#' @param tri.cor A logical argument for computing the arc density for only the points inside the triangle, \code{tri}
-#' (default is \code{tri.cor=FALSE}), i.e., if \code{tri.cor=TRUE} only the induced digraph with the vertices inside \code{tri} are considered in the
-#' computation of arc density.
+#' @param in.tri.only A logical argument (default is \code{in.tri.only=FALSE})
+#' for computing the arc density for only the points inside the triangle, \code{tri}.
+#' That is,
+#' if \code{in.tri.only=TRUE} arc density of the induced subdigraph with the vertices
+#' inside \code{tri} is computed, otherwise
+#' otherwise arc density of the entire digraph (i.e., digraph with all the vertices) is computed.
 #'
 #' @return Arc density of AS-PCD whose vertices are the 2D numerical data set, \code{Xp};
 #' AS proximity regions are defined with respect to the triangle \code{tri} and \eqn{CC}-vertex regions.
@@ -1754,7 +1801,7 @@ num.arcsAStri <- function(Xp,tri,M="CC")
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -1765,15 +1812,15 @@ num.arcsAStri <- function(Xp,tri,M="CC")
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
-#' num.arcsAStri(Xp,Tr,M)
+#' narcs = num.arcsAStri(Xp,Tr,M)$num.arcs; narcs/(n*(n-1))
 #' ASarc.dens.tri(Xp,Tr,M)
-#' ASarc.dens.tri(Xp,Tr,M,tri.cor = FALSE)
+#' ASarc.dens.tri(Xp,Tr,M,in.tri.only = FALSE)
 #'
 #' ASarc.dens.tri(Xp,Tr,M)
 #' }
 #'
 #' @export ASarc.dens.tri
-ASarc.dens.tri <- function(Xp,tri,M="CC",tri.cor=FALSE)
+ASarc.dens.tri <- function(Xp,tri,M="CC",in.tri.only=FALSE)
 {
   if (!is.numeric(as.matrix(Xp)) )
   {stop('Xp must be numeric')}
@@ -1786,6 +1833,11 @@ ASarc.dens.tri <- function(Xp,tri,M="CC",tri.cor=FALSE)
   {stop('Xp must be of dimension nx2')}
   }
 
+  nx<-nrow(Xp)
+  if (nx<=1)
+  {stop('The graph is void or has only one vertex!
+    So, there are not enough Xp points to compute the arc density!')}
+
   tri<-as.matrix(tri)
   if (!is.numeric(tri) || nrow(tri)!=3 || ncol(tri)!=2)
   {stop('tri must be numeric and of dimension 3x2')}
@@ -1793,7 +1845,7 @@ ASarc.dens.tri <- function(Xp,tri,M="CC",tri.cor=FALSE)
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
@@ -1807,12 +1859,11 @@ ASarc.dens.tri <- function(Xp,tri,M="CC",tri.cor=FALSE)
   {M<-bary2cart(M,tri)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
-  nx<-nrow(Xp)
   narcs<-num.arcsAStri(Xp,tri,M)$num.arcs
 
-  if (tri.cor==TRUE)
+  if (in.tri.only==TRUE)
   {
     ind.it<-c()
     for (i in 1:nx)
@@ -1844,9 +1895,11 @@ ASarc.dens.tri <- function(Xp,tri,M="CC",tri.cor=FALSE)
 #' AS proximity regions are constructed with respect to the triangle, \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)},
 #' and vertices of \code{tri} are also labeled as 1,2, and 3, respectively.
 #'
-#' Vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri};
-#' or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
+#' Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on circumcenter of  \code{tri};
+#' default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
 #'
 #' If \code{p} is not in \code{S} and either \code{p} or all points in \code{S} are outside \code{tri}, it returns 0,
 #' but if \code{p} is in \code{S}, then it always returns 1 (i.e., loops are allowed).
@@ -1872,7 +1925,7 @@ ASarc.dens.tri <- function(Xp,tri,M="CC",tri.cor=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -1935,7 +1988,7 @@ IarcASset2pnt.tri <- function(S,p,tri,M="CC")
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
@@ -1949,7 +2002,7 @@ IarcASset2pnt.tri <- function(S,p,tri,M="CC")
   {M<-bary2cart(M,tri)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   k<-nrow(S);
   dom<-0; i<-1;
@@ -1972,9 +2025,11 @@ IarcASset2pnt.tri <- function(S,p,tri,M="CC")
 #' returns 0 otherwise.
 #'
 #' AS-PCD has vertex set \code{Xp} and AS proximity region is constructed with vertex
-#' regions based on the center \code{M="CC"} for circumcenter of \code{tri};
-#' or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}
+#' regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on circumcenter of  \code{tri};
+#' default is \code{M="CC"}, i.e., circumcenter of \code{tri}
 #' whose vertices are also labeled as edges 1, 2, and 3, respectively.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
@@ -1998,7 +2053,7 @@ IarcASset2pnt.tri <- function(S,p,tri,M="CC")
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #'
 #' Tr<-rbind(A,B,C);
@@ -2065,7 +2120,7 @@ Idom.setAStri <- function(S,Xp,tri,M="CC")
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
@@ -2079,7 +2134,7 @@ Idom.setAStri <- function(S,Xp,tri,M="CC")
   {M<-bary2cart(M,tri)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   k<-nrow(S);
   n<-nrow(Xp);
@@ -2105,9 +2160,11 @@ Idom.setAStri <- function(S,Xp,tri,M="CC")
 #' otherwise. It also provides the vertices (i.e., data points) in a dominating set of size \code{k} of AS-PCD.
 #'
 #' AS proximity regions are constructed with respect to the triangle \code{tri} and
-#' vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri};
-#' or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
+#' vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on circumcenter of  \code{tri};
+#' default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
 #'
 #' The vertices of \code{tri}angle, \code{tri},
 #' are labeled as \eqn{1,2,3} according to the row number the vertex is recorded in \code{tri}.
@@ -2135,7 +2192,7 @@ Idom.setAStri <- function(S,Xp,tri,M="CC")
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #'
 #' Tr<-rbind(A,B,C);
@@ -2180,7 +2237,7 @@ Idom.numASup.bnd.tri <- function(Xp,k,tri,M="CC")
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
@@ -2194,7 +2251,7 @@ Idom.numASup.bnd.tri <- function(Xp,k,tri,M="CC")
   {M<-bary2cart(M,tri)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   n<-nrow(Xp);
   xc<-combinat::combn(1:n,k); N1<-choose(n,k);
@@ -2216,51 +2273,69 @@ Idom.numASup.bnd.tri <- function(Xp,k,tri,M="CC")
 
 #################################################################
 
-#' @title Number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs) and related
-#' quantities of the induced subdigraphs for points in the Delaunay triangles - multiple triangle case
+#' @title Number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs)
+#' and related quantities of the induced subdigraphs
+#' for points in the Delaunay triangles - multiple triangle case
 #'
 #' @description
 #' An object of class \code{"NumArcs"}.
-#' Returns the number of arcs and various other quantities related to the Delaunay triangles
-#' for Arc Slice Proximity Catch Digraph (AS-PCD) whose vertices are the data points in \code{Xp}
-#' in the multiple triangle case.
+#' Returns the number of arcs and
+#' various other quantities related to the Delaunay triangles
+#' for Arc Slice Proximity Catch Digraph (AS-PCD)
+#' whose vertices are the data points in \code{Xp}
+#' in the multiple triangle case (with triangulation based on \code{Yp} points).
 #'
 #' AS proximity regions are defined with respect to the
-#' Delaunay triangles based on \code{Yp} points and vertex regions in each triangle
+#' Delaunay triangles based on \code{Yp} points
+#' and vertex regions in each triangle
 #' are based on the center \code{M="CC"} for circumcenter of each Delaunay triangle
 #' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
 #' interior of each Delaunay triangle;
 #' default is \code{M="CC"} i.e., circumcenter of each triangle.
 #'
-#' Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
-#' (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes
-#' the convex hull of \code{Yp} points).
+#' Convex hull of \code{Yp} is partitioned
+#' by the Delaunay triangles based on \code{Yp} points
+#' (i.e., multiple triangles are the set of these Delaunay triangles
+#' whose union constitutes the
+#' convex hull of \code{Yp} points).
+#' For the number of arcs, loops are not allowed so arcs are only possible
+#' for points inside the convex hull of \code{Yp} points.
 #'
-#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation
+#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds})
+#' for more on AS-PCDs.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+#' for more on Delaunay triangulation
 #' and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD.
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle or 3D point in barycentric
+#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of
+#' each Delaunay triangle or 3D point in barycentric
 #' coordinates which serves as a center in the interior of each Delaunay triangle;
 #' default is \code{M="CC"} i.e., the circumcenter of each triangle.
 #'
 #' @return A \code{list} with the elements
 #' \item{desc}{A short description of the output: number of arcs
 #' and related quantities for the induced subdigraphs in the Delaunay triangles}
-#' \item{num.arcs}{Total number of arcs in all triangles, i.e., the number of arcs for the entire AS-PCD}
-#' \item{num.in.conhull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
-#' \item{num.in.tris}{The vector of number of \code{Xp} points in the Delaunay triangles based on \code{Yp} points}
-#' \item{weight.vec}{The \code{vector} of the areas of Delaunay triangles based on \code{Yp} points}
-#' \item{tri.num.arcs}{The \code{vector} of the number of arcs of the component of the AS-PCD in the
+#' \item{num.arcs}{Total number of arcs in all triangles,
+#' i.e., the number of arcs for the entire AS-PCD}
+#' \item{num.in.conv.hull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
+#' \item{num.in.tris}{The vector of number of \code{Xp} points
+#' in the Delaunay triangles based on \code{Yp} points}
+#' \item{weight.vec}{The \code{vector} of the areas of Delaunay triangles
+#' based on \code{Yp} points}
+#' \item{tri.num.arcs}{The \code{vector} of the number of arcs of
+#' the components of the AS-PCD in the
 #' Delaunay triangles based on \code{Yp} points}
 #' \item{del.tri.ind}{A matrix of indices of Delaunay triangles based on \code{Yp} points,
-#' each column corresponds to the vector of indices of the vertices of one of the Delaunay triangle.}
-#' \item{data.tri.ind}{A \code{vector} of indices of vertices of the Delaunay triangles in which data points reside,
+#' each column corresponds to the vector of indices of the vertices of
+#' one of the Delaunay triangle.}
+#' \item{data.tri.ind}{A \code{vector} of indices of vertices of
+#' the Delaunay triangles in which data points reside,
 #' i.e., column number of \code{del.tri.ind} for each \code{Xp} point.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the Delaunay triangulation based on \code{Yp} points.}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation is the Delaunay triangulation based on \code{Yp} points.}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
 #' @seealso \code{\link{num.arcsAStri}}, \code{\link{num.arcsPE}}, and \code{\link{num.arcsCS}}
@@ -2271,7 +2346,7 @@ Idom.numASup.bnd.tri <- function(Xp,k,tri,M="CC")
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-15; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
@@ -2284,7 +2359,6 @@ Idom.numASup.bnd.tri <- function(Xp,k,tri,M="CC")
 #' Narcs
 #' summary(Narcs)
 #' plot(Narcs)
-#'
 #' }
 #'
 #' @export num.arcsAS
@@ -2313,7 +2387,7 @@ num.arcsAS <- function(Xp,Yp,M="CC")
   #Delaunay triangulation of Yp points
   Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
   Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the indices of the vertices of the Delaunay triangles (row-wise)
-  ndt<-nrow(Ytri)  #number of Delaunay triangles
+  ndt<-nrow(Ytri) #number of Delaunay triangles
 
   inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2],strict=FALSE)
   NinCH<-sum(inCH)  #number of points in the convex hull
@@ -2321,38 +2395,43 @@ num.arcsAS <- function(Xp,Yp,M="CC")
   Wvec=vector()
   for (i in 1:ndt)
   {
-    ifelse(ndt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
+    ifelse(ndt==1,
+           Tri<-Yp[Ytri,],
+           Tri<-Yp[Ytri[i,],]) #vertices of ith triangle
     Wvec<-c(Wvec,area.polygon(Tri))
   }
 
   if (ny==3)
-  { tri<-as.basic.tri(Yp)$tri
-  NumArcs = num.arcsAStri(Xp,tri,M)
-  #Tri.Ind<-indices.delaunay.tri(Xp,Yp)  #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
-  NinTri<-NumArcs$num.in.tri #length(inTri)  #number of points in the triangle
+  { #tri<-as.basic.tri(Yp)$tri
+  #NumArcs = num.arcsAStri(Xp,tri,M)
+  NinTri<-NinCH #NumArcs$num.in.tri #number of points in the triangle
 
   if (NinTri==0)
   {Tot.Arcs<-0;
   ni.vec<-arcs<-rep(0,ndt)
-  data.tri.ind = NA
+  data.tri.ind = ind.in.CH =  NA
   } else
   {
-    Xdt<-matrix(Xp[NumArcs$ind.in.tri,],ncol=2) #matrix(Xp[inTri,],ncol=2)
+    Xdt<-matrix(Xp[inCH,],ncol=2)
     tri<-as.basic.tri(Yp)$tri #convert the triangle Yp into an nonscaled basic triangle, see as.basic.tri help page
-    Wvec<-area.polygon(tri)
-    Tot.Arcs<- NumArcs$num.arcs #num.arcsAStri(Xdt,tri,M)$num.arcs  #number of arcs in the triangle Yp
+    NumArcs = num.arcsAStri(Xp,tri,M)
+   # Wvec<-area.polygon(tri)
+    Tot.Arcs<- NumArcs$num.arcs #number of arcs in the triangle Yp
     ni.vec = NumArcs$num.in.tri
-    Tri.Ind = NumArcs$ind.in.tri
+    Tri.Ind = NumArcs$ind.in.tri #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
     data.tri.ind = rep(NA,nx)
-    data.tri.ind[Tri.Ind] =1
+    data.tri.ind[Tri.Ind] = 1
     arcs = NumArcs$num.arcs
+    ind.in.CH = which(inCH) #which(!is.na(Tri.Ind))
   }
+  Tot.Arcs = Tot.Arcs + 2 * sum(duplicated(Xp[!inCH,]))
 
   desc<-"Number of Arcs of the AS-PCD with vertices Xp and Related Quantities for the Induced Subdigraph for the Points in the Delaunay Triangle"
   res<-list(desc=desc, #description of the output
             num.arcs=Tot.Arcs,
             tri.num.arcs=arcs,
             num.in.conv.hull=NinTri,
+            ind.in.conv.hull= ind.in.CH, #indices of Xp points in the triangle
             num.in.tris=ni.vec,
             weight.vec=Wvec,
             del.tri.ind=t(Ytri),
@@ -2365,27 +2444,28 @@ num.arcsAS <- function(Xp,Yp,M="CC")
     if (NinCH==0)
     {Tot.Arcs<-0;
     ni.vec<-arcs<-rep(0,ndt)
-    data.tri.ind = NA
+    data.tri.ind = ind.in.CH =  NA
     } else
     {
       Tri.Ind<-indices.delaunay.tri(Xp,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
-      ind.in.CH = which(!is.na(Tri.Ind))
+      ind.in.CH = which(inCH) #which(!is.na(Tri.Ind))
       #calculation of the total number of arcs
       ni.vec<-arcs<-vector()
-      # data.delaunay.tris = del.tris=list()
       data.tri.ind = rep(NA,nx)
       for (i in 1:ndt)
       {
         dt.ind=which(Tri.Ind==i) #which indices of data points residing in ith Delaunay triangle
         Xpi<-Xp[dt.ind,] #points in ith Delaunay triangle
-        data.tri.ind[dt.ind] =i #assigning the index of the Delaunay triangle that contains the data point
-        #  data.delaunay.tris=c(data.delaunay.tris,list(Xpi))
-        ifelse(ndt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
+        data.tri.ind[dt.ind] = i #assigning the index of the Delaunay triangle that contains the data point
+        ifelse(ndt==1,
+               Tri<-Yp[Ytri,],
+               Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
         tri<-as.basic.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.basic.tri help page
-        #  del.tris=rbind(del.tris,tri)
         ni.vec<-c(ni.vec,length(Xpi)/2)  #number of points in ith Delaunay triangle
 
-        ifelse(identical(M,"CC"),cent<-circumcenter.tri(tri),cent<-M)
+        ifelse(identical(M,"CC"),
+               cent<-circumcenter.tri(tri),
+               cent<-M)
         num.arcs<-num.arcsAStri(Xpi,tri,M)$num.arcs  #number of arcs in ith triangle
         arcs<-c(arcs,num.arcs)  #number of arcs in all triangles as a vector
 
@@ -2393,6 +2473,8 @@ num.arcsAS <- function(Xp,Yp,M="CC")
 
       Tot.Arcs<-sum(arcs)  #the total number of arcs in all triangles
     }
+
+    Tot.Arcs = Tot.Arcs + 2 * sum(duplicated(Xp[!inCH,]))
 
     desc<-"Number of Arcs of the AS-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles"
 
@@ -2419,14 +2501,19 @@ num.arcsAS <- function(Xp,Yp,M="CC")
 
 #################################################################
 
-#' @title Incidence matrix for Arc Slice Proximity Catch Digraphs (AS-PCDs) - one triangle case
+#' @title Incidence matrix for Arc Slice Proximity Catch Digraphs
+#' (AS-PCDs) - one triangle case
 #'
-#' @description Returns the incidence matrix for the AS-PCD whose vertices are the given 2D numerical data set, \code{Xp}.
+#' @description Returns the incidence matrix of the AS-PCD
+#' whose vertices are the given 2D numerical data set, \code{Xp},
+#' in the triangle \code{tri}\eqn{=T(v=1,v=2,v=3)}.
 #'
 #' AS proximity regions are defined with respect to the triangle \code{tri}\eqn{=T(v=1,v=2,v=3)} and
-#' vertex regions based on the center \code{M="CC"} for circumcenter of \code{tri};
-#' or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
+#' vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on circumcenter of  \code{tri};
+#' default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
 #' Loops are allowed, so the diagonal entries are all equal to 1.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
@@ -2437,9 +2524,9 @@ num.arcsAS <- function(Xp,Yp,M="CC")
 #' a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
 #' default is \code{M="CC"} i.e., the circumcenter of \code{tri}.
 #'
-#' @return Incidence matrix for the AS-PCD whose vertices are 2D data set, \code{Xp},
+#' @return Incidence matrix for the AS-PCD whose vertices are the 2D data set, \code{Xp},
 #' and AS proximity regions are defined with respect to the triangle \code{tri} and
-#' vertex regions based on circumcenter.
+#' vertex regions based on the center \code{M}.
 #'
 #' @seealso \code{\link{inci.matAS}}, \code{\link{inci.matPEtri}}, and \code{\link{inci.matCStri}}
 #'
@@ -2449,8 +2536,7 @@ num.arcsAS <- function(Xp,Yp,M="CC")
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
-#'
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -2460,7 +2546,7 @@ num.arcsAS <- function(Xp,Yp,M="CC")
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
-#' IM<-IncMatAStri(Xp,Tr,M)
+#' IM<-inci.matAStri(Xp,Tr,M)
 #' IM
 #'
 #' dom.num.greedy(IM)
@@ -2488,7 +2574,7 @@ inci.matAStri <- function(Xp,tri,M="CC")
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
@@ -2502,45 +2588,68 @@ inci.matAStri <- function(Xp,tri,M="CC")
   {M<-bary2cart(M,tri)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
   inc.mat<-matrix(0, nrow=n, ncol=n)
-  if (n>=1)
-  {
+ # if (n>=1)
+ # {
     for (i in 1:n)
     {p1<-Xp[i,]
-    vert<-ifelse(isTRUE(all.equal(M,circumcenter.tri(tri)))==TRUE,rel.vert.triCC(p1,tri)$rv,rel.vert.tri(p1,tri,M)$rv)  #vertex region for pt
-    for (j in ((1:n)) )
+    vert<-ifelse(isTRUE(all.equal(M,circumcenter.tri(tri)))==TRUE,
+                 rel.vert.triCC(p1,tri)$rv,
+                 rel.vert.tri(p1,tri,M)$rv)  #vertex region for pt
+    for (j in 1:n)
     {p2<-Xp[j,]
     inc.mat[i,j]<-IarcAStri(p1,p2,tri,M,rv=vert)
     }
     }
-  }
+  #}
   inc.mat
 } #end of the function
 #'
 
 #################################################################
 
-#' @title Incidence matrix for Arc Slice Proximity Catch Digraphs (AS-PCDs) - multiple triangle case
+#' @title Incidence matrix for Arc Slice Proximity Catch Digraphs (AS-PCDs)
+#' - multiple triangle case
 #'
-#' @description Returns the incidence matrix for the AS-PCD whose vertices are a given 2D numerical data set, \code{Xp},
-#' in the convex hull of \code{Yp} which is partitioned by the Delaunay triangles based on \code{Yp} points.
+#' @description Returns the incidence matrix for the AS-PCD
+#' whose vertices are a given 2D numerical data set, \code{Xp},
+#' in the convex hull of \code{Yp} which is partitioned
+#' by the Delaunay triangles based on \code{Yp} points.
 #'
-#' AS proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points and vertex
+#' AS proximity regions are defined with respect to
+#' the Delaunay triangles based on \code{Yp} points and vertex
 #' regions are based on the center \code{M="CC"}
-#' for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of each Delaunay triangle; default is \code{M="CC"} i.e., circumcenter of each triangle.
-#' Loops are allowed, so the diagonal entries are all equal to 1.
+#' for circumcenter of each Delaunay triangle
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+#' interior of each Delaunay triangle;
+#' default is \code{M="CC"} i.e., circumcenter of each triangle.
 #'
-#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation
+#' Each Delaunay triangle is first converted to
+#' an (nonscaled) basic triangle so that \code{M} will be the same
+#' type of center for each Delaunay triangle
+#' (this conversion is not necessary when \code{M} is \eqn{CM}).
+#'
+#' Convex hull of \code{Yp} is partitioned
+#' by the Delaunay triangles based on \code{Yp} points
+#' (i.e., multiple triangles are the set of these Delaunay triangles
+#' whose union constitutes the
+#' convex hull of \code{Yp} points).
+#' For the incidence matrix loops are allowed,
+#' so the diagonal entries are all equal to 1.
+#'
+#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds})
+#' for more on AS-PCDs.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+#' for more on Delaunay triangulation
 #' and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD.
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle or 3D point in barycentric
+#' @param M The center of the triangle.
+#' \code{"CC"} stands for circumcenter of each Delaunay triangle or 3D point in barycentric
 #' coordinates which serves as a center in the interior of each Delaunay triangle;
 #' default is \code{M="CC"} i.e., the circumcenter of each triangle.
 #'
@@ -2555,7 +2664,7 @@ inci.matAStri <- function(Xp,tri,M="CC")
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-15; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -2613,8 +2722,8 @@ inci.matAS <- function(Xp,Yp,M="CC")
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
     nt<-nrow(DTr)  #number of Delaunay triangles
 
-    if (nx>1)
-    {
+    #if (nx>1)
+    #{
       i.tr<-rep(0,nx)  #the vector of indices for the triangles that contain the Xp points
       for (i in 1:nx)
         for (j in 1:nt)
@@ -2626,20 +2735,26 @@ inci.matAS <- function(Xp,Yp,M="CC")
 
       for (i in 1:nx)
       {p1<-Xp[i,]
+      Yi.tri<-Yp[DTr[1,],]
+
       if (i.tr[i]!=0)
       {
         Yi.Tri<-Yp[DTr[i.tr[i],],]
         Yi.tri<-as.basic.tri(Yi.Tri)$tri #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.basic.tri help page
-        vert<-ifelse(identical(M,"CC"),rel.vert.triCC(p1,Yi.tri)$rv,rel.vert.tri(p1,Yi.tri,M)$rv)  #vertex region for pt
+       }
+
+      vert<-ifelse(identical(M,"CC"),
+                     rel.vert.triCC(p1,Yi.tri)$rv,
+                     rel.vert.tri(p1,Yi.tri,M)$rv)  #vertex region for pt
         for (j in 1:nx )
         {p2<-Xp[j,]
         inc.mat[i,j]<-IarcAStri(p1,p2,Yi.tri,M,rv=vert)
         }
+      #}
       }
-      }
-    }
+    #}
 
-    diag(inc.mat)<-1
+   # diag(inc.mat)<-1
   }
   inc.mat
 } #end of the function
@@ -2647,7 +2762,8 @@ inci.matAS <- function(Xp,Yp,M="CC")
 
 #################################################################
 
-#' @title The indicator for a point being a dominating point for Arc Slice Proximity Catch Digraphs
+#' @title The indicator for a point being a dominating point for
+#' Arc Slice Proximity Catch Digraphs
 #' (AS-PCDs) - standard basic triangle case
 #'
 #' @description Returns I(\code{p} is a dominating point of the AS-PCD) where the vertices of the AS-PCD are the 2D data set \code{Xp}, that is, returns 1 if \code{p} is a dominating
@@ -2659,9 +2775,11 @@ inci.matAS <- function(Xp,Yp,M="CC")
 #' original triangle. Hence standard basic triangle is useful for simulation
 #' studies under the uniformity hypothesis.
 #'
-#' Vertex regions are based on the center \code{M="CC"} for circumcenter
-#' of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of \eqn{T_b}; default is \code{M="CC"}.
+#' Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the standard basic triangle \eqn{T_b}
+#' or based on circumcenter of \eqn{T_b};
+#' default is \code{M="CC"}, i.e., circumcenter of \eqn{T_b}.
 #' Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
 #' in the order they are stacked row-wise.
 #'
@@ -2694,7 +2812,7 @@ inci.matAS <- function(Xp,Yp,M="CC")
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -2805,7 +2923,7 @@ Idom.num1ASbasic.tri <- function(p,Xp,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
   {M<-bary2cart(M,Tb)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (ch.data.pnt==TRUE)
   {
@@ -2846,9 +2964,11 @@ Idom.num1ASbasic.tri <- function(p,Xp,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #' in the order they are stacked row-wise in \code{tri}.
 #'
 #' AS proximity regions are defined with respect to the
-#' triangle \code{tri} and vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
-#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
-#' default is \code{M="CC"} the circumcenter of \code{tri}.
+#' triangle \code{tri} and vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on circumcenter of  \code{tri};
+#' default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
 #'
 #' \code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Xp} or not (default is \code{FALSE}),
 #' so by default this function checks whether the point \code{p} would be a dominating point
@@ -2878,7 +2998,7 @@ Idom.num1ASbasic.tri <- function(p,Xp,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -2979,7 +3099,7 @@ Idom.num1AStri <- function(p,Xp,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
@@ -2993,7 +3113,7 @@ Idom.num1AStri <- function(p,Xp,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
   {M<-bary2cart(M,tri)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (ch.data.pnt==TRUE)
   {
@@ -3036,7 +3156,7 @@ Idom.num1AStri <- function(p,Xp,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-10
 #' Xp<-cbind(runif(n),runif(n))
 #'
@@ -3160,9 +3280,11 @@ is.in.data <- function(p,Xp)
 #' and point, \code{p2}, is in the vertex region of vertex \code{rv2} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
 #' in the order they are stacked row-wise.
 #'
-#' Vertex regions are based on the center \code{M="CC"} for circumcenter
-#' of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of \eqn{T_b}; default is \code{M="CC"}.
+#' Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the standard basic triangle \eqn{T_b}
+#' or based on circumcenter of \eqn{T_b};
+#' default is \code{M="CC"}, i.e., circumcenter of \eqn{T_b}.
 #'
 #' \code{ch.data.pnts} is for checking whether points \code{p1} and \code{p2} are data points in \code{Xp} or not
 #' (default is \code{FALSE}), so by default this function checks whether the points \code{p1} and \code{p2} would be a
@@ -3194,7 +3316,7 @@ is.in.data <- function(p,Xp)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -3274,7 +3396,7 @@ Idom.num2ASbasic.tri <- function(p1,p2,Xp,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data
   {M<-bary2cart(M,Tb)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (ch.data.pnts==TRUE)
   {
@@ -3355,7 +3477,7 @@ Idom.num2ASbasic.tri <- function(p1,p2,Xp,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -3433,7 +3555,7 @@ Idom.num2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FA
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
@@ -3447,7 +3569,7 @@ Idom.num2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FA
   {M<-bary2cart(M,tri)}
 
   if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {dom<-0; return(dom); stop}
@@ -3477,49 +3599,68 @@ Idom.num2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FA
 
 #################################################################
 
-#' @title The arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for 2D data - one triangle case
+#' @title The arcs of Arc Slice Proximity Catch Digraph (AS-PCD)
+#' for 2D data - one triangle case
 #'
 #' @description
 #' An object of class \code{"PCDs"}.
-#' Returns arcs as tails (or sources) and heads (or arrow ends) for data set \code{Xp} as the vertices
-#' of AS-PCD and related parameters and the quantities of the digraph.
+#' Returns arcs of AS-PCD as tails (or sources) and heads (or arrow ends)
+#' and related parameters and the quantities of the digraph.
+#' The vertices of the AS-PCD are the data points in \code{Xp}
+#' in the one triangle case.
 #'
-#' AS proximity regions are constructed with respect to the triangle \code{tri}, i.e.,
+#' AS proximity regions are constructed
+#' with respect to the triangle \code{tri}, i.e.,
 #' arcs may exist for points only inside \code{tri}.
-#' It also provides various descriptions and quantities about the arcs of the AS-PCD
+#' It also provides various descriptions
+#' and quantities about the arcs of the AS-PCD
 #' such as number of arcs, arc density, etc.
 #'
-#' Vertex regions are based on the center \code{M="CC"} for
-#' circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric
-#' coordinates in the interior of the triangle \code{tri}; default is \code{M="CC"} the circumcenter of \code{tri}.
-#' The different consideration of circumcenter vs any other interior center of the triangle is because
-#' the projections from circumcenter are orthogonal to the edges, while projections of \code{M} on the edges are on the extensions
+#' Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on circumcenter of  \code{tri};
+#' default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
+#' The different consideration of circumcenter
+#' vs any other interior center of the triangle
+#' is because the projections from circumcenter are orthogonal to the edges,
+#' while projections of \code{M} on the edges are on the extensions
 #' of the lines connecting \code{M} and the vertices.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD.
-#' @param tri Three 2D points, stacked row-wise, each row representing a vertex of the triangle.
-#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
-#' barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
+#' @param tri Three 2D points, stacked row-wise,
+#' each row representing a vertex of the triangle.
+#' @param M The center of the triangle.
+#' \code{"CC"} stands for circumcenter of the triangle \code{tri}
+#' or a 2D point in Cartesian coordinates or a 3D point in
+#' barycentric coordinates which serves as a center
+#' in the interior of the triangle \eqn{T_b};
 #' default is \code{M="CC"} i.e., the circumcenter of \code{tri}.
 #'
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
-#' \item{parameters}{Parameters of the digraph, here, it is the center used to construct the vertex regions.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the support triangle.}
-#' \item{tess.name}{Name of data set used in tessellation (i.e., vertices of the triangle).}
+#' \item{parameters}{Parameters of the digraph,
+#' here, it is the center used to construct the vertex regions.}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation points are the vertices of the support triangle \code{tri}.}
+#' \item{tess.name}{Name of the tessellation points \code{tess.points}}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
-#' \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-#' \item{S}{Tails (or sources) of the arcs of AS-PCD for 2D data set \code{Xp} as vertices of the digraph}
-#' \item{E}{Heads (or arrow ends) of the arcs of AS-PCD for 2D data set \code{Xp} as vertices of the digraph}
+#' \item{vert.name}{Name of the data set
+#' which constitute the vertices of the digraph}
+#' \item{S}{Tails (or sources) of the arcs of AS-PCD
+#' for 2D data set \code{Xp} as vertices of the digraph}
+#' \item{E}{Heads (or arrow ends) of the arcs of AS-PCD
+#' for 2D data set \code{Xp} as vertices of the digraph}
 #' \item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
-#' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
+#' \item{quant}{Various quantities for the digraph: number of vertices,
+#' number of partition points,
 #' number of intervals, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{arcsAS}}, \code{\link{arcsPEtri}}, \code{\link{arcsCStri}}, \code{\link{arcsPE}},
-#' and \code{\link{arcsCS}}
+#' @seealso \code{\link{arcsAS}}, \code{\link{arcsPEtri}}, \code{\link{arcsCStri}},
+#' \code{\link{arcsPE}}, and \code{\link{arcsCS}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3527,7 +3668,7 @@ Idom.num2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FA
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #'
 #' Tr<-rbind(A,B,C);
@@ -3594,7 +3735,7 @@ arcsAStri <- function(Xp,tri,M="CC")
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   CC <- circumcenter.tri(tri)
   if (identical(M,"CC"))
@@ -3608,7 +3749,7 @@ arcsAStri <- function(Xp,tri,M="CC")
     {M<-bary2cart(M,tri)}
 
     if ( !(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri) )
-    {stop('center is not the circumcenter or not in the interior of the triangle')}
+    {stop('M is not the circumcenter or not a center in the interior of the triangle')}
   }
 
   n<-nrow(Xp)
@@ -3626,7 +3767,9 @@ arcsAStri <- function(Xp,tri,M="CC")
     for (j in 1:n2)
     {
       p1<-Xtri[j,];
-      RV1<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p1,tri)$rv,rel.vert.tri(p1,tri,M)$rv) #vertex region for p1
+      RV1<-ifelse(isTRUE(all.equal(M,CC)),
+                  rel.vert.triCC(p1,tri)$rv,
+                  rel.vert.tri(p1,tri,M)$rv) #vertex region for p1
       for (k in (1:n2)[-j])  #to avoid loops
       {
         p2<-Xtri[k,];
@@ -3653,8 +3796,13 @@ arcsAStri <- function(Xp,tri,M="CC")
     main.txt<-paste("Arcs of AS-PCD with Center ", cname," = (",Mr[1],",",Mr[2],")",sep="")
   }
 
-  nvert<-n2; ny<-3; ntri<-1; narcs=ifelse(!is.null(S),nrow(S),0);
-  arc.dens<-ifelse(nvert>1,narcs/(nvert*(nvert-1)),NA)
+  nvert<-n2; ny<-3; ntri<-1;
+  narcs=ifelse(!is.null(S),
+               nrow(S),
+               0);
+  arc.dens<-ifelse(nvert>1,
+                   narcs/(nvert*(nvert-1)),
+                   NA)
 
   quantities<-c(nvert,ny,ntri,narcs,arc.dens)
   names(quantities)<-c("number of vertices", "number of partition points",
@@ -3679,36 +3827,58 @@ arcsAStri <- function(Xp,tri,M="CC")
 
 #################################################################
 
-#' @title The plot of the arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set - one triangle case
+#' @title The plot of the arcs of Arc Slice Proximity Catch Digraph (AS-PCD)
+#' for a 2D data set - one triangle case
 #'
-#' @description Plots the arcs of AS-PCD whose vertices are the data points, \code{Xp} and the triangle \code{tri}. AS proximity regions
-#' are constructed with respect to the triangle \code{tri}, i.e., only for \code{Xp} points inside the triangle \code{tri}.
+#' @description Plots the arcs of AS-PCD whose vertices are the data points, \code{Xp}
+#' and also the triangle \code{tri}.
+#' AS proximity regions are constructed
+#' with respect to the triangle \code{tri},
+#' i.e., only for \code{Xp} points inside the triangle \code{tri}.
+#' If there are duplicates of \code{Xp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
-#' Vertex regions are based on the center \code{M="CC"} for
-#' circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric
-#' coordinates in the interior of the triangle \code{tri}; default is \code{M="CC"} the circumcenter of \code{tri}.
-#' When the center is the circumcenter, \code{CC}, the vertex regions are constructed based on the
-#' orthogonal projections to the edges, while with any interior center \code{M}, the vertex regions are constructed using the extensions
+#' Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on circumcenter of  \code{tri};
+#' default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
+#' When the center is the circumcenter, \code{CC},
+#' the vertex regions are constructed based on the
+#' orthogonal projections to the edges,
+#' while with any interior center \code{M},
+#' the vertex regions are constructed using the extensions
 #' of the lines combining vertices with \code{M}.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD.
-#' @param tri Three 2D points, stacked row-wise, each row representing a vertex of the triangle.
-#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
-#' barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
+#' @param tri Three 2D points, stacked row-wise,
+#' each row representing a vertex of the triangle.
+#' @param M The center of the triangle.
+#' \code{"CC"} stands for circumcenter of the triangle \code{tri}
+#' or a 2D point in Cartesian coordinates or a 3D point in
+#' barycentric coordinates which serves as a center
+#' in the interior of the triangle \eqn{T_b};
 #' default is \code{M="CC"} i.e., the circumcenter of \code{tri}.
-#' @param asp A \code{numeric} value, giving the aspect ratio for \eqn{y} axis to \eqn{x}-axis \eqn{y/x} (default is \code{NA}),
+#' @param asp A \code{numeric} value, giving the aspect ratio for \eqn{y} axis
+#' to \eqn{x}-axis \eqn{y/x} (default is \code{NA}),
 #' see the official help page for \code{asp} by typing "\code{? asp}".
 #' @param main An overall title for the plot (default=\code{NULL}).
-#' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).
-#' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
+#' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes,
+#' respectively (default=\code{NULL} for both).
+#' @param xlim,ylim Two \code{numeric} vectors of length 2,
+#' giving the \eqn{x}- and \eqn{y}-coordinate ranges
 #' (default=\code{NULL} for both).
-#' @param vert.reg A logical argument to add vertex regions to the plot, default is \code{vert.reg=FALSE}.
+#' @param vert.reg A logical argument to add vertex regions to the plot,
+#' default is \code{vert.reg=FALSE}.
 #' @param \dots Additional \code{plot} parameters.
 #'
-#' @return A plot of the arcs of the AS-PCD for a 2D data set \code{Xp} where AS proximity regions
-#' are defined with respect to the triangle \code{tri}; also plots the triangle \code{tri}
+#' @return A plot of the arcs of the AS-PCD for a 2D data set \code{Xp}
+#' where AS proximity regions
+#' are defined with respect to the triangle \code{tri};
+#' also plots the triangle \code{tri}
 #'
 #' @seealso \code{\link{plotASarcs}}, \code{\link{plotPEarcs.tri}}, \code{\link{plotPEarcs}},
 #' \code{\link{plotCSarcs.tri}}, and \code{\link{plotCSarcs}}
@@ -3719,7 +3889,7 @@ arcsAStri <- function(Xp,tri,M="CC")
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -3763,13 +3933,20 @@ arcsAStri <- function(Xp,tri,M="CC")
 #' }
 #'
 #' @export plotASarcs.tri
-plotASarcs.tri <- function(Xp,tri,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,vert.reg=FALSE,...)
+plotASarcs.tri <- function(Xp,tri,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,
+                           xlim=NULL,ylim=NULL,vert.reg=FALSE,...)
 {
+  if( any(duplicated(as.data.frame(Xp))) ) #if there are duplicates for Xp values, only one is taken for each
+  {Xp = unique(as.data.frame(Xp))
+  warning("There were duplicate Xp values;
+          only one value is kept for each duplicate Xp value (to avoid arcs of zero length)!")}
+
   arcsAS<-arcsAStri(Xp,tri,M)
   S<-arcsAS$S
   E<-arcsAS$E
   cent = (arcsAS$param)$c
 
+  Xp<-matrix(Xp,ncol=2)
   if (is.null(xlim))
   {Xlim<-range(tri[,1],Xp[,1],cent[1])
   xd<-Xlim[2]-Xlim[1]
@@ -3795,22 +3972,20 @@ plotASarcs.tri <- function(Xp,tri,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xl
   if (vert.reg)
   {main=c(main,"\n (vertex regions added)")}
 
-  plot(Xp,main=main, asp=asp, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=3,...)
+  plot(Xp,main=main, asp=asp, xlab=xlab, ylab=ylab,
+       xlim=xlim,ylim=ylim,pch=".",cex=3,...)
   polygon(tri,...)
   if (!is.null(S)) {arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)}
-  if(vert.reg){
-    cent = (arcsAS$par)$c
-    CC<-circumcenter.tri(tri)
-    A = tri[1,]; B = tri[2,]; C = tri[3,]
 
-    if (isTRUE(all.equal(cent,CC)) || identical(M,"CC"))
-    {D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-    Ds<-rbind(D1,D2,D3)
-    } else
-    { Ds<-prj.cent2edges(tri,M)}
+  if (vert.reg){
+    ifelse(isTRUE(all.equal(cent,pcds::circumcenter.tri(tri))),
+           {A=tri[1,];B=tri[2,];C=tri[3,];
+           Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2)},
+           Ds<-prj.cent2edges(tri,M))
     L<-rbind(cent,cent,cent); R<-Ds
     segments(L[,1], L[,2], R[,1], R[,2], lty=2)
   }
+
 } #end of the function
 #'
 
@@ -3823,11 +3998,15 @@ plotASarcs.tri <- function(Xp,tri,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xl
 #'
 #' AS proximity regions are defined with respect to the triangle \code{tri},
 #' so AS proximity regions are defined only for points inside the triangle \code{tri} and
-#' vertex regions are based on the center \code{M="CC"} for
-#' circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric
-#' coordinates in the interior of the triangle \code{tri}; default is \code{M="CC"} the circumcenter of \code{tri}.
-#' When vertex regions are constructed with circumcenter, \code{CC}, the vertex regions are constructed based on the
-#' orthogonal projections to the edges, while with any interior center \code{M}, the vertex regions are constructed using the extensions
+#' vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on circumcenter of  \code{tri};
+#' default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
+#' When vertex regions are constructed with circumcenter, \code{CC},
+#' the vertex regions are constructed based on the
+#' orthogonal projections to the edges, while with any interior center \code{M},
+#' the vertex regions are constructed using the extensions
 #' of the lines combining vertices with \code{M}.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
@@ -3855,7 +4034,7 @@ plotASarcs.tri <- function(Xp,tri,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xl
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -3924,7 +4103,7 @@ plotASregs.tri <- function(Xp,tri,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
@@ -3939,7 +4118,7 @@ plotASregs.tri <- function(Xp,tri,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL
   {cent=M}
 
   if (!identical(M,"CC") && in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   nx<-nrow(Xp)
   in.tri<-rep(0,nx)
@@ -4020,56 +4199,84 @@ plotASregs.tri <- function(Xp,tri,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL
 
 #################################################################
 
-#' @title The arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set - multiple triangle case
+#' @title The arcs of Arc Slice Proximity Catch Digraph (AS-PCD)
+#' for a 2D data set - multiple triangle case
 #'
 #' @description
 #' An object of class \code{"PCDs"}.
-#' Returns arcs as tails (or sources) and heads (or arrow ends) of AS-PCD whose vertices are the data set \code{Xp}
+#' Returns arcs of AS-PCD as tails (or sources) and heads (or arrow ends)
 #' and related parameters and the quantities of the digraph.
+#' The vertices of the AS-PCD are the data points in \code{Xp}
+#' in the multiple triangle case.
 #'
-#' AS proximity regions are defined with respect to the Delaunay triangles based on
-#' \code{Yp} points, i.e., AS proximity regions are defined only for \code{Xp} points
+#' AS proximity regions are defined
+#' with respect to the Delaunay triangles based on
+#' \code{Yp} points, i.e., AS proximity regions are defined only
+#' for \code{Xp} points
 #' inside the convex hull of \code{Yp} points.
-#' That is, arcs may exist for points only inside the convex hull of \code{Yp} points.
-#' It also provides various descriptions and quantities about the arcs of the AS-PCD
+#' That is, arcs may exist for points only
+#' inside the convex hull of \code{Yp} points.
+#' It also provides various descriptions and quantities
+#' about the arcs of the AS-PCD
 #' such as number of arcs, arc density, etc.
 #'
 #' Vertex regions are based on the center \code{M="CC"}
-#' for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of each Delaunay triangle; default is \code{M="CC"} i.e., circumcenter of each triangle.
+#' for circumcenter of each Delaunay triangle
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+#' interior of each Delaunay triangle;
+#' default is \code{M="CC"} i.e., circumcenter of each triangle.
 #' \code{M} must be entered in barycentric coordinates unless it is the circumcenter.
+#'
+#' Convex hull of \code{Yp} is partitioned
+#' by the Delaunay triangles based on \code{Yp} points
+#' (i.e., multiple triangles are the set of these Delaunay triangles
+#' whose union constitutes the
+#' convex hull of \code{Yp} points).
+#' For the number of arcs, loops are not allowed so arcs are only possible
+#' for points inside the convex hull of \code{Yp} points.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS PCDs.
 #' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
 #' for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD.
-#' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
+#' @param Yp A set of 2D points which constitute the vertices of
+#' the Delaunay triangulation. The Delaunay
 #' triangles partition the convex hull of \code{Yp} points.
-#' @param M The center of the triangle. \code{"CC"} represents the circumcenter of each Delaunay triangle
-#' or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
-#' default is \code{M="CC"} i.e., the circumcenter of each triangle. \code{M} must be entered in barycentric coordinates
+#' @param M The center of the triangle. \code{"CC"} represents
+#' the circumcenter of each Delaunay triangle
+#' or 3D point in barycentric coordinates
+#' which serves as a center in the interior of each Delaunay triangle;
+#' default is \code{M="CC"} i.e., the circumcenter of each triangle.
+#' \code{M} must be entered in barycentric coordinates
 #' unless it is the circumcenter.
 #'
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
-#' \item{parameters}{Parameters of the digraph, here, it is the center used to construct the vertex regions,
-#' default is circumcenter, denoted as \code{"CC"}, otherwise given in barycentric coordinates.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the Delaunay triangulation based on \code{Yp} points.}
-#' \item{tess.name}{Name of data set used in tessellation, i.e., \code{Yp}}
+#' \item{parameters}{Parameters of the digraph,
+#' here, it is the center used to construct the vertex regions,
+#' default is circumcenter, denoted as \code{"CC"},
+#' otherwise given in barycentric coordinates.}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation is the Delaunay triangulation based on \code{Yp} points.}
+#' \item{tess.name}{Name of the tessellation points \code{tess.points}}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
-#' \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-#' \item{S}{Tails (or sources) of the arcs of AS-PCD for 2D data set \code{Xp} in the multiple triangle case
+#' \item{vert.name}{Name of the data set
+#' which constitute the vertices of the digraph}
+#' \item{S}{Tails (or sources) of the arcs of AS-PCD for
+#' 2D data set \code{Xp} in the multiple triangle case
 #' as the vertices of the digraph}
-#' \item{E}{Heads (or arrow ends) of the arcs of AS-PCD for 2D data set \code{Xp} in the multiple triangle case
+#' \item{E}{Heads (or arrow ends) of the arcs of AS-PCD for
+#' 2D data set \code{Xp} in the multiple triangle case
 #' as the vertices of the digraph}
 #' \item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
-#' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
+#' \item{quant}{Various quantities for the digraph:
+#' number of vertices, number of partition points,
 #' number of intervals, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{arcsAStri}}, \code{\link{arcsPEtri}}, \code{\link{arcsCStri}}, \code{\link{arcsPE}},
-#' and \code{\link{arcsCS}}
+#' @seealso \code{\link{arcsAStri}}, \code{\link{arcsPEtri}}, \code{\link{arcsCStri}},
+#' \code{\link{arcsPE}}, and \code{\link{arcsCS}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4077,7 +4284,7 @@ plotASregs.tri <- function(Xp,tri,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-15; ny<-5;  #try also nx=20; nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -4133,7 +4340,7 @@ arcsAS <- function(Xp,Yp,M="CC")
 
     Xch<-matrix(Xp[ch==1,],ncol=2)  #the Xp points inside the convex hull of Yp points
 
-    DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
+    DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3) #Delaunay triangles
     nt<-nrow(DTr)
     nx2<-nrow(Xch)  #number of Xp points inside the convex hull of Yp points
 
@@ -4157,8 +4364,10 @@ arcsAS <- function(Xp,Yp,M="CC")
           Yi.Tri<-Yp[DTr[i,],] #vertices of the ith triangle
           Yi.tri<-as.basic.tri(Yi.Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.basic.tri help page
           nl<-nrow(Xl)
-          ifelse(identical(M,"CC"), rel.vert.ind<-rel.verts.triCC(Xl,tri=Yi.tri)$rv,
+          ifelse(identical(M,"CC"),
+                 rel.vert.ind<-rel.verts.triCC(Xl,tri=Yi.tri)$rv,
                  rel.vert.ind<-rel.verts.tri(Xl,tri=Yi.tri,M)$rv)  #vertex region for pt
+
           for (j in 1:nl)
           {RV<-rel.vert.ind[j]
           for (k in (1:nl)[-j])  # to avoid loops
@@ -4213,38 +4422,72 @@ arcsAS <- function(Xp,Yp,M="CC")
 
 #################################################################
 
-#' @title The plot of the arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set -
+#' @title The plot of the arcs of Arc Slice Proximity Catch Digraph (AS-PCD)
+#' for a 2D data set -
 #' multiple triangle case
 #'
-#' @description Plots the arcs of AS-PCD whose vertices are the data points in \code{Xp} and Delaunay triangles based on \code{Yp} points.
+#' @description Plots the arcs of AS-PCD whose vertices are the data points
+#' in \code{Xp} and Delaunay triangles based on \code{Yp} points.
 #'
-#' AS proximity regions are constructed with respect to the Delaunay triangles based on \code{Yp} points, i.e.,
-#' AS proximity regions are defined only for \code{Xp} points inside the convex hull of \code{Yp} points.
-#' That is, arcs may exist for \code{Xp} points only inside the convex hull of \code{Yp} points.
+#' AS proximity regions are constructed with respect to the Delaunay triangles
+#' based on \code{Yp} points, i.e.,
+#' AS proximity regions are defined only for \code{Xp} points
+#' inside the convex hull of \code{Yp} points.
+#' That is, arcs may exist for \code{Xp} points only
+#' inside the convex hull of \code{Yp} points.
+#' If there are duplicates of \code{Xp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
 #' Vertex regions are based on the center \code{M="CC"}
-#' for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of each Delaunay triangle; default is \code{M="CC"} i.e., circumcenter of each triangle.
+#' for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates in the
+#' interior of each Delaunay triangle; default is \code{M="CC"} i.e.,
+#' circumcenter of each triangle.
+#' When the center is the circumcenter, \code{CC},
+#' the vertex regions are constructed based on the
+#' orthogonal projections to the edges,
+#' while with any interior center \code{M},
+#' the vertex regions are constructed using the extensions
+#' of the lines combining vertices with \code{M}.
 #'
-#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
+#' Convex hull of \code{Yp} is partitioned by
+#' the Delaunay triangles based on \code{Yp} points
+#' (i.e., multiple triangles are the set of these Delaunay triangles
+#' whose union constitutes the
+#' convex hull of \code{Yp} points).
+#' Loops are not allowed so arcs are only possible
+#' for points inside the convex hull of \code{Yp} points.
+#'
+#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds})
+#' for more on AS-PCDs.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+#' for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD.
-#' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
+#' @param Yp A set of 2D points which constitute the vertices of
+#' the Delaunay triangulation. The Delaunay
 #' triangles partition the convex hull of \code{Yp} points.
-#' @param M The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle
-#' or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
+#' @param M The center of the triangle.
+#' \code{"CC"} stands for circumcenter of each Delaunay triangle
+#' or 3D point in barycentric coordinates
+#' which serves as a center in the interior of each Delaunay triangle;
 #' default is \code{M="CC"} i.e., the circumcenter of each triangle.
-#' @param asp A \code{numeric} value, giving the aspect ratio for \eqn{y} axis to \eqn{x}-axis \eqn{y/x} (default is \code{NA}),
+#' @param asp A \code{numeric} value, giving the aspect ratio for \eqn{y} axis
+#' to \eqn{x}-axis \eqn{y/x} (default is \code{NA}),
 #' see the official help page for \code{asp} by typing "\code{? asp}".
 #' @param main An overall title for the plot (default=\code{NULL}).
-#' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).
-#' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
+#' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes,
+#' respectively (default=\code{NULL} for both).
+#' @param xlim,ylim Two \code{numeric} vectors of length 2,
+#' giving the \eqn{x}- and \eqn{y}-coordinate ranges
 #' (default=\code{NULL} for both).
 #' @param \dots Additional \code{plot} parameters.
 #'
-#' @return A plot of the arcs of the AS-PCD for a 2D data set \code{Xp} where AS proximity regions
-#' are defined with respect to the Delaunay triangles based on \code{Yp} points; also plots the Delaunay triangles
+#' @return A plot of the arcs of the AS-PCD for a 2D data set \code{Xp}
+#' where AS proximity regions
+#' are defined with respect to the Delaunay triangles based on \code{Yp} points;
+#' also plots the Delaunay triangles
 #' based on \code{Yp} points.
 #'
 #' @seealso \code{\link{plotASarcs.tri}}, \code{\link{plotPEarcs.tri}}, \code{\link{plotPEarcs}},
@@ -4256,7 +4499,7 @@ arcsAS <- function(Xp,Yp,M="CC")
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-15; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -4267,18 +4510,23 @@ arcsAS <- function(Xp,Yp,M="CC")
 #'
 #' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' #plotASarcs(Xp,Yp,M,xlab="",ylab="")
 #' plotASarcs(Xp,Yp,M,asp=1,xlab="",ylab="")
 #'
-#' plotASarcs(Xp,Yp[1:3,],M,xlab="",ylab="")
+#' plotASarcs(Xp,Yp[1:3,],M,asp=1,xlab="",ylab="")
 #' }
 #'
 #' @export plotASarcs
-plotASarcs <- function(Xp,Yp,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,...)
+plotASarcs <- function(Xp,Yp,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,
+                       xlim=NULL,ylim=NULL,...)
 {
   Yp<-as.matrix(Yp)
   if (ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be of dimension kx2 with k>=3')}
+
+  if( any(duplicated(as.data.frame(Xp))) ) #if there are duplicates for Xp values, only one is taken for each
+  {Xp = unique(as.data.frame(Xp))
+  warning("There were duplicate Xp values;
+          only one value is kept for each duplicate Xp value (to avoid arcs of zero length)!")}
 
   if (nrow(Yp)==3)
   {
@@ -4326,7 +4574,8 @@ plotASarcs <- function(Xp,Yp,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xlim=NU
 #' i.e., AS proximity regions are only defined for \code{Xp} points inside the convex hull of \code{Yp} points.
 #'
 #' Vertex regions are based on the center \code{M="CC"}
-#' for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+#' for circumcenter of each Delaunay triangle
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
 #' interior of each Delaunay triangle; default is \code{M="CC"} i.e., circumcenter of each triangle.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
@@ -4356,7 +4605,7 @@ plotASarcs <- function(Xp,Yp,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xlim=NU
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-10 ; ny<-5
 #'
 #' set.seed(1)
@@ -4375,7 +4624,8 @@ plotASarcs <- function(Xp,Yp,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xlim=NU
 #' }
 #'
 #' @export plotASregs
-plotASregs <- function(Xp,Yp,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,...)
+plotASregs <- function(Xp,Yp,M="CC",main=NULL,xlab=NULL,ylab=NULL,
+                       xlim=NULL,ylim=NULL,...)
 {
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}

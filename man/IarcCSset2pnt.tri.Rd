@@ -42,7 +42,7 @@ If \code{p} is not in \code{S} and either \code{p} or all points in \code{S} are
 but if \code{p} is in \code{S}, then it always returns 1 regardless of its location (i.e., loops are allowed).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10

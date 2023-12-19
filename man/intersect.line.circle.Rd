@@ -28,7 +28,7 @@ and if the \eqn{x}-coordinates of \code{p1} and \code{p2} are equal, intersectio
 \eqn{y}-coordinates of \code{p1} and \code{p2}.
 }
 \examples{
-\dontrun{
+\donttest{
 P1<-c(.3,.2)*100
 P2<-c(.6,.3)*100
 cent<-c(1.1,1.1)*100

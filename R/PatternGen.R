@@ -75,7 +75,7 @@
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-100; ny<-4;  #try also nx<-1000; ny<-10
 #' e<-.15;  #try also e<- -.1; #a negative e provides a CSR realization
 #' #with default bounding box (i.e., unit square)
@@ -249,7 +249,7 @@ rseg.circular <- function(n,Yp,e,a1=min(Yp[,1]),a2=max(Yp[,1]),b1=min(Yp[,2]),b2
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-100; ny<-4;  #try also nx<-1000; ny<-10;
 #'
 #' e<-.15;
@@ -447,7 +447,7 @@ rassoc.circular <- function(n,Yp,e,a1=min(Yp[,1]),a2=max(Yp[,1]),b1=min(Yp[,2]),
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-100; ny<-4;  #try also nx<-1000; ny<-10;
 #'
 #' e<-.15;
@@ -592,7 +592,7 @@ rassoc.matern <- function(n,Yp,e)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' CM<-(A+B+C)/3;
@@ -719,7 +719,7 @@ runif.std.tri.onesixth <- function(n)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-100
@@ -842,7 +842,7 @@ runif.std.tri <- function(n)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
@@ -962,7 +962,7 @@ runif.basic.tri <- function(n,c1,c2)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-100
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C)
@@ -1100,7 +1100,7 @@ runif.tri <- function(n,tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-100
@@ -1243,10 +1243,10 @@ rseg.std.tri <- function(n,eps)
 #' in the triangle, \code{tri}.
 #' @param tri A \eqn{3 \times 2} matrix with each row
 #' representing a vertex of the triangle.
-#' @param delta A positive real number in \eqn{(0,4/9)}.
+#' @param delta A positive real number in \eqn{(0,1)}.
 #' \code{delta} is the parameter of segregation (that is,
-#' \eqn{\delta 100} \% area around each vertex
-#' in each Delaunay triangle is forbidden for point generation).
+#' \eqn{\delta 100} \% area around vertices of
+#' each Delaunay triangle is forbidden for point generation).
 #'
 #' @return A \code{list} with the elements
 #' \item{type}{The type of the pattern
@@ -1255,9 +1255,9 @@ rseg.std.tri <- function(n,eps)
 #' for the plot of the point pattern}
 #' \item{parameters}{Exclusion parameter, \code{delta},
 #' of the Type I segregation pattern.
-#' \code{delta} is in \eqn{(0,4/9)}
-#' \eqn{\delta 100} \% area around each vertex
-#' in the triangle \code{tri} is forbidden for point generation.}
+#' \code{delta} is in \eqn{(0,1)} and
+#' \eqn{\delta 100} \% area around vertices of
+#' the triangle \code{tri} is forbidden for point generation.}
 #' \item{ref.points}{The input set of points, i.e., vertices of \code{tri};
 #' reference points, i.e., points
 #' from which generated points are segregated.}
@@ -1284,7 +1284,7 @@ rseg.std.tri <- function(n,eps)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-100
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C)
@@ -1581,7 +1581,7 @@ rsegII.std.tri <- function(n,eps)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-100  #try also n<-20 or n<-100 or 1000
@@ -1710,10 +1710,10 @@ rassoc.std.tri <- function(n,eps)
 #' in the triangle, \code{tri}.
 #' @param tri A \eqn{3 \times 2} matrix with each row
 #' representing a vertex of the triangle.
-#' @param delta A positive real number in \eqn{(0,4/9)}.
+#' @param delta A positive real number in \eqn{(0,1)}.
 #' \code{delta} is the parameter of association
-#' (that is, only \eqn{\delta 100} \% area around each vertex
-#' in the triangle is allowed for point generation).
+#' (that is, only \eqn{\delta 100} \% area around vertices of
+#' the triangle is allowed for point generation).
 #'
 #' @return A \code{list} with the elements
 #' \item{type}{The type of the pattern
@@ -1722,9 +1722,9 @@ rassoc.std.tri <- function(n,eps)
 #' for the plot of the point pattern}
 #' \item{parameters}{Attraction parameter, \code{delta},
 #' of the Type I association pattern.
-#' \code{delta} is in \eqn{(0,4/9)}
-#' only \eqn{\delta 100} \% of the area around each vertex
-#' in the triangle \code{tri}
+#' \code{delta} is in \eqn{(0,1)} and
+#' only \eqn{\delta 100} \% of the area around vertices of
+#' the triangle \code{tri}
 #' is allowed for point generation.}
 #' \item{ref.points}{The input set of points,
 #' i.e., vertices of \code{tri};
@@ -1751,7 +1751,7 @@ rassoc.std.tri <- function(n,eps)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-100
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C)
@@ -1898,7 +1898,7 @@ rassoc.tri <- function(n,tri,delta)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-100  #try also n<-20 or n<-100 or 1000
@@ -2058,7 +2058,7 @@ rassocII.std.tri <- function(n,eps)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-100; ny<-4;  #try also nx<-1000; ny<-10;
 #' set.seed(1)
@@ -2186,7 +2186,7 @@ runif.multi.tri <- function(n,Yp,DTmesh=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #for a general triangle
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
@@ -2198,7 +2198,7 @@ runif.multi.tri <- function(n,Yp,DTmesh=NULL)
 #' xd<-Xlim[2]-Xlim[1]
 #' yd<-Ylim[2]-Ylim[1]
 #'
-#' par(pty="s")
+#' oldpar <- par(pty="s")
 #' plot(Tr,pch=".",xlab="",ylab="",
 #' main="segregation support is the intersection\n of these two triangles",
 #' axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
@@ -2210,6 +2210,7 @@ runif.multi.tri <- function(n,Yp,DTmesh=NULL)
 #' yc<-txt[,2]+c(.02,.02,.04,-.03,0,0)
 #' txt.str<-c("A","B","C","T1","T2","T3")
 #' text(xc,yc,txt.str)
+#' par(oldpar)
 #' }
 #'
 #' @export
@@ -2294,11 +2295,10 @@ seg.tri.support <- function(delta,tri)
 #' representing the number of points to be generated.
 #' @param Yp A set of 2D points
 #' from which Delaunay triangulation is constructed.
-#' @param delta A positive real number in \eqn{(0,4/9)}.
+#' @param delta A positive real number in \eqn{(0,1)}.
 #' \code{delta} is the parameter of segregation
-#' (that is, \eqn{\delta 100} %
-#' area around each vertex
-#' in each Delaunay triangle is forbidden for point generation).
+#' (that is, \eqn{\delta 100} % area around the vertices of
+#' each Delaunay triangle is forbidden for point generation).
 #' @param DTmesh Delaunay triangulation of \code{Yp},
 #' default is \code{NULL},
 #' which is computed via \code{\link[interp]{tri.mesh}} function
@@ -2321,8 +2321,8 @@ seg.tri.support <- function(delta,tri)
 #' for the plot of the point pattern}
 #' \item{parameters}{Exclusion parameter, \code{delta},
 #' of the Type I segregation pattern.
-#' \code{delta} is in \eqn{(0,4/9)}
-#' \eqn{\delta 100} \% area around each vertex in each Delaunay triangle
+#' \code{delta} is in \eqn{(0,1)} and
+#' \eqn{\delta 100} \% area around vertices of each Delaunay triangle
 #' is forbidden for point generation.}
 #' \item{ref.points}{The input set of points \code{Yp};
 #' reference points, i.e.,
@@ -2348,7 +2348,7 @@ seg.tri.support <- function(delta,tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-100; ny<-4;  #try also nx<-1000; ny<-10;
 #'
@@ -2377,13 +2377,14 @@ seg.tri.support <- function(delta,tri)
 #' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 #' #Delaunay triangulation based on Y points
 #'
-#' par(pty="s")
+#' oldpar <- par(pty="s")
 #' plot(Xp,main="Points from Type I Segregation \n in Multipe Triangles",
 #' xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),
 #' ylim=Ylim+yd*c(-.05,.05),type="n")
 #' interp::plot.triSht(DTY, add=TRUE,
 #' do.points=TRUE,col="blue")
 #' points(Xp,pch=".",cex=3)
+#' par(oldpar)
 #' }
 #'
 #' @export rseg.multi.tri
@@ -2509,10 +2510,10 @@ rseg.multi.tri <- function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #' representing the number of points to be generated.
 #' @param Yp A set of 2D points
 #' from which Delaunay triangulation is constructed.
-#' @param delta A positive real number in \eqn{(0,4/9)}.
-#' \code{delta} is the parameter of association (that is, only
-#' \eqn{\delta 100} \% area around each vertex
-#' in each Delaunay triangle is allowed for point generation).
+#' @param delta A positive real number in \eqn{(0,1)}.
+#' \code{delta} is the parameter of association
+#' (that is, only \eqn{\delta 100} \% area around vertices of
+#' each Delaunay triangle is allowed for point generation).
 #' @param DTmesh Delaunay triangulation of \code{Yp}, default is \code{NULL},
 #' which is computed via \code{\link[interp]{tri.mesh}} function
 #' in \code{interp} package. \code{\link[interp]{tri.mesh}} function yields
@@ -2529,8 +2530,8 @@ rseg.multi.tri <- function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #' \item{mtitle}{The \code{"main"} title for the plot of the point pattern}
 #' \item{parameters}{Attraction parameter, \code{delta},
 #' of the Type I association pattern.
-#' \code{delta} is in \eqn{(0,4/9)}
-#' only \eqn{\delta 100} \% of the area around each vertex in each Delaunay triangle
+#' \code{delta} is in \eqn{(0,1)} and
+#' only \eqn{\delta 100} \% of the area around vertices of each Delaunay triangle
 #' is allowed for point generation.}
 #' \item{ref.points}{The input set of points \code{Yp};
 #' reference points, i.e., points with which generated points are associated.}
@@ -2556,7 +2557,7 @@ rseg.multi.tri <- function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-100; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -2714,7 +2715,7 @@ rassoc.multi.tri <- function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #' n<-100
@@ -2747,13 +2748,9 @@ rassoc.multi.tri <- function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #'
 #' plot3D::text3D(tetra[,1]+c(.05,0,0,0),tetra[,2],tetra[,3],
 #' labels=c("A","B","C","D"), add=TRUE)
-#' }
 #'
-#' \dontrun{
-#' #need to install scatterplot3d package and call "library(scatterplot3d)"
-#' s3d<-scatterplot3d(Xp, highlight.3d=TRUE,xlab="x",
-#' ylab="y",zlab="z",
-#'               col.axis="blue", col.grid="lightblue",
+#' s3d<-scatterplot3d::scatterplot3d(Xp, highlight.3d=TRUE,xlab="x",
+#' ylab="y",zlab="z", col.axis="blue", col.grid="lightblue",
 #'                main="3D Scatterplot of the data", pch=20)
 #' s3d$points3d(tetra,pch=20,col="blue")
 #' }
@@ -2853,7 +2850,7 @@ runif.std.tetra <- function(n)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-sample(1:12,3); B<-sample(1:12,3);
 #' C<-sample(1:12,3); D<-sample(1:12,3)
 #' tetra<-rbind(A,B,C,D)
@@ -2890,10 +2887,8 @@ runif.std.tetra <- function(n)
 #' plot3D::text3D(tetra[,1],tetra[,2],tetra[,3],
 #' labels=c("A","B","C","D"), add=TRUE)
 #'
-#' #need to install scatterplot3d package and call "library(scatterplot3d)"
-#' s3d<-scatterplot3d(Xp, highlight.3d=TRUE,
-#' xlab="x",ylab="y",zlab="z",
-#'                     col.axis="blue", col.grid="lightblue",
+#' s3d<-scatterplot3d::scatterplot3d(Xp, highlight.3d=TRUE,
+#' xlab="x",ylab="y",zlab="z", col.axis="blue", col.grid="lightblue",
 #'                     main="3D Scatterplot of the data", pch=20)
 #'  s3d$points3d(tetra,pch=20,col="blue")
 #'  }

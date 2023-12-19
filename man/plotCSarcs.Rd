@@ -44,15 +44,21 @@ A plot of the arcs of the CS-PCD whose vertices are the points in data set \code
 triangles based on \code{Yp} points
 }
 \description{
-Plots the arcs of Central Similarity Proximity Catch Digraph (CS-PCD) whose vertices are the data
-points in \code{Xp} in the multiple triangle case and the Delaunay triangles based on \code{Yp} points.
+Plots the arcs of Central Similarity Proximity Catch Digraph (CS-PCD)
+whose vertices are the data
+points in \code{Xp} in the multiple triangle case and the Delaunay triangles
+based on \code{Yp} points.
+If there are duplicates of \code{Xp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 
-CS proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
-expansion parameter \eqn{t>0} and edge regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
-in barycentric coordinates in the interior of each Delaunay triangle (default for \eqn{M=(1,1,1)}
-which is the center of mass of the triangle). Each Delaunay triangle is first converted to an (nonscaled)
-basic triangle so that \code{M} will be the same type of center for each Delaunay triangle (this conversion is
-not necessary when \code{M} is \eqn{CM}).
+CS proximity regions are defined with respect to the Delaunay triangles
+based on \code{Yp} points with
+expansion parameter \eqn{t>0} and edge regions in each triangle are
+based on the center \eqn{M=(\alpha,\beta,\gamma)}
+in barycentric coordinates in the interior of each Delaunay triangle
+(default for \eqn{M=(1,1,1)}
+which is the center of mass of the triangle).
 
 Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
@@ -63,7 +69,7 @@ See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-\dontrun{
+\donttest{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-15; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 

@@ -23,18 +23,19 @@ For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a
 A \code{list} with the elements
 \item{desc}{A short description of the output: number of arcs
 and quantities related to the interval}
-\item{num.arcs}{Total number of arcs in all intervals (including the end intervals),
+\item{num.arcs}{Total number of arcs in all intervals (including the end-intervals),
 i.e., the number of arcs for the entire PE-PCD}
 \item{num.in.range}{Number of \code{Xp} points in the interval \code{int}}
-\item{num.in.ints}{The vector of number of \code{Xp} points in the partition intervals (including the end intervals)}
+\item{num.in.ints}{The vector of number of \code{Xp} points in the partition intervals (including the end-intervals)}
 \item{int.num.arcs}{The \code{vector} of the number of arcs of the components of the PE-PCD in the
-partition intervals (including the end intervals)}
+partition intervals (including the end-intervals)}
 \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside.
-Partition intervals are numbered from left to right with 1 being the left end interval.}
-\item{ind.left.end, ind.mid, ind.right.end}{Indices of data points in the left end interval,
-middle interval, and right end interval (respectively)}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the support interval.}
+Partition intervals are numbered from left to right with 1 being the left end-interval.}
+\item{ind.left.end, ind.mid, ind.right.end}{Indices of data points in the left end-interval,
+middle interval, and right end-interval (respectively)}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed,
+here, tessellation points are the end points of the support interval \code{int}.}
 \item{vertices}{Vertices of the digraph, \code{Xp}.}
 }
 \description{
@@ -58,7 +59,7 @@ the arcs may exist for all points inside or outside the interval.
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c<-.4
 r<-2
 a<-0; b<-10; int<-c(a,b)

@@ -15,10 +15,10 @@ in the triangle, \code{tri}.}
 \item{tri}{A \eqn{3 \times 2} matrix with each row
 representing a vertex of the triangle.}
 
-\item{delta}{A positive real number in \eqn{(0,4/9)}.
+\item{delta}{A positive real number in \eqn{(0,1)}.
 \code{delta} is the parameter of association
-(that is, only \eqn{\delta 100} \% area around each vertex
-in the triangle is allowed for point generation).}
+(that is, only \eqn{\delta 100} \% area around vertices of
+the triangle is allowed for point generation).}
 }
 \value{
 A \code{list} with the elements
@@ -28,9 +28,9 @@ from which points are to be generated}
 for the plot of the point pattern}
 \item{parameters}{Attraction parameter, \code{delta},
 of the Type I association pattern.
-\code{delta} is in \eqn{(0,4/9)}
-only \eqn{\delta 100} \% of the area around each vertex
-in the triangle \code{tri}
+\code{delta} is in \eqn{(0,1)} and
+only \eqn{\delta 100} \% of the area around vertices of
+the triangle \code{tri}
 is allowed for point generation.}
 \item{ref.points}{The input set of points,
 i.e., vertices of \code{tri};
@@ -64,7 +64,7 @@ See (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-
 the association pattern.
 }
 \examples{
-\dontrun{
+\donttest{
 n<-100
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C)

@@ -20,7 +20,7 @@ is the standard equilateral triangle
 \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))} or not.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)  #try adding +10^(-16) to each vertex
 is.std.eq.tri(Te)

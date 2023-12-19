@@ -33,7 +33,7 @@ with an expansion parameter \eqn{t > 0} and a centrality parameter \eqn{c \in (0
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c<-.4
 t<-1
 a<-0; b<-10; int<-c(a,b)

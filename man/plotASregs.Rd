@@ -48,14 +48,15 @@ to the Delaunay triangles based on \code{Yp} points (these triangles partition t
 i.e., AS proximity regions are only defined for \code{Xp} points inside the convex hull of \code{Yp} points.
 
 Vertex regions are based on the center \code{M="CC"}
-for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+for circumcenter of each Delaunay triangle
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
 interior of each Delaunay triangle; default is \code{M="CC"} i.e., circumcenter of each triangle.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-\dontrun{
+\donttest{
 nx<-10 ; ny<-5
 
 set.seed(1)

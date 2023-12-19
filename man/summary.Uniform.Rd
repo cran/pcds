@@ -34,7 +34,7 @@ points and the number of vertices of the support
 of the uniform distribution.)
 }
 \examples{
-\dontrun{
+\donttest{
 n<-10 #try also 20, 100, and 1000
 A<-c(1,1); B<-c(2,0); R<-c(1.5,2);
 Tr<-rbind(A,B,R)

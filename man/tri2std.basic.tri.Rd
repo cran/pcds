@@ -33,7 +33,7 @@ original triangle. Hence, standard basic triangle form is useful for simulation
 studies under the uniformity hypothesis.
 }
 \examples{
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 

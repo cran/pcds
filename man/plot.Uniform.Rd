@@ -31,7 +31,7 @@ Plots the points generated from the uniform distribution
 together with the support region
 }
 \examples{
-\dontrun{
+\donttest{
 n<-10 #try also 20, 100, and 1000
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C)

@@ -12,7 +12,7 @@
 
 <meta name="author" content="Elvan Ceyhan" />
 
-<meta name="date" content="2023-06-13" />
+<meta name="date" content="2023-12-18" />
 
 <title>VS0 - Introduction to pcds</title>
 
@@ -349,7 +349,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">VS0 - Introduction to pcds</h1>
 <h4 class="author">Elvan Ceyhan</h4>
-<h4 class="date">2023-06-13</h4>
+<h4 class="date">2023-12-18</h4>
 
 
 
@@ -489,9 +489,11 @@ Below, we display each group of functions in a table with one column per subgrou
 </tbody>
 </table>
 <p>PropEdge* contains PropEdge1D, PropEdge2D, and PropEdge3D functions, whereas CentSim* contains CentSim1D and CentSim2D functions only.</p>
-<p>ClassFunctions contain functions like <code>summary</code>, <code>print.summary</code>, and <code>plot</code> of the following object classes:
+<p>ClassFunctions contain functions like <code>summary</code>, <code>print.summary</code>,
+and <code>plot</code> of the following object classes:
 <code>Lines</code>,<code>TriLines</code>, <code>Lines3D</code>, <code>Planes</code>, <code>Patterns</code>, <code>Uniform</code>, <code>Extrema</code>, and <code>PCDs</code>.
-Among these objects, <code>Lines</code>, <code>TriLines</code>, <code>Lines3D</code>, and <code>Planes</code> facilitate visualization of the various geometric structures,
+Among these objects, <code>Lines</code>, <code>TriLines</code>, <code>Lines3D</code>, and <code>Planes</code>
+facilitate visualization of the various geometric structures,
 proximity regions, and the corresponding digraphs,
 while <code>Patterns</code> is used for spatial point pattern generation (with <code>Uniform</code> being a special case),
 and <code>PCDs</code> pertains to the actual PCDs (the number of arcs, visualization of the digraph, and so on).</p>
@@ -717,8 +719,7 @@ More detail on Voronoi diagrams and Delaunay tessellations can be found in <span
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#Xp&lt;-cbind(runif(nx),runif(nx))</span></span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny),<span class="fu">runif</span>(ny))</span>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#oldpar &lt;- par(no.readonly = TRUE)</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="fu">plotDelaunay.tri</span>(Yp,Yp,<span class="at">xlab=</span><span class="st">&quot;&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;&quot;</span>,<span class="at">main=</span><span class="st">&quot;Delaunay Triangulation of Y points&quot;</span>)</span></code></pre></div>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="fu">plotDelaunay.tri</span>(Yp,Yp,<span class="at">xlab=</span><span class="st">&quot;&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;&quot;</span>,<span class="at">main=</span><span class="st">&quot;Delaunay Triangulation of Y points&quot;</span>)</span></code></pre></div>
 </div>
 <div id="graph-invariants-arc-density-and-domination-number" class="section level2" number="3.6">
 <h2><span class="header-section-number">3.6</span> Graph Invariants: Arc Density and Domination Number</h2>

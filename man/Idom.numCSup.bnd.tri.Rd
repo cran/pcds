@@ -48,7 +48,7 @@ See also (\insertCite{ceyhan:mcap2012;textual}{pcds}).
 Caveat: It takes a long time for large number of vertices (i.e., large number of row numbers).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10

@@ -12,7 +12,7 @@
 
 <meta name="author" content="Elvan Ceyhan" />
 
-<meta name="date" content="2023-06-13" />
+<meta name="date" content="2023-12-18" />
 
 <title>VS1.1 - Example: An Artificial 2D Dataset</title>
 
@@ -349,7 +349,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">VS1.1 - Example: An Artificial 2D Dataset</h1>
 <h4 class="author">Elvan Ceyhan</h4>
-<h4 class="date">2023-06-13</h4>
+<h4 class="date">2023-12-18</h4>
 
 
 
@@ -432,7 +432,7 @@ which is an object of class “<code>NumArcs</code>” and takes the arguments</
 <li><code>M</code>, the center of the triangle used to construct the vertex regions. <code>&quot;CC&quot;</code> stands for circumcenter of each Delaunay triangle or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
 default is <code>M=&quot;CC&quot;</code> i.e., the circumcenter of each triangle.</li>
 </ul>
-<p>Its <code>call</code> (with <code>Narcs</code> in the below script) just returns the description of the digraph.
+<p>Its <code>Call</code> (with <code>Narcs</code> in the below script) just returns the description of the digraph.
 Its <code>summary</code> returns a description of the digraph,
 number of arcs of the AS-PCD,
 number of data (<code>Xp</code>) points in the convex hull of <code>Yp</code> (nontarget) points,
@@ -448,13 +448,13 @@ in the centroid of the triangle.</p>
 <ul>
 <li><code>desc</code>: A description of the PCD and the output</li>
 <li><code>num.arcs</code>: Total number of arcs in all triangles, i.e., the number of arcs for the entire AS-PCD</li>
-<li><code>tri.num.arcs</code>: The vector of the number of arcs of the component of the AS-PCD in the
+<li><code>tri.num.arcs</code>: The vector of the number of arcs of the components of the AS-PCD in the
 Delaunay triangles based on <span class="math inline">\(\mathcal{Y}\)</span> points</li>
 <li><code>num.in.conv.hull</code>: Number of <span class="math inline">\(\mathcal{X}\)</span> points in the convex hull of <span class="math inline">\(\mathcal{Y}\)</span> points</li>
 <li><code>num.in.tris</code>: The vector of number of <span class="math inline">\(\mathcal{X}\)</span> points in the Delaunay triangles based on <span class="math inline">\(\mathcal{Y}\)</span> points</li>
 <li><code>weight.vec</code>: The vector of the areas of Delaunay triangles based on <span class="math inline">\(\mathcal{Y}\)</span> points</li>
-<li><code>del.tri.ind</code>: Indices of Delaunay triangles based on <span class="math inline">\(\mathcal{Y}\)</span> points,
-each column is the vector of indices of the vertices of one triangle.</li>
+<li><code>del.tri.ind</code>: A matrix of the indices of Delaunay triangles based on <span class="math inline">\(\mathcal{Y}\)</span> points,
+each column corresponds to the vector of indices of the vertices of one triangle.</li>
 <li><code>data.tri.ind</code>: A vector of indices of Delaunay triangles in which data points reside,
 i.e., column number of <code>del.tri.ind</code> for each <span class="math inline">\(\mathcal{X}\)</span> point.</li>
 <li><code>tess.points</code>: Triangulation points (i.e. <code>Yp</code> points)</li>
@@ -553,7 +553,7 @@ Figure 1.3: The AS proximity regions for all <span class="math inline">\(X\)</sp
 <!--  ``` -->
 <p>The function <code>arcsAS</code> is an object of class “<code>PCDs</code>” and
 has the same arguments as in <code>num.arcsAS</code>.
-Its <code>call</code> (with <code>Arcs</code> in the below script) just returns the description of the digraph.
+Its <code>Call</code> (with <code>Arcs</code> in the below script) just returns the description of the digraph.
 Its <code>summary</code> returns a description of the digraph, selected tail (or source) points of the arcs in the digraph
 (first 6 or fewer are printed),
 selected head (or end) points of the arcs in the digraph
@@ -670,7 +670,7 @@ Figure 1.5: The PE proximity regions for all the points the 2D artificial data s
 <!-- plotPEregs(Xp[1:3,],Yp,r,M,xlab="",ylab="") -->
 <!-- ``` -->
 <p>The function <code>arcsPE</code> is an object of class “<code>PCDs</code>”.
-Its <code>call</code>, <code>summary</code>, and <code>plot</code> are as in <code>arcsAS</code> with the addition of the expansion parameter
+Its <code>Call</code>, <code>summary</code>, and <code>plot</code> are as in <code>arcsAS</code> with the addition of the expansion parameter
 (see the <code>Parameters of the digraph</code> part)
 in the <code>summary.PCDs</code>.
 The <code>plot</code> function returns the same plot as in <code>plotPEarcs</code>,
@@ -734,7 +734,7 @@ which takes the arguments</p>
 <li><code>Yp</code>, a set of 2D points which constitute the vertices of the Delaunay triangles (i.e., class <span class="math inline">\(\mathcal{Y}\)</span> points),</li>
 <li><code>r</code> a positive real number which serves as the expansion parameter in PE proximity region; must be <span class="math inline">\(\ge 1\)</span>,</li>
 <li><code>ch.cor</code>, a logical argument for convex hull correction, default <code>ch.cor=FALSE</code>,
-recommended when both <code>Xp</code> and <code>Yp</code> have the same rectangular support.</li>
+recommended when both <code>Xp</code> and <code>Yp</code> have the same or similar rectangular support.</li>
 <li><code>alternative</code>, type of the alternative hypothesis in the test, one of <code>&quot;two.sided&quot;</code>, <code>&quot;less&quot;</code>, <code>&quot;greater&quot;</code>.</li>
 <li><code>conf.level</code>, the level of the confidence interval, default is <code>0.95</code>, for the arc density of PE-PCD based on
 the 2D data set <code>Xp</code>.</li>
@@ -845,7 +845,9 @@ For this approximation to work, number of <code>Xp</code> points must be at leas
 <span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
 <span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="co">#&gt;           domination number   || Pr(domination number &lt;= 2) </span></span>
 <span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a><span class="co">#&gt;                             5                             1</span></span></code></pre></div>
-<p>The test statistic in <code>PEdom.num.norm.test</code> is based on the normal approximation to the binomial distribution.
+<p>The test statistic in <code>PEdom.num.norm.test</code> is based on the normal approximation
+to the binomial distribution
+of the (asymptotic) distribution of the domination number of PE-PCDs.
 For this approximation to work, number of <code>Yp</code> points must be at least 5 (i.e., about 7 or more Delaunay triangles)
 and number of <code>Xp</code> points must be at least 7 times more than number of <code>Yp</code> points.</p>
 <p>We only provide the two-sided tests below, although both one-sided versions are also available.</p>
@@ -866,11 +868,17 @@ and number of <code>Xp</code> points must be at least 7 times more than number o
 <p>See <span class="citation">Ceyhan and Priebe (2007)</span>, <span class="citation">Ceyhan (2011)</span>, and <span class="citation">Ceyhan (2012)</span> for more on the domination number of PE-PCDs
 and their use in testing spatial interaction.</p>
 <p>In all the test functions (based on arc density and domination number) above,
-the option <code>ch.cor</code> is for convex hull correction (default is “no convex hull correction”, i.e., <code>ch.cor=FALSE</code>)
-which is recommended when <code>Xp</code> points tend to be mostly within the support of the <code>Yp</code> points.
+the option <code>ch.cor</code> is for convex hull correction
+which is recommended when <code>Xp</code> points tend to be mostly within the support of the <code>Yp</code> points
+and is implemented with a correction factor
+(default is “no convex hull correction”, i.e., <code>ch.cor=FALSE</code>).
 When the symmetric difference of the supports of <span class="math inline">\(\mathcal{X}\)</span> and <span class="math inline">\(\mathcal{Y}\)</span> is non-negligible,
 the tests can be adjusted to account for the <span class="math inline">\(\mathcal{X}\)</span> points outside the
 convex hull of <span class="math inline">\(\mathcal{Y}\)</span> points with the option <code>ch.cor=TRUE</code>.
+However,
+currently, the convex hull correction factor
+is derived under the assumption of
+uniformity of <code>Xp</code> and <code>Yp</code> points in the study window.
 For example, <code>PEarc.dens.test(Xp,Yp,r,ch=TRUE)</code> would yield the convex hull corrected version
 of the arc-based test of spatial interaction.</p>
 </div>
@@ -937,7 +945,7 @@ Figure 1.7: The CS proximity regions for all the points the 2D artificial data s
 <!-- plotCSregs(Xp[1:3,],Yp,r,M,xlab="",ylab="") -->
 <!-- ``` -->
 <p>The function <code>arcsCS</code> is an object of class “<code>PCDs</code>”.
-Its arguments and the output for <code>call</code>, <code>summary</code>, and <code>plot</code> are as in <code>arcsPE</code>.
+Its arguments and the output for <code>Call</code>, <code>summary</code>, and <code>plot</code> are as in <code>arcsPE</code>.
 The <code>plot</code> function returns the same plot as in <code>plotCSarcs</code>,
 hence we comment it out below.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>Arcs<span class="ot">&lt;-</span><span class="fu">arcsCS</span>(Xp,Yp,tau,M)</span>

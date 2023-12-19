@@ -73,7 +73,7 @@ inside \code{tri}).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10  #try also n<-20
@@ -124,7 +124,7 @@ fr2vertsCCvert.reg(Xp2,Tr,ch.all.intri = FALSE)
 }
 \seealso{
 \code{\link{fr2vertsCCvert.reg.basic.tri}}, \code{\link{fr2edgesCMedge.reg.std.tri}},
-\code{\link{fr2vertsCCvert.reg.basic.tri}} and \code{\link{kfr2vertsCCvert.reg}}
+\code{\link{kfr2vertsCCvert.reg.basic.tri}} and \code{\link{kfr2vertsCCvert.reg}}
 }
 \author{
 Elvan Ceyhan

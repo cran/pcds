@@ -21,7 +21,7 @@ of class \code{"Patterns"}
 and also the \code{type} (or description) of the pattern).
 }
 \examples{
-\dontrun{
+\donttest{
 nx<-10; #try also 20, 100, and 1000
 ny<-5; #try also 1
 e<-.15;
@@ -32,7 +32,7 @@ Xdt<-rseg.circular(nx,Y,e)
 Xdt
 print(Xdt)
 
-typeof(Xdt))
+typeof(Xdt)
 attributes(Xdt)
 }
 

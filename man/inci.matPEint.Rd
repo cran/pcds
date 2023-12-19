@@ -34,7 +34,7 @@ with an expansion parameter \eqn{r \ge 1} and a centrality parameter \eqn{c \in 
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c<-.4
 r<-2
 a<-0; b<-10; int<-c(a,b)

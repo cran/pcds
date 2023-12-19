@@ -63,7 +63,7 @@ spanned by 3D points \code{a}, \code{b}, and \code{c}
 with the parameter \code{t} being provided in \code{vector} \code{t}.
 }
 \examples{
-\dontrun{
+\donttest{
 P<-c(1,1,1); Q<-c(1,10,4); R<-c(1,1,3); S<-c(3,9,12)
 
 cf<-as.numeric(Plane(Q,R,S,1,1)$coeff)

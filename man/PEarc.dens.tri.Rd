@@ -5,7 +5,7 @@
 \title{Arc density of Proportional Edge Proximity Catch Digraphs
 (PE-PCDs) - one triangle case}
 \usage{
-PEarc.dens.tri(Xp, tri, r, M = c(1, 1, 1), tri.cor = FALSE)
+PEarc.dens.tri(Xp, tri, r, M = c(1, 1, 1), in.tri.only = FALSE)
 }
 \arguments{
 \item{Xp}{A set of 2D points
@@ -25,13 +25,12 @@ or the circumcenter of \code{tri}
 which may be entered as "CC" as well;
 default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.}
 
-\item{tri.cor}{A logical argument
-for computing the arc density for only the points inside the triangle,
-\code{tri}.
-(default is \code{tri.cor=FALSE}), i.e.,
-if \code{tri.cor=TRUE} only the induced digraph with the vertices
-inside \code{tri} are considered in the
-computation of arc density.}
+\item{in.tri.only}{A logical argument (default is \code{in.tri.only=FALSE})
+for computing the arc density for only the points inside the triangle, \code{tri}.
+That is,
+if \code{in.tri.only=TRUE} arc density of the induced subdigraph with the vertices
+inside \code{tri} is computed, otherwise
+otherwise arc density of the entire digraph (i.e., digraph with all the vertices) is computed.}
 }
 \value{
 A \code{list} with the elements
@@ -62,18 +61,17 @@ of PE-PCD for uniform data in the triangle \code{tri}
 only when \code{M} is the center of mass.
 For the number of arcs, loops are not allowed.
 
-\code{tri.cor} is a logical argument for triangle correction
-(default is \code{TRUE}),
-if \code{TRUE}, only the points
-inside the triangle are considered
-(i.e., digraph induced by these vertices are considered) in computing
-the arc density, otherwise all points are considered
-(for the number of vertices in the denominator of arc density).
+\code{in.tri.only} is a logical argument (default is \code{FALSE}) for considering only the points
+inside the triangle or all the points as the vertices of the digraph.
+if \code{in.tri.only=TRUE}, arc density is computed only for
+the points inside the triangle (i.e., arc density of the subdigraph
+induced by the vertices in the triangle is computed),
+otherwise arc density of the entire digraph (i.e., digraph with all the vertices) is computed.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10  #try also n<-20
@@ -85,7 +83,7 @@ M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 
 num.arcsPEtri(Xp,Tr,r=1.5,M)
 PEarc.dens.tri(Xp,Tr,r=1.5,M)
-PEarc.dens.tri(Xp,Tr,r=1.5,M,tri.cor = TRUE)
+PEarc.dens.tri(Xp,Tr,r=1.5,M,in.tri.only = TRUE)
 }
 
 }

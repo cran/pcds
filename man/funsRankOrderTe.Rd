@@ -45,7 +45,7 @@ in data, \code{Xp}, to the edges of \eqn{T_e}.
 The arguments are as in \code{rank.dist2edges.std.tri}.
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for rank.dist2edges.std.tri
 n<-10
 set.seed(1)
@@ -86,7 +86,7 @@ ylim=Ylim+yd*c(-.05,.05))
 text(Xp,labels = factor(inc.dist.rank))
 }
 
-\dontrun{
+\donttest{
 #Examples for order.dist2edges.std.tri
 n<-10
 set.seed(1)

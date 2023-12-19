@@ -29,7 +29,7 @@ reference points (if any for the bivariate pattern),
 and number of points for each class
 }
 \examples{
-\dontrun{
+\donttest{
 nx<-10; #try also 10, 100, and 1000
 ny<-5; #try also 1
 e<-.15;

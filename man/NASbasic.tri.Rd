@@ -35,9 +35,11 @@ Returns the end points of the line segments and arc-slices that constitute the b
 AS proximity region for a point in the standard basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
 where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
-Vertex regions are based on the center \code{M="CC"} for circumcenter of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian
-coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_b};
-default is \code{M="CC"} the circumcenter of \eqn{T_b}.
+Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the standard basic triangle \eqn{T_b}
+or based on circumcenter of \eqn{T_b};
+default is \code{M="CC"}, i.e., circumcenter of \eqn{T_b}.
 \code{rv} is the index of the vertex region \code{p} resides, with default=\code{NULL}.
 
 If \code{p} is outside \eqn{T_b}, it returns \code{NULL} for the proximity region.
@@ -53,7 +55,7 @@ studies under the uniformity hypothesis.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6  #try also c1<-.2; c2<-.2;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)

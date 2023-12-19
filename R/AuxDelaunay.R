@@ -68,7 +68,7 @@ NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for lineA2CMinTe
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
@@ -153,7 +153,7 @@ lineA2CMinTe <- function(x)
 #' @rdname funsAB2CMTe
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for lineB2CMinTe
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
@@ -272,7 +272,7 @@ NULL
 #' @rdname funsAB2MTe
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for lineA2MinTe
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
@@ -373,7 +373,7 @@ lineA2MinTe <- function(x,M)
 #' @rdname funsAB2MTe
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for lineB2MinTe
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
@@ -448,7 +448,7 @@ lineB2MinTe <- function(x,M)
 #' @rdname funsAB2MTe
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for lineC2MinTe
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
@@ -562,7 +562,7 @@ lineC2MinTe <- function(x,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' #the vertices of the standard basic triangle form Tb
@@ -578,7 +578,7 @@ lineC2MinTe <- function(x,M)
 #' xd<-Xlim[2]-Xlim[1]
 #' yd<-Ylim[2]-Ylim[1]
 #'
-#' par(pty = "s")
+#' oldpar <- par(pty = "s")
 #' plot(A,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' polygon(Tb)
 #' points(rbind(CC))
@@ -607,7 +607,6 @@ lineC2MinTe <- function(x,M)
 #' xd<-Xlim[2]-Xlim[1]
 #' yd<-Ylim[2]-Ylim[1]
 #'
-#' par(pty = "s")
 #' plot(A,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' polygon(Tb)
 #' points(rbind(CC))
@@ -619,6 +618,7 @@ lineC2MinTe <- function(x,M)
 #' yc<-txt[,2]+c(.02,.02,.04,-.03,.03,.04,.06)
 #' txt.str<-c("A","B","C","CC","D1","D2","D3")
 #' text(xc,yc,txt.str)
+#' par(oldpar)
 #' }
 #'
 #' @export circumcenter.basic.tri
@@ -656,7 +656,7 @@ circumcenter.basic.tri <- function(c1,c2)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);  #the vertices of the triangle Tr
 #'
@@ -752,7 +752,7 @@ circumcenter.tri <- function(tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -811,7 +811,7 @@ prj.cent2edges <- function(tri,M)
   a1<-y1[1]; a2<-y1[2]; b1<-y2[1]; b2<-y2[2]; c1<-y3[1]; c2<-y3[2];
 
   if (in.triangle(M,tri,boundary = FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   m1<-M[1]; m2<-M[2]
 
@@ -881,7 +881,7 @@ prj.cent2edges <- function(tri,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
@@ -938,7 +938,7 @@ prj.cent2edges.basic.tri <- function(c1,c2,M)
   {M<-bary2cart(M,Tb)}
 
   if (in.triangle(M,Tb,boundary = FALSE)$in.tri==FALSE)
-  {stop('center, M, is not in the interior of the standard basic triangle')}
+  {stop('M is not a center in the interior of the standard basic triangle')}
 
   m1<-M[1]; m2<-M[2]
 
@@ -1006,7 +1006,7 @@ prj.cent2edges.basic.tri <- function(c1,c2,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' r<-1.35
@@ -1072,7 +1072,7 @@ prj.nondegPEcent2edges <- function(tri,r,cent=1)
   {stop('r must be a scalar in (1,1.5]')}
 
   if (cent!=1 & cent!=2 & cent!=3)
-  {stop('center index, cent, must be 1, 2 or 3')}
+  {stop('The center index, cent, must be 1, 2 or 3')}
 
   A<-tri[1,]; B<-tri[2,]; C<-tri[3,];
 
@@ -1153,7 +1153,7 @@ prj.nondegPEcent2edges <- function(tri,r,cent=1)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2); p<-c(1.4,1.2)
 #' Tr<-rbind(A,B,C)
 #' in.triangle(p,Tr)
@@ -1262,7 +1262,7 @@ in.triangle <- function(p,tri,boundary = TRUE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2); p<-c(1.4,1.2)
 #'
 #' Tr<-rbind(A,B,C)
@@ -1340,7 +1340,7 @@ in.tri.all <- function(Xp,tri,boundary = TRUE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)  #try adding +10^(-16) to each vertex
 #' is.std.eq.tri(Te)
@@ -1415,7 +1415,7 @@ is.std.eq.tri <- function(tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.6,2);
 #' Tr<-rbind(A,B,C);
 #' P<-c(1.4,1.2)
@@ -1560,7 +1560,7 @@ rel.vert.triCM <- function(p,tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #'
@@ -1632,7 +1632,7 @@ as.basic.tri <- function(tri,scaled=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #'
@@ -1713,7 +1713,7 @@ NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for cart2bary
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
@@ -1742,7 +1742,7 @@ cart2bary <- function(P,tri)
 #' @rdname funsCartBary
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for bary2cart
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
@@ -1829,7 +1829,7 @@ bary2cart <- function(P,tri)
 #' #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6
 #' P<-c(.4,.2)
 #' rel.vert.basic.triCM(P,c1,c2)
@@ -2000,7 +2000,7 @@ rel.vert.basic.triCM <- function(p,c1,c2)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' P<-c(1.4,1.2)
@@ -2146,7 +2146,7 @@ rel.edge.triCM <- function(p,tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -2270,7 +2270,7 @@ edge.reg.triCM <- function(p,tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -2348,7 +2348,7 @@ rel.edge.tri <- function(p,tri,M)
   {stop('The triangle is degenerate')}
 
   if (in.triangle(M,tri,boundary = FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   if (in.triangle(p,tri,boundary = TRUE)$in.tri==FALSE)
   {reled<-NA
@@ -2433,7 +2433,7 @@ rel.edge.tri <- function(p,tri,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6
 #' P<-c(.4,.2)
 #' rel.edge.basic.triCM(P,c1,c2)
@@ -2582,7 +2582,7 @@ rel.edge.basic.triCM <- function(p,c1,c2)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
@@ -2648,7 +2648,7 @@ rel.edge.basic.tri <- function(p,c1,c2,M)
   }
 
   if (in.triangle(M,Tb,boundary = FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   if (in.triangle(p,Tb,boundary = TRUE)$in.tri==FALSE)
   {reled<-NA
@@ -2720,7 +2720,7 @@ rel.edge.basic.tri <- function(p,c1,c2,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P<-c(.4,.2)
 #' rel.edge.std.triCM(P)
 #'
@@ -2850,7 +2850,7 @@ rel.edge.std.triCM <- function(p)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -3008,7 +3008,7 @@ rel.edges.triCM <- function(Xp,tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -3088,7 +3088,7 @@ rel.edges.tri <- function(Xp,tri,M)
   {M<-bary2cart(M,tri)}
 
   if (in.triangle(M,tri,boundary = FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   A<-tri[1,]; B<-tri[2,]; C<-tri[3,]
   tri.ABM<-rbind(A,B,M)
@@ -3151,7 +3151,7 @@ rel.edges.tri <- function(Xp,tri,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P<-c(.4,.2)
 #' index.six.Te(P)
 #'
@@ -3322,7 +3322,7 @@ NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for index.delaunay.tri
 #' nx<-20 #number of X points (target)
 #' ny<-5 #number of Y points (nontarget)
@@ -3397,7 +3397,7 @@ index.delaunay.tri <- function(p,Yp,DTmesh=NULL)
 #' @rdname funsIndDelTri
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for indices.delaunay.tri
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
@@ -3423,10 +3423,11 @@ index.delaunay.tri <- function(p,Yp,DTmesh=NULL)
 #'
 #' #plot of the data in the convex hull of Y points together with the Delaunay triangulation
 #'
-#' par(pty = "s")
+#' oldpar <- par(pty = "s")
 #' plot(Xp,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
 #' interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
 #' text(Xp,labels = factor(tr.ind))
+#' par(oldpar)
 #' }
 #'
 #' @export
@@ -3455,6 +3456,78 @@ indices.delaunay.tri <- function(Xp,Yp,DTmesh=NULL)
    ind.set<-c(ind.set, index.delaunay.tri(Xp[i,],Yp,DTmesh) )
   }
  ind.set
+} #end of the function
+#'
+
+#################################################################
+
+#' @title Indices of the intervals where the 1D point(s) reside
+#'
+#' @description Returns the indices of intervals for all the points in 1D data set,
+#' \code{Xp}, as a vector.
+#'
+#' Intervals are based on \code{Yp} and left end interval is labeled as 1,
+#' the next interval as 2, and so on.
+#' If there are duplicates of \code{Yp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
+#'
+#' @param Xp A set of 1D points for which the indices of intervals are to be determined.
+#' @param Yp A set of 1D points from which intervals are constructed.
+#'
+#' @return The \code{vector} of indices of the intervals in which points in the 1D data set, \code{Xp}, reside
+#'
+#' @author Elvan Ceyhan
+#'
+#' @examples
+#' \donttest{
+#' a<-0; b<-10; int<-c(a,b)
+#'
+#' #nx is number of X points (target) and ny is number of Y points (nontarget)
+#' nx<-15; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#'
+#' set.seed(1)
+#' xf<-(int[2]-int[1])*.1
+#' Xp<-runif(nx,a-xf,b+xf)
+#' Yp<-runif(ny,a,b)  #try also Yp<-runif(ny,a+1,b-1)
+#'
+#' ind<-interval.indices.set(Xp,Yp)
+#' ind
+#'
+#' jit<-.1
+#' yjit<-runif(nx,-jit,jit)
+#'
+#' Xlim<-range(a,b,Xp,Yp)
+#' xd<-Xlim[2]-Xlim[1]
+#'
+#' plot(cbind(a,0), xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit),pch=".")
+#' abline(h=0)
+#' points(Xp, yjit,pch=".",cex=3)
+#' abline(v=Yp,lty=2)
+#' text(Xp,yjit,labels=factor(ind))
+#' }
+#'
+#' @export interval.indices.set
+interval.indices.set <- function(Xp,Yp)
+{
+  if (!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp)))
+  {stop('Both arguments must be 1D vectors of numerical entries')}
+
+  if(any(duplicated(Yp))) #if there are duplicates for Yp values, only one is taken for each
+  {Yp = unique(Yp)
+  warning("There were duplicate Yp values; only one value is kept for each duplicate value!")}
+
+  nt<-length(Xp)
+  ny<-length(Yp)
+  ind.set<-rep(0,nt)
+  Ys<-sort(Yp)
+  ind.set[Xp<Ys[1]]<-1; ind.set[Xp>Ys[ny]]<-ny+1;
+  for (i in 1:(ny-1))
+  {
+    ind<-(Xp>=Ys[i] & Xp<=Ys[i+1] )
+    ind.set[ind]<-i+1
+  }
+  ind.set
 } #end of the function
 #'
 
@@ -3492,7 +3565,7 @@ indices.delaunay.tri <- function(Xp,Yp,DTmesh=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
@@ -3529,8 +3602,8 @@ plotDelaunay.tri <- function(Xp,Yp,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=
   if (is.null(ylim))
   {ylim<-range(Xp[,2],Yp[,2])}
 
-  oldpar <- par(no.readonly = TRUE)    # default par options
-  on.exit(par(oldpar))
+  oldpar <- oldpar <- par(no.readonly = TRUE)    # default par options
+  on.exit(oldpar <- par(oldpar))
   # sets default par options when the function is exited
 
   if (is.null(main))
@@ -3538,14 +3611,14 @@ plotDelaunay.tri <- function(Xp,Yp,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=
 
   if (nrow(Yp)==3)
   {
-    par(mfrow=c(1,1),mar=c(5,5,4,2))
+    oldpar <- par(mfrow=c(1,1),mar=c(5,5,4,2))
     plot(Xp[,1],Xp[,2],main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=4,...)
     polygon(Yp,lty = 2)
     } else
   {
     Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
     #Delaunay triangulation
-    par(mfrow=c(1,1),mar=c(5,5,4,2))
+    oldpar <- par(mfrow=c(1,1),mar=c(5,5,4,2))
     plot(Xp[,1],Xp[,2],main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=4,...)
     interp::plot.triSht(Ytrimesh, add=TRUE, do.points = TRUE,...)
     }
@@ -3579,7 +3652,7 @@ plotDelaunay.tri <- function(Xp,Yp,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -3747,7 +3820,7 @@ num.delaunay.tri <- function(Yp)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -3925,7 +3998,7 @@ rel.verts.triCM <- function(Xp,tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
@@ -3997,7 +4070,7 @@ rel.vert.basic.tri <- function(p,c1,c2,M)
   {M<-bary2cart(M,Tb)}
 
   if (in.triangle(M,Tb,boundary = FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the standard basic triangle form')}
+  {stop('M is not a center in the interior of the standard basic triangle form')}
 
   a1<-y1[1]; a2<-y1[2]; b1<-y2[1]; b2<-y2[2]; c1<-y3[1]; c2<-y3[2];
 
@@ -4085,7 +4158,7 @@ rel.vert.basic.tri <- function(p,c1,c2,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6;  #try also c1<-.5; c2<-.5;
 #'
 #' P<-c(.3,.2)
@@ -4239,7 +4312,7 @@ rel.vert.basic.triCC <- function(p,c1,c2)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' M<-c(1.6,1.0)
@@ -4321,7 +4394,7 @@ rel.vert.tri <- function(p,tri,M)
   } else
   {
     if (in.triangle(M,tri,boundary = FALSE)$in.tri==FALSE)
-    {stop('center is not in the interior of the triangle')}
+    {stop('M is not a center in the interior of the triangle')}
 
     Ds<-prj.cent2edges(tri,M)
     D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,];
@@ -4391,7 +4464,7 @@ rel.vert.tri <- function(p,tri,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -4539,7 +4612,7 @@ rel.vert.triCC <- function(p,tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' n<-20  #try also n<-40
@@ -4601,7 +4674,7 @@ rel.vert.std.tri <- function(p,M)
   } else
   {
     if (in.triangle(M,Te,boundary = FALSE)$in.tri==FALSE)
-    {stop('center is not in the interior of the triangle')}
+    {stop('M is not a center in the interior of the triangle')}
 
     Ds<-prj.cent2edges(Te,M)
     D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,];
@@ -4666,7 +4739,7 @@ rel.vert.std.tri <- function(p,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #'
@@ -4784,7 +4857,7 @@ rel.vert.std.triCM <- function(p)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' M<-c(1.6,1.0)
@@ -4868,7 +4941,7 @@ rel.verts.tri <- function(Xp,tri,M)
 
   CC = circumcenter.tri(tri)
   if ( !(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary = FALSE)$in.tri) )
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   nt<-nrow(Xp)
 
@@ -4966,7 +5039,7 @@ rel.verts.tri <- function(Xp,tri,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' M<-c(1.6,1.0)
@@ -5040,7 +5113,7 @@ rel.verts.triM <- function(Xp,tri,M)
   {M<-bary2cart(M,tri)}
 
   if (in.triangle(M,tri,boundary = FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the standard basic triangle form')}
+  {stop('M is not a center in the interior of the standard basic triangle form')}
 
   nt<-nrow(Xp)
 
@@ -5120,7 +5193,7 @@ rel.verts.triM <- function(Xp,tri,M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' r<-1.35
@@ -5192,7 +5265,7 @@ rel.verts.tri.nondegPE <- function(Xp,tri,r,cent=1)
   {stop('r must be a scalar in (1,1.5]')}
 
   if (cent!=1 & cent!=2 & cent!=3)
-  {stop('center index, cent, must be 1, 2 or 3')}
+  {stop('The center index, cent, must be 1, 2 or 3')}
 
   Xp<-matrix(Xp,ncol=2)
   nt<-nrow(Xp)
@@ -5284,7 +5357,7 @@ rel.verts.tri.nondegPE <- function(Xp,tri,r,cent=1)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -5416,7 +5489,7 @@ rel.verts.triCC <- function(Xp,tri)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' r<-1.35
@@ -5577,7 +5650,7 @@ centerMc <- function(int,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' n<-10
 #' c<-.4  #try also c<-runif(1)
 #' Yp<-runif(n)
@@ -5649,7 +5722,7 @@ centersMc <- function(Yp,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c<-.4
 #' a<-0; b<-10; int = c(a,b)
 #'
@@ -5752,7 +5825,7 @@ rel.vert.mid.int <- function(p,int,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' a<-0; b<-10; int<-c(a,b)
 #'
 #' rel.vert.end.int(-6,int)
@@ -5830,6 +5903,9 @@ rel.vert.end.int <- function(p,int)
 #'
 #' @description Plots the \code{Xp} points
 #' and the intervals based on \code{Yp} points.
+#' If there are duplicates of \code{Yp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
 #' @param Xp A set of 1D points whose scatter-plot is provided.
 #' @param Yp A set of 1D points
@@ -5851,7 +5927,7 @@ rel.vert.end.int <- function(p,int)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' a<-0; b<-10;
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
@@ -5872,6 +5948,10 @@ plotIntervals <- function(Xp,Yp,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NUL
 
   if (!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp)) )
   {stop('Xp and Yp must be 1D vectors of numerical entries')}
+
+  if(any(duplicated(Yp))) #if there are duplicates for Yp values, only one is taken for each
+  {Yp = unique(Yp)
+  warning("There were duplicate Yp values; only one value is kept for each duplicate value!")}
 
   nx<-length(Xp); ny<-length(Yp)
 
@@ -5960,7 +6040,7 @@ plotIntervals <- function(Xp,Yp,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NUL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0);
 #' D<-c(1/2,sqrt(3)/6,sqrt(6)/3); P<-c(.1,.1,.1)
 #' tetra<-rbind(A,B,C,D)
@@ -6068,7 +6148,7 @@ in.tetrahedron <- function(p,th,boundary = TRUE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' set.seed(123)
 #' A<-c(0,0,0)+runif(3,-.2,.2);
 #' B<-c(1,0,0)+runif(3,-.2,.2);
@@ -6177,7 +6257,7 @@ circumcenter.tetra <- function(th)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0);
 #' D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
@@ -6328,7 +6408,7 @@ rel.vert.tetraCM <- function(p,th)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' set.seed(123)
 #' A<-c(0,0,0)+runif(3,-.2,.2);
 #' B<-c(1,0,0)+runif(3,-.2,.2);

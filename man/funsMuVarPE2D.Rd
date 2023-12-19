@@ -3,14 +3,14 @@
 \name{funsMuVarPE2D}
 \alias{funsMuVarPE2D}
 \alias{muPE2D}
-\alias{asyvarPE2D}
+\alias{asy.varPE2D}
 \title{Returns the mean and (asymptotic) variance of arc density of
 Proportional Edge Proximity Catch Digraph (PE-PCD)
 for 2D uniform data in one triangle}
 \usage{
 muPE2D(r)
 
-asyvarPE2D(r)
+asy.varPE2D(r)
 }
 \arguments{
 \item{r}{A positive real number which serves
@@ -19,14 +19,14 @@ must be \eqn{\ge 1}.}
 }
 \value{
 \code{muPE2D} returns the mean
-and \code{asyvarPE2D} returns the (asymptotic) variance of the
+and \code{asy.varPE2D} returns the (asymptotic) variance of the
 arc density of PE-PCD for uniform data in any triangle.
 }
 \description{
-Two functions: \code{muPE2D} and \code{asyvarPE2D}.
+Two functions: \code{muPE2D} and \code{asy.varPE2D}.
 
 \code{muPE2D} returns the mean of the (arc) density of PE-PCD
-and \code{asyvarPE2D} returns the asymptotic variance
+and \code{asy.varPE2D} returns the asymptotic variance
 of the arc density of PE-PCD
 for 2D uniform data in a triangle.
 
@@ -39,7 +39,7 @@ vertex regions are based on center of mass, \eqn{CM} of the triangle.
 See also (\insertCite{ceyhan:arc-density-PE;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for muPE2D
 muPE2D(1.2)
 
@@ -56,9 +56,9 @@ plot(rseq, mu,type="l",xlab="r",ylab=expression(mu(r)),lty=1,
 xlim=range(rseq),ylim=c(0,1))
 }
 
-\dontrun{
-#Examples for asyvarPE2D
-asyvarPE2D(1.2)
+\donttest{
+#Examples for asy.varPE2D
+asy.varPE2D(1.2)
 
 rseq<-seq(1.01,5,by=.05)
 lrseq<-length(rseq)
@@ -66,12 +66,13 @@ lrseq<-length(rseq)
 avar<-vector()
 for (i in 1:lrseq)
 {
-  avar<-c(avar,asyvarPE2D(rseq[i]))
+  avar<-c(avar,asy.varPE2D(rseq[i]))
 }
 
-par(mar=c(5,5,4,2))
+oldpar <- par(mar=c(5,5,4,2))
 plot(rseq, avar,type="l",xlab="r",
 ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
+par(oldpar)
 }
 
 }
@@ -79,7 +80,7 @@ ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
 \insertAllCited{}
 }
 \seealso{
-\code{\link{muCS2D}} and \code{\link{asyvarCS2D}}
+\code{\link{muCS2D}} and \code{\link{asy.varCS2D}}
 }
 \author{
 Elvan Ceyhan

@@ -41,7 +41,7 @@ None
 Plots the plane together with the defining 3D \code{points}.
 }
 \examples{
-\dontrun{
+\donttest{
 P<-c(1,10,3); Q<-c(1,1,3); C<-c(3,9,12)
 pts<-rbind(P,Q,C)
 

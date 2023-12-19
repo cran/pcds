@@ -22,18 +22,19 @@ triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triang
 A \code{list} with the elements
 \item{desc}{A short description of the output: number of arcs
 and related quantities for the induced subdigraphs in the Delaunay triangles}
-\item{num.arcs}{Total number of arcs in all triangles, i.e., the number of arcs for the entire PE-PCD}
-\item{num.in.conhull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
+\item{num.arcs}{Total number of arcs in all triangles, i.e., the number of arcs for the entire CS-PCD}
+\item{num.in.conv.hull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
 \item{num.in.tris}{The vector of number of \code{Xp} points in the Delaunay triangles based on \code{Yp} points}
 \item{weight.vec}{The \code{vector} of the areas of Delaunay triangles based on \code{Yp} points}
-\item{tri.num.arcs}{The \code{vector} of the number of arcs of the component of the PE-PCD in the
+\item{tri.num.arcs}{The \code{vector} of the number of arcs of the components of the CS-PCD in the
 Delaunay triangles based on \code{Yp} points}
 \item{del.tri.ind}{A matrix of indices of vertices of the Delaunay triangles based on \code{Yp} points,
 each column corresponds to the vector of indices of the vertices of one triangle.}
 \item{data.tri.ind}{A \code{vector} of indices of vertices of the Delaunay triangles in which data points reside,
 i.e., column number of \code{del.tri.ind} for each \code{Xp} point.}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the Delaunay triangulation based on \code{Yp} points.}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed,
+here, tessellation is the Delaunay triangulation based on \code{Yp} points.}
 \item{vertices}{Vertices of the digraph, \code{Xp}.}
 }
 \description{
@@ -51,16 +52,19 @@ which is the center of mass of the triangle).
 Each Delaunay triangle is first converted to an (nonscaled) basic triangle so that \code{M} will be the same
 type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
 
-Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
-(i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-convex hull of \code{Yp} points). For the number of arcs, loops are not allowed so arcs are only possible
+Convex hull of \code{Yp} is partitioned
+by the Delaunay triangles based on \code{Yp} points
+(i.e., multiple triangles are the set of these Delaunay triangles
+whose union constitutes the
+convex hull of \code{Yp} points).
+For the number of arcs, loops are not allowed so arcs are only possible
 for points inside the convex hull of \code{Yp} points.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-\dontrun{
+\donttest{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 

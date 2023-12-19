@@ -30,7 +30,7 @@ be of finite cardinality and \code{p}
 and elements of \code{Yp} must have the same dimension.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
 dist.point2set(c(1,2),Te)

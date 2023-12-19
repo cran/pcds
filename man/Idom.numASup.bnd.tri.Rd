@@ -33,9 +33,11 @@ that is, returns 1 if the domination number of AS-PCD is less than the prespecif
 otherwise. It also provides the vertices (i.e., data points) in a dominating set of size \code{k} of AS-PCD.
 
 AS proximity regions are constructed with respect to the triangle \code{tri} and
-vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri};
-or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
+vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri}
+or based on circumcenter of  \code{tri};
+default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
 
 The vertices of \code{tri}angle, \code{tri},
 are labeled as \eqn{1,2,3} according to the row number the vertex is recorded in \code{tri}.
@@ -43,7 +45,7 @@ Loops are allowed in the digraph.
 It takes a long time for large number of vertices (i.e., large number of row numbers).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 
 Tr<-rbind(A,B,C);

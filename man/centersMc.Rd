@@ -31,7 +31,7 @@ the parameterized center is \eqn{M_c=a+c(b-a)}
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 n<-10
 c<-.4  #try also c<-runif(1)
 Yp<-runif(n)

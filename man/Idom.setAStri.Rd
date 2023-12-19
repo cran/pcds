@@ -28,15 +28,17 @@ Returns \eqn{I(}\code{S} a dominating set of AS-PCD\eqn{)}, that is, returns 1 i
 returns 0 otherwise.
 
 AS-PCD has vertex set \code{Xp} and AS proximity region is constructed with vertex
-regions based on the center \code{M="CC"} for circumcenter of \code{tri};
-or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}
+regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri}
+or based on circumcenter of  \code{tri};
+default is \code{M="CC"}, i.e., circumcenter of \code{tri}
 whose vertices are also labeled as edges 1, 2, and 3, respectively.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 
 Tr<-rbind(A,B,C);

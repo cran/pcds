@@ -24,8 +24,13 @@ Incidence matrix for the CS-PCD with vertices being 1D data set, \code{Xp},
 and \code{Yp} determines the end points of the intervals (the multi-interval case)
 }
 \description{
-Returns the incidence matrix for the CS-PCD for a given 1D numerical data set, \code{Xp},
-as the vertices of the digraph and \code{Yp} determines the end points of the intervals (in the multi-interval case).
+Returns the incidence matrix for the CS-PCD
+for a given 1D numerical data set, \code{Xp},
+as the vertices of the digraph and
+\code{Yp} determines the end points of the intervals (in the multi-interval case).
+If there are duplicates of \code{Yp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 Loops are allowed, so the diagonal entries are all equal to 1.
 
 CS proximity region is constructed

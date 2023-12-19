@@ -39,7 +39,7 @@ Generates \code{n} points uniformly in the standard regular tetrahedron
 \eqn{T_h=T((0,0,0),(1,0,0),(1/2,\sqrt{3}/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))}.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 n<-100
@@ -72,13 +72,9 @@ add=TRUE,lwd=2)
 
 plot3D::text3D(tetra[,1]+c(.05,0,0,0),tetra[,2],tetra[,3],
 labels=c("A","B","C","D"), add=TRUE)
-}
 
-\dontrun{
-#need to install scatterplot3d package and call "library(scatterplot3d)"
-s3d<-scatterplot3d(Xp, highlight.3d=TRUE,xlab="x",
-ylab="y",zlab="z",
-              col.axis="blue", col.grid="lightblue",
+s3d<-scatterplot3d::scatterplot3d(Xp, highlight.3d=TRUE,xlab="x",
+ylab="y",zlab="z", col.axis="blue", col.grid="lightblue",
                main="3D Scatterplot of the data", pch=20)
 s3d$points3d(tetra,pch=20,col="blue")
 }

@@ -34,7 +34,7 @@ with the projections of \eqn{M} to the edges
 along the lines joining \eqn{M} to the vertices.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 M<-c(1.6,1.0)

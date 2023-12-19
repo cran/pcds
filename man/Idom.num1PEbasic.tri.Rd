@@ -97,7 +97,7 @@ if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)

@@ -65,7 +65,7 @@ the resulting triangle will still need to be translated
 and/or rotated to be in the standard basic triangle form.
 }
 \examples{
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 

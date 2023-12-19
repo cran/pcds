@@ -145,9 +145,11 @@ Table: Package Contents: Grouping of the Functions
 
 PropEdge* contains PropEdge1D, PropEdge2D, and PropEdge3D functions, whereas CentSim* contains CentSim1D and CentSim2D functions only.
 
-ClassFunctions contain functions like `summary`, `print.summary`, and `plot` of the following object classes: 
+ClassFunctions contain functions like `summary`, `print.summary`, 
+and `plot` of the following object classes: 
 `Lines`,`TriLines`, `Lines3D`, `Planes`, `Patterns`, `Uniform`, `Extrema`, and `PCDs`. 
-Among these objects, `Lines`, `TriLines`, `Lines3D`, and `Planes` facilitate visualization of the various geometric structures, 
+Among these objects, `Lines`, `TriLines`, `Lines3D`, and `Planes` 
+facilitate visualization of the various geometric structures, 
 proximity regions, and the corresponding digraphs, 
 while `Patterns` is used for spatial point pattern generation (with `Uniform` being a special case), 
 and `PCDs` pertains to the actual PCDs (the number of arcs, visualization of the digraph, and so on).
@@ -371,7 +373,6 @@ set.seed(1)
 #Xp<-cbind(runif(nx),runif(nx))
 Yp<-cbind(runif(ny),runif(ny))
 
-#oldpar <- par(no.readonly = TRUE)
 plotDelaunay.tri(Yp,Yp,xlab="",ylab="",main="Delaunay Triangulation of Y points")
 ```
 

@@ -63,7 +63,7 @@ which can be the center of mass (\code{"CM"})
 or circumcenter (\code{"CC"}) of \code{th}.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0);
 D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 set.seed(1)

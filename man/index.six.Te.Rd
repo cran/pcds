@@ -25,7 +25,7 @@ which is the Gamma-1 region for CS-PCD with \eqn{t=1}
 if \code{p} is not in any of the 6 regions the function returns \code{NA}.
 }
 \examples{
-\dontrun{
+\donttest{
 P<-c(.4,.2)
 index.six.Te(P)
 

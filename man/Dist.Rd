@@ -33,7 +33,7 @@ For two data matrices \eqn{A} and \eqn{B},
 and \code{Dist(A,B)} yield the same result.
 }
 \examples{
-\dontrun{
+\donttest{
 B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Dist(B,C);
 dist(rbind(B,C))

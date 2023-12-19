@@ -23,7 +23,7 @@ the area of the polygon. Also, the polygon could be convex or non-convex.
 See (\insertCite{weisstein-area-poly;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(0.5,.8);
 Tr<-rbind(A,B,C);
 area.polygon(Tr)

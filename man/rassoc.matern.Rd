@@ -81,7 +81,7 @@ where \code{\link{rassoc.circular}} needs the study window to be specified,
 while \code{rassoc.matern} does not.
 }
 \examples{
-\dontrun{
+\donttest{
 nx<-100; ny<-4;  #try also nx<-1000; ny<-10;
 
 e<-.15;

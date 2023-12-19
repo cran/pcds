@@ -62,7 +62,7 @@ passing through the points \code{a} and \code{b} with
 \eqn{x}-coordinates are provided in \code{vector} \code{x}.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1.1,1.2); B<-c(2.3,3.4); p<-c(.51,2.5)
 
 paraline(p,A,B,.45)

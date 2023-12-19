@@ -44,7 +44,7 @@ the function checks if a point lies in the closure of the triangle
 else, it checks if the point lies in the interior of the triangle.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2); p<-c(1.4,1.2)
 
 Tr<-rbind(A,B,C)

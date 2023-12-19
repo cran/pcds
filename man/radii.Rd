@@ -40,7 +40,7 @@ That is, for each \code{x} point \eqn{radius= \min_{y \in Y}(d(x,y))}.
 \code{x} and \code{y} points must be of the same dimension.
 }
 \examples{
-\dontrun{
+\donttest{
 nx<-10
 ny<-5
 X<-cbind(runif(nx),runif(nx))

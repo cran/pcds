@@ -18,7 +18,7 @@ with the default \code{c=.5}.
 For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
-Number of arcs for the PE-PCD whose vertices are the 1D data set, \code{Xp},
+Number of arcs for the CS-PCD whose vertices are the 1D data set, \code{Xp},
 with expansion parameter, \eqn{r \ge 1}, and centrality parameter, \eqn{c \in (0,1)}. PE proximity regions are defined only
 for \code{Xp} points inside the interval \code{int}, i.e., arcs are possible for such points only.
 }

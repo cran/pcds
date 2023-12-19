@@ -2,7 +2,8 @@
 % Please edit documentation in R/CentSim1D.R
 \name{CSarc.dens.test1D}
 \alias{CSarc.dens.test1D}
-\title{A test of segregation/association based on arc density of Central Similarity Proximity Catch Digraph
+\title{A test of segregation/association based on arc density of
+Central Similarity Proximity Catch Digraph
 (CS-PCD) for 1D data}
 \usage{
 CSarc.dens.test1D(
@@ -29,7 +30,7 @@ must be in \eqn{(0,1)} (default \code{c=.5}).}
 \item{support.int}{Support interval \eqn{(a,b)} with \eqn{a<b}.
 Uniformity of \code{Xp} points in this interval is tested. Default is \code{NULL}.}
 
-\item{end.int.cor}{A logical argument for end interval correction, default is \code{FALSE},
+\item{end.int.cor}{A logical argument for end-interval correction, default is \code{FALSE},
 recommended when both \code{Xp} and \code{Yp} have the same interval support.}
 
 \item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.}
@@ -51,27 +52,59 @@ mean arc density under uniform distribution.}
 \item{data.name}{Name of the data set}
 }
 \description{
-An object of class \code{"htest"} (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
-randomness (CSR) or uniformity of \code{Xp} points in the range (i.e., range) of \code{Yp} points against the alternatives
-of segregation (where \code{Xp} points cluster away from \code{Yp} points) and association (where \code{Xp} points cluster around
-\code{Yp} points) based on the normal approximation of the arc density of the CS-PCD for uniform 1D data.
+An object of class \code{"htest"} (i.e., hypothesis test) function
+which performs a hypothesis test of complete spatial
+randomness (CSR) or uniformity of \code{Xp} points in the range
+(i.e., range) of \code{Yp} points against the alternatives
+of segregation (where \code{Xp} points cluster away from \code{Yp} points)
+and association (where \code{Xp} points cluster around
+\code{Yp} points) based on the normal approximation of
+the arc density of the CS-PCD for uniform 1D data.
 
-The function yields the test statistic, \eqn{p}-value for the corresponding \code{alternative},
-the confidence interval, estimate and null value for the parameter of interest (which is the arc density),
+The function yields the test statistic, \eqn{p}-value
+for the corresponding \code{alternative},
+the confidence interval, estimate and null value for the parameter of interest
+(which is the arc density),
 and method and name of the data set used.
 
-Under the null hypothesis of uniformity of \code{Xp} points in the range of \code{Yp} points, arc density
-of CS-PCD whose vertices are \code{Xp} points equals to its expected value under the uniform distribution and
-\code{alternative} could be two-sided, or left-sided (i.e., data is accumulated around the \code{Yp} points, or association)
-or right-sided (i.e., data is accumulated around the centers of the intervals, or segregation).
+Under the null hypothesis of uniformity of \code{Xp} points
+in the range of \code{Yp} points, arc density
+of CS-PCD whose vertices are \code{Xp} points equals to
+its expected value under the uniform distribution and
+\code{alternative} could be two-sided, or left-sided
+(i.e., data is accumulated around the \code{Yp} points, or association)
+or right-sided (i.e., data is accumulated around the centers of the intervals,
+or segregation).
 
-CS proximity region is constructed with the expansion parameter \eqn{t > 0} and centrality parameter \code{c} which yields
-\eqn{M}-vertex regions. More precisely, for a middle interval \eqn{(y_{(i)},y_{(i+1)})}, the center is
+CS proximity region is constructed with the expansion parameter \eqn{t > 0}
+and centrality parameter \code{c} which yields
+\eqn{M}-vertex regions.
+More precisely, for a middle interval \eqn{(y_{(i)},y_{(i+1)})}, the center is
 \eqn{M=y_{(i)}+c(y_{(i+1)}-y_{(i)})} for the centrality parameter \eqn{c \in (0,1)}.
-This test is more appropriate when supports of \code{Xp} and \code{Yp} has a substantial overlap.
+If there are duplicates of \code{Yp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 
-\code{end.int.cor} is for end interval correction, (default is "no end interval correction", i.e., \code{end.int.cor=FALSE}),
-recommended when both \code{Xp} and \code{Yp} have the same interval support.
+**Caveat:** This test is currently a conditional test,
+where \code{Xp} points are assumed to be random, while \code{Yp} points are
+assumed to be fixed (i.e., the test is conditional on \code{Yp} points).
+Furthermore, the test is a large sample test
+when \code{Xp} points are substantially larger than \code{Yp} points,
+say at least 5 times more.
+This test is more appropriate when supports of \code{Xp} and \code{Yp}
+have a substantial overlap.
+Currently, the \code{Xp} points outside the range of \code{Yp} points
+are handled with a range correction (or
+end-interval correction) factor (see the description below and the function code.)
+However, in the special case of no \code{Xp} points in the range of \code{Yp} points,
+arc density is taken to be 1,
+as this is clearly a case of segregation.
+Removing the conditioning and extending it to the case of non-concurring supports is
+an ongoing line of research of the author of the package.
+
+\code{end.int.cor} is for end-interval correction,
+recommended when both \code{Xp} and \code{Yp} have the same interval support
+(default is "no end-interval correction", i.e., \code{end.int.cor=FALSE}).
 }
 \examples{
 tau<-2

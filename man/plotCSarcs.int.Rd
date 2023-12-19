@@ -2,7 +2,8 @@
 % Please edit documentation in R/CentSim1D.R
 \name{plotCSarcs.int}
 \alias{plotCSarcs.int}
-\title{The plot of the arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) for 1D data
+\title{The plot of the arcs of Central Similarity Proximity Catch Digraphs
+(CS-PCDs) for 1D data
 (vertices jittered along \eqn{y}-coordinate) - one interval case}
 \usage{
 plotCSarcs.int(
@@ -52,11 +53,17 @@ A plot of the arcs of CS-PCD whose vertices are the 1D data set \code{Xp} in whi
 along \eqn{y}-axis for better visualization.
 }
 \description{
-Plots the arcs of CS-PCD whose vertices are the 1D points, \code{Xp}. CS proximity regions are constructed with
-expansion parameter \eqn{t > 0} and centrality parameter \eqn{c \in (0,1)} and the intervals are based on the
+Plots the arcs of CS-PCD whose vertices are the 1D points, \code{Xp}.
+CS proximity regions are constructed with
+expansion parameter \eqn{t > 0} and centrality parameter \eqn{c \in (0,1)}
+and the intervals are based on the
 interval \code{int}\eqn{=(a,b)}
 That is, data set \code{Xp}
-constitutes the vertices of the digraph and \code{int} determines the end points of the interval.
+constitutes the vertices of the digraph
+and \code{int} determines the end points of the interval.
+If there are duplicates of \code{Xp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 
 For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)} (default for \eqn{Jit=.1}) is added to
 the \eqn{y}-direction where \code{Jit} equals to the range of \eqn{\{}\code{Xp}, \code{int}\eqn{\}}

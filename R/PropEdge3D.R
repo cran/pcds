@@ -37,7 +37,7 @@
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #'
@@ -147,7 +147,7 @@ NPEstd.tetra <- function(p,r,rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #'
@@ -256,7 +256,7 @@ IarcPEstd.tetra <- function(p1,p2,r,rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #' r<-1.5
@@ -372,7 +372,7 @@ plotPEregs.std.tetra <- function(Xp,r,main=NULL,xlab=NULL,ylab=NULL,zlab=NULL,xl
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' set.seed(1)
 #' tetra<-rbind(A,B,C,D)+matrix(runif(12,-.25,.25),ncol=3)
@@ -445,7 +445,7 @@ NPEtetra <- function(p,th,r,M="CM",rv=NULL)
 #' Proportional Edge Proximity Catch Digraphs (PE-PCDs)
 #'
 #' @description Returns \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))} for 3D points \code{p1} and \code{p2}, that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
-#' returns 0 otherwise, where N_{PE}(x,r) is the PE proximity region for point \eqn{x} with the expansion parameter \eqn{r \ge 1}.
+#' returns 0 otherwise, where \eqn{N_{PE}(x,r)} is the PE proximity region for point \eqn{x} with the expansion parameter \eqn{r \ge 1}.
 #'
 #' PE proximity region is constructed with respect to the tetrahedron \code{th} and
 #' vertex regions are based on the center \code{M} which is circumcenter (\code{"CC"}) or
@@ -478,7 +478,7 @@ NPEtetra <- function(p,th,r,M="CM",rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #' n<-3  #try also n<-20
@@ -571,7 +571,7 @@ IarcPEtetra <- function(p1,p2,th,r,M="CM",rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #' n<-5
@@ -609,7 +609,7 @@ inci.matPEtetra <- function(Xp,th,r,M="CM")
   vec1<-rep(1,4);
   D0<-det(matrix(cbind(th,vec1),ncol=4))
   if (round(D0,14)==0)
-  {stop('the tetrahedron is degenerate')}
+  {stop('The tetrahedron is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
@@ -620,17 +620,19 @@ inci.matPEtetra <- function(Xp,th,r,M="CM")
   n<-nrow(Xp)
 
   inc.mat<-matrix(0, nrow=n, ncol=n)
-  if (n>1)
-  {
+ # if (n>1)
+ # {
     for (i in 1:n)
     {p1<-Xp[i,]
-    v<-ifelse(identical(M,"CC"),rel.vert.tetraCC(p1,th)$rv,rel.vert.tetraCM(p1,th)$rv)  #vertex region for p1
-    for (j in ((1:n)) )
+    v<-ifelse(identical(M,"CC"),
+              rel.vert.tetraCC(p1,th)$rv,
+              rel.vert.tetraCM(p1,th)$rv)  #vertex region for p1
+    for (j in (1:n) )
     {p2<-Xp[j,]
     inc.mat[i,j]<-IarcPEtetra(p1,p2,th,r,M,rv=v)
     }
     }
-  }
+  #}
   diag(inc.mat)<-1
   inc.mat
 } #end of the function
@@ -670,10 +672,13 @@ inci.matPEtetra <- function(Xp,th,r,M="CM")
 #' \item{desc}{A short description of the output: number of arcs
 #' and quantities related to the tetrahedron}
 #' \item{num.arcs}{Number of arcs of the PE-PCD}
+#' \item{tri.num.arcs}{Number of arcs of the induced subdigraph of the PE-PCD
+#' for vertices in the tetrahedron \code{th}}
 #' \item{num.in.tetra}{Number of \code{Xp} points in the tetrahedron, \code{th}}
 #' \item{ind.in.tetra}{The vector of indices of the \code{Xp} points that reside in the tetrahedron}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the support tetrahedron.}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed, here,
+#' tessellation points are the vertices of the support tetrahedron \code{th}.}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
 #' @seealso \code{\link{num.arcsPEtri}}, \code{\link{num.arcsCStri}},
@@ -685,7 +690,7 @@ inci.matPEtetra <- function(Xp,th,r,M="CM")
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #'
@@ -708,7 +713,7 @@ num.arcsPEtetra <- function(Xp,th,r,M="CM")
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
 
-  if (is.point(Xp))
+  if (is.point(Xp, dim = 3))
   { Xp<-matrix(Xp,ncol=3)
   } else
   {Xp<-as.matrix(Xp)
@@ -732,11 +737,12 @@ num.arcsPEtetra <- function(Xp,th,r,M="CM")
     stop("M must be one of \"CC\", \"CM\"")
 
   n<-nrow(Xp)
+  tot.arcs<-arcs.in.tetra<-0
   arcs<-0
   ind.in.tetra = NULL
   if (n<=0)
   {
-    arcs<-0
+    tot.arcs<-arcs.in.tetra<-0
   } else
   {
     for (i in 1:n)
@@ -746,10 +752,15 @@ num.arcsPEtetra <- function(Xp,th,r,M="CM")
                      rel.vert.tetraCC(p1,th)$rv,
                      rel.vert.tetraCM(p1,th)$rv)  #vertex region for p1
     ind.in.tetra = c(ind.in.tetra,i)
+    for (k in (1:n)[-i])  #to avoid loops
+    {
+      arcs.in.tetra<-arcs.in.tetra+IarcPEtetra(p1,Xp[k,],th,r,M,rv=vert)
+    }
+    }
+
     for (j in (1:n)[-i])  #to avoid loops
     {  p2 = Xp[j,]
-    arcs<-arcs+IarcPEtetra(p1,p2,th,r,M,rv=vert)
-    }
+    tot.arcs<-tot.arcs+IarcPEtetra(p1,p2,th,r,M) #,rv=vert)
     }
     }
   }
@@ -758,7 +769,8 @@ num.arcsPEtetra <- function(Xp,th,r,M="CM")
   desc<-"Number of Arcs of the PE-PCD with vertices Xp and Quantities Related to the Support Tetrahedron"
 
   res<-list(desc=desc, #description of the output
-            num.arcs=arcs, #number of arcs for the PE-PCD
+            num.arcs=tot.arcs, #number of arcs for the PE-PCD
+            tetra.num.arcs=arcs.in.tetra, #vector of number of arcs for the triangle
             num.in.tetra=NinTetra, # number of Xp points in CH of Yp points
             ind.in.tetra=ind.in.tetra, #indices of data points inside the tetrahedron
             tess.points=th, #tessellation points
@@ -813,7 +825,7 @@ num.arcsPEtetra <- function(Xp,th,r,M="CM")
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #' n<-10  #try also n<-20
@@ -860,8 +872,6 @@ PEarc.dens.tetra <- function(Xp,th,r,M="CM",th.cor=FALSE)
 
   nx<-nrow(Xp)
   narcs<-num.arcsPEtetra(Xp,th,r,M)$num.arcs
-  # mean.rho<-muPE2D(r)
-  # var.rho<-asyvarPE2D(r)
 
   if (th.cor==TRUE)
   {
@@ -926,7 +936,7 @@ PEarc.dens.tetra <- function(Xp,th,r,M="CM",th.cor=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' set.seed(1)
 #' tetra<-rbind(A,B,C,D)+matrix(runif(12,-.25,.25),ncol=3) #adding jitter to make it non-regular
@@ -968,7 +978,7 @@ plotPEregs.tetra <- function(Xp,th,r,M="CM",main=NULL,xlab=NULL,ylab=NULL,zlab=N
   vec1<-rep(1,4);
   D0<-det(matrix(cbind(th,vec1),ncol=4))
   if (round(D0,14)==0)
-  {stop('the tetrahedron is degenerate')}
+  {stop('The tetrahedron is degenerate')}
 
   if (length(M) > 1 || sum(M==c("CM","CC"))==0)
     stop("M must be one of \"CC\", \"CM\"")
@@ -1060,7 +1070,7 @@ plotPEregs.tetra <- function(Xp,th,r,M="CM",main=NULL,xlab=NULL,ylab=NULL,zlab=N
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' set.seed(123)
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
@@ -1219,7 +1229,7 @@ Idom.num1PEstd.tetra <- function(p,Xp,r,rv=NULL,ch.data.pnt=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #'
@@ -1353,7 +1363,7 @@ Idom.num2PEstd.tetra <- function(p1,p2,Xp,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' set.seed(123)
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
@@ -1493,7 +1503,7 @@ Idom.num3PEstd.tetra <- function(p1,p2,pt3,Xp,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.da
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #' n<-5 #try also n<-20
@@ -1587,7 +1597,7 @@ Idom.num1PEtetra <- function(p,Xp,th,r,M="CM",rv=NULL,ch.data.pnt=FALSE)
   vec1<-rep(1,4);
   D0<-det(matrix(cbind(th,vec1),ncol=4))
   if (round(D0,14)==0)
-  {stop('the tetrahedron is degenerate')}
+  {stop('The tetrahedron is degenerate')}
 
   if (length(M) > 1 || sum(M==c("CM","CC"))==0)
     stop("M must be one of \"CC\", \"CM\"")
@@ -1661,7 +1671,7 @@ Idom.num1PEtetra <- function(p,Xp,th,r,M="CM",rv=NULL,ch.data.pnt=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #' n<-5
@@ -1738,7 +1748,7 @@ Idom.num2PEtetra <- function(p1,p2,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts
   vec1<-rep(1,4);
   D0<-det(matrix(cbind(th,vec1),ncol=4))
   if (round(D0,14)==0)
-  {stop('the tetrahedron is degenerate')}
+  {stop('The tetrahedron is degenerate')}
 
   if (length(M) > 1 || sum(M==c("CM","CC"))==0)
     stop("M must be one of \"CC\", \"CM\"")
@@ -1811,7 +1821,7 @@ Idom.num2PEtetra <- function(p1,p2,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' set.seed(123)
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
@@ -1887,7 +1897,7 @@ Idom.num3PEtetra <- function(p1,p2,pt3,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,rv3=NULL
   vec1<-rep(1,4);
   D0<-det(matrix(cbind(th,vec1),ncol=4))
   if (round(D0,14)==0)
-  {stop('the tetrahedron is degenerate')}
+  {stop('The tetrahedron is degenerate')}
 
   if (length(M) > 1 || sum(M==c("CM","CC"))==0)
     stop("M must be one of \"CC\", \"CM\"")
@@ -1949,7 +1959,7 @@ Idom.num3PEtetra <- function(p1,p2,pt3,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,rv3=NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #' n<-10  #try also n<-20
@@ -1986,7 +1996,7 @@ PEdom.num.tetra <- function(Xp,th,r,M="CM")
   vec1<-rep(1,4);
   D0<-det(matrix(cbind(th,vec1),ncol=4))
   if (round(D0,14)==0)
-  {stop('the tetrahedron is degenerate')}
+  {stop('The tetrahedron is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}

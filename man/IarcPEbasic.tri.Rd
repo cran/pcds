@@ -86,7 +86,7 @@ studies under the uniformity hypothesis.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:arc-density-PE;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C);

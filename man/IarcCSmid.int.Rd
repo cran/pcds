@@ -20,7 +20,7 @@ constructed and \eqn{p_2} is the point which the function is checking whether it
 with the default \code{c=.5}.
 For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
-\item{rv}{Index of the end interval containing the point, either \code{1,2} or \code{NULL} (default is \code{NULL}).}
+\item{rv}{Index of the end-interval containing the point, either \code{1,2} or \code{NULL} (default is \code{NULL}).}
 }
 \value{
 \eqn{I(p_2} in \eqn{N_{CS}(p_1,t,c))} for points \eqn{p_1} and \eqn{p_2} that is, returns 1 if \eqn{p_2} is in \eqn{N_{CS}(p_1,t,c)},

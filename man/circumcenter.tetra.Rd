@@ -18,7 +18,7 @@ Returns the circumcenter a given tetrahedron \code{th}
 with vertices stacked row-wise.
 }
 \examples{
-\dontrun{
+\donttest{
 set.seed(123)
 A<-c(0,0,0)+runif(3,-.2,.2);
 B<-c(1,0,0)+runif(3,-.2,.2);

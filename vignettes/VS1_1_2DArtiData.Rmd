@@ -115,7 +115,7 @@ which is an object of class "`NumArcs`" and takes the arguments
 - `M`, the center of the triangle used to construct the vertex regions. `"CC"` stands for circumcenter of each Delaunay triangle or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
 default is `M="CC"` i.e., the circumcenter of each triangle.
 
-Its `call` (with `Narcs` in the below script) just returns the description of the digraph.
+Its `Call` (with `Narcs` in the below script) just returns the description of the digraph.
 Its `summary` returns a description of the digraph, 
 number of arcs of the AS-PCD,
 number of data (`Xp`) points in the convex hull of `Yp` (nontarget) points,
@@ -132,13 +132,13 @@ This function returns the following list as output:
 
 * `desc`: A description of the PCD and the output
 * `num.arcs`: Total number of arcs in all triangles, i.e., the number of arcs for the entire AS-PCD
-* `tri.num.arcs`: The vector of the number of arcs of the component of the AS-PCD in the
+* `tri.num.arcs`: The vector of the number of arcs of the components of the AS-PCD in the
 Delaunay triangles based on $\Y$ points
 * `num.in.conv.hull`: Number of $\X$ points in the convex hull of $\Y$ points
 * `num.in.tris`: The vector of number of $\X$ points in the Delaunay triangles based on $\Y$ points
 * `weight.vec`: The vector of the areas of Delaunay triangles based on $\Y$ points
-* `del.tri.ind`: Indices of Delaunay triangles based on $\Y$ points,
-each column is the vector of indices of the vertices of one triangle.
+* `del.tri.ind`: A matrix of the indices of Delaunay triangles based on $\Y$ points,
+ each column corresponds to the vector of indices of the vertices of one triangle.
 * `data.tri.ind`: A vector of indices of Delaunay triangles in which data points reside,
 i.e., column number of `del.tri.ind` for each $\X$ point.
 * `tess.points`: Triangulation points (i.e. `Yp` points)
@@ -244,7 +244,7 @@ plotASregs(Xp,Yp,M,xlab="",ylab="")
 
 The function `arcsAS` is an object of class "`PCDs`" and
 has the same arguments as in `num.arcsAS`.
-Its `call` (with `Arcs` in the below script) just returns the description of the digraph.
+Its `Call` (with `Arcs` in the below script) just returns the description of the digraph.
 Its `summary` returns a description of the digraph, selected tail (or source) points of the arcs in the digraph
 (first 6 or fewer are printed),
 selected head (or end) points of the arcs in the digraph
@@ -370,7 +370,7 @@ plotPEregs(Xp,Yp,r,M,xlab="",ylab="")
 <!-- ``` -->
 
 The function `arcsPE` is an object of class "`PCDs`".
-Its `call`, `summary`, and `plot` are as in `arcsAS` with the addition of the expansion parameter 
+Its `Call`, `summary`, and `plot` are as in `arcsAS` with the addition of the expansion parameter 
 (see the `Parameters of the digraph` part)
 in the `summary.PCDs`.
 The `plot` function returns the same plot as in `plotPEarcs`, 
@@ -439,7 +439,7 @@ which takes the arguments
 - `Yp`, a set of 2D points which constitute the vertices of the Delaunay triangles (i.e., class $\Y$ points),
 - `r` a positive real number which serves as the expansion parameter in PE proximity region; must be $\ge 1$,
 - `ch.cor`, a logical argument for convex hull correction, default `ch.cor=FALSE`,
-recommended when both `Xp` and `Yp` have the same rectangular support.
+recommended when both `Xp` and `Yp` have the same or similar rectangular support.
 - `alternative`, type of the alternative hypothesis in the test, one of `"two.sided"`, `"less"`, `"greater"`.
 - `conf.level`, the level of the confidence interval, default is `0.95`, for the arc density of PE-PCD based on
 the 2D data set `Xp`.
@@ -574,7 +574,9 @@ PEdom.num.binom.test(Xp,Yp,r) #try also PEdom.num.binom.test(Xp,Yp,r,alt="g") or
 #>                             5                             1
 ```
 
-The test statistic in `PEdom.num.norm.test` is based on the normal approximation to the binomial distribution.
+The test statistic in `PEdom.num.norm.test` is based on the normal approximation 
+to the binomial distribution
+of the (asymptotic) distribution of the domination number of PE-PCDs.
 For this approximation to work, number of `Yp` points must be at least 5 (i.e., about 7 or more Delaunay triangles)
 and number of `Xp` points must be at least 7 times more than number of `Yp` points.
 
@@ -601,11 +603,17 @@ See @ceyhan:masa-2007, @ceyhan:dom-num-NPE-Spat2011, and @ceyhan:mcap2012 for mo
 and their use in testing spatial interaction. 
 
 In all the test functions (based on arc density and domination number) above, 
-the option `ch.cor` is for convex hull correction (default is "no convex hull correction", i.e., `ch.cor=FALSE`)
-which is recommended when `Xp` points tend to be mostly within the support of the `Yp` points.
+the option `ch.cor` is for convex hull correction 
+which is recommended when `Xp` points tend to be mostly within the support of the `Yp` points
+and is implemented with a correction factor
+(default is "no convex hull correction", i.e., `ch.cor=FALSE`).
 When the symmetric difference of the supports of $\X$ and $\Y$ is non-negligible, 
 the tests can be adjusted to account for the $\X$ points outside the
 convex hull of $\Y$ points with the option `ch.cor=TRUE`.
+However, 
+currently, the convex hull correction factor
+is derived under the assumption of
+uniformity of `Xp` and `Yp` points in the study window.
 For example, `PEarc.dens.test(Xp,Yp,r,ch=TRUE)` would yield the convex hull corrected version 
 of the arc-based test of spatial interaction.
 
@@ -680,7 +688,7 @@ plotCSregs(Xp,Yp,tau,M,xlab="",ylab="")
 <!-- ``` -->
 
 The function `arcsCS` is an object of class "`PCDs`".
-Its arguments and the output for `call`, `summary`, and `plot` are as in `arcsPE`.
+Its arguments and the output for `Call`, `summary`, and `plot` are as in `arcsPE`.
 The `plot` function returns the same plot as in `plotCSarcs`, 
 hence we comment it out below.
 ```{r adCSarcs2, eval=F, fig.cap="The arcs of the CS-PCD for the 2D artificial data set using the CM-edge regions and expansion parameter $t=1.5$ together with the Delaunay triangles based on the $Y$ points (dashed lines)."}

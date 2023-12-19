@@ -2,7 +2,8 @@
 % Please edit documentation in R/CentSim1D.R
 \name{plotCSregs1D}
 \alias{plotCSregs1D}
-\title{The plot of the Central Similarity (CS) Proximity Regions (vertices jittered along \eqn{y}-coordinate)
+\title{The plot of the Central Similarity (CS) Proximity Regions
+(vertices jittered along \eqn{y}-coordinate)
 - multiple interval case}
 \usage{
 plotCSregs1D(
@@ -49,16 +50,22 @@ as vertical lines in the plot, else centers of the intervals are not plotted.}
 \item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
-Plot of the CS proximity regions for 1D points located in the middle or end intervals
+Plot of the CS proximity regions for 1D points located in the middle or end-intervals
 based on \code{Yp} points
 }
 \description{
-Plots the points in and outside of the intervals based on \code{Yp} points and also the CS proximity regions
+Plots the points in and outside of the intervals
+based on \code{Yp} points and also the CS proximity regions
 (which are also intervals).
+If there are duplicates of \code{Yp} or \code{Xp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 
 CS proximity region is constructed with expansion parameter \eqn{t>0} and
-centrality parameter \eqn{c \in (0,1)}. For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)}
-(default is \eqn{Jit=.1}) times range of \code{Xp} and \code{Yp} and the proximity regions (intervals)) is added to the
+centrality parameter \eqn{c \in (0,1)}.
+For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)}
+(default is \eqn{Jit=.1}) times range of \code{Xp} and
+\code{Yp} and the proximity regions (intervals)) is added to the
 \eqn{y}-direction.
 
 \code{centers} is a logical argument, if \code{TRUE},

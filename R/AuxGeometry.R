@@ -21,7 +21,7 @@
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(-1.22,-2.33); B<-c(2.55,3.75,4)
 #' is.point(A)
 #' is.point(A,1)
@@ -64,7 +64,7 @@ is.point <- function(p,dim=2)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' dimension(3)
 #' dim(3)
 #'
@@ -197,7 +197,7 @@ slope <- function(a,b)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(-1.22,-2.33); B<-c(2.55,3.75)
 #'
 #' xr<-range(A,B);
@@ -334,7 +334,7 @@ Line <- function(a,b,x)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(-1.22,-2.33); B<-c(2.55,3.75); C<-c(0,6); D<-c(3,-2)
 #'
 #' ip<-intersect2lines(A,B,C,D)
@@ -421,7 +421,7 @@ intersect2lines <- function(p1,q1,p2,q2)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,2); B<-c(2,3); P<-c(3,1.5)
 #'
 #' dpl<-dist.point2line(P,A,B);
@@ -533,7 +533,7 @@ dist.point2line <- function(p,a,b)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Dist(B,C);
 #' dist(rbind(B,C))
@@ -589,7 +589,7 @@ Dist <- function(x,y)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' dist.point2set(c(1,2),Te)
@@ -711,7 +711,7 @@ dist.point2set <- function(p,Yp)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1.1,1.2); B<-c(2.3,3.4); p<-c(.51,2.5)
 #'
 #' paraline(p,A,B,.45)
@@ -858,7 +858,7 @@ paraline <- function(p,a,b,x)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' cent<-c(1,1); rad<-1; p<-c(1.4,1.2)
 #' #try also cent<-runif(2); rad<-runif(1); p<-runif(2);
 #'
@@ -951,7 +951,7 @@ in.circle <- function(p,cent,rad,boundary=TRUE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1.1,1.2); B<-c(2.3,3.4); p<-c(.51,2.5)
 #'
 #' perpline(p,A,B,.45)
@@ -1100,7 +1100,7 @@ perpline <- function(p,a,b,x)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-10
 #' ny<-5
 #' X<-cbind(runif(nx),runif(nx))
@@ -1205,7 +1205,7 @@ radii <- function(x,y)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #'
 #' ny<-10
@@ -1295,7 +1295,7 @@ radius <- function(p,Y)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(0.5,.8);
 #' Tr<-rbind(A,B,C);
 #' area.polygon(Tr)
@@ -1395,7 +1395,7 @@ area.polygon <- function(h)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' Q<-c(1,10,3); R<-c(1,1,3); S<-c(3,9,12); P<-c(1,1,0)
 #'
 #' pts<-rbind(Q,R,S,P)
@@ -1590,7 +1590,7 @@ paraplane <- function(p,a,b,c,x,y)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,10,3); B<-c(1,1,3);
 #'
 #' vecs<-rbind(A,B)
@@ -1783,7 +1783,7 @@ Line3D <- function(p,v,t,dir.vec=TRUE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P<-c(1,10,4); Q<-c(1,1,3); R<-c(3,9,12)
 #'
 #' vecs<-rbind(P,R-Q)
@@ -1970,7 +1970,7 @@ paraline3D <- function(p,a,b,t)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P<-c(1,1,1); Q<-c(1,10,4); R<-c(1,1,3); S<-c(3,9,12)
 #'
 #' cf<-as.numeric(Plane(Q,R,S,1,1)$coeff)
@@ -2138,7 +2138,7 @@ perpline2plane <- function(p,a,b,c,t)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' L1<-c(2,4,6); L2<-c(1,3,5);
 #' A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
 #'
@@ -2147,8 +2147,7 @@ perpline2plane <- function(p,a,b,c,t)
 #' pts<-rbind(L1,L2,A,B,C,Pint)
 #'
 #' tr<-max(Dist(L1,L2),Dist(L1,Pint),Dist(L2,Pint))
-#' tf<-tr*1.1 #how far to go at the lower and upper ends
-#' in the x-coordinate
+#' tf<-tr*1.1 #how far to go at the lower and upper ends in the x-coordinate
 #' tsq<-seq(-tf,tf,l=5)  #try also l=10, 20, or 100
 #'
 #' lnAB3D<-Line3D(L1,L2,tsq)
@@ -2274,7 +2273,7 @@ intersect.line.plane <- function(p1,p2,p3,p4,p5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P1<-c(1,10,3); P2<-c(1,1,3); P3<-c(3,9,12) #also try P2=c(2,2,3)
 #'
 #' pts<-rbind(P1,P2,P3)
@@ -2418,13 +2417,13 @@ Plane <- function(a,b,c,x,y)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' P<-c(5,2,40)
 #' P1<-c(1,2,3); P2<-c(3,9,12); P3<-c(1,1,3);
 #'
 #' dis<-dist.point2plane(P,P1,P2,P3);
 #' dis
-#' Pr<-dis$proj #projection on the plane
+#' Pr<-dis$prj #projection on the plane
 #'
 #' xseq<-seq(0,10,l=5)  #try also l=10, 20, or 100
 #' yseq<-seq(0,10,l=5)  #try also l=10, 20, or 100

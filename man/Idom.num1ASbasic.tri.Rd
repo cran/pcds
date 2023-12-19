@@ -2,7 +2,8 @@
 % Please edit documentation in R/ArcSliceFunctions.R
 \name{Idom.num1ASbasic.tri}
 \alias{Idom.num1ASbasic.tri}
-\title{The indicator for a point being a dominating point for Arc Slice Proximity Catch Digraphs
+\title{The indicator for a point being a dominating point for
+Arc Slice Proximity Catch Digraphs
 (AS-PCDs) - standard basic triangle case}
 \usage{
 Idom.num1ASbasic.tri(p, Xp, c1, c2, M = "CC", rv = NULL, ch.data.pnt = FALSE)
@@ -39,9 +40,11 @@ Any given triangle can be mapped to the standard basic triangle by a combination
 original triangle. Hence standard basic triangle is useful for simulation
 studies under the uniformity hypothesis.
 
-Vertex regions are based on the center \code{M="CC"} for circumcenter
-of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of \eqn{T_b}; default is \code{M="CC"}.
+Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the standard basic triangle \eqn{T_b}
+or based on circumcenter of \eqn{T_b};
+default is \code{M="CC"}, i.e., circumcenter of \eqn{T_b}.
 Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
 in the order they are stacked row-wise.
 
@@ -52,7 +55,7 @@ if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)

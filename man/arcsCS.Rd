@@ -20,9 +20,10 @@ triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triang
 A \code{list} with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, it is the center used to construct the edge regions.}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is Delaunay triangulation based on \code{Yp} points.}
-\item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed,
+here, tessellation is Delaunay triangulation based on \code{Yp} points.}
+\item{tess.name}{Name of the tessellation points \code{tess.points}}
 \item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 \item{S}{Tails (or sources) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
@@ -33,9 +34,10 @@ number of triangles, number of arcs, and arc density.}
 }
 \description{
 An object of class \code{"PCDs"}.
-Returns arcs as tails (or sources) and heads (or arrow ends) of Central Similarity Proximity Catch Digraph
-(CS-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case
+Returns arcs of CS-PCD as tails (or sources) and heads (or arrow ends)
 and related parameters and the quantities of the digraph.
+The vertices of the CS-PCD are the data points in \code{Xp}
+in the multiple triangle case.
 
 CS proximity regions are
 defined with respect to the Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{t>0} and
@@ -44,16 +46,19 @@ in the interior of each Delaunay triangle (default for \eqn{M=(1,1,1)} which is 
 the triangle). Each Delaunay triangle is first converted to an (nonscaled) basic triangle so that
 \code{M} will be the same type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
 
-Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
-(i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-convex hull of \code{Yp} points). For the number of arcs, loops are not allowed so arcs are only possible
+Convex hull of \code{Yp} is partitioned
+by the Delaunay triangles based on \code{Yp} points
+(i.e., multiple triangles are the set of these Delaunay triangles
+whose union constitutes the
+convex hull of \code{Yp} points).
+For the number of arcs, loops are not allowed so arcs are only possible
 for points inside the convex hull of \code{Yp} points.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-\dontrun{
+\donttest{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-15; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 

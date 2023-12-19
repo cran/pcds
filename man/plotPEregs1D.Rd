@@ -2,7 +2,8 @@
 % Please edit documentation in R/PropEdge1D.R
 \name{plotPEregs1D}
 \alias{plotPEregs1D}
-\title{The plot of the Proportional Edge (PE) Proximity Regions (vertices jittered along \eqn{y}-coordinate)
+\title{The plot of the Proportional Edge (PE) Proximity Regions
+(vertices jittered along \eqn{y}-coordinate)
 - multiple interval case}
 \usage{
 plotPEregs1D(
@@ -50,16 +51,22 @@ as vertical lines in the plot, else centers of the intervals are not plotted (de
 \item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
-Plot of the PE proximity regions for 1D points located in the middle or end intervals
+Plot of the PE proximity regions for 1D points located in the middle or end-intervals
 based on \code{Yp} points
 }
 \description{
-Plots the points in and outside of the intervals based on \code{Yp} points and also the PE proximity regions
-(i.e., intervals). PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and
+Plots the points in and outside of the intervals
+based on \code{Yp} points and also the PE proximity regions
+(i.e., intervals).
+PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and
 centrality parameter \eqn{c \in (0,1)}.
+If there are duplicates of \code{Yp} or \code{Xp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 
 For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)}
-(default is \eqn{Jit=.1}) times range of \code{Xp} and \code{Yp} and the proximity regions (intervals)) is added to the
+(default is \eqn{Jit=.1}) times range of \code{Xp}
+and \code{Yp} and the proximity regions (intervals)) is added to the
 \eqn{y}-direction.
 
 \code{centers} is a logical argument, if \code{TRUE},
@@ -69,7 +76,7 @@ else centers of the intervals are not plotted.
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 r<-2
 c<-.4
 a<-0; b<-10; int<-c(a,b);

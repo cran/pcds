@@ -307,10 +307,14 @@ summary(Narcs)
 ```
 
 The arc density of the AS-PCD can be computed by the function `ASarc.dens.tri`.
-It takes the arguments `Xp,tri,M="CC",tri.cor` where `Xp` is the data set (or $\X$ points)
+It takes the arguments `Xp,tri,M="CC",in.tri.only` where `Xp` is the data set (or $\X$ points)
 `tri,M="CC"` are as above.
-Arc density can be adjusted (or corrected) for the points outside the triangle by using the option `tri.cor=T`, 
-default option is `tri.cor=FALSE`. 
+`in.tri.only` is a logical argument (default is `FALSE`) for considering only the points
+inside the triangle or all the points as the vertices of the digraph.
+if `in.tri.only=TRUE`, arc density is computed only for 
+the points inside the triangle (i.e., arc density of the subdigraph 
+induced by the vertices in the triangle is computed), 
+otherwise arc density of the entire digraph (i.e., digraph with all the vertices) is computed. 
 ```{r eval=F}
 ASarc.dens.tri(Xp,Tr,M)
 #> [1] 0.5
@@ -340,7 +344,7 @@ using the below code.
 The part `M = as.numeric(arcsAStri(Xp,Tr)$param)` is optional, 
 for the below annotation of the plot since circumcenter is used for the vertex regions.
 ```{r ASarcs3, eval=F, fig.cap="Arcs of the AS-PCD with 10 $X$ points and vertex regions (dashed lines) are based on circumcenter. The vertices and the center are labeled."}
-par(pty = "s")
+oldpar <- par(pty = "s")
 plotASarcs.tri(Xp,Tr,asp=1,xlab="",ylab="",vert.reg = TRUE); M = (arcsAStri(Xp,Tr)$param)$c
 
 CC<-circumcenter.tri(Tr)
@@ -363,6 +367,7 @@ xc<-txt[,1]+c(-.02,.02,.02,.05,.05,-0.03,-.01)
 yc<-txt[,2]+c(.02,.02,.02,.07,.02,.05,-.06)
 txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
 text(xc,yc,txt.str)
+par(oldpar)
 ```
 
 Plot of the AS proximity regions can be obtained by the function `plotASregs.tri`.
@@ -371,8 +376,9 @@ It takes arguments `Xp,tri,M="CC"` (as in `num.arcsAStri`) and other options for
 See the help page for the function using `? plotASregs.tri`.
 ```{r ASPR1, fig.cap="AS proximity regions for the $X$ points used above."}
 M<-c(1.6,1.2) #try also M<-c(1.6620051,0.8136604) or M="CC"
-par(pty = "s")
+oldpar <- par(pty = "s")
 plotASregs.tri(Xp,Tr,M,vert.reg = T,xlab="",ylab="")
+par(oldpar)
 ```
 
 <!-- ```{r ASPR2, fig.cap="AS proximity regions for two of the $X$ points for better visualization."} -->
@@ -566,8 +572,8 @@ summary(Narcs)
 ```
 
 The arc density of the PE-PCD can be computed by the function `PEarc.dens.tri`.
-It takes the arguments `Xp,tri,r,M,tri.cor` where `Xp` is the data set (or $\X$ points)
-`r,tri,M` are as above
+It takes the arguments `Xp,tri,r,M,in.tri.only` where `Xp` is the data set (or $\X$ points)
+`r,tri,M` are as above, `in.tri.only` is as in `ASarc.dens.tri`,
 and returns output as list with elements 
 
 - `arc.dens`, arc density of PE-PCD whose vertices are the 2D numerical data set, `Xp`,
@@ -575,8 +581,8 @@ and returns output as list with elements
 density of PE-PCD for uniform data in the triangle `tri`, and
 - `caveat` a warning as `"The standardized arc density is only correct when M is the center of mass in the current version"`.
 
-Arc density can be adjusted (or corrected) for the points outside the triangle by using the option `tri.cor=TRUE` as in the `ASarc.dens.tri`.
-Moreover, the standardized arc density is only correct when $M$ is the center of mass in the current version.
+<!-- Arc density can be adjusted (or corrected) for the points outside the triangle by using the option `in.tri.only=TRUE` as in the `ASarc.dens.tri`. -->
+The standardized arc density is only correct when $M$ is the center of mass in the current version.
 ```{r eval=F}
 PEarc.dens.tri(Xp,Tr,r,M)
 #> $arc.dens
@@ -807,9 +813,10 @@ summary(Narcs)
 ```
 
 The arc density of the CS-PCD can be computed by the function `CSarc.dens.tri`.
-It takes the arguments `Xp,tri,t,M=c(1,1,1),tri.cor=FALSE` where `Xp` is the data set (or $\X$ points)
-`tri,t,M=c(1,1,1),tri.cor=FALSE` are as above.
-Arc density can be adjusted (or corrected) for the points outside the triangle by using the option `tri.cor=TRUE` as in the `num.arcsPEtri`.
+It takes the arguments `Xp,tri,t,M=c(1,1,1),in.tri.only=FALSE` where `Xp` is the data set (or $\X$ points)
+`tri,t,M=c(1,1,1),in.tri.only=FALSE` are as above
+and `in.tri.only` is as in `ASarc.dens.tri`.
+<!-- Arc density can be adjusted (or corrected) for the points outside the triangle by using the option `in.tri.only=TRUE` as in the `num.arcsPEtri`. -->
 ```{r eval=F }
 CSarc.dens.tri(Xp,Tr,tau,M)
 #> $arc.dens
@@ -1126,7 +1133,7 @@ Ylim<-range(Tr[,2],CC[2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-par(pty="s")
+oldpar <- par(pty="s")
 plot(A,asp=1,pch=".",xlab="",ylab="",
      main="Circumcenter of a Triangle",
      axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
@@ -1140,6 +1147,7 @@ xc<-txt[,1]+c(-.08,.08,.08,.12,-.09,-.1,-.09)
 yc<-txt[,2]+c(.02,-.02,.03,-.06,.02,.06,-.04)
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
+par(oldpar)
 ```
 
 The function `circumcenter.basic.tri` is a special case of `circumcenter.tri` and takes the argument `c1,c2`
@@ -1511,7 +1519,6 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 # plot of the data in the convex hull of Y points together with the Delaunay triangulation
-#par(pty="s")
 plot(Xp,main="X Points in Delaunay Triangles for Y Points", xlab=" ", ylab=" ",
      xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
 interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")

@@ -56,9 +56,11 @@ Point, \code{p1}, is in the vertex region of vertex \code{rv1} (default is \code
 and point, \code{p2}, is in the vertex region of vertex \code{rv2} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
 in the order they are stacked row-wise.
 
-Vertex regions are based on the center \code{M="CC"} for circumcenter
-of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of \eqn{T_b}; default is \code{M="CC"}.
+Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the standard basic triangle \eqn{T_b}
+or based on circumcenter of \eqn{T_b};
+default is \code{M="CC"}, i.e., circumcenter of \eqn{T_b}.
 
 \code{ch.data.pnts} is for checking whether points \code{p1} and \code{p2} are data points in \code{Xp} or not
 (default is \code{FALSE}), so by default this function checks whether the points \code{p1} and \code{p2} would be a
@@ -67,7 +69,7 @@ dominating set if they actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)

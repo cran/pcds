@@ -54,7 +54,7 @@ studies under the uniformity hypothesis.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6;  #try also c1<-.5; c2<-.5;
 
 P<-c(.3,.2)

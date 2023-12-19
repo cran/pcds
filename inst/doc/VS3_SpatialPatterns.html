@@ -12,7 +12,7 @@
 
 <meta name="author" content="Elvan Ceyhan" />
 
-<meta name="date" content="2023-06-13" />
+<meta name="date" content="2023-12-18" />
 
 <title>VS3 - Spatial Point Patterns</title>
 
@@ -352,7 +352,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">VS3 - Spatial Point Patterns</h1>
 <h4 class="author">Elvan Ceyhan</h4>
-<h4 class="date">2023-06-13</h4>
+<h4 class="date">2023-12-18</h4>
 
 
 
@@ -454,7 +454,7 @@ that is, in the convex hull of non-target points,
 where <span class="math inline">\(n_x\)</span> is number of <span class="math inline">\(\mathcal{X}\)</span> (i.e. target) points and <span class="math inline">\(n_y\)</span> is number of <span class="math inline">\(\mathcal{Y}\)</span> (nontarget) points.
 <span class="math inline">\(\mathcal{Y}\)</span> points constitute the vertices of the Delaunay triangles, and when uniform points are generated in the convex hull
 of nontarget points, then points in each triangle will also be uniformly distributed (restricted to the triangle,
-i.e. normalized by the ratio of the area of the convex hull to the area of the particular triangle).</p>
+i.e. scaled by the ratio of the area of the convex hull to the area of the particular triangle).</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>nx<span class="ot">&lt;-</span><span class="dv">10</span>; ny<span class="ot">&lt;-</span><span class="dv">5</span>  <span class="co">#try also nx&lt;-40; ny&lt;-5 or nx&lt;-100;  #try also nx&lt;-1000;  ny&lt;-10;</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>Yp<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">runif</span>(ny,<span class="dv">0</span>,<span class="dv">10</span>),<span class="fu">runif</span>(ny,<span class="dv">0</span>,<span class="dv">10</span>))</span></code></pre></div>
@@ -590,8 +590,8 @@ and</li>
 <div id="generation-of-points-segregated-in-a-type-i-fashion-from-the-vertices-of-a-triangle" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Generation of Points Segregated (in a Type I Fashion) from the Vertices of a Triangle</h2>
 <p>Here, the points are generated in type I segregation, parameterized by <code>delta</code>,
-which is a positive real number in <span class="math inline">\((0,4/9)\)</span> so that <span class="math inline">\(\delta 100\)</span> % area
-around each vertex in each Delaunay triangle is forbidden for <span class="math inline">\(\mathcal{X}\)</span> points.
+which is a positive real number in <span class="math inline">\((0,1)\)</span> so that <span class="math inline">\(\delta 100\)</span> % area
+around vertices of each Delaunay triangle is forbidden for <span class="math inline">\(\mathcal{X}\)</span> points.
 The forbidden regions are chosen in such a way that <span class="math inline">\(\mathcal{X}\)</span> points can not be further from a distance to the opposite edge
 where this distance depends on <code>delta</code>.
 Such a construction preserves geometry invariance for
@@ -611,8 +611,8 @@ and has arguments <code>n,tri,delta</code> where</p>
 <li><code>n</code>, a positive integer representing the number of points to be generated from the segregation pattern
 in the triangle, <code>tri</code>.</li>
 <li><code>tri</code>, a <span class="math inline">\(3 \times 2\)</span> matrix with each row representing a vertex of the triangle.</li>
-<li><code>delta</code>, a positive real number in <span class="math inline">\((0,4/9)\)</span>. <code>delta</code> is the parameter of segregation (that is,
-<span class="math inline">\(\delta \, 100\)</span> % area around each vertex in each Delaunay triangle is forbidden for point generation).</li>
+<li><code>delta</code>, a positive real number in <span class="math inline">\((0,1)\)</span>. <code>delta</code> is the parameter of segregation (that is,
+<span class="math inline">\(\delta \, 100\)</span> % area around vertices of each Delaunay triangle is forbidden for point generation).</li>
 </ul>
 <p>Its <code>call</code> and <code>summary</code> are as in <code>runif.tri</code> with the addition of the segregation parameter.
 The <code>plot</code> function (or <code>plot.Patterns</code>) returns the plot of the triangle together with the generated points.</p>
@@ -676,8 +676,9 @@ The function <code>rseg.multi.tri</code> is an object of class <code>Patterns</c
 <ul>
 <li><code>n</code>, a positive integer representing the number of points to be generated.</li>
 <li><code>Yp</code>, a set of 2D points from which Delaunay triangulation is constructed.</li>
-<li><code>delta</code>, a positive real number in <span class="math inline">\((0,4/9)\)</span>. <code>delta</code> is the parameter of segregation (that is, <span class="math inline">\(\delta 100\)</span> %
-area around each vertex in each Delaunay triangle is forbidden for point generation).</li>
+<li><code>delta</code>, a positive real number in <span class="math inline">\((0,1)\)</span>. <code>delta</code> is the parameter of segregation
+(that is, <span class="math inline">\(\delta 100\)</span> % area around vertices of each Delaunay triangle is
+forbidden for point generation).</li>
 <li><code>DTmesh</code>, the Delaunay triangulation of <code>Yp</code>, default is <code>NULL</code>, which is computed via <code>interp::tri.mesh</code> function
 in <code>interp</code> package. <code>interp::tri.mesh</code> function yields the triangulation nodes with their neighbors, and
 creates a triangulation object.</li>
@@ -821,8 +822,8 @@ and</li>
 <div id="generation-of-points-associated-in-a-type-i-fashion-with-the-vertices-of-a-triangle" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Generation of Points Associated (in a Type I Fashion) with the Vertices of a Triangle</h2>
 <p>Here, the points are generated in type I association, parameterized by <code>delta</code>,
-which is a positive real number in <span class="math inline">\((0,4/9)\)</span> so that
-<span class="math inline">\(\delta 100\)</span> % area around each vertex in each Delaunay triangle is the only region allowed for <span class="math inline">\(\mathcal{X}\)</span> points.
+which is a positive real number in <span class="math inline">\((0,1)\)</span> so that
+<span class="math inline">\(\delta 100\)</span> % area around vertices of each Delaunay triangle is the only region allowed for <span class="math inline">\(\mathcal{X}\)</span> points.
 The allowed regions are chosen in such a way that <span class="math inline">\(\mathcal{X}\)</span> points must be further from a distance to the opposite edge
 where this distance depends on <code>delta</code>.
 Such a construction preserves geometry invariance for arc density and domination number of PE- and CS-PCDs

@@ -48,7 +48,7 @@ combined) else it checks if \code{p} lies
 in the interior of the tetrahedron.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0);
 D<-c(1/2,sqrt(3)/6,sqrt(6)/3); P<-c(.1,.1,.1)
 tetra<-rbind(A,B,C,D)

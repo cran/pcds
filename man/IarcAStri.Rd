@@ -2,46 +2,59 @@
 % Please edit documentation in R/ArcSliceFunctions.R
 \name{IarcAStri}
 \alias{IarcAStri}
-\title{The indicator for the presence of an arc from a point to another for Arc Slice Proximity Catch Digraphs
-(AS-PCDs) - one triangle case}
+\title{The indicator for the presence of an arc from a point to another for
+Arc Slice Proximity Catch Digraphs (AS-PCDs) - one triangle case}
 \usage{
 IarcAStri(p1, p2, tri, M = "CC", rv = NULL)
 }
 \arguments{
 \item{p1}{A 2D point whose AS proximity region is constructed.}
 
-\item{p2}{A 2D point. The function determines whether \code{p2} is inside the AS proximity region of
-\code{p1} or not.}
+\item{p2}{A 2D point. The function determines whether \code{p2} is
+inside the AS proximity region of \code{p1} or not.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
+\item{tri}{Three 2D points, stacked row-wise,
+each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
-a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
+\item{M}{The center of the triangle.
+\code{"CC"} stands for circumcenter of the triangle \code{tri}
+or a 2D point in Cartesian coordinates or
+a 3D point in barycentric coordinates
+which serves as a center in the interior of \code{tri};
 default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 
-\item{rv}{The index of the \code{M}-vertex region in \code{tri} containing the point, either \code{1,2,3} or \code{NULL}
+\item{rv}{The index of the \code{M}-vertex region in \code{tri}
+containing the point, either \code{1,2,3} or \code{NULL}
 (default is \code{NULL}).}
 }
 \value{
-\eqn{I(p2 \in N_{AS}(p1))} for \code{p1}, that is, returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0 otherwise
+\eqn{I(p2 \in N_{AS}(p1))} for \code{p1}, that is,
+returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0 otherwise
 }
 \description{
-Returns \eqn{I(p2 \in N_{AS}(p1))} for points \code{p1} and \code{p2}, that is, returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0
+Returns \eqn{I(p2 \in N_{AS}(p1))} for points \code{p1} and \code{p2},
+that is, returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0
 otherwise, where \eqn{N_{AS}(x)} is the AS proximity region for point \eqn{x}.
 
-AS proximity regions are constructed with respect to the triangle, \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)},
-and vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri};
-or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
-\code{rv} is the index of the vertex region \code{p1} resides, with default=\code{NULL}.
+AS proximity regions are constructed with respect to the triangle,
+\code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)},
+and vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri}
+or based on circumcenter of  \code{tri};
+default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
+\code{rv} is the index of the vertex region \code{p1} resides,
+with default=\code{NULL}.
 
-If \code{p1} and \code{p2} are distinct and either of them are outside \code{tri}, the function returns 0,
-but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+If \code{p1} and \code{p2} are distinct
+and either of them are outside \code{tri}, the function returns 0,
+but if they are identical,
+then it returns 1 regardless of their locations (i.e., it allows loops).
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 
 Tr<-rbind(A,B,C);

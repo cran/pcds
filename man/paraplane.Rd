@@ -53,7 +53,7 @@ in vectors \code{x} and \code{y},
 respectively.
 }
 \examples{
-\dontrun{
+\donttest{
 Q<-c(1,10,3); R<-c(1,1,3); S<-c(3,9,12); P<-c(1,1,0)
 
 pts<-rbind(Q,R,S,P)

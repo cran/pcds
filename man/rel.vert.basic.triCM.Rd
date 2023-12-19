@@ -55,7 +55,7 @@ studies under the uniformity hypothesis.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-PE;textual}{pcds})
 }
 \examples{
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6
 P<-c(.4,.2)
 rel.vert.basic.triCM(P,c1,c2)

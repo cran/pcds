@@ -2,7 +2,8 @@
 % Please edit documentation in R/ArcSliceFunctions.R
 \name{inci.matAS}
 \alias{inci.matAS}
-\title{Incidence matrix for Arc Slice Proximity Catch Digraphs (AS-PCDs) - multiple triangle case}
+\title{Incidence matrix for Arc Slice Proximity Catch Digraphs (AS-PCDs)
+- multiple triangle case}
 \usage{
 inci.matAS(Xp, Yp, M = "CC")
 }
@@ -11,7 +12,8 @@ inci.matAS(Xp, Yp, M = "CC")
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle or 3D point in barycentric
+\item{M}{The center of the triangle.
+\code{"CC"} stands for circumcenter of each Delaunay triangle or 3D point in barycentric
 coordinates which serves as a center in the interior of each Delaunay triangle;
 default is \code{M="CC"} i.e., the circumcenter of each triangle.}
 }
@@ -20,21 +22,40 @@ Incidence matrix for the AS-PCD whose vertices are the 2D data set, \code{Xp},
 and AS proximity regions are defined in the Delaunay triangles based on \code{Yp} points.
 }
 \description{
-Returns the incidence matrix for the AS-PCD whose vertices are a given 2D numerical data set, \code{Xp},
-in the convex hull of \code{Yp} which is partitioned by the Delaunay triangles based on \code{Yp} points.
+Returns the incidence matrix for the AS-PCD
+whose vertices are a given 2D numerical data set, \code{Xp},
+in the convex hull of \code{Yp} which is partitioned
+by the Delaunay triangles based on \code{Yp} points.
 
-AS proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points and vertex
+AS proximity regions are defined with respect to
+the Delaunay triangles based on \code{Yp} points and vertex
 regions are based on the center \code{M="CC"}
-for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of each Delaunay triangle; default is \code{M="CC"} i.e., circumcenter of each triangle.
-Loops are allowed, so the diagonal entries are all equal to 1.
+for circumcenter of each Delaunay triangle
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of each Delaunay triangle;
+default is \code{M="CC"} i.e., circumcenter of each triangle.
 
-See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation
+Each Delaunay triangle is first converted to
+an (nonscaled) basic triangle so that \code{M} will be the same
+type of center for each Delaunay triangle
+(this conversion is not necessary when \code{M} is \eqn{CM}).
+
+Convex hull of \code{Yp} is partitioned
+by the Delaunay triangles based on \code{Yp} points
+(i.e., multiple triangles are the set of these Delaunay triangles
+whose union constitutes the
+convex hull of \code{Yp} points).
+For the incidence matrix loops are allowed,
+so the diagonal entries are all equal to 1.
+
+See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds})
+for more on AS-PCDs.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+for more on Delaunay triangulation
 and the corresponding algorithm.
 }
 \examples{
-\dontrun{
+\donttest{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-15; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 

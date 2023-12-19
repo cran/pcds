@@ -68,8 +68,8 @@ of the arc density of the PE-PCD for uniform 2D data.
 
 The function yields the test statistic,
 \eqn{p}-value for the corresponding \code{alternative},
-the confidence interval, estimate
-and null value for the parameter of interest
+the confidence interval,
+estimate and null value for the parameter of interest
 (which is the arc density),
 and method and name of the data set used.
 
@@ -100,7 +100,9 @@ This test is more appropriate when supports of \code{Xp}
 and \code{Yp} have a substantial overlap.
 Currently, the \code{Xp} points
 outside the convex hull of \code{Yp} points
-are handled with a convex hull correction factor
+are handled with a convex hull correction factor, \code{ch.cor},
+which is derived under the assumption of
+uniformity of \code{Xp} and \code{Yp} points in the study window,
 (see the description below and the function code.)
 However, in the special case of no \code{Xp} points
 in the convex hull of \code{Yp} points,
@@ -119,7 +121,7 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds})
 for more on the test based on the arc density of PE-PCDs.
 }
 \examples{
-\dontrun{
+\donttest{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-100; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 

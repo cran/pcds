@@ -13,13 +13,13 @@
 }
 \value{
 The \code{call} of the \code{object} of class \code{"NumArcs"},
-the \code{desc} of the proximity catch digraph (PCD),
+the \code{desc} of the output:
 total number of arcs in the digraph.
 Moreover, in the one Delaunay cell case, the function also provides
 vertices of Delaunay cell, and
 indices of target points in the Delaunay cell;
 and in the multiple Delaunay cell case, it also provides
-number of arcs for the induced digraphs for points in the Delaunay cells,
+number of arcs for the induced subdigraphs for points in the Delaunay cells,
 vertices of Delaunay cells or indices of points that form the the Delaunay cells,
 indices of target points in the convex hull of nontarget points,
 indices of Delaunay cells in which points reside,
@@ -29,7 +29,9 @@ and area or length of the the Delaunay cells.
 Returns the below information about the \code{object}:
 
 \code{call} of the function defining the \code{object},
-the description of the proximity catch digraph (PCD), \code{desc}.
+the description of the output, \code{desc}:
+number of arcs in the proximity catch digraph (PCD) and
+related quantities in the induced subdigraphs for points in the Delaunay cells.
 In the one Delaunay cell case, the function provides
 the total number of arcs in the digraph,
 vertices of Delaunay cell, and
@@ -44,7 +46,7 @@ indices of Delaunay cells in which points reside,
 and area or length of the the Delaunay cells.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10

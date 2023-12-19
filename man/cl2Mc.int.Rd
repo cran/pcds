@@ -69,7 +69,7 @@ and likewise for the right of \eqn{M_c} in the interval.
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c<-.4
 a<-0; b<-10; int<-c(a,b)
 

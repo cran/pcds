@@ -60,7 +60,7 @@
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
@@ -110,8 +110,7 @@ NPEbasic.tri <- function(p,r,c1,c2,M=c(1,1,1),rv=NULL)
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (!in.triangle(p,Tb,boundary=TRUE)$in.tri)
   {reg<-NULL; return(reg); stop}
@@ -233,7 +232,7 @@ NPEbasic.tri <- function(p,r,c1,c2,M=c(1,1,1),rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
@@ -286,8 +285,7 @@ IarcPEbasic.tri <- function(p1,p2,r,c1,c2,M=c(1,1,1),rv=NULL)
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -388,7 +386,7 @@ IarcPEbasic.tri <- function(p1,p2,r,c1,c2,M=c(1,1,1),rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' n<-3
@@ -431,7 +429,7 @@ IarcPEstd.tri <- function(p1,p2,r,M=c(1,1,1),rv=NULL)
   Te<-rbind(A,B,C);
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -511,12 +509,15 @@ IarcPEstd.tri <- function(p1,p2,r,M=c(1,1,1),rv=NULL)
 #' \item{desc}{A short description of the output: number of arcs
 #' and quantities related to the standard equilateral triangle}
 #' \item{num.arcs}{Number of arcs of the PE-PCD}
+#' \item{tri.num.arcs}{Number of arcs of the induced subdigraph of the PE-PCD
+#' for vertices in the standard equilateral triangle \eqn{T_e}}
 #' \item{num.in.tri}{Number of \code{Xp} points
 #' in the standard equilateral triangle, \eqn{T_e}}
 #' \item{ind.in.tri}{The vector of indices of the \code{Xp} points
 #' that reside in \eqn{T_e}}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the support triangle \eqn{T_e}.}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation points are the vertices of the support triangle \eqn{T_e}.}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
 #' @seealso \code{\link{num.arcsPEtri}}, \code{\link{num.arcsPE}},
@@ -528,7 +529,7 @@ IarcPEstd.tri <- function(p1,p2,r,M=c(1,1,1),rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' n<-10  #try also n<-20
 #'
@@ -540,8 +541,9 @@ IarcPEstd.tri <- function(p1,p2,r,M=c(1,1,1),rv=NULL)
 #' Narcs = num.arcsPEstd.tri(Xp,r=1.25,M)
 #' Narcs
 #' summary(Narcs)
-#' par(pty="s")
+#' oldpar <- par(pty="s")
 #' plot(Narcs,asp=1)
+#' par(oldpar)
 #' }
 #'
 #' @export num.arcsPEstd.tri
@@ -572,34 +574,30 @@ num.arcsPEstd.tri <- function(Xp,r,M=c(1,1,1))
   {M<-bary2cart(M,Te)}
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
-  arcs<-0
+  tot.arcs<-arcs.in.tri<-0
   ind.in.tri = NULL
   if (n<=0)
   {
-    arcs<-0
+    tot.arcs<-arcs.in.tri<-0
   } else
   {
     for (i in 1:n)
     {p1<-Xp[i,]
-    if (!in.triangle(p1,Te,boundary = TRUE)$in.tri)
-    {arcs<-arcs+0
-    } else
+    if (in.triangle(p1,Te,boundary = TRUE)$in.tri)
+    {  rv<-rel.vert.std.tri(p1,M)$rv
+    ind.in.tri = c(ind.in.tri,i)
+    for (k in (1:n)[-i])  #to avoid loops
     {
-      ind.in.tri = c(ind.in.tri,i)
-      rv<-rel.vert.std.tri(p1,M)$rv
+      arcs.in.tri<-arcs.in.tri+IarcPEstd.tri(p1,Xp[k,],r,M,rv)
+    }
+    }
 
-      for (j in ((1:n)[-i]) )
-      {p2<-Xp[j,]
-      if (!in.triangle(p2,Te,boundary = TRUE)$in.tri)
-      {arcs<-arcs+0
-      } else
-      {
-        arcs<-arcs+IarcPEstd.tri(p1,p2,r,M,rv)
-      }
-      }
+    for (j in (1:n)[-i])  #to avoid loops
+    {p2<-Xp[j,]
+    tot.arcs<-tot.arcs+IarcPEstd.tri(p1,p2,r,M)#,rv)
     }
     }
   }
@@ -608,7 +606,8 @@ num.arcsPEstd.tri <- function(Xp,r,M=c(1,1,1))
   desc<-"Number of Arcs of the PE-PCD and the Related Quantities with vertices Xp in the Standard Equilateral Triangle"
 
   res<-list(desc=desc, #description of the output
-            num.arcs=arcs, #number of arcs for the AS-PCD
+            num.arcs=tot.arcs, #number of arcs for the PE-PCD
+            tri.num.arcs=arcs.in.tri, #vector of number of arcs for the std eq triangle
             num.in.tri=NinTri, # number of Xp points in CH of Yp points
             ind.in.tri=ind.in.tri, #indices of data points inside the triangle
             tess.points=Te, #tessellation points
@@ -670,7 +669,7 @@ num.arcsPEstd.tri <- function(Xp,r,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' n<-10
@@ -717,7 +716,7 @@ inci.matPEstd.tri <- function(Xp,r,M=c(1,1,1))
   {M<-bary2cart(M,Te)}
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
 
@@ -725,7 +724,7 @@ inci.matPEstd.tri <- function(Xp,r,M=c(1,1,1))
   for (i in 1:n)
   {p1<-Xp[i,]
   rv<-rel.vert.std.tri(p1,M)$rv
-  for (j in ((1:n)) )
+  for (j in (1:n) )
   {p2<-Xp[j,]
   inc.mat[i,j]<-IarcPEstd.tri(p1,p2,r,M,rv)
   }
@@ -743,10 +742,10 @@ inci.matPEstd.tri <- function(Xp,r,M=c(1,1,1))
 #' for 2D uniform data in one triangle
 #'
 #' @description
-#' Two functions: \code{muPE2D} and \code{asyvarPE2D}.
+#' Two functions: \code{muPE2D} and \code{asy.varPE2D}.
 #'
 #' \code{muPE2D} returns the mean of the (arc) density of PE-PCD
-#' and \code{asyvarPE2D} returns the asymptotic variance
+#' and \code{asy.varPE2D} returns the asymptotic variance
 #' of the arc density of PE-PCD
 #' for 2D uniform data in a triangle.
 #'
@@ -763,20 +762,20 @@ inci.matPEstd.tri <- function(Xp,r,M=c(1,1,1))
 #' must be \eqn{\ge 1}.
 #'
 #' @return \code{muPE2D} returns the mean
-#' and \code{asyvarPE2D} returns the (asymptotic) variance of the
+#' and \code{asy.varPE2D} returns the (asymptotic) variance of the
 #' arc density of PE-PCD for uniform data in any triangle.
 #'
 #' @name funsMuVarPE2D
 NULL
 #'
-#' @seealso \code{\link{muCS2D}} and \code{\link{asyvarCS2D}}
+#' @seealso \code{\link{muCS2D}} and \code{\link{asy.varCS2D}}
 #'
 #' @rdname funsMuVarPE2D
 #'
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for muPE2D
 #' muPE2D(1.2)
 #'
@@ -819,9 +818,9 @@ muPE2D <- function(r)
 #' @rdname funsMuVarPE2D
 #'
 #' @examples
-#' \dontrun{
-#' #Examples for asyvarPE2D
-#' asyvarPE2D(1.2)
+#' \donttest{
+#' #Examples for asy.varPE2D
+#' asy.varPE2D(1.2)
 #'
 #' rseq<-seq(1.01,5,by=.05)
 #' lrseq<-length(rseq)
@@ -829,36 +828,37 @@ muPE2D <- function(r)
 #' avar<-vector()
 #' for (i in 1:lrseq)
 #' {
-#'   avar<-c(avar,asyvarPE2D(rseq[i]))
+#'   avar<-c(avar,asy.varPE2D(rseq[i]))
 #' }
 #'
-#' par(mar=c(5,5,4,2))
+#' oldpar <- par(mar=c(5,5,4,2))
 #' plot(rseq, avar,type="l",xlab="r",
 #' ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
+#' par(oldpar)
 #' }
 #'
-#' @export asyvarPE2D
-asyvarPE2D <- function(r)
+#' @export asy.varPE2D
+asy.varPE2D <- function(r)
 {
   if (!is.point(r,1) || r<1)
   {stop('The argument must be a scalar greater than 1')}
 
-  asyvar<-0;
+  asy.var<-0;
   if (r < 4/3)
   {
-    asyvar<-(3007*r^(10)-13824*r^9+898*r^8+77760*r^7-117953*r^6+48888*r^5-24246*r^4+60480*r^3-38880*r^2+3888)/(58320*r^4);
+    asy.var<-(3007*r^(10)-13824*r^9+898*r^8+77760*r^7-117953*r^6+48888*r^5-24246*r^4+60480*r^3-38880*r^2+3888)/(58320*r^4);
   } else {
     if (r < 3/2)
     {
-      asyvar<-(5467*r^(10)-37800*r^9+61912*r^8+46588*r^6-191520*r^5+13608*r^4+241920*r^3-155520*r^2+15552)/(233280*r^4);
+      asy.var<-(5467*r^(10)-37800*r^9+61912*r^8+46588*r^6-191520*r^5+13608*r^4+241920*r^3-155520*r^2+15552)/(233280*r^4);
     } else {
       if (r < 2)
       {
-        asyvar<--(7*r^(12)-72*r^(11)+312*r^(10)-5332*r^8+15072*r^7+13704*r^6-139264*r^5+273600*r^4-242176*r^3+103232*r^2-27648*r+8640)/(960*r^6);
+        asy.var<--(7*r^(12)-72*r^(11)+312*r^(10)-5332*r^8+15072*r^7+13704*r^6-139264*r^5+273600*r^4-242176*r^3+103232*r^2-27648*r+8640)/(960*r^6);
       } else {
-        asyvar<-(15*r^4-11*r^2-48*r+25)/(15*r^6);
+        asy.var<-(15*r^4-11*r^2-48*r+25)/(15*r^6);
       }}}
-  asyvar # no need to multiply this by 4
+  asy.var # no need to multiply this by 4
 } #end of the function
 #'
 
@@ -946,7 +946,7 @@ asyvarPE2D <- function(r)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -1058,8 +1058,7 @@ Idom.num1PEbasic.tri <- function(p,Xp,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FAL
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (in.triangle(p,Tb)$in.tri==F)
   {dom<-0; return(dom); stop}
@@ -1176,7 +1175,7 @@ Idom.num1PEbasic.tri <- function(p,Xp,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FAL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -1269,8 +1268,7 @@ Idom.num2PEbasic.tri <- function(p1,p2,Xp,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,c
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (is.null(rv1))
   {rv1<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p1,Tb)$rv,
@@ -1353,7 +1351,7 @@ Idom.num2PEbasic.tri <- function(p1,p2,Xp,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,c
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -1414,8 +1412,7 @@ NPEtri <- function(p,tri,r,M=c(1,1,1),rv=NULL)
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (!in.triangle(p,tri,boundary=TRUE)$in.tri)
   {reg<-NULL; return(reg); stop}
@@ -1530,7 +1527,7 @@ NPEtri <- function(p,tri,r,M=c(1,1,1),rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -1592,8 +1589,7 @@ IarcPEtri <- function(p1,p2,tri,r,M=c(1,1,1),rv=NULL)
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
@@ -1666,11 +1662,14 @@ IarcPEtri <- function(p1,p2,tri,r,M=c(1,1,1),rv=NULL)
 #' \item{desc}{A short description of the output: number of arcs
 #' and quantities related to the triangle}
 #' \item{num.arcs}{Number of arcs of the PE-PCD}
+#' \item{tri.num.arcs}{Number of arcs of the induced subdigraph of the PE-PCD
+#' for vertices in the triangle \code{tri}}
 #' \item{num.in.tri}{Number of \code{Xp} points in the triangle, \code{tri}}
 #' \item{ind.in.tri}{The vector of indices of the \code{Xp} points
 #' that reside in the triangle}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the support triangle.}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation points are the vertices of the support triangle \code{tri}.}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
 #' @seealso \code{\link{num.arcsPEstd.tri}}, \code{\link{num.arcsPE}},
@@ -1682,7 +1681,7 @@ IarcPEtri <- function(p1,p2,tri,r,M=c(1,1,1),rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -1737,15 +1736,14 @@ num.arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
-  arcs<-0
+  tot.arcs<-arcs.in.tri<-0
   ind.in.tri = NULL
   if (n<=0)
   {
-    arcs<-0
+    tot.arcs<-arcs.in.tri<-0
   } else
   {
     for (i in 1:n)
@@ -1755,10 +1753,15 @@ num.arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
                       rel.vert.triCC(Xp[i,],tri)$rv,
                       rel.vert.tri(Xp[i,],tri,M)$rv)
       ind.in.tri = c(ind.in.tri,i)
+      for (k in (1:n)[-i])  #to avoid loops
+      {
+        arcs.in.tri<-arcs.in.tri+IarcPEtri(Xp[i,],Xp[k,],tri,r,M,rv=vert)
+      }
+      }
+
       for (j in (1:n)[-i])  #to avoid loops
       {
-        arcs<-arcs+IarcPEtri(Xp[i,],Xp[j,],tri,r,M,rv=vert)
-      }
+        tot.arcs<-tot.arcs+IarcPEtri(Xp[i,],Xp[j,],tri,r,M)#,rv=vert)
       }
     }
   }
@@ -1767,7 +1770,8 @@ num.arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
   desc<-"Number of Arcs of the PE-PCD with vertices Xp and Quantities Related to the Support Triangle"
 
   res<-list(desc=desc, #description of the output
-            num.arcs=arcs, #number of arcs for the AS-PCD
+            num.arcs=tot.arcs, #number of arcs for the PE-PCD
+            tri.num.arcs=arcs.in.tri, #vector of number of arcs for the triangle
             num.in.tri=NinTri, # number of Xp points in CH of Yp points
             ind.in.tri=ind.in.tri, #indices of data points inside the triangle
             tess.points=tri, #tessellation points
@@ -1803,13 +1807,12 @@ num.arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 #' only when \code{M} is the center of mass.
 #' For the number of arcs, loops are not allowed.
 #'
-#' \code{tri.cor} is a logical argument for triangle correction
-#' (default is \code{TRUE}),
-#' if \code{TRUE}, only the points
-#' inside the triangle are considered
-#' (i.e., digraph induced by these vertices are considered) in computing
-#' the arc density, otherwise all points are considered
-#' (for the number of vertices in the denominator of arc density).
+#' \code{in.tri.only} is a logical argument (default is \code{FALSE}) for considering only the points
+#' inside the triangle or all the points as the vertices of the digraph.
+#' if \code{in.tri.only=TRUE}, arc density is computed only for
+#' the points inside the triangle (i.e., arc density of the subdigraph
+#' induced by the vertices in the triangle is computed),
+#' otherwise arc density of the entire digraph (i.e., digraph with all the vertices) is computed.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}).
 #'
@@ -1826,13 +1829,12 @@ num.arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 #' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
 #' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
-#' @param tri.cor A logical argument
-#' for computing the arc density for only the points inside the triangle,
-#' \code{tri}.
-#' (default is \code{tri.cor=FALSE}), i.e.,
-#' if \code{tri.cor=TRUE} only the induced digraph with the vertices
-#' inside \code{tri} are considered in the
-#' computation of arc density.
+#' @param in.tri.only A logical argument (default is \code{in.tri.only=FALSE})
+#' for computing the arc density for only the points inside the triangle, \code{tri}.
+#' That is,
+#' if \code{in.tri.only=TRUE} arc density of the induced subdigraph with the vertices
+#' inside \code{tri} is computed, otherwise
+#' otherwise arc density of the entire digraph (i.e., digraph with all the vertices) is computed.
 #'
 #' @return A \code{list} with the elements
 #' \item{arc.dens}{Arc density of PE-PCD
@@ -1853,7 +1855,7 @@ num.arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10  #try also n<-20
@@ -1865,11 +1867,11 @@ num.arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 #'
 #' num.arcsPEtri(Xp,Tr,r=1.5,M)
 #' PEarc.dens.tri(Xp,Tr,r=1.5,M)
-#' PEarc.dens.tri(Xp,Tr,r=1.5,M,tri.cor = TRUE)
+#' PEarc.dens.tri(Xp,Tr,r=1.5,M,in.tri.only = TRUE)
 #' }
 #'
 #' @export PEarc.dens.tri
-PEarc.dens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
+PEarc.dens.tri <- function(Xp,tri,r,M=c(1,1,1),in.tri.only=FALSE)
 {
   if (!is.numeric(as.matrix(Xp)) )
   {stop('Xp must be numeric')}
@@ -1881,6 +1883,11 @@ PEarc.dens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
   if (ncol(Xp)!=2 )
   {stop('Xp must be of dimension nx2')}
   }
+
+  nx<-nrow(Xp)
+  if (nx<=1)
+  {stop('The graph is void or has only one vertex!
+    So, there are not enough Xp points to compute the arc density!')}
 
   tri<-as.matrix(tri)
   if (!is.numeric(tri) || nrow(tri)!=3 || ncol(tri)!=2)
@@ -1907,16 +1914,13 @@ PEarc.dens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
-
-  nx<-nrow(Xp)
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   narcs<-num.arcsPEtri(Xp,tri,r,M)$num.arcs
   mean.rho<-muPE2D(r)
-  var.rho<-asyvarPE2D(r)
+  var.rho<-asy.varPE2D(r)
 
-  if (tri.cor==TRUE)
+  if (in.tri.only==TRUE)
   {
     ind.it<-c()
     for (i in 1:nx)
@@ -1938,11 +1942,11 @@ PEarc.dens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
 
   CM=apply(tri,2,mean)
   if (isTRUE(all.equal(M,CM))){
-  std.rho<-sqrt(n)*(rho-mean.rho)/sqrt(var.rho)
-  res=list(
-    arc.dens=rho, #arc density
-    std.arc.dens=std.rho
-  )}
+    std.rho<-sqrt(n)*(rho-mean.rho)/sqrt(var.rho)
+    res=list(
+      arc.dens=rho, #arc density
+      std.arc.dens=std.rho
+    )}
 
   res
 } #end of the function
@@ -1979,8 +1983,8 @@ PEarc.dens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
 #' by the Delaunay triangles based on \code{Yp} points
 #' (i.e., multiple triangles are the set of these Delaunay triangles
 #' whose union constitutes the
-#' convex hull of \code{Yp} points). For the number of arcs,
-#' loops are not allowed so arcs are only possible
+#' convex hull of \code{Yp} points).
+#' For the number of arcs, loops are not allowed so arcs are only possible
 #' for points inside the convex hull of \code{Yp} points.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds})
@@ -2007,14 +2011,14 @@ PEarc.dens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
 #' and related quantities for the induced subdigraphs in the Delaunay triangles}
 #' \item{num.arcs}{Total number of arcs in all triangles,
 #' i.e., the number of arcs for the entire PE-PCD}
-#' \item{num.in.conhull}{Number of \code{Xp} points
+#' \item{num.in.conv.hull}{Number of \code{Xp} points
 #' in the convex hull of \code{Yp} points}
 #' \item{num.in.tris}{The vector of number of \code{Xp} points
 #' in the Delaunay triangles based on \code{Yp} points}
 #' \item{weight.vec}{The \code{vector} of the areas of
 #' Delaunay triangles based on \code{Yp} points}
 #' \item{tri.num.arcs}{The \code{vector} of the number of arcs
-#' of the component of the PE-PCD in the
+#' of the components of the PE-PCD in the
 #' Delaunay triangles based on \code{Yp} points}
 #' \item{del.tri.ind}{A matrix of indices of vertices of
 #' the Delaunay triangles based on \code{Yp} points,
@@ -2023,8 +2027,9 @@ PEarc.dens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
 #' \item{data.tri.ind}{A \code{vector} of indices of vertices of
 #' the Delaunay triangles in which data points reside,
 #' i.e., column number of \code{del.tri.ind} for each \code{Xp} point.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the Delaunay triangulation based on \code{Yp} points.}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation is the Delaunay triangulation based on \code{Yp} points.}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
 #' @seealso \code{\link{num.arcsPEtri}}, \code{\link{num.arcsPEstd.tri}},
@@ -2036,7 +2041,7 @@ PEarc.dens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-15; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -2093,55 +2098,60 @@ num.arcsPE <- function(Xp,Yp,r,M=c(1,1,1))
   Wvec=vector()
   for (i in 1:ndt)
   {
-    ifelse(ndt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],])
-    #vertices of ith triangle
+    ifelse(ndt==1,
+           Tri<-Yp[Ytri,],
+           Tri<-Yp[Ytri[i,],]) #vertices of ith triangle
     Wvec<-c(Wvec,area.polygon(Tri))
   }
 
   if (ny==3)
-  { tri<-as.basic.tri(Yp)$tri
-  NumArcs = num.arcsPEtri(Xp,tri,r,M)
-  NinTri<-NumArcs$num.in.tri #number of points in the triangle
+  { #tri<-as.basic.tri(Yp)$tri
+    # NumArcs = num.arcsPEtri(Xp,tri,r,M)
+    NinTri<-NinCH #NinTri<-NumArcs$num.in.tri #number of points in the triangle
 
-  if (NinTri==0)
-  {Tot.Arcs<-0;
-  ni.vec<-arcs<-rep(0,ndt)
-  data.tri.ind = NA
-  } else
-  {
-    Xdt<-matrix(Xp[NumArcs$ind.in.tri,],ncol=2)
-    tri<-as.basic.tri(Yp)$tri #convert the triangle Yp into an nonscaled basic triangle, see as.basic.tri help page
-    Wvec<-area.polygon(tri)
-    Tot.Arcs<- NumArcs$num.arcs #number of arcs in the triangle Yp
-    ni.vec = NumArcs$num.in.tri
-    Tri.Ind = NumArcs$ind.in.tri
-    data.tri.ind = rep(NA,nx)
-    data.tri.ind[Tri.Ind] =1
-    arcs = NumArcs$num.arcs
-  }
+    if (NinTri==0)
+    {Tot.Arcs<-0;
+    ni.vec<-arcs<-rep(0,ndt)
+    data.tri.ind = ind.in.CH =  NA
+    } else
+    {
+      Xdt<-matrix(Xp[inCH,],ncol=2)
+      tri<-as.basic.tri(Yp)$tri #convert the triangle Yp into an nonscaled basic triangle, see as.basic.tri help page
+      NumArcs = num.arcsPEtri(Xp,tri,r,M)
+      # Wvec<-area.polygon(tri)
+      Tot.Arcs<- NumArcs$num.arcs #number of arcs in the triangle Yp
+      ni.vec = NumArcs$num.in.tri
+      Tri.Ind = NumArcs$ind.in.tri
+      data.tri.ind = rep(NA,nx)
+      data.tri.ind[Tri.Ind] = 1
+      arcs = NumArcs$num.arcs
+      ind.in.CH = which(inCH) #which(!is.na(Tri.Ind))
+    }
+    Tot.Arcs = Tot.Arcs + 2 * sum(duplicated(Xp[!inCH,]))
 
-  desc<-"Number of Arcs of the PE-PCD with vertices Xp and Related Quantities for the Induced Subdigraph for the Points in the Delaunay Triangle"
-  res<-list(desc=desc, #description of the output
-            num.arcs=Tot.Arcs,
-            tri.num.arcs=arcs,
-            num.in.conv.hull=NinTri,
-            num.in.tris=ni.vec,
-            weight.vec=Wvec,
-            del.tri.ind=t(Ytri),
-            data.tri.ind=data.tri.ind,
-            tess.points=Yp, #tessellation points
-            vertices=Xp #vertices of the digraph
-  )
+    desc<-"Number of Arcs of the PE-PCD with vertices Xp and Related Quantities for the Induced Subdigraph for the Points in the Delaunay Triangle"
+    res<-list(desc=desc, #description of the output
+              num.arcs=Tot.Arcs,
+              tri.num.arcs=arcs,
+              num.in.conv.hull=NinTri,
+              ind.in.conv.hull= ind.in.CH, #indices of Xp points in the triangle
+              num.in.tris=ni.vec,
+              weight.vec=Wvec,
+              del.tri.ind=t(Ytri),
+              data.tri.ind=data.tri.ind,
+              tess.points=Yp, #tessellation points
+              vertices=Xp #vertices of the digraph
+    )
   } else
   {
     if (NinCH==0)
     {Tot.Arcs<-0;
     ni.vec<-arcs<-rep(0,ndt)
-    data.tri.ind =NULL
+    data.tri.ind = ind.in.CH =  NA
     } else
     {
       Tri.Ind<-indices.delaunay.tri(Xp,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
-      ind.in.CH = which(!is.na(Tri.Ind))
+      ind.in.CH = which(inCH) #which(!is.na(Tri.Ind))
       #calculation of the total number of arcs
       ni.vec<-arcs<-vector()
       data.tri.ind = rep(NA,nx)
@@ -2150,11 +2160,15 @@ num.arcsPE <- function(Xp,Yp,r,M=c(1,1,1))
         dt.ind=which(Tri.Ind==i) #which indices of data points residing in ith Delaunay triangle
         Xpi<-Xp[dt.ind,] #points in ith Delaunay triangle
         data.tri.ind[dt.ind] =i #assigning the index of the Delaunay triangle that contains the data point
-        ifelse(ndt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
+        ifelse(ndt==1,
+               Tri<-Yp[Ytri,],
+               Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
         tri<-as.basic.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.basic.tri help page
         ni.vec<-c(ni.vec,length(Xpi)/2)  #number of points in ith Delaunay triangle
 
-        ifelse(identical(M,"CC"),cent<-circumcenter.tri(tri),cent<-M)
+        ifelse(identical(M,"CC"),
+               cent<-circumcenter.tri(tri),
+               cent<-M)
         num.arcs<-num.arcsPEtri(Xpi,tri,r,cent)$num.arcs
         arcs<-c(arcs,num.arcs)  #number of arcs in all triangles as a vector
 
@@ -2162,6 +2176,8 @@ num.arcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 
       Tot.Arcs<-sum(arcs)  #the total number of arcs in all triangles
     }
+
+    Tot.Arcs = Tot.Arcs + 2 * sum(duplicated(Xp[!inCH,]))
 
     desc<-"Number of Arcs of the PE-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles"
 
@@ -2205,8 +2221,8 @@ num.arcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' The function yields the test statistic,
 #' \eqn{p}-value for the corresponding \code{alternative},
-#' the confidence interval, estimate
-#' and null value for the parameter of interest
+#' the confidence interval,
+#' estimate and null value for the parameter of interest
 #' (which is the arc density),
 #' and method and name of the data set used.
 #'
@@ -2237,7 +2253,9 @@ num.arcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 #' and \code{Yp} have a substantial overlap.
 #' Currently, the \code{Xp} points
 #' outside the convex hull of \code{Yp} points
-#' are handled with a convex hull correction factor
+#' are handled with a convex hull correction factor, \code{ch.cor},
+#' which is derived under the assumption of
+#' uniformity of \code{Xp} and \code{Yp} points in the study window,
 #' (see the description below and the function code.)
 #' However, in the special case of no \code{Xp} points
 #' in the convex hull of \code{Yp} points,
@@ -2296,7 +2314,7 @@ num.arcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-100; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -2314,7 +2332,8 @@ num.arcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 #' }
 #'
 #' @export PEarc.dens.test
-PEarc.dens.test <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less", "greater"), conf.level = 0.95)
+PEarc.dens.test <- function(Xp,Yp,r,ch.cor=FALSE,
+                            alternative = c("two.sided", "less", "greater"), conf.level = 0.95)
 {
   dname <-deparse(substitute(Xp))
 
@@ -2332,6 +2351,11 @@ PEarc.dens.test <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "l
   if (ncol(Xp)!=2 )
   {stop('Xp must be of dimension nx2')}
   }
+
+  n<-nrow(Xp)  #number of X points
+  if (n<=1)
+  {stop('The graph is void or has only one vertex!
+    So, there are not enough Xp points to compute the arc density!')}
 
   Yp<-as.matrix(Yp)
   if (ncol(Yp)!=2 || nrow(Yp)<3)
@@ -2374,13 +2398,12 @@ PEarc.dens.test <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "l
   asy.mean0<-muPE2D(r)  #asy mean value for the r value
   asy.mean<-asy.mean0*sum(LW^2)
 
-  asy.var0<-asyvarPE2D(r)  #asy variance value for the r value
+  asy.var0<-asy.varPE2D(r)  #asy variance value for the r value
   asy.var<-asy.var0*sum(LW^3)+4*asy.mean0^2*(sum(LW^3)-(sum(LW^2))^2)
 
-  n<-nrow(Xp)  #number of X points
   if (NinCH == 0) {
-  warning('There is no Xp point in the convex hull of Yp points to compute arc density,
-           but as this is clearly a segregation pattern, arc density is taken to be 1!')
+    warning('There is no Xp point in the convex hull of Yp points to compute arc density,
+           but as this is clearly a segregation pattern, so arc density is taken to be 1!')
     arc.dens=1
     TS0<-sqrt(n)*(arc.dens-asy.mean)/sqrt(asy.var)  #standardized test stat
   } else
@@ -2388,10 +2411,10 @@ PEarc.dens.test <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "l
   TS0<-sqrt(NinCH)*(arc.dens-asy.mean)/sqrt(asy.var)
   #standardized test stat}  #arc density
   }
-  estimate1<-arc.dens
-  estimate2<-asy.mean
+  estimate1<-arc.dens; estimate2<-asy.mean
 
   method <-c("Large Sample z-Test Based on Arc Density of PE-PCD for Testing Uniformity of 2D Data ---")
+
   if (ch.cor==FALSE)
   {
     TS<-TS0
@@ -2495,7 +2518,7 @@ PEarc.dens.test <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "l
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -2550,26 +2573,25 @@ inci.matPEtri <- function(Xp,tri,r,M=c(1,1,1))
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
 
   inc.mat<-matrix(0, nrow=n, ncol=n)
-  if (n>1)
-  {
-    for (i in 1:n)
-    {p1<-Xp[i,]
-    rv<-ifelse(isTRUE(all.equal(M,CC)),
-               rel.vert.triCC(p1,tri)$rv,
-               rel.vert.tri(p1,tri,M)$rv)
+  # if (n>1)
+  # {
+  for (i in 1:n)
+  {p1<-Xp[i,]
+  rv<-ifelse(isTRUE(all.equal(M,CC)),
+             rel.vert.triCC(p1,tri)$rv,
+             rel.vert.tri(p1,tri,M)$rv)
 
-    for (j in ((1:n)) )
-    {p2<-Xp[j,]
-    inc.mat[i,j]<-IarcPEtri(p1,p2,tri,r,M,rv=rv)
-    }
-    }
+  for (j in (1:n) )
+  {p2<-Xp[j,]
+  inc.mat[i,j]<-IarcPEtri(p1,p2,tri,r,M,rv=rv)
   }
+  }
+  # }
   inc.mat
 } #end of the function
 #'
@@ -2645,7 +2667,7 @@ inci.matPEtri <- function(Xp,tri,r,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10  #try also n<-20
@@ -2753,8 +2775,7 @@ Idom.num1PEtri <- function(p,Xp,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (in.triangle(p,tri,boundary=TRUE)$in.tri==FALSE)
   {dom<-0; return(dom); stop}
@@ -2861,7 +2882,7 @@ Idom.num1PEtri <- function(p,Xp,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10  #try also n<-20
@@ -2940,8 +2961,7 @@ Idom.num2PEtri <- function(p1,p2,Xp,tri,r,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.p
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {dom<-0; return(dom); stop}
@@ -3018,7 +3038,7 @@ Idom.num2PEtri <- function(p1,p2,Xp,tri,r,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.p
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2)
 #' Tr<-rbind(A,B,C)
 #' n<-10  #try also n<-20
@@ -3097,8 +3117,7 @@ PEdom.num.tri <- function(Xp,tri,r,M=c(1,1,1))
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   Cl2e0<-cl2edgesMvert.reg(Xtri,tri,M)
   Cl2e<-Cl2e0$ext
@@ -3198,7 +3217,7 @@ PEdom.num.tri <- function(Xp,tri,r,M=c(1,1,1))
 #' default is \eqn{M=(1,1,1)}
 #' i.e., the center of mass of \eqn{T_e}.
 #'
-#' @return \eqn{I(}\code{p} is in U_{x in \code{S}} \eqn{N_{PE}(x,r))}
+#' @return \eqn{I(}\code{p} is in \eqn{U_{x in S} N_{PE}(x,r))}
 #' for \code{S} in the standard equilateral triangle,
 #' that is, returns 1 if \code{p} is in \code{S}
 #' or inside \eqn{N_{PE}(x,r)} for at least
@@ -3213,7 +3232,7 @@ PEdom.num.tri <- function(Xp,tri,r,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-10
@@ -3271,7 +3290,7 @@ IarcPEset2pnt.std.tri <- function(S,p,r,M=c(1,1,1))
   Te<-rbind(A,B,C);
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   k<-nrow(S);
   dom<-0; i<-1;
@@ -3333,7 +3352,7 @@ IarcPEset2pnt.std.tri <- function(S,p,r,M=c(1,1,1))
 #' which may be entered as "CC" as well;
 #' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
 #'
-#' @return I(\code{p} is in U_{x in \code{S}} N_{PE}(x,r)),
+#' @return \eqn{I(}\code{p} is in \eqn{U_{x in S} N_{PE}(x,r))},
 #' that is, returns 1 if \code{p} is in \code{S}
 #' or inside \eqn{N_{PE}(x,r)} for at least
 #' one \eqn{x} in \code{S}, and returns 0 otherwise,
@@ -3347,7 +3366,7 @@ IarcPEset2pnt.std.tri <- function(S,p,r,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -3417,8 +3436,7 @@ IarcPEset2pnt.tri <- function(S,p,tri,r,M=c(1,1,1))
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   k<-nrow(S);
   dom<-0; i<-1;
@@ -3489,7 +3507,7 @@ IarcPEset2pnt.tri <- function(S,p,tri,r,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-10
@@ -3545,7 +3563,7 @@ Idom.setPEstd.tri <- function(S,Xp,r,M=c(1,1,1))
   Te<-rbind(A,B,C);
 
   if (in.triangle(M,Te,boundary=FALSE)$in.tri==FALSE)
-  {stop('center is not in the interior of the triangle')}
+  {stop('M is not a center in the interior of the triangle')}
 
   k<-nrow(S);
   n<-nrow(Xp);
@@ -3617,7 +3635,7 @@ Idom.setPEstd.tri <- function(S,Xp,r,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -3687,8 +3705,7 @@ Idom.setPEtri <- function(S,Xp,tri,r,M=c(1,1,1))
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   k<-nrow(S);
   n<-nrow(Xp);
@@ -3712,9 +3729,10 @@ Idom.setPEtri <- function(S,Xp,tri,r,M=c(1,1,1))
 #'
 #' @description
 #' An object of class \code{"PCDs"}.
-#' Returns arcs as tails (or sources) and heads (or arrow ends)
-#' for data set \code{Xp} as the vertices of PE-PCD
+#' Returns arcs of PE-PCD as tails (or sources) and heads (or arrow ends)
 #' and related parameters and the quantities of the digraph.
+#' The vertices of the PE-PCD are the data points in \code{Xp}
+#' in the one triangle case.
 #'
 #' PE proximity regions are constructed
 #' with respect to the triangle \code{tri} with expansion
@@ -3761,12 +3779,10 @@ Idom.setPEtri <- function(S,Xp,tri,r,M=c(1,1,1))
 #' \item{parameters}{Parameters of the digraph,
 #' the center \code{M} used to
 #' construct the vertex regions and the expansion parameter \code{r}.}
-#' \item{tess.points}{Points on which the tessellation of the study region
-#' is performed, here, tessellation
-#' is the support triangle.}
-#' \item{tess.name}{Name of data set
-#' (i.e. points from the non-target class) used in the tessellation
-#' of the space (here, vertices of the triangle)}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation points are the vertices of the support triangle \code{tri}.}
+#' \item{tess.name}{Name of the tessellation points \code{tess.points}}
 #' \item{vertices}{Vertices of the digraph, \code{Xp} points}
 #' \item{vert.name}{Name of the data set
 #' which constitutes the vertices of the digraph}
@@ -3791,7 +3807,7 @@ Idom.setPEtri <- function(S,Xp,tri,r,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -3876,8 +3892,7 @@ arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 
   if (!(isTRUE(all.equal(M,CC)) ||
         in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
   in.tri<-rep(0,n)
@@ -3916,15 +3931,15 @@ arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
   {
     cname <-"CC"
     names(param)<-c("circumcenter","expansion parameter")
-  main.txt<-paste("Arcs of PE-PCD \n with r = ",r," and Circumcenter",sep="")
-  typ<-paste("Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D Points in the Triangle with Expansion Parameter r = ",r," and Circumcenter",sep="")
+    main.txt<-paste("Arcs of PE-PCD \n with r = ",r," and Circumcenter",sep="")
+    typ<-paste("Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D Points in the Triangle with Expansion Parameter r = ",r," and Circumcenter",sep="")
   } else
   {
     cname <-"M"
     names(param)<-c("center","expansion parameter")
-  main.txt<-paste("Arcs of PE-PCD\n with r = ",r," and Center ", cname," = (",Mr[1],",",Mr[2],")",sep="")
-  typ<-paste("Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D Points in the Triangle with Expansion Parameter r = ",r," and Center ", cname," = (",Mr[1],",",Mr[2],")",sep="")
-}
+    main.txt<-paste("Arcs of PE-PCD\n with r = ",r," and Center ", cname," = (",Mr[1],",",Mr[2],")",sep="")
+    typ<-paste("Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D Points in the Triangle with Expansion Parameter r = ",r," and Center ", cname," = (",Mr[1],",",Mr[2],")",sep="")
+  }
 
   nvert<-n2; ny<-3; ntri<-1; narcs=ifelse(!is.null(S),nrow(S),0);
   arc.dens<-ifelse(nvert>1,narcs/(nvert*(nvert-1)),NA)
@@ -3961,6 +3976,9 @@ arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 #' are constructed with respect to the triangle \code{tri}
 #' with expansion parameter \eqn{r \ge 1}, i.e., arcs may exist only
 #' for \code{Xp} points inside the triangle \code{tri}.
+#' If there are duplicates of \code{Xp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
 #' Vertex regions are based on center \eqn{M=(m_1,m_2)}
 #' in Cartesian coordinates
@@ -4021,7 +4039,7 @@ arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10  #try also n<-20
@@ -4058,6 +4076,11 @@ arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 plotPEarcs.tri <- function(Xp,tri,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,
                            xlim=NULL,ylim=NULL,vert.reg=FALSE,...)
 {
+  if( any(duplicated(as.data.frame(Xp))) ) #if there are duplicates for Xp values, only one is taken for each
+  {Xp = unique(as.data.frame(Xp))
+  warning("There were duplicate Xp values;
+          only one value is kept for each duplicate Xp value (to avoid arcs of zero length)!")}
+
   arcsPE<-arcsPEtri(Xp,tri,r,M)
   S<-arcsPE$S
   E<-arcsPE$E
@@ -4172,7 +4195,7 @@ plotPEarcs.tri <- function(Xp,tri,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -4249,8 +4272,7 @@ plotPEregs.tri <- function(Xp,tri,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
 
   if (!(identical(M,"CC") ||
         in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or
-        not in the interior of the triangle')}
+  {stop('M is not the circumcenter or not a center in the interior of the triangle')}
 
   n<-nrow(Xp)
   in.tri<-rep(0,n)
@@ -4262,7 +4284,7 @@ plotPEregs.tri <- function(Xp,tri,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
   #the Xp points inside the triangle
   nt<-length(Xtri)/2 #number of Xp points inside the triangle
 
-ifelse(identical(M,"CC"),cent<-CC,cent <- M)
+  ifelse(identical(M,"CC"),cent<-CC,cent <- M)
   if (is.null(xlim))
   {xlim<-range(tri[,1],Xp[,1],cent[1])}
   if (is.null(ylim))
@@ -4318,11 +4340,10 @@ ifelse(identical(M,"CC"),cent<-CC,cent <- M)
 #'
 #' @description
 #' An object of class \code{"PCDs"}.
-#' Returns arcs as tails (or sources) and heads (or arrow ends) of
-#' Proportional Edge Proximity Catch Digraph
-#' (PE-PCD) whose vertices are the data points in \code{Xp}
-#' in the multiple triangle case
+#' Returns arcs of PE-PCD as tails (or sources) and heads (or arrow ends)
 #' and related parameters and the quantities of the digraph.
+#' The vertices of the PE-PCD are the data points in \code{Xp}
+#' in the multiple triangle case.
 #'
 #' PE proximity regions are
 #' defined with respect to the Delaunay triangles
@@ -4371,12 +4392,10 @@ ifelse(identical(M,"CC"),cent<-CC,cent <- M)
 #' \item{parameters}{Parameters of the digraph,
 #' the center used to construct the vertex regions
 #' and the expansion parameter.}
-#' \item{tess.points}{Points on which the tessellation
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation
 #' of the study region is performed,
-#' here, tessellation
-#' is Delaunay triangulation based on \code{Yp} points.}
-#' \item{tess.name}{Name of data set used in tessellation,
-#' it is \code{Yp} for this function}
+#' here, tessellation is the Delaunay triangulation based on \code{Yp} points.}
+#' \item{tess.name}{Name of the tessellation points \code{tess.points}}
 #' \item{vertices}{Vertices of the digraph, \code{Xp} points}
 #' \item{vert.name}{Name of the data set
 #' which constitute the vertices of the digraph}
@@ -4399,7 +4418,7 @@ ifelse(identical(M,"CC"),cent<-CC,cent <- M)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -4489,7 +4508,7 @@ arcsPE <- function(Xp,Yp,r,M=c(1,1,1))
           nl<-nrow(Xl)
           ifelse(identical(M,"CC"),
                  {rel.vert.ind<-rel.verts.triCC(Xl,Yi.tri)$rv;
-          cent<-circumcenter.tri(Yi.tri)},
+                 cent<-circumcenter.tri(Yi.tri)},
                  {rel.vert.ind<-rel.verts.tri(Xl,Yi.tri,M)$rv;
                  cent<-M})
 
@@ -4562,11 +4581,6 @@ arcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 #' (default for \eqn{M=(1,1,1)}
 #' which is the center of mass of the triangle).
 #'
-#' Each Delaunay triangle is first converted to
-#' an (nonscaled) basic triangle so that \code{M} will be the same
-#' type of center for each Delaunay triangle
-#' (this conversion is not necessary when \code{M} is \eqn{CM}).
-#'
 #' Convex hull of \code{Yp} is partitioned
 #' by the Delaunay triangles based on \code{Yp} points
 #' (i.e., multiple triangles are the set of these Delaunay triangles
@@ -4608,7 +4622,7 @@ arcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
@@ -4671,37 +4685,41 @@ inci.matPE <- function(Xp,Yp,r,M=c(1,1,1))
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
     nt<-nrow(DTr)  #number of Delaunay triangles
 
-    if (nx>1)
-    {
-      i.tr<-rep(0,nx)  #the vector of indices for the triangles that contain the Xp points
-      for (i in 1:nx)
-        for (j in 1:nt)
-        {
-          tri<-Yp[DTr[j,],]
-          if (in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri )
-            i.tr[i]<-j
-        }
-
-      for (i in 1:nx)
-      {p1<-Xp[i,]
-      if (i.tr[i]!=0)
+    #  if (nx>1)
+    # {
+    i.tr<-rep(0,nx)  #the vector of indices for the triangles that contain the Xp points
+    for (i in 1:nx)
+      for (j in 1:nt)
       {
-        Yi.Tri<-Yp[DTr[i.tr[i],],] #vertices of the ith triangle
-        Yi.tri<-as.basic.tri(Yi.Tri)$tri
-        #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.basic.tri help page
-        ifelse(identical(M,"CC"),{vert<-rel.vert.triCC(p1,Yi.tri)$rv;
-        cent<-circumcenter.tri(Yi.tri)},
-               {vert<-rel.vert.tri(p1,Yi.tri,M)$rv; cent<-M})
+        tri<-Yp[DTr[j,],]
+        if (in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri )
+          i.tr[i]<-j
+      }
 
-        for (j in 1:nx )
-        {p2<-Xp[j,]
-        inc.mat[i,j]<-IarcPEtri(p1,p2,Yi.tri,r,cent,rv=vert)
-        }
-      }
-      }
+    for (i in 1:nx)
+    {p1<-Xp[i,]
+    Yi.tri<-Yp[DTr[1,],]
+
+    if (i.tr[i]!=0)
+    {
+      Yi.Tri<-Yp[DTr[i.tr[i],],] #vertices of the ith triangle
+      Yi.tri<-as.basic.tri(Yi.Tri)$tri
+      #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.basic.tri help page
     }
 
-    diag(inc.mat)<-1
+    ifelse(identical(M,"CC"),{vert<-rel.vert.triCC(p1,Yi.tri)$rv;
+    cent<-circumcenter.tri(Yi.tri)},
+    {vert<-rel.vert.tri(p1,Yi.tri,M)$rv; cent<-M})
+
+    for (j in 1:nx )
+    {p2<-Xp[j,]
+    inc.mat[i,j]<-IarcPEtri(p1,p2,Yi.tri,r,cent,rv=vert)
+    }
+    # }
+    }
+    # }
+
+    #  diag(inc.mat)<-1
   }
   inc.mat
 } #end of the function
@@ -4716,6 +4734,9 @@ inci.matPE <- function(Xp,Yp,r,M=c(1,1,1))
 #' (PE-PCD) whose vertices are the data
 #' points in \code{Xp} in the multiple triangle case
 #' and the Delaunay triangles based on \code{Yp} points.
+#' If there are duplicates of  \code{Xp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
 #' PE proximity regions are defined
 #' with respect to the Delaunay triangles based on \code{Yp} points
@@ -4726,11 +4747,6 @@ inci.matPE <- function(Xp,Yp,r,M=c(1,1,1))
 #' or based on circumcenter of
 #' each Delaunay triangle (default for \eqn{M=(1,1,1)}
 #' which is the center of mass of the triangle).
-#' Each Delaunay triangle is first converted to
-#' an (nonscaled) basic triangle so that \code{M} will be the same
-#' type of center for each Delaunay triangle
-#' (this conversion is not necessary
-#' when \code{M} is \eqn{CM}).
 #'
 #' Convex hull of \code{Yp} is partitioned by
 #' the Delaunay triangles based on \code{Yp} points
@@ -4782,7 +4798,7 @@ inci.matPE <- function(Xp,Yp,r,M=c(1,1,1))
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -4800,11 +4816,17 @@ inci.matPE <- function(Xp,Yp,r,M=c(1,1,1))
 #' }
 #'
 #' @export plotPEarcs
-plotPEarcs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,...)
+plotPEarcs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,
+                       xlim=NULL,ylim=NULL,...)
 {
   Yp<-as.matrix(Yp)
   if (ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be of dimension kx2 with k>=3')}
+
+  if( any(duplicated(as.data.frame(Xp))) ) #if there are duplicates for Xp values, only one is taken for each
+  {Xp = unique(as.data.frame(Xp))
+  warning("There were duplicate Xp values;
+          only one value is kept for each duplicate Xp value (to avoid arcs of zero length)!")}
 
   if (nrow(Yp)==3)
   {
@@ -4909,7 +4931,7 @@ plotPEarcs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -4926,7 +4948,8 @@ plotPEarcs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
 #' }
 #'
 #' @export plotPEregs
-plotPEregs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,...)
+plotPEregs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,
+                       xlim=NULL,ylim=NULL,...)
 {
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -5111,7 +5134,7 @@ plotPEregs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -5179,9 +5202,9 @@ PEdom.num <- function(Xp,Yp,r,M=c(1,1,1))
       for (i in 1:nt)
       {
         ith.tri.ind = Tri.Ind==i
-      Xpi<-matrix(Xch[ith.tri.ind,],ncol=2)  #points in ith Delaunay triangle
-      indCHi = indCH[ith.tri.ind]
-      #indices of Xpi points (wrt to original data indices)
+        Xpi<-matrix(Xch[ith.tri.ind,],ncol=2)  #points in ith Delaunay triangle
+        indCHi = indCH[ith.tri.ind]
+        #indices of Xpi points (wrt to original data indices)
 
         ni<-nrow(Xpi)  #number of points in ith triangle
         if (ni==0)
@@ -5226,7 +5249,7 @@ PEdom.num <- function(Xp,Yp,r,M=c(1,1,1))
           while (l<=3 & cnt2==0)
           {
             if (Idom.num2PEtri(Clvert[k,],Clvert[l,],Xpi,Yi.tri,r,cent,
-                          rv1=k,rv2=l)==1)
+                               rv1=k,rv2=l)==1)
             {gam[i]<-2;cnt2<-1; mds<-rbind(mds,Clvert[c(k,l),]);
             mds.ind=c(mds.ind,Ext.ind[c(k,l)])
             } else {l<-l+1};
@@ -5246,14 +5269,14 @@ PEdom.num <- function(Xp,Yp,r,M=c(1,1,1))
     row.names(mds)<-c()
 
     res<-list(dom.num=Gam, #domination number
-            #  mds=mds, #a minimum dominating set
-            ind.mds =mds.ind,
-            #indices of a minimum dominating set (wrt to original data)
+              #  mds=mds, #a minimum dominating set
+              ind.mds =mds.ind,
+              #indices of a minimum dominating set (wrt to original data)
               tri.dom.nums=gam #domination numbers for the Delaunay triangles
     )
-    }
+  }
 
-res
+  res
 } #end of the function
 #'
 
@@ -5322,7 +5345,7 @@ res
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -5383,59 +5406,59 @@ PEdom.num.nondeg <- function(Xp,Yp,r)
       #calculation of the domination number
       for (i in 1:nt)
       { ith.tri.ind = Tri.Ind==i
-        Xpi<-matrix(Xch[ith.tri.ind,],ncol=2)
-        #points in ith Delaunay triangle
-        indCHi = indCH[ith.tri.ind]
-        #indices of Xpi points (wrt to original data indices)
+      Xpi<-matrix(Xch[ith.tri.ind,],ncol=2)
+      #points in ith Delaunay triangle
+      indCHi = indCH[ith.tri.ind]
+      #indices of Xpi points (wrt to original data indices)
 
-        ni<-nrow(Xpi)  #number of points in ith triangle
-        if (ni==0)
+      ni<-nrow(Xpi)  #number of points in ith triangle
+      if (ni==0)
+      {
+        gam[i]<-0
+      } else
+      {
+        Yi.tri<-Yp[Ytri[i,],] #vertices of ith triangle
+        rcent<-sample(1:3,1)  #random center selection from M1,M2,M3
+        Centi<-center.nondegPE(Yi.tri,r)[rcent,]
+        cl2v = cl2edgesMvert.reg(Xpi,Yi.tri,Centi)
+        Clvert<-cl2v$ext
+        #for general r, points closest to opposite edges in the vertex regions
+        Clvert.ind<-cl2v$ind # indices of these extrema wrt Xpi
+        Ext.ind =indCHi[Clvert.ind]
+        #indices of these extrema wrt to the original data
+
+        #Gamma=1 piece
+        cnt<-0; j<-1;
+        while (j<=3 & cnt==0)
         {
-          gam[i]<-0
-        } else
-        {
-          Yi.tri<-Yp[Ytri[i,],] #vertices of ith triangle
-          rcent<-sample(1:3,1)  #random center selection from M1,M2,M3
-          Centi<-center.nondegPE(Yi.tri,r)[rcent,]
-          cl2v = cl2edgesMvert.reg(Xpi,Yi.tri,Centi)
-          Clvert<-cl2v$ext
-          #for general r, points closest to opposite edges in the vertex regions
-          Clvert.ind<-cl2v$ind # indices of these extrema wrt Xpi
-          Ext.ind =indCHi[Clvert.ind]
-          #indices of these extrema wrt to the original data
-
-          #Gamma=1 piece
-          cnt<-0; j<-1;
-          while (j<=3 & cnt==0)
-          {
-            if (Idom.num1PEtri(Clvert[j,],Xpi,Yi.tri,r,Centi,rv=j)==1)
-            {gam[i]<-1; cnt<-1; mds<-rbind(mds,Clvert[j,]);
-            mds.ind=c(mds.ind,Ext.ind[j])
-            } else
-            {j<-j+1}
-          }
-
-          #Gamma=2 piece
-          if (cnt==0)
-          { k<-1; cnt2<-0;
-          while (k<=2 & cnt2==0)
-          {l<-k+1;
-          while (l<=3 & cnt2==0)
-          {
-            if (Idom.num2PEtri(Clvert[k,],Clvert[l,],Xpi,Yi.tri,r,Centi,
-                          rv1=k,rv2=l)==1)
-            {gam[i]<-2;cnt2<-1; mds<-rbind(mds,Clvert[c(k,l),]);
-            mds.ind=c(mds.ind,Ext.ind[c(k,l)])
-            } else {l<-l+1};
-          }
-          k<-k+1;
-          }
-          }
-
-          if (cnt==0 && cnt2==0)
-          {gam[i]<-3; mds<-rbind(mds,Clvert); mds.ind=c(mds.ind,Ext.ind)}
-
+          if (Idom.num1PEtri(Clvert[j,],Xpi,Yi.tri,r,Centi,rv=j)==1)
+          {gam[i]<-1; cnt<-1; mds<-rbind(mds,Clvert[j,]);
+          mds.ind=c(mds.ind,Ext.ind[j])
+          } else
+          {j<-j+1}
         }
+
+        #Gamma=2 piece
+        if (cnt==0)
+        { k<-1; cnt2<-0;
+        while (k<=2 & cnt2==0)
+        {l<-k+1;
+        while (l<=3 & cnt2==0)
+        {
+          if (Idom.num2PEtri(Clvert[k,],Clvert[l,],Xpi,Yi.tri,r,Centi,
+                             rv1=k,rv2=l)==1)
+          {gam[i]<-2;cnt2<-1; mds<-rbind(mds,Clvert[c(k,l),]);
+          mds.ind=c(mds.ind,Ext.ind[c(k,l)])
+          } else {l<-l+1};
+        }
+        k<-k+1;
+        }
+        }
+
+        if (cnt==0 && cnt2==0)
+        {gam[i]<-3; mds<-rbind(mds,Clvert); mds.ind=c(mds.ind,Ext.ind)}
+
+      }
 
       }
     }
@@ -5444,9 +5467,9 @@ PEdom.num.nondeg <- function(Xp,Yp,r)
     row.names(mds)<-c()
 
     res<-list(dom.num=Gam, #domination number
-             # mds=mds, #a minimum dominating set
+              # mds=mds, #a minimum dominating set
               ind.mds =mds.ind,
-             #indices of a minimum dominating set (wrt to original data)
+              #indices of a minimum dominating set (wrt to original data)
               tri.dom.nums=gam #domination numbers for the Delaunay triangles
     )
   }
@@ -5491,7 +5514,7 @@ PEdom.num.nondeg <- function(Xp,Yp,r)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' Pdom.num2PEtri(r=1.5)
 #' Pdom.num2PEtri(r=1.4999999999)
 #'
@@ -5653,7 +5676,7 @@ Pdom.num2PEtri <- function(r)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-100; ny<-5 #try also nx<-1000; ny<-10
 #' r<-1.4  #try also r<-1.5
 #'
@@ -5716,7 +5739,7 @@ PEdom.num.binom.test <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("tw
   #vector of domination numbers for the Delaunay triangles
 
   estimate1<-Dom.num$dom.num #domination number of the entire PE-PCD
- # ind0<- Gammas>0; Gammas=(3-Gammas0)
+  # ind0<- Gammas>0; Gammas=(3-Gammas0)
   Bm<-sum(Gammas<=2)
   #sum((3-Gammas)[ind0]>0) #sum(Gammas-2>0);
   #the binomial test statistic, success is dom num <= 2
@@ -5918,7 +5941,7 @@ PEdom.num.binom.test <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("tw
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' nx<-100; ny<-5 #try also nx<-1000; ny<-10
 #' r<-1.5  #try also r<-2 or r<-1.25
 #'
@@ -5980,7 +6003,7 @@ PEdom.num.norm.test <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two
   Gammas<-Dom.num$tri.dom #domination numbers for the Delaunay triangles
 
   estimate1<-Gam<-Dom.num$dom.num #domination number of the entire PE-PCD
- # ind0<- Gammas>0;  Gammas=(3-Gammas0)
+  # ind0<- Gammas>0;  Gammas=(3-Gammas0)
   Bm<-sum(Gammas<=2) #sum((3-Gammas)[ind0]>0) #sum(Gammas-2>0);
   #the binomial test statistic, success is dom num <= 2
 

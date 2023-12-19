@@ -27,7 +27,7 @@ and \code{z=z0 + C*t}),
 and the initial point together with the direction vector.
 }
 \examples{
-\dontrun{
+\donttest{
 P<-c(1,10,3); Q<-c(1,1,3);
 vecs<-rbind(P,Q)
 Line3D(P,Q,.1)

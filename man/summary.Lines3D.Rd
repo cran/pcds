@@ -28,7 +28,7 @@ selected \eqn{x}, \eqn{y}, and \eqn{z} points on the line,
 equation of the line (in parametric form), and \code{coefficients} of the line.
 }
 \examples{
-\dontrun{
+\donttest{
 P<-c(1,10,3); Q<-c(1,1,3);
 vecs<-rbind(P,Q)
 Line3D(P,Q,.1)

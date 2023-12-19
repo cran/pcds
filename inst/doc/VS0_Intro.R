@@ -12,6 +12,5 @@ library(pcds)
 #  #Xp<-cbind(runif(nx),runif(nx))
 #  Yp<-cbind(runif(ny),runif(ny))
 #  
-#  #oldpar <- par(no.readonly = TRUE)
 #  plotDelaunay.tri(Yp,Yp,xlab="",ylab="",main="Delaunay Triangulation of Y points")
 

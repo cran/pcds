@@ -38,7 +38,7 @@ and midpoints of the edges adjacent to the vertex.
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds})
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.6,2);
 Tr<-rbind(A,B,C);
 P<-c(1.4,1.2)

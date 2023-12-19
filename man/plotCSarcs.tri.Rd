@@ -49,18 +49,24 @@ typing "\code{? asp}".}
 A plot of the arcs of the CS-PCD whose vertices are the points in data set \code{Xp} and the triangle \code{tri}
 }
 \description{
-Plots the arcs of CS-PCD whose vertices are the data points, \code{Xp} and the triangle \code{tri}. CS proximity regions
-are constructed with respect to the triangle \code{tri} with expansion parameter \eqn{t>0}, i.e., arcs may exist only
+Plots the arcs of CS-PCD whose vertices are the data points, \code{Xp}
+and the triangle \code{tri}. CS proximity regions
+are constructed with respect to the triangle \code{tri}
+with expansion parameter \eqn{t>0}, i.e., arcs may exist only
 for \code{Xp} points inside the triangle \code{tri}.
+If there are duplicates of \code{Xp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 
 Edge regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates
-or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}; default
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri}; default
 is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10  #try also n<-20
@@ -72,7 +78,8 @@ M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 
 t<-1.5  #try also t<-2
 
-plotCSarcs.tri(Xp,Tr,t,M,main="Arcs of CS-PCD with t=1.5",xlab="",ylab="",edge.reg = TRUE)
+plotCSarcs.tri(Xp,Tr,t,M,main="Arcs of CS-PCD with t=1.5",
+xlab="",ylab="",edge.reg = TRUE)
 
 # or try the default center
 #plotCSarcs.tri(Xp,Tr,t,main="Arcs of CS-PCD with t=1.5",xlab="",ylab="",edge.reg = TRUE);

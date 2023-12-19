@@ -38,7 +38,7 @@ If \code{p} is outside of \code{th}, it returns \code{NULL} for the proximity re
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 set.seed(1)
 tetra<-rbind(A,B,C,D)+matrix(runif(12,-.25,.25),ncol=3)

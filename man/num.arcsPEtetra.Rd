@@ -23,10 +23,13 @@ A \code{list} with the elements
 \item{desc}{A short description of the output: number of arcs
 and quantities related to the tetrahedron}
 \item{num.arcs}{Number of arcs of the PE-PCD}
+\item{tri.num.arcs}{Number of arcs of the induced subdigraph of the PE-PCD
+for vertices in the tetrahedron \code{th}}
 \item{num.in.tetra}{Number of \code{Xp} points in the tetrahedron, \code{th}}
 \item{ind.in.tetra}{The vector of indices of the \code{Xp} points that reside in the tetrahedron}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the support tetrahedron.}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed, here,
+tessellation points are the vertices of the support tetrahedron \code{th}.}
 \item{vertices}{Vertices of the digraph, \code{Xp}.}
 }
 \description{
@@ -48,7 +51,7 @@ allowed so arcs are only possible for points inside the tetrahedron \code{th} fo
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 

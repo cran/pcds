@@ -14,11 +14,10 @@ representing the number of points to be generated.}
 \item{Yp}{A set of 2D points
 from which Delaunay triangulation is constructed.}
 
-\item{delta}{A positive real number in \eqn{(0,4/9)}.
+\item{delta}{A positive real number in \eqn{(0,1)}.
 \code{delta} is the parameter of segregation
-(that is, \eqn{\delta 100} %
-area around each vertex
-in each Delaunay triangle is forbidden for point generation).}
+(that is, \eqn{\delta 100} % area around the vertices of
+each Delaunay triangle is forbidden for point generation).}
 
 \item{DTmesh}{Delaunay triangulation of \code{Yp},
 default is \code{NULL},
@@ -44,8 +43,8 @@ from which points are to be generated}
 for the plot of the point pattern}
 \item{parameters}{Exclusion parameter, \code{delta},
 of the Type I segregation pattern.
-\code{delta} is in \eqn{(0,4/9)}
-\eqn{\delta 100} \% area around each vertex in each Delaunay triangle
+\code{delta} is in \eqn{(0,1)} and
+\eqn{\delta 100} \% area around vertices of each Delaunay triangle
 is forbidden for point generation.}
 \item{ref.points}{The input set of points \code{Yp};
 reference points, i.e.,
@@ -103,7 +102,7 @@ Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pc
 for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-\dontrun{
+\donttest{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-100; ny<-4;  #try also nx<-1000; ny<-10;
 
@@ -132,13 +131,14 @@ yd<-Ylim[2]-Ylim[1]
 DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 #Delaunay triangulation based on Y points
 
-par(pty="s")
+oldpar <- par(pty="s")
 plot(Xp,main="Points from Type I Segregation \n in Multipe Triangles",
 xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),
 ylim=Ylim+yd*c(-.05,.05),type="n")
 interp::plot.triSht(DTY, add=TRUE,
 do.points=TRUE,col="blue")
 points(Xp,pch=".",cex=3)
+par(oldpar)
 }
 
 }

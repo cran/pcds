@@ -43,7 +43,7 @@ boundary combined) else it checks
 if \code{p} lies in the interior of the circle.
 }
 \examples{
-\dontrun{
+\donttest{
 cent<-c(1,1); rad<-1; p<-c(1.4,1.2)
 #try also cent<-runif(2); rad<-runif(1); p<-runif(2);
 

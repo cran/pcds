@@ -31,7 +31,7 @@ The first pair of angles is for drawing arcs in the smaller angle between \eqn{[
 and the second pair of angles is for drawing arcs in the counter-clockwise order from \eqn{[ba]} to \eqn{[bc]}.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(.3,.2); B<-c(.6,.3); C<-c(1,1)
 
 pts<-rbind(A,B,C)

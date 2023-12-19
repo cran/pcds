@@ -61,7 +61,7 @@ with \eqn{A=(0,0)}, \eqn{B=(1,0)}, \eqn{C=(1/2,\sqrt{3}/2)};
 \eqn{x}-coordinates are provided in \code{vector} \code{x}
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for lineA2MinTe
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
@@ -104,7 +104,7 @@ text(xc,yc,txt.str)
 lineA2MinTe(.25,M)
 }
 
-\dontrun{
+\donttest{
 #Examples for lineB2MinTe
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
@@ -121,7 +121,7 @@ summary(lnBM)
 plot(lnBM)
 }
 
-\dontrun{
+\donttest{
 #Examples for lineC2MinTe
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)

@@ -47,7 +47,7 @@ studies under the uniformity hypothesis.
 \eqn{x}-coordinates are provided in \code{vector} \code{x}.
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for lineD1CCinTb
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the standard basic triangle Tb
@@ -94,7 +94,7 @@ x1<-seq(0,1,by=.1)  #try also by=.01
 lineD1CCinTb(x1,c1,c2)
 }
 
-\dontrun{
+\donttest{
 #Examples for lineD2CCinTb
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the standard basic triangle Tb

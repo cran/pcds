@@ -22,9 +22,10 @@ A \code{list} with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, the center \code{M} used to
 construct the edge regions and the expansion parameter \code{t}.}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the support triangle.}
-\item{tess.name}{Name of data set used in tessellation (i.e., vertices of the triangle)}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed,
+here, tessellation points are the vertices of the support triangle \code{tri}.}
+\item{tess.name}{Name of the tessellation points \code{tess.points}}
 \item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 \item{S}{Tails (or sources) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
@@ -35,8 +36,10 @@ number of triangles, number of arcs, and arc density.}
 }
 \description{
 An object of class \code{"PCDs"}.
-Returns arcs as tails (or sources) and heads (or arrow ends) for data set \code{Xp} as the vertices
-of CS-PCD and related parameters and the quantities of the digraph.
+Returns arcs of CS-PCD as tails (or sources) and heads (or arrow ends)
+and related parameters and the quantities of the digraph.
+The vertices of the CS-PCD are the data points in \code{Xp}
+in the one triangle case.
 
 CS proximity regions are constructed with respect to the triangle \code{tri} with expansion
 parameter \eqn{t>0}, i.e., arcs may exist for points only inside \code{tri}.
@@ -50,7 +53,7 @@ the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10

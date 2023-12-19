@@ -53,7 +53,7 @@ dominating set if they actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 set.seed(123)
 #Examples for Idom.num2CSstd.tri
 t<-1.5
@@ -74,7 +74,7 @@ for (i in 1:(n-1))
 ind.gam2
 }
 
-\dontrun{
+\donttest{
 #Examples for Idom.num3CSstd.tri
 t<-1.5
 n<-10 #try also 10, 20 (it may take longer for larger n)
@@ -94,7 +94,7 @@ for (i in 1:(n-2))
 ind.gam3
 }
 
-\dontrun{
+\donttest{
 #Examples for Idom.num4CSstd.tri
 t<-1.5
 n<-10 #try also 10, 20 (it may take longer for larger n)
@@ -118,7 +118,7 @@ Idom.num4CSstd.tri(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp,t,ch.data.pnts = FALSE)
 #gives an error message if ch.data.pnts = TRUE since not all points are data points in Xp
 }
 
-\dontrun{
+\donttest{
 #Examples for Idom.num5CSstd.tri
 t<-1.5
 n<-10 #try also 10, 20 (it may take longer for larger n)
@@ -143,7 +143,7 @@ Idom.num5CSstd.tri(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp,t,ch.data.pnts = FALS
 #gives an error message if ch.data.pnts = TRUE since not all points are data points in Xp
 }
 
-\dontrun{
+\donttest{
 #Examples for Idom.num6CSstd.tri
 t<-1.5
 n<-10 #try also 10, 20 (it may take longer for larger n)

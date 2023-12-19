@@ -28,7 +28,8 @@ plotPEregs.int(
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing
+the center inside \code{int}\eqn{=(a,b)}
 with the default \code{c=.5}.
 For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
@@ -51,18 +52,25 @@ as a vertical line in the plot, else center of the interval is not plotted.}
 Plot of the PE proximity regions for 1D points in or outside the interval \code{int}
 }
 \description{
-Plots the points in and outside of the interval \code{int} and also the PE proximity regions (which are also intervals).
-PE proximity regions are constructed with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}.
+Plots the points in and outside of the interval \code{int}
+and also the PE proximity regions (which are also intervals).
+PE proximity regions are constructed with expansion parameter \eqn{r \ge 1}
+and centrality parameter \eqn{c \in (0,1)}.
 
-For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)} (default is \eqn{Jit=.1}) times range of proximity
+For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)}
+(default is \eqn{Jit=.1}) times range of proximity
 regions and \code{Xp}) is added to the \eqn{y}-direction.
+If there are duplicates of \code{Xp} points,
+only one point is retained for each duplicate value,
+and a warning message is printed.
 \code{center} is a logical argument, if \code{TRUE}, plot includes the
-center of the interval as a vertical line in the plot, else center of the interval is not plotted.
+center of the interval as a vertical line in the plot,
+else center of the interval is not plotted.
 
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c<-.4
 r<-2
 a<-0; b<-10; int<-c(a,b)

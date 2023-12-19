@@ -128,7 +128,7 @@ M<-c(1.6,1.2) #try also M<-as.numeric(runif.tri(1,Tr)$g) or M="CC"
 plotASarcs.tri(Xp,Tr,M,xlab="",ylab="",vert.reg = TRUE)
 
 ## ----ASarcs3, eval=F, fig.cap="Arcs of the AS-PCD with 10 $X$ points and vertex regions (dashed lines) are based on circumcenter. The vertices and the center are labeled."----
-#  par(pty = "s")
+#  oldpar <- par(pty = "s")
 #  plotASarcs.tri(Xp,Tr,asp=1,xlab="",ylab="",vert.reg = TRUE); M = (arcsAStri(Xp,Tr)$param)$c
 #  
 #  CC<-circumcenter.tri(Tr)
@@ -151,11 +151,13 @@ plotASarcs.tri(Xp,Tr,M,xlab="",ylab="",vert.reg = TRUE)
 #  yc<-txt[,2]+c(.02,.02,.02,.07,.02,.05,-.06)
 #  txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
 #  text(xc,yc,txt.str)
+#  par(oldpar)
 
 ## ----ASPR1, fig.cap="AS proximity regions for the $X$ points used above."-----
 M<-c(1.6,1.2) #try also M<-c(1.6620051,0.8136604) or M="CC"
-par(pty = "s")
+oldpar <- par(pty = "s")
 plotASregs.tri(Xp,Tr,M,vert.reg = T,xlab="",ylab="")
+par(oldpar)
 
 ## ----eval=F-------------------------------------------------------------------
 #  M=c(1.6,1.2) #try also M=c(1.6620051,0.8136604)
@@ -533,7 +535,7 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 #  xd<-Xlim[2]-Xlim[1]
 #  yd<-Ylim[2]-Ylim[1]
 #  
-#  par(pty="s")
+#  oldpar <- par(pty="s")
 #  plot(A,asp=1,pch=".",xlab="",ylab="",
 #       main="Circumcenter of a Triangle",
 #       axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
@@ -547,6 +549,7 @@ plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
 #  yc<-txt[,2]+c(.02,-.02,.03,-.06,.02,.06,-.04)
 #  txt.str<-c("A","B","C","CC","D1","D2","D3")
 #  text(xc,yc,txt.str)
+#  par(oldpar)
 
 ## ----eval=F-------------------------------------------------------------------
 #  A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
@@ -798,7 +801,6 @@ ny<-5 #number of Y points (nontarget)
 #  yd<-Ylim[2]-Ylim[1]
 #  
 #  # plot of the data in the convex hull of Y points together with the Delaunay triangulation
-#  #par(pty="s")
 #  plot(Xp,main="X Points in Delaunay Triangles for Y Points", xlab=" ", ylab=" ",
 #       xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
 #  interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")

@@ -21,9 +21,10 @@ For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a
 A \code{list} with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, they are expansion and centrality parameters.}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of the study region
+is performed, here, tessellation
 is the intervalization of the real line based on \code{int} points.}
-\item{tess.name}{Name of data set used in tessellation, it is \code{int} for this function}
+\item{tess.name}{Name of the tessellation points \code{tess.points}}
 \item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 \item{S}{Tails (or sources) of the arcs of CS-PCD for 1D data}
@@ -34,12 +35,15 @@ number of intervals, number of arcs, and arc density.}
 }
 \description{
 An object of class \code{"PCDs"}.
-Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
-of CS-PCD.  \code{int} determines the end points of the interval.
+Returns arcs of CS-PCD as tails (or sources) and heads (or arrow ends)
+and related parameters and the quantities of the digraph.
+The vertices of the CS-PCD are the 1D data points in \code{Xp}
+in the one interval case.
+\code{int} determines the end points of the interval.
 
 For this function, CS proximity regions are constructed data points inside or outside the interval based
 on \code{int} points with expansion parameter \eqn{t > 0} and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
-arcs may exist for points in the middle or end intervals.
+arcs may exist for points in the middle or end-intervals.
 It also provides various descriptions and quantities about the arcs of the CS-PCD
 such as number of arcs, arc density, etc.
 }

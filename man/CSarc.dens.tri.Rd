@@ -4,7 +4,7 @@
 \alias{CSarc.dens.tri}
 \title{Arc density of Central Similarity Proximity Catch Digraphs (CS-PCDs) - one triangle case}
 \usage{
-CSarc.dens.tri(Xp, tri, t, M = c(1, 1, 1), tri.cor = FALSE)
+CSarc.dens.tri(Xp, tri, t, M = c(1, 1, 1), in.tri.only = FALSE)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD.}
@@ -17,9 +17,12 @@ CSarc.dens.tri(Xp, tri, t, M = c(1, 1, 1), tri.cor = FALSE)
 which serves as a center in the interior of the triangle \code{tri};
 default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 
-\item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle,
-\code{tri} (default is \code{tri.cor=FALSE}), i.e., if \code{tri.cor=TRUE} only the induced digraph with the vertices
-inside \code{tri} are considered in the computation of arc density.}
+\item{in.tri.only}{A logical argument (default is \code{=FALSE})
+for computing the arc density for only the points inside the triangle, \code{tri}.
+That is,
+if \code{=TRUE} arc density of the induced subdigraph with the vertices
+inside \code{tri} is computed, otherwise
+otherwise arc density of the entire digraph (i.e., digraph with all the vertices) is computed.}
 }
 \value{
 A \code{list} with the elements
@@ -40,14 +43,18 @@ The function also provides arc density standardized by the mean and asymptotic v
 of CS-PCD for uniform data in the triangle \code{tri}
 only when \code{M} is the center of mass. For the number of arcs, loops are not allowed.
 
-\code{tri.cor} is a logical argument for triangle correction (default is \code{TRUE}), if \code{TRUE}, only the points inside the
-triangle are considered (i.e., digraph induced by these vertices are considered) in computing the arc density,
-otherwise all points are considered (for the number of vertices in the denominator of arc density).
+\code{} is a logical argument (default is \code{FALSE}) for considering only the points
+inside the triangle or all the points as the vertices of the digraph.
+if \code{in.tri.only=TRUE}, arc density is computed only for
+the points inside the triangle (i.e., arc density of the subdigraph
+induced by the vertices in the triangle is computed),
+otherwise arc density of the entire digraph (i.e., digraph with all the vertices) is computed.
 
-See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
+See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds})
+for more on CS-PCDs.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10  #try also n<-20
@@ -58,7 +65,7 @@ Xp<-runif.tri(n,Tr)$g
 M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 
 CSarc.dens.tri(Xp,Tr,t=.5,M)
-CSarc.dens.tri(Xp,Tr,t=.5,M,tri.cor = FALSE)
+CSarc.dens.tri(Xp,Tr,t=.5,M, in.tri.only= FALSE)
 #try also t=1 and t=1.5 above
 }
 

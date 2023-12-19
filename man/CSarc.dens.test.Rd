@@ -66,7 +66,11 @@ assumed to be fixed (i.e., the test is conditional on \code{Yp} points).
 Furthermore, the test is a large sample test when \code{Xp} points are substantially larger than \code{Yp} points,
 say at least 5 times more.
 This test is more appropriate when supports of \code{Xp} and \code{Yp} has a substantial overlap.
-Currently, the \code{Xp} points outside the convex hull of \code{Yp} points are handled with a convex hull correction factor
+Currently, the \code{Xp} points
+outside the convex hull of \code{Yp} points
+are handled with a convex hull correction factor, \code{ch.cor},
+which is derived under the assumption of
+uniformity of \code{Xp} and \code{Yp} points in the study window,
 (see the description below and the function code.)
 However, in the special case of no \code{Xp} points in the convex hull of \code{Yp} points, arc density is taken to be 1,
 as this is clearly a case of segregation. Removing the conditioning and extending it to the case of non-concurring supports is
@@ -78,7 +82,7 @@ which is recommended when both \code{Xp} and \code{Yp} have the same rectangular
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-100; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 

@@ -3,27 +3,27 @@
 \name{funsMuVarCSend.int}
 \alias{funsMuVarCSend.int}
 \alias{muCSend.int}
-\alias{asyvarCSend.int}
+\alias{asy.varCSend.int}
 \title{Returns the mean and (asymptotic) variance of arc density of Central Similarity Proximity Catch Digraph (CS-PCD)
-for 1D data - end interval case}
+for 1D data - end-interval case}
 \usage{
 muCSend.int(t)
 
-asyvarCSend.int(t)
+asy.varCSend.int(t)
 }
 \arguments{
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 }
 \value{
-\code{muCSend.int} returns the mean and \code{asyvarCSend.int} returns the asymptotic variance of the
-arc density of CS-PCD for uniform data in end intervals
+\code{muCSend.int} returns the mean and \code{asy.varCSend.int} returns the asymptotic variance of the
+arc density of CS-PCD for uniform data in end-intervals
 }
 \description{
-Two functions: \code{muCSend.int} and \code{asyvarCSend.int}.
+Two functions: \code{muCSend.int} and \code{asy.varCSend.int}.
 
 \code{muCSend.int} returns the mean of the arc density of CS-PCD
-and \code{asyvarCSend.int} returns the asymptotic variance of the arc density of CS-PCD
-for a given expansion parameter \eqn{t>0}  for 1D uniform data in the left and right end intervals
+and \code{asy.varCSend.int} returns the asymptotic variance of the arc density of CS-PCD
+for a given expansion parameter \eqn{t>0}  for 1D uniform data in the left and right end-intervals
 for the interval \eqn{(a,b)}.
 
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
@@ -50,8 +50,8 @@ plot(tseq, mu.end,type="l",
 ylab=expression(paste(mu,"(t)")),xlab="t",lty=1,xlim=range(tseq),ylim=c(0,1))
 par(oldpar)
 
-#Examples for asyvarCSend.int
-asyvarCSend.int(1.2)
+#Examples for asy.varCSend.int
+asy.varCSend.int(1.2)
 
 tseq<-seq(.01,5,by=.05)
 ltseq<-length(tseq)
@@ -59,7 +59,7 @@ ltseq<-length(tseq)
 var.end<-vector()
 for (i in 1:ltseq)
 {
-  var.end<-c(var.end,asyvarCSend.int(tseq[i]))
+  var.end<-c(var.end,asy.varCSend.int(tseq[i]))
 }
 
 oldpar <- par(no.readonly = TRUE)
@@ -72,7 +72,7 @@ par(oldpar)
 \insertAllCited{}
 }
 \seealso{
-\code{\link{muPEend.int}} and \code{\link{asyvarPEend.int}}
+\code{\link{muPEend.int}} and \code{\link{asy.varPEend.int}}
 }
 \author{
 Elvan Ceyhan

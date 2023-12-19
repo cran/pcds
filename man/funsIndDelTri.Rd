@@ -61,7 +61,7 @@ See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) f
 triangulation and the corresponding algorithm.
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for index.delaunay.tri
 nx<-20 #number of X points (target)
 ny<-5 #number of Y points (nontarget)
@@ -99,7 +99,7 @@ points(Xp,pch=".",cex=3)
 text(Xp,labels = factor(ind.DT))
 }
 
-\dontrun{
+\donttest{
 #Examples for indices.delaunay.tri
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
@@ -125,10 +125,11 @@ yd<-Ylim[2]-Ylim[1]
 
 #plot of the data in the convex hull of Y points together with the Delaunay triangulation
 
-par(pty = "s")
+oldpar <- par(pty = "s")
 plot(Xp,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
 interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
 text(Xp,labels = factor(tr.ind))
+par(oldpar)
 }
 
 }

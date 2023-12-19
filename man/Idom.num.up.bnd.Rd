@@ -47,7 +47,7 @@ It takes a rather long time for large number of vertices
 (i.e., large number of row numbers).
 }
 \examples{
-\dontrun{
+\donttest{
 n<-10
 M<-matrix(sample(c(0,1),n^2,replace=TRUE),nrow=n)
 diag(M)<-1

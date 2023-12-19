@@ -22,10 +22,13 @@ A \code{list} with the elements
 \item{desc}{A short description of the output: number of arcs
 and quantities related to the standard equilateral triangle}
 \item{num.arcs}{Number of arcs of the CS-PCD}
+\item{tri.num.arcs}{Number of arcs of the induced subdigraph of the CS-PCD
+for vertices in the standard equilateral triangle \eqn{T_e}}
 \item{num.in.tri}{Number of \code{Xp} points in the standard equilateral triangle, \eqn{T_e}}
 \item{ind.in.tri}{The vector of indices of the \code{Xp} points that reside in \eqn{T_e}}
-\item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the support triangle \eqn{T_e}.}
+\item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+the study region is performed,
+here, tessellation points are the vertices of the support triangle \eqn{T_e}.}
 \item{vertices}{Vertices of the digraph, \code{Xp}.}
 }
 \description{
@@ -48,7 +51,7 @@ arcs are only possible for points inside \eqn{T_e} for this function.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 n<-10  #try also n<-20
 
@@ -60,8 +63,9 @@ M<-as.numeric(runif.std.tri(1)$g)  #try also M<-c(.6,.2)
 Narcs = num.arcsCSstd.tri(Xp,t=.5,M)
 Narcs
 summary(Narcs)
-par(pty="s")
+oldpar <- par(pty="s")
 plot(Narcs,asp=1)
+par(oldpar)
 }
 
 }

@@ -25,7 +25,7 @@ and the plane spanned
 by 3D points \code{p3}, \code{p4}, and \code{p5}.
 }
 \examples{
-\dontrun{
+\donttest{
 L1<-c(2,4,6); L2<-c(1,3,5);
 A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
 
@@ -34,8 +34,7 @@ Pint
 pts<-rbind(L1,L2,A,B,C,Pint)
 
 tr<-max(Dist(L1,L2),Dist(L1,Pint),Dist(L2,Pint))
-tf<-tr*1.1 #how far to go at the lower and upper ends
-in the x-coordinate
+tf<-tr*1.1 #how far to go at the lower and upper ends in the x-coordinate
 tsq<-seq(-tf,tf,l=5)  #try also l=10, 20, or 100
 
 lnAB3D<-Line3D(L1,L2,tsq)

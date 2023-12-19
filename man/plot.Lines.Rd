@@ -25,7 +25,7 @@ None
 Plots the line together with the defining \code{points}.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75)
 xr<-range(A,B);
 xf<-(xr[2]-xr[1])*.1

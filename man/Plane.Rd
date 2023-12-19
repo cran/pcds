@@ -45,7 +45,7 @@ with \eqn{x}- and \eqn{y}-coordinates are provided
 in vectors \code{x} and \code{y}, respectively.
 }
 \examples{
-\dontrun{
+\donttest{
 P1<-c(1,10,3); P2<-c(1,1,3); P3<-c(3,9,12) #also try P2=c(2,2,3)
 
 pts<-rbind(P1,P2,P3)

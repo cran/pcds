@@ -127,7 +127,7 @@ IarcPEmid.int <- function(p1,x2,int,r,c=.5,rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c<-.4
 #' r<-2
 #' a<-0; b<-10; int<-c(a,b)
@@ -188,17 +188,17 @@ num.arcsPEmid.int <- function(Xp,int,r,c=.5)
 #' Catch Digraph (PE-PCD) for 1D data - middle interval case
 #'
 #' @description
-#' The functions \code{muPE1D} and \code{asyvarPE1D} and their auxiliary functions.
+#' The functions \code{muPE1D} and \code{asy.varPE1D} and their auxiliary functions.
 #'
 #' \code{muPE1D} returns the mean of the (arc) density of PE-PCD
-#' and \code{asyvarPE1D} returns the (asymptotic) variance of the arc density of PE-PCD
+#' and \code{asy.varPE1D} returns the (asymptotic) variance of the arc density of PE-PCD
 #' for a given centrality parameter \eqn{c \in (0,1)} and an expansion parameter \eqn{r \ge 1} and for 1D uniform data in a
 #' finite interval \eqn{(a,b)}, i.e., data from \eqn{U(a,b)} distribution.
 #'
 #' \code{muPE1D} uses auxiliary (internal) function \code{mu1PE1D} which yields mean (i.e., expected value)
 #' of the arc density of PE-PCD for a given \eqn{c \in (0,1/2)} and \eqn{r \ge 1}.
 #'
-#' \code{asyvarPE1D} uses auxiliary (internal) functions \code{fvar1} which yields asymptotic variance
+#' \code{asy.varPE1D} uses auxiliary (internal) functions \code{fvar1} which yields asymptotic variance
 #' of the arc density of PE-PCD for \eqn{c \in (1/4,1/2)} and \eqn{r \ge 1}; and \code{fvar2} which yields asymptotic variance
 #' of the arc density of PE-PCD for \eqn{c \in (0,1/4)} and \eqn{r \ge 1}.
 #'
@@ -209,13 +209,13 @@ num.arcsPEmid.int <- function(Xp,int,r,c=.5)
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
 #' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
-#' @return \code{muPE1D} returns the mean and \code{asyvarPE1D} returns the asymptotic variance of the
+#' @return \code{muPE1D} returns the mean and \code{asy.varPE1D} returns the asymptotic variance of the
 #' arc density of PE-PCD for \eqn{U(a,b)} data
 #'
 #' @name funsMuVarPE1D
 NULL
 #'
-#' @seealso \code{\link{muCS1D}} and \code{\link{asyvarCS1D}}
+#' @seealso \code{\link{muCS1D}} and \code{\link{asy.varCS1D}}
 #'
 #' @rdname funsMuVarPE1D
 #'
@@ -245,7 +245,7 @@ mu1PE1D <- function(r,c)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for muPE1D
 #' muPE1D(1.2,.4)
 #' muPE1D(1.2,.6)
@@ -290,52 +290,52 @@ muPE1D <- function(r,c)
 #'
 fvar1 <- function(r,c)
 {
-  asyvar<-0;
+  asy.var<-0;
   if (r<1/(1-c))
   {
-    asyvar<--1/3*(12*c^4*r^4-24*c^3*r^4+3*c^2*r^5+15*c^2*r^4-3*c*r^5-9*c^2*r^3-3*c*r^4+r^5+6*c^2*r^2+9*c*r^3-r^4-6*c*r^2-2*r^3+4*r^2-3*r+1)/r^2;
+    asy.var<--1/3*(12*c^4*r^4-24*c^3*r^4+3*c^2*r^5+15*c^2*r^4-3*c*r^5-9*c^2*r^3-3*c*r^4+r^5+6*c^2*r^2+9*c*r^3-r^4-6*c*r^2-2*r^3+4*r^2-3*r+1)/r^2;
   } else {
     if (r<1/c)
     {
-      asyvar<--1/3*(3*c^4*r^4+c^3*r^5-c^3*r^4-11*c^3*r^3-3*c^2*r^4+6*c^2*r^3+9*c^2*r^2+3*c*r^3-9*c*r^2+3*c*r-r^2+2*r-1)/r^2;
+      asy.var<--1/3*(3*c^4*r^4+c^3*r^5-c^3*r^4-11*c^3*r^3-3*c^2*r^4+6*c^2*r^3+9*c^2*r^2+3*c*r^3-9*c*r^2+3*c*r-r^2+2*r-1)/r^2;
     } else {
-      asyvar<-1/3*(2*r-3)/r^2;
+      asy.var<-1/3*(2*r-3)/r^2;
     }}
-  asyvar
+  asy.var
 } #end of the function
 #'
 #' @rdname funsMuVarPE1D
 #'
 fvar2 <- function(r,c)
 {
-  asyvar<-0;
+  asy.var<-0;
   if (r<1/(1-c))
   {
-    asyvar<--1/3*(12*c^4*r^4-24*c^3*r^4+3*c^2*r^5+15*c^2*r^4-3*c*r^5-9*c^2*r^3-3*c*r^4+r^5+6*c^2*r^2+9*c*r^3-r^4-6*c*r^2-2*r^3+4*r^2-3*r+1)/r^2;
+    asy.var<--1/3*(12*c^4*r^4-24*c^3*r^4+3*c^2*r^5+15*c^2*r^4-3*c*r^5-9*c^2*r^3-3*c*r^4+r^5+6*c^2*r^2+9*c*r^3-r^4-6*c*r^2-2*r^3+4*r^2-3*r+1)/r^2;
   } else {
     if (r<(1-sqrt(1-4*c))/(2*c))
     {
-      asyvar<--1/3*(3*c^4*r^4+c^3*r^5-c^3*r^4-11*c^3*r^3-3*c^2*r^4+6*c^2*r^3+9*c^2*r^2+3*c*r^3-9*c*r^2+3*c*r-r^2+2*r-1)/r^2;
+      asy.var<--1/3*(3*c^4*r^4+c^3*r^5-c^3*r^4-11*c^3*r^3-3*c^2*r^4+6*c^2*r^3+9*c^2*r^2+3*c*r^3-9*c*r^2+3*c*r-r^2+2*r-1)/r^2;
     } else {
       if (r<(1+sqrt(1-4*c))/(2*c))
       {
-        asyvar<--1/3*(3*c^4*r^5-c^3*r^5-11*c^3*r^4+3*c^2*r^4+9*c^2*r^3-3*c*r^3-r^2+2*r-1)/r^3;
+        asy.var<--1/3*(3*c^4*r^5-c^3*r^5-11*c^3*r^4+3*c^2*r^4+9*c^2*r^3-3*c*r^3-r^2+2*r-1)/r^3;
       } else {
         if (r<1/c)
         {
-          asyvar<--1/3*(3*c^4*r^4+c^3*r^5-c^3*r^4-11*c^3*r^3-3*c^2*r^4+6*c^2*r^3+9*c^2*r^2+3*c*r^3-9*c*r^2+3*c*r-r^2+2*r-1)/r^2;
+          asy.var<--1/3*(3*c^4*r^4+c^3*r^5-c^3*r^4-11*c^3*r^3-3*c^2*r^4+6*c^2*r^3+9*c^2*r^2+3*c*r^3-9*c*r^2+3*c*r-r^2+2*r-1)/r^2;
         } else {
-          asyvar<-1/3*(2*r-3)/r^2;
+          asy.var<-1/3*(2*r-3)/r^2;
         }}}}
-  asyvar
+  asy.var
 } #end of the function
 #'
 #' @rdname funsMuVarPE1D
 #'
 #' @examples
-#' \dontrun{
-#' #Examples for asyvarPE1D
-#' asyvarPE1D(1.2,.8)
+#' \donttest{
+#' #Examples for asy.varPE1D
+#' asy.varPE1D(1.2,.8)
 #'
 #' rseq<-seq(1.01,5,by=.1)
 #' cseq<-seq(0.01,.99,by=.1)
@@ -347,15 +347,15 @@ fvar2 <- function(r,c)
 #' for (i in 1:lrseq)
 #'   for (j in 1:lcseq)
 #'   {
-#'     var.grid[i,j]<-asyvarPE1D(rseq[i],cseq[j])
+#'     var.grid[i,j]<-asy.varPE1D(rseq[i],cseq[j])
 #'   }
 #'
 #' persp(rseq,cseq,var.grid, xlab="r", ylab="c", zlab="var(r,c)", theta = -30, phi = 30,
 #' expand = 0.5, col = "lightblue", ltheta = 120, shade = 0.05, ticktype = "detailed")
 #' }
 #'
-#' @export asyvarPE1D
-asyvarPE1D <- function(r,c)
+#' @export asy.varPE1D
+asy.varPE1D <- function(r,c)
 {
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
@@ -363,22 +363,22 @@ asyvarPE1D <- function(r,c)
   if (!is.point(c,1) || c <= 0 || c >= 1)
   {stop('c must be a scalar in (0,1)')}
 
-  asyvar<-0;
+  asy.var<-0;
   if (c<1/4)
   {
-    asyvar<-fvar2(r,c);
+    asy.var<-fvar2(r,c);
   } else {
     if (c<1/2)
     {
-      asyvar<-fvar1(r,c);
+      asy.var<-fvar1(r,c);
     } else {
       if (c<3/4)
       {
-        asyvar<-fvar1(r,1-c);
+        asy.var<-fvar1(r,1-c);
       } else {
-        asyvar<-fvar2(r,1-c);
+        asy.var<-fvar2(r,1-c);
       }}}
-  asyvar
+  asy.var
 } #end of the function
 #'
 
@@ -435,7 +435,7 @@ asyvarPE1D <- function(r,c)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c<-.4
 #' r<-2
 #' a<-0; b<-10; int<-c(a,b)
@@ -459,6 +459,11 @@ PEarc.dens.test.int <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less",
 
   if (!is.point(Xp,length(Xp)))
   {stop('Xp must be a 1D vector of numerical entries')}
+
+  n<-length(Xp)  #number of X points
+  if (n<=1)
+  {stop('The graph is void or has only one vertex!
+    So, there are not enough Xp points to compute the arc density!')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
@@ -486,7 +491,7 @@ PEarc.dens.test.int <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less",
   arc.dens<-num.arcs/(n*(n-1))
   estimate1<-arc.dens
   mn<-muPE1D(r,c)
-  asy.var<-asyvarPE1D(r,c)
+  asy.var<-asy.varPE1D(r,c)
   TS<-sqrt(n) *(arc.dens-mn)/sqrt(asy.var)
   method <-c("Large Sample z-Test Based on Arc Density of PE-PCD for Testing Uniformity of 1D Data")
   names(estimate1) <-c("arc density")
@@ -529,43 +534,67 @@ PEarc.dens.test.int <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less",
 
 #################################################################
 
-#' @title A test of segregation/association based on arc density of Proportional Edge Proximity Catch Digraph
+#' @title A test of segregation/association based on arc density of
+#' Proportional Edge Proximity Catch Digraph
 #' (PE-PCD) for 1D data
 #'
 #' @description
-#' An object of class \code{"htest"} (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
-#' randomness (CSR) or uniformity of \code{Xp} points in the range (i.e., range) of \code{Yp} points against the alternatives
-#' of segregation (where \code{Xp} points cluster away from \code{Yp} points) and association (where \code{Xp} points cluster around
-#' \code{Yp} points) based on the normal approximation of the arc density of the PE-PCD for uniform 1D data.
+#' An object of class \code{"htest"} (i.e., hypothesis test) function
+#' which performs a hypothesis test of complete spatial
+#' randomness (CSR) or uniformity of \code{Xp} points in the range
+#' (i.e., range) of \code{Yp} points against the alternatives
+#' of segregation (where \code{Xp} points cluster away from \code{Yp} points)
+#' and association (where \code{Xp} points cluster around
+#' \code{Yp} points) based on the normal approximation of
+#' the arc density of the PE-PCD for uniform 1D data.
 #'
-#' The function yields the test statistic, \eqn{p}-value for the corresponding \code{alternative},
-#' the confidence interval, estimate and null value for the parameter of interest (which is the arc density),
+#' The function yields the test statistic,
+#' \eqn{p}-value for the corresponding \code{alternative},
+#' the confidence interval, estimate and null value
+#' for the parameter of interest (which is the arc density),
 #' and method and name of the data set used.
 #'
-#' Under the null hypothesis of uniformity of \code{Xp} points in the range of \code{Yp} points, arc density
-#' of PE-PCD whose vertices are \code{Xp} points equals to its expected value under the uniform distribution and
-#' \code{alternative} could be two-sided, or left-sided (i.e., data is accumulated around the \code{Yp} points, or association)
-#' or right-sided (i.e., data is accumulated around the centers of the intervals, or segregation).
+#' Under the null hypothesis of uniformity of \code{Xp} points
+#' in the range of \code{Yp} points, arc density
+#' of PE-PCD whose vertices are \code{Xp} points equals
+#' to its expected value under the uniform distribution and
+#' \code{alternative} could be two-sided, or left-sided
+#' (i.e., data is accumulated around the \code{Yp} points, or association)
+#' or right-sided (i.e., data is accumulated around the centers of the intervals,
+#' or segregation).
 #'
-#' PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} which yields
-#' \eqn{M}-vertex regions. More precisely, for a middle interval \eqn{(y_{(i)},y_{(i+1)})}, the center is
+#' PE proximity region is constructed with the expansion parameter \eqn{r \ge 1}
+#' and centrality parameter \code{c} which yields
+#' \eqn{M}-vertex regions.
+#' More precisely, for a middle interval \eqn{(y_{(i)},y_{(i+1)})}, the center is
 #' \eqn{M=y_{(i)}+c(y_{(i+1)}-y_{(i)})} for the centrality parameter \eqn{c \in (0,1)}.
+#' If there are duplicates of \code{Yp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
-#' **Caveat:** This test is currently a conditional test, where \code{Xp} points are assumed to be random, while \code{Yp} points are
+#' **Caveat:** This test is currently a conditional test,
+#' where \code{Xp} points are assumed to be random, while \code{Yp} points are
 #' assumed to be fixed (i.e., the test is conditional on \code{Yp} points).
-#' Furthermore, the test is a large sample test when \code{Xp} points are substantially larger than \code{Yp} points,
+#' Furthermore, the test is a large sample test
+#' when \code{Xp} points are substantially larger than \code{Yp} points,
 #' say at least 5 times more.
-#' This test is more appropriate when supports of \code{Xp} and \code{Yp} have a substantial overlap.
-#' Currently, the \code{Xp} points outside the range of \code{Yp} points are handled with a range correction (or
-#' end interval correction) factor (see the description below and the function code.)
-#' However, in the special case of no \code{Xp} points in the range of \code{Yp} points, arc density is taken to be 1,
-#' as this is clearly a case of segregation. Removing the conditioning and extending it to the case of non-concurring supports is
+#' This test is more appropriate when supports of \code{Xp} and \code{Yp}
+#' have a substantial overlap.
+#' Currently, the \code{Xp} points outside the range of \code{Yp} points
+#' are handled with a range correction (or
+#' end-interval correction) factor (see the description below and the function code.)
+#' However, in the special case of no \code{Xp} points in the range of \code{Yp} points,
+#' arc density is taken to be 1,
+#' as this is clearly a case of segregation.
+#' Removing the conditioning and extending it to the case of non-concurring supports is
 #' an ongoing line of research of the author of the package.
 #'
-#' \code{end.int.cor} is for end interval correction, (default is "no end interval correction", i.e., \code{end.int.cor=FALSE}),
+#' \code{end.int.cor} is for end-interval correction,
+#' (default is "no end-interval correction", i.e., \code{end.int.cor=FALSE}),
 #' recommended when both \code{Xp} and \code{Yp} have the same interval support.
 #'
-#' See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}) for more on the uniformity test based on the arc
+#' See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}) for
+#' more on the uniformity test based on the arc
 #' density of PE-PCDs.
 #'
 #' @param Xp A set of 1D points which constitute the vertices of the PE-PCD.
@@ -576,7 +605,7 @@ PEarc.dens.test.int <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less",
 #' must be \eqn{\ge 1}.
 #' @param c A positive real number which serves as the centrality parameter in PE proximity region;
 #' must be in \eqn{(0,1)} (default \code{c=.5}).
-#' @param end.int.cor A logical argument for end interval correction, default is \code{FALSE},
+#' @param end.int.cor A logical argument for end-interval correction, default is \code{FALSE},
 #' recommended when both \code{Xp} and \code{Yp} have the same interval support.
 #' @param alternative Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.
 #' @param conf.level Level of the confidence interval, default is \code{0.95}, for the arc density
@@ -602,7 +631,7 @@ PEarc.dens.test.int <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less",
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10; int=c(a,b)
@@ -624,7 +653,7 @@ PEarc.dens.test.int <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less",
 #'
 #' @export PEarc.dens.test1D
 PEarc.dens.test1D <- function(Xp,Yp,r,c=.5,support.int=NULL,end.int.cor=FALSE,
-                            alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
+                              alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   dname <-deparse(substitute(Xp))
 
@@ -635,13 +664,22 @@ PEarc.dens.test1D <- function(Xp,Yp,r,c=.5,support.int=NULL,end.int.cor=FALSE,
   if ((!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp))))
   {stop('Xp and Yp must be 1D vectors of numerical entries.')}
 
+  n<-length(Xp)  #number of X points
+  if (n<=1)
+  {stop('The graph is void or has only one vertex!
+    So, there are not enough Xp points to compute the arc density!')}
+
+  if(any(duplicated(Yp))) #if there are duplicates for Yp values, only one is taken for each
+  {Yp = unique(Yp)
+  warning("There were duplicate Yp values; only one value is kept for each duplicate value!")}
+
   if (length(Yp)<2)
   {stop('Yp must be of length >2')}
 
   if (!is.null(support.int))
   {
-  if (!is.point(support.int) || support.int[2]<=support.int[1])
-  {stop('support.int must be an interval as (a,b) with a<b')}
+    if (!is.point(support.int) || support.int[2]<=support.int[1])
+    {stop('support.int must be an interval as (a,b) with a<b')}
   }
 
   if (!is.point(c,1) || c <= 0 || c >= 1)
@@ -659,17 +697,17 @@ PEarc.dens.test1D <- function(Xp,Yp,r,c=.5,support.int=NULL,end.int.cor=FALSE,
 
   num.arcs.ints = Arcs$int.num.arcs #vector of number of arcs in the partition intervals
   n.int = length(num.arcs.ints)
-  num.arcs = sum(num.arcs.ints[-c(1,n.int)]) #this is to remove the number of arcs in the end intervals
+  num.arcs = sum(num.arcs.ints[-c(1,n.int)]) #this is to remove the number of arcs in the end-intervals
   num.dat.ints = Arcs$num.in.ints[-c(1,n.int)] #vector of numbers of data points in the partition intervals
   Wvec<-Arcs$w
   LW<-Wvec/sum(Wvec)
 
   dat.int.ind = Arcs$data.int.ind #indices of partition intervals in which data points reside
-  mid.ind = which(dat.int.ind!=1 & dat.int.ind!=n.int)
+  mid.ind = which(dat.int.ind!=1 & dat.int.ind!=n.int) #indices of data points in mid intervals
   #indices of Xp points in range of Yp points (i.e., in middle intervals)
-  dat.int.ind = dat.int.ind[mid.ind] #removing the end interval indices
+  dat.int.ind = dat.int.ind[mid.ind] #removing the end-interval indices
   dat.mid = Xp[mid.ind] #Xp points in range of Yp points (i.e., in middle intervals)
-  part.int.mid =  t(Arcs$partition.intervals)[-c(1,n.int),] #middle partition intervals
+  part.int.mid =  t(Arcs$partition.intervals)[-c(1,n.int),] #middle partition intervals, each row is an interval
 
   ind.Xp1 = which(num.dat.ints==1) #indices of partition intervals containing only one Xp point
   if (length(ind.Xp1)>0)
@@ -686,10 +724,9 @@ PEarc.dens.test1D <- function(Xp,Yp,r,c=.5,support.int=NULL,end.int.cor=FALSE,
   asy.mean0<-muPE1D(r,c)  #asy mean value for the (r,c) pair
   asy.mean<-asy.mean0*sum(LW^2)
 
-  asy.var0<-asyvarPE1D(r,c)  #asy variance value for the (r,c) pair
+  asy.var0<-asy.varPE1D(r,c)  #asy variance value for the (r,c) pair
   asy.var<-asy.var0*sum(LW^3)+4*asy.mean0^2*(sum(LW^3)-(sum(LW^2))^2)
 
-  n<-length(Xp)  #number of X points
   if (NinR  == 0)
   {warning('There is no Xp point in the range of Yp points to compute arc density,
            but as this is clearly a segregation pattern, arc density is taken to be 1!')
@@ -699,14 +736,13 @@ PEarc.dens.test1D <- function(Xp,Yp,r,c=.5,support.int=NULL,end.int.cor=FALSE,
   {  arc.dens<-num.arcs/(NinR*(NinR-1))
   TS0<-sqrt(NinR)*(arc.dens-asy.mean)/sqrt(asy.var)  #standardized test stat}  #arc density
   }
-  estimate1<-arc.dens
-  estimate2<-asy.mean
+  estimate1<-arc.dens; estimate2<-asy.mean
 
   method <-c("Large Sample z-Test Based on Arc Density of PE-PCD for Testing Uniformity of 1D Data ---")
   if (end.int.cor==F)
   {
     TS<-TS0
-    method <-c(method, " without End Interval Correction")
+    method <-c(method, " without End-Interval Correction")
   }
   else
   {
@@ -717,7 +753,7 @@ PEarc.dens.test1D <- function(Xp,Yp,r,c=.5,support.int=NULL,end.int.cor=FALSE,
     exp.prop.out<-2/m  #expected proportion of points outside range of Y points
 
     TS<-TS0+abs(TS0)*sign(prop.out-exp.prop.out)*(prop.out-exp.prop.out)^2
-    method <-c(method, " with End Interval Correction")
+    method <-c(method, " with End-Interval Correction")
   }
 
   names(estimate1) <-c("arc density")
@@ -764,16 +800,22 @@ PEarc.dens.test1D <- function(Xp,Yp,r,c=.5,support.int=NULL,end.int.cor=FALSE,
 #'
 #' @description
 #' An object of class \code{"PCDs"}.
-#' Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
-#' of PE-PCD.
+#' Returns arcs of PE-PCD as tails (or sources) and heads (or arrow ends)
+#' and related parameters and the quantities of the digraph.
+#' The vertices of the PE-PCD are the 1D data points in \code{Xp}
+#' in the middle interval case.
 #'
 #' For this function, PE proximity regions are constructed with respect to the intervals
-#' based on \code{Yp} points with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
+#' based on \code{Yp} points with expansion parameter \eqn{r \ge 1} and
+#' centrality parameter \eqn{c \in (0,1)}. That is, for this function,
 #' arcs may exist for points only inside the intervals.
 #' It also provides various descriptions and quantities about the arcs of the PE-PCD
 #' such as number of arcs, arc density, etc.
 #'
 #' Vertex regions are based on center \eqn{M_c} of each middle interval.
+#' If there are duplicates of \code{Yp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
 #' See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 #'
@@ -788,9 +830,10 @@ PEarc.dens.test1D <- function(Xp,Yp,r,c=.5,support.int=NULL,end.int.cor=FALSE,
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
 #' \item{parameters}{Parameters of the digraph, here, they are expansion and centrality parameters.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the intervalization based on \code{Yp} points.}
-#' \item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation is the intervalization based on \code{Yp} points.}
+#' \item{tess.name}{Name of the tessellation points \code{tess.points}}
 #' \item{vertices}{Vertices of the digraph, i.e., \code{Xp} points}
 #' \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 #' \item{S}{Tails (or sources) of the arcs of PE-PCD for 1D data in the middle intervals}
@@ -808,7 +851,7 @@ PEarc.dens.test1D <- function(Xp,Yp,r,c=.5,support.int=NULL,end.int.cor=FALSE,
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10;
@@ -861,6 +904,10 @@ arcsPEmid.int <- function(Xp,Yp,r,c=.5)
   if (!is.point(c,1) || c <= 0 || c >= 1)
   {stop('c must be a scalar in (0,1)')}
 
+  if(any(duplicated(Yp))) #if there are duplicates for Yp values, only one is taken for each
+  {Yp = unique(Yp)
+  warning("There were duplicate Yp values; only one value is kept for each duplicate value!")}
+
   nx<-length(Xp); ny<-length(Yp)
 
   if (ny<=1 | nx<=1)
@@ -876,8 +923,8 @@ arcsPEmid.int <- function(Xp,Yp,r,c=.5)
       int[i]<-(Xs[i]>ymin & Xs[i] < ymax )  #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
 
     Xint<-Xs[int==1] # X points inside  min(Yp) and max (Yp)
-    XLe<-Xs[Xs<ymin] # X points in the left end interval of Yp points
-    XRe<-Xs[Xs>ymax] # X points in the right end interval of Yp points
+    XLe<-Xs[Xs<ymin] # X points in the left end-interval of Yp points
+    XRe<-Xs[Xs>ymax] # X points in the right end-interval of Yp points
 
     nt<-ny-1 #number of Yp middle intervals
     nx2<-length(Xint)  #number of Xp points inside the middle intervals
@@ -958,21 +1005,21 @@ arcsPEmid.int <- function(Xp,Yp,r,c=.5)
 #'
 
 #################################################################
-#The case of end intervals
+#The case of end-intervals
 #################################################################
 
 
 #################################################################
 
 #' @title The indicator for the presence of an arc from a point to another for
-#' Proportional Edge Proximity Catch Digraphs (PE-PCDs) - end interval case
+#' Proportional Edge Proximity Catch Digraphs (PE-PCDs) - end-interval case
 #'
 #' @description Returns \eqn{I(p_2 \in N_{PE}(p_1,r))} for points \eqn{p_1} and \eqn{p_2}, that is, returns 1 if \eqn{p_2} is in \eqn{N_{PE}(p_1,r)}, returns 0
 #' otherwise, where \eqn{N_{PE}(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}
 #' for the region outside the interval \eqn{(a,b)}.
 #'
 #' \code{rv} is the index of the end vertex region \eqn{p_1} resides, with default=\code{NULL},
-#' and \code{rv=1} for left end interval and \code{rv=2} for the right end interval.
+#' and \code{rv=1} for left end-interval and \code{rv=2} for the right end-interval.
 #' If \eqn{p_1} and \eqn{p_2} are distinct and either of them are inside interval \code{int}, it returns 0,
 #' but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 #'
@@ -984,7 +1031,7 @@ arcsPEmid.int <- function(Xp,Yp,r,c=.5)
 #' @param r A positive real number which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
 #' @param int A \code{vector} of two real numbers representing an interval.
-#' @param rv Index of the end interval containing the point, either \code{1,2} or \code{NULL} (default is \code{NULL}).
+#' @param rv Index of the end-interval containing the point, either \code{1,2} or \code{NULL} (default is \code{NULL}).
 #'
 #' @return \eqn{I(p_2 \in N_{PE}(p_1,r))} for points \eqn{p_1} and \eqn{p_2}, that is, returns 1 if \eqn{p_2} is in \eqn{N_{PE}(p_1,r)}
 #' (i.e., if there is an arc from \eqn{p_1} to \eqn{p_2}), returns 0 otherwise
@@ -1027,7 +1074,7 @@ IarcPEend.int <- function(p1,p2,int,r,rv=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  {rv<-rel.vert.end.int(p1,int)$rv #determines the vertex for the end interval for 1D point p1
+  {rv<-rel.vert.end.int(p1,int)$rv #determines the vertex for the end-interval for 1D point p1
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2))!=1)
   {stop('vertex index, rv, must be 1 or 2')}}
@@ -1046,7 +1093,7 @@ IarcPEend.int <- function(p1,p2,int,r,rv=NULL)
 
 #################################################################
 
-#' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - end interval case
+#' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - end-interval case
 #'
 #' @description Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) whose
 #' vertices are a 1D numerical data set, \code{Xp}, outside the interval \code{int}\eqn{=(a,b)}.
@@ -1065,7 +1112,7 @@ IarcPEend.int <- function(p1,p2,int,r,rv=NULL)
 #' @param int A \code{vector} of two real numbers representing an interval.
 #'
 #' @return Number of arcs for the PE-PCD with vertices being 1D data set, \code{Xp},
-#' expansion parameter, \eqn{r \ge 1}, for the end intervals.
+#' expansion parameter, \eqn{r \ge 1}, for the end-intervals.
 #'
 #' @seealso \code{\link{num.arcsPEmid.int}}, \code{\link{num.arcsPE1D}}, \code{\link{num.arcsCSmid.int}}, and \code{\link{num.arcsCSend.int}}
 #'
@@ -1075,7 +1122,7 @@ IarcPEend.int <- function(p1,p2,int,r,rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' a<-0; b<-10; int<-c(a,b)
 #'
 #' n<-5
@@ -1128,14 +1175,14 @@ num.arcsPEend.int <- function(Xp,int,r)
 # funsMuVarPEend.int
 #'
 #' @title Returns the mean and (asymptotic) variance of arc density of Proportional Edge Proximity Catch Digraph
-#' (PE-PCD) for 1D data - end interval case
+#' (PE-PCD) for 1D data - end-interval case
 #'
 #' @description
-#' Two functions: \code{muPEend.int} and \code{asyvarPEend.int}.
+#' Two functions: \code{muPEend.int} and \code{asy.varPEend.int}.
 #'
 #' \code{muPEend.int} returns the mean of the arc density of PE-PCD
-#' and \code{asyvarPEend.int} returns the asymptotic variance of the arc density of PE-PCD
-#' for a given expansion parameter \eqn{r \ge 1} for 1D uniform data in the left and right end intervals
+#' and \code{asy.varPEend.int} returns the asymptotic variance of the arc density of PE-PCD
+#' for a given expansion parameter \eqn{r \ge 1} for 1D uniform data in the left and right end-intervals
 #' for the interval \eqn{(a,b)}.
 #'
 #' See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
@@ -1143,13 +1190,13 @@ num.arcsPEend.int <- function(Xp,int,r)
 #' @param r A positive real number which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
 #'
-#' @return \code{muPEend.int} returns the mean and \code{asyvarPEend.int} returns the asymptotic variance of the
-#' arc density of PE-PCD for uniform data in end intervals
+#' @return \code{muPEend.int} returns the mean and \code{asy.varPEend.int} returns the asymptotic variance of the
+#' arc density of PE-PCD for uniform data in end-intervals
 #'
 #' @name funsMuVarPEend.int
 NULL
 #'
-#' @seealso \code{\link{muCSend.int}} and \code{\link{asyvarCSend.int}}
+#' @seealso \code{\link{muCSend.int}} and \code{\link{asy.varCSend.int}}
 #'
 #' @rdname funsMuVarPEend.int
 #'
@@ -1159,7 +1206,7 @@ NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for muPEend.int
 #' muPEend.int(1.2)
 #'
@@ -1188,9 +1235,9 @@ muPEend.int <- function(r)
 #' @rdname funsMuVarPEend.int
 #'
 #' @examples
-#' \dontrun{
-#' #Examples for asyvarPEend.int
-#' asyvarPEend.int(1.2)
+#' \donttest{
+#' #Examples for asy.varPEend.int
+#' asy.varPEend.int(1.2)
 #'
 #' rseq<-seq(1.01,5,by=.1)
 #' lrseq<-length(rseq)
@@ -1198,16 +1245,17 @@ muPEend.int <- function(r)
 #' var.end<-vector()
 #' for (i in 1:lrseq)
 #' {
-#'   var.end<-c(var.end,asyvarPEend.int(rseq[i]))
+#'   var.end<-c(var.end,asy.varPEend.int(rseq[i]))
 #' }
 #'
-#' par(mar=c(5,5,4,2))
+#' oldpar <- par(mar=c(5,5,4,2))
 #' plot(rseq, var.end,type="l",
 #' xlab="r",ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
+#' par(oldpar)
 #' }
 #'
-#' @export asyvarPEend.int
-asyvarPEend.int <- function(r)
+#' @export asy.varPEend.int
+asy.varPEend.int <- function(r)
 {
   if (!is.point(r,1) || r<1)
   {stop('the argument must be a scalar greater than 1')}
@@ -1218,16 +1266,19 @@ asyvarPEend.int <- function(r)
 
 #################################################################
 
-#' @title The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - end interval case
+#' @title The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - end-interval case
 #'
 #' @description
 #' An object of class \code{"PCDs"}.
-#' Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
-#' of PE-PCD and related parameters and the quantities of the digraph.  \code{Yp} determines the end points of the end intervals.
+#' Returns arcs of PE-PCD as tails (or sources) and heads (or arrow ends)
+#' and related parameters and the quantities of the digraph.
+#' The vertices of the PE-PCD are the 1D data points in \code{Xp}
+#' in the end-interval case.
+#' \code{Yp} determines the end points of the end-intervals.
 #'
 #' For this function, PE proximity regions are constructed data points outside the intervals based on
 #' \code{Yp} points with expansion parameter \eqn{r \ge 1}. That is, for this function,
-#' arcs may exist for points only inside end intervals.
+#' arcs may exist for points only inside end-intervals.
 #' It also provides various descriptions and quantities about the arcs of the PE-PCD
 #' such as number of arcs, arc density, etc.
 #'
@@ -1241,16 +1292,17 @@ asyvarPEend.int <- function(r)
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
 #' \item{parameters}{Parameters of the digraph, here, it is the expansion parameter.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the intervalization based on \code{Yp}.}
-#' \item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation is the intervalization based on \code{Yp}.}
+#' \item{tess.name}{Name of the tessellation points \code{tess.points}}
 #' \item{vertices}{Vertices of the digraph, \code{Xp} points}
 #' \item{vert.name}{Name of the data set which constitutes the vertices of the digraph}
-#' \item{S}{Tails (or sources) of the arcs of PE-PCD for 1D data in the end intervals}
-#' \item{E}{Heads (or arrow ends) of the arcs of PE-PCD for 1D data in the end intervals}
+#' \item{S}{Tails (or sources) of the arcs of PE-PCD for 1D data in the end-intervals}
+#' \item{E}{Heads (or arrow ends) of the arcs of PE-PCD for 1D data in the end-intervals}
 #' \item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
-#' number of intervals (which is 2 for end intervals), number of arcs, and arc density.}
+#' number of intervals (which is 2 for end-intervals), number of arcs, and arc density.}
 #'
 #' @seealso \code{\link{arcsPEmid.int}}, \code{\link{arcsPE1D}} , \code{\link{arcsCSmid.int}},
 #' \code{\link{arcsCSend.int}}  and \code{\link{arcsCS1D}}
@@ -1261,7 +1313,7 @@ asyvarPEend.int <- function(r)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' r<-2
 #' a<-0; b<-10; int<-c(a,b);
 #'
@@ -1289,7 +1341,7 @@ asyvarPEend.int <- function(r)
 #' xd<-Xlim[2]-Xlim[1]
 #'
 #' plot(cbind(a,0),pch=".",
-#' main="arcs of PE-PCDs for points (jittered along y-axis)\n in end intervals ",
+#' main="arcs of PE-PCDs for points (jittered along y-axis)\n in end-intervals ",
 #' xlab=" ", ylab=" ", xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit))
 #' abline(h=0,lty=1)
 #' points(Xp, yjit,pch=".",cex=3)
@@ -1313,13 +1365,13 @@ arcsPEend.int <- function(Xp,Yp,r)
   Xs<-sort(Xp); Ys<-sort(Yp)  #sorted data points
   ymin<-Ys[1]; ymax<-max(Yp)
 
-  XLe<-Xs[Xs<ymin]; XRe<-Xs[Xs>ymax] #X points in the left and right end intervals respectively
+  XLe<-Xs[Xs<ymin]; XRe<-Xs[Xs>ymax] #X points in the left and right end-intervals respectively
 
   #the arcs of PE-PCDs for parameters r and c
   S<-E<-vector()  #S is for source and E is for end points for the arcs
 
-  #for end intervals
-  #left end interval
+  #for end-intervals
+  #left end-interval
   nle<-length(XLe)
   if (nle>1 )
   {
@@ -1332,7 +1384,7 @@ arcsPEend.int <- function(Xp,Yp,r)
     }
   }
 
-  #right end interval
+  #right end-interval
   nre<-length(XRe)
   if (nre>1 )
   {
@@ -1351,16 +1403,16 @@ arcsPEend.int <- function(Xp,Yp,r)
 
   param<-r
   names(param)<-"expansion parameter"
-  typ<-paste("Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points in the End Intervals with Expansion Parameter r = ",r,sep="")
+  typ<-paste("Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points in the End-Intervals with Expansion Parameter r = ",r,sep="")
 
-  main.txt<-paste("Arcs of PE-PCD for Points (jittered\n along y-axis) in End Intervals with r = ",round(r,2),sep="")
+  main.txt<-paste("Arcs of PE-PCD for Points (jittered\n along y-axis) in End-Intervals with r = ",round(r,2),sep="")
 
   nvert<-nle+nre; ny<-length(Yp); nint<-2; narcs<-ifelse(sum(is.na(S))==0,length(S),0);
   arc.dens<-ifelse(nvert>1,narcs/(nvert*(nvert-1)),NA)
 
   quantities<-c(nvert,ny,nint,narcs,arc.dens)
   names(quantities)<-c("number of vertices", "number of partition points",
-                       "number of end intervals","number of arcs", "arc density")
+                       "number of end-intervals","number of arcs", "arc density")
   res<-list(
     type=typ,
     parameters=param,
@@ -1380,18 +1432,28 @@ arcsPEend.int <- function(Xp,Yp,r)
 
 #################################################################
 
-#' @title The plot of the arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) for 1D data
-#' (vertices jittered along \eqn{y}-coordinate) - multiple interval case
+#' @title The plot of the arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs)
+#' for 1D data (vertices jittered along \eqn{y}-coordinate) - multiple interval case
 #'
-#' @description Plots the arcs of PE-PCD whose vertices are the 1D points, \code{Xp}. PE proximity regions are constructed with
-#' expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)} and the intervals are based on \code{Yp} points (i.e.
-#' the intervalization is based on \code{Yp} points). That is, data set \code{Xp}
+#' @description Plots the arcs of PE-PCD whose vertices are the 1D points, \code{Xp}.
+#' PE proximity regions are constructed with
+#' expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}
+#' and the intervals are based on \code{Yp} points (i.e.
+#' the intervalization is based on \code{Yp} points).
+#' That is, data set \code{Xp}
 #' constitutes the vertices of the digraph and \code{Yp} determines the end points of the intervals.
+#' If there are duplicates of \code{Yp} or \code{Xp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
-#' For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)} (default for \eqn{Jit=.1}) is added to
-#' the \eqn{y}-direction where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by \code{Jit} with default for \eqn{Jit=.1}).
-#' \code{centers} is a logical argument, if \code{TRUE}, plot includes the centers of the intervals
-#' as vertical lines in the plot, else centers of the intervals are not plotted.
+#' For better visualization,
+#' a uniform jitter from \eqn{U(-Jit,Jit)} (default for \eqn{Jit=.1}) is added to
+#' the \eqn{y}-direction where \code{Jit} equals to the range of \code{Xp}
+#' and \code{Yp} multiplied by \code{Jit} with default for \eqn{Jit=.1}).
+#' \code{centers} is a logical argument, if \code{TRUE},
+#' plot includes the centers of the intervals
+#' as vertical lines in the plot,
+#' else centers of the intervals are not plotted.
 #'
 #' See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 #'
@@ -1424,7 +1486,7 @@ arcsPEend.int <- function(Xp,Yp,r)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
@@ -1450,8 +1512,18 @@ arcsPEend.int <- function(Xp,Yp,r)
 #' }
 #'
 #' @export plotPEarcs1D
-plotPEarcs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,centers=FALSE, ...)
+plotPEarcs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,
+                         xlim=NULL,ylim=NULL,centers=FALSE, ...)
 {
+  if(any(duplicated(Yp))) #if there are duplicates for Yp values, only one is taken for each
+  {Yp = unique(Yp)
+  warning("There were duplicate Yp values; only one value is kept for each duplicate Yp value!")}
+
+  if(any(duplicated(Xp))) #if there are duplicates for Xp values, only one is taken for each
+  {Xp = unique(Xp)
+  warning("There were duplicate Xp values;
+          only one value is kept for each duplicate Xp value (to avoid arcs of zero length)!")}
+
   arcs<-arcsPE1D(Xp,Yp,r,c)
   S<-arcs$S
   E<-arcs$E
@@ -1496,7 +1568,7 @@ plotPEarcs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
 #'
 
 #################################################################
-#NPE Functions that work for both middle and end intervals
+#NPE Functions that work for both middle and end-intervals
 #################################################################
 
 #' @title The end points of the Proportional Edge (PE) Proximity Region for a point - one interval case
@@ -1640,20 +1712,28 @@ IarcPEint <- function(p1,p2,int,r,c=.5)
 #' @title The plot of the Proportional Edge (PE) Proximity Regions for a general interval
 #' (vertices jittered along \eqn{y}-coordinate) - one interval case
 #'
-#' @description Plots the points in and outside of the interval \code{int} and also the PE proximity regions (which are also intervals).
-#' PE proximity regions are constructed with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}.
+#' @description Plots the points in and outside of the interval \code{int}
+#' and also the PE proximity regions (which are also intervals).
+#' PE proximity regions are constructed with expansion parameter \eqn{r \ge 1}
+#' and centrality parameter \eqn{c \in (0,1)}.
 #'
-#' For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)} (default is \eqn{Jit=.1}) times range of proximity
+#' For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)}
+#' (default is \eqn{Jit=.1}) times range of proximity
 #' regions and \code{Xp}) is added to the \eqn{y}-direction.
+#' If there are duplicates of \code{Xp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #' \code{center} is a logical argument, if \code{TRUE}, plot includes the
-#' center of the interval as a vertical line in the plot, else center of the interval is not plotted.
+#' center of the interval as a vertical line in the plot,
+#' else center of the interval is not plotted.
 #'
 #' See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 #'
 #' @param Xp A set of 1D points for which PE proximity regions are to be constructed.
 #' @param r A positive real number which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}
+#' @param c A positive real number in \eqn{(0,1)} parameterizing
+#' the center inside \code{int}\eqn{=(a,b)}
 #' with the default \code{c=.5}.
 #' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param int A \code{vector} of two real numbers representing an interval.
@@ -1677,7 +1757,7 @@ IarcPEint <- function(p1,p2,int,r,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c<-.4
 #' r<-2
 #' a<-0; b<-10; int<-c(a,b)
@@ -1691,10 +1771,18 @@ IarcPEint <- function(p1,p2,int,r,c=.5)
 #' }
 #'
 #' @export plotPEregs.int
-plotPEregs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,center=FALSE, ...)
+plotPEregs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,
+                           xlim=NULL,ylim=NULL,center=FALSE, ...)
 {
   if (!is.point(Xp,length(Xp)))
   {stop('Xp must be a 1D vector of numerical entries')}
+
+  if(any(duplicated(Xp))) #if there are duplicates for Xp values, only one is taken for each
+  {Xp = unique(Xp)
+  warning("There were duplicate Xp values;
+          only one value is kept for each duplicate Xp value
+          (to avoid proximity intervals of zero length)!")}
+
   n<-length(Xp)
   pr<-c()
   for (i in 1:n)
@@ -1774,18 +1862,19 @@ plotPEregs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' @return A \code{list} with the elements
 #' \item{desc}{A short description of the output: number of arcs
 #' and quantities related to the interval}
-#' \item{num.arcs}{Total number of arcs in all intervals (including the end intervals),
+#' \item{num.arcs}{Total number of arcs in all intervals (including the end-intervals),
 #' i.e., the number of arcs for the entire PE-PCD}
 #' \item{num.in.range}{Number of \code{Xp} points in the interval \code{int}}
-#' \item{num.in.ints}{The vector of number of \code{Xp} points in the partition intervals (including the end intervals)}
+#' \item{num.in.ints}{The vector of number of \code{Xp} points in the partition intervals (including the end-intervals)}
 #' \item{int.num.arcs}{The \code{vector} of the number of arcs of the components of the PE-PCD in the
-#' partition intervals (including the end intervals)}
+#' partition intervals (including the end-intervals)}
 #' \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside.
-#' Partition intervals are numbered from left to right with 1 being the left end interval.}
-#' \item{ind.left.end, ind.mid, ind.right.end}{Indices of data points in the left end interval,
-#' middle interval, and right end interval (respectively)}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the support interval.}
+#' Partition intervals are numbered from left to right with 1 being the left end-interval.}
+#' \item{ind.left.end, ind.mid, ind.right.end}{Indices of data points in the left end-interval,
+#' middle interval, and right end-interval (respectively)}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation points are the end points of the support interval \code{int}.}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
 #' @seealso \code{\link{num.arcsPEmid.int}}, \code{\link{num.arcsPEend.int}},
@@ -1797,7 +1886,7 @@ plotPEregs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c<-.4
 #' r<-2
 #' a<-0; b<-10; int<-c(a,b)
@@ -1824,7 +1913,6 @@ num.arcsPEint <- function(Xp,int,r,c=.5)
   y1<-int[1]; y2<-int[2];
 
   arcs<-0
-  ind.in.tri = NULL
   if (nx<=0)
   {
     arcs<-0
@@ -1853,17 +1941,17 @@ num.arcsPEint <- function(Xp,int,r,c=.5)
 
   NinInt = ni.vec[2]
 
-  desc<-"Number of Arcs of the CS-PCD with vertices Xp and Quantities Related to the Support Interval"
+  desc<-"Number of Arcs of the PE-PCD with vertices Xp and Quantities Related to the Support Interval"
 
   res<-list(desc=desc, #description of the output
-            num.arcs=narcs, #number of arcs for the CS-PCD
+            num.arcs=narcs, #number of arcs for the PE-PCD
             int.num.arcs=arcs, #vector of number of arcs for the partition intervals
             num.in.range=NinInt, #number of Xp points in the interval, int
             num.in.ints=ni.vec, #vector of numbers of Xp points in the partition intervals
             data.int.ind=int.ind, #indices of partition intervals in which data points reside, i.e., column number of part.int for each Xp point
             ind.mid =ind.mid, #indices of data points in the middle interval
-            ind.left.end =ind.left.end, #indices of data points in the left end interval
-            ind.right.end =ind.right.end, #indices of data points in the right end interval
+            ind.left.end =ind.left.end, #indices of data points in the left end-interval
+            ind.right.end =ind.right.end, #indices of data points in the right end-interval
             tess.points=int, #tessellation points
             vertices=Xp #vertices of the digraph
   )
@@ -1888,13 +1976,21 @@ num.arcsPEint <- function(Xp,int,r,c=.5)
 #' (PE-PCD) whose vertices are the data points in \code{Xp}
 #' in the multiple interval case.
 #'
-#' For this function, PE proximity regions are constructed data points inside or outside the intervals based
-#' on \code{Yp} points with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
-#' arcs may exist for points in the middle or end intervals.
+#' For this function,
+#' PE proximity regions are constructed data points inside or outside the intervals based
+#' on \code{Yp} points with expansion parameter \eqn{r \ge 1}
+#' and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
+#' arcs may exist for points in the middle or end-intervals.
 #'
-#' Range (or convex hull) of \code{Yp} (i.e., the interval \eqn{(\min(Yp),\max(Yp))}) is partitioned by the spacings based on
-#' \code{Yp} points (i.e., multiple intervals are these partition intervals based on the order statistics of \code{Yp} points
-#' whose union constitutes the range of \code{Yp} points). For the number of arcs, loops are not counted.
+#' Range (or convex hull) of \code{Yp} (i.e., the interval \eqn{(\min(Yp),\max(Yp))})
+#' is partitioned by the spacings based on
+#' \code{Yp} points (i.e., multiple intervals are these partition intervals
+#' based on the order statistics of \code{Yp} points
+#' whose union constitutes the range of \code{Yp} points).
+#' If there are duplicates of \code{Yp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
+#' For the number of arcs, loops are not counted.
 #'
 #' See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 #'
@@ -1909,21 +2005,22 @@ num.arcsPEint <- function(Xp,int,r,c=.5)
 #' @return A \code{list} with the elements
 #' \item{desc}{A short description of the output: number of arcs
 #' and related quantities for the induced subdigraphs in the partition intervals}
-#' \item{num.arcs}{Total number of arcs in all intervals (including the end intervals),
+#' \item{num.arcs}{Total number of arcs in all intervals (including the end-intervals),
 #' i.e., the number of arcs for the entire PE-PCD}
 #' \item{num.in.range}{Number of \code{Xp} points in the range or convex hull of \code{Yp} points}
-#' \item{num.in.ints}{The vector of number of \code{Xp} points in the partition intervals (including the end intervals)
+#' \item{num.in.ints}{The vector of number of \code{Xp} points in the partition intervals (including the end-intervals)
 #' based on \code{Yp} points}
-#' \item{weight.vec}{The \code{vector} of the lengths of the middle partition intervals (i.e., end intervals excluded)
+#' \item{weight.vec}{The \code{vector} of the lengths of the middle partition intervals (i.e., end-intervals excluded)
 #' based on \code{Yp} points}
 #' \item{int.num.arcs}{The \code{vector} of the number of arcs of the components of the PE-PCD in the
-#' partition intervals (including the end intervals) based on \code{Yp} points}
+#' partition intervals (including the end-intervals) based on \code{Yp} points}
 #' \item{part.int}{A matrix with columns corresponding to the partition intervals based on \code{Yp} points.}
 #' \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside,
 #' i.e., column number of \code{part.int} is provided for each \code{Xp} point. Partition intervals are numbered from left to right
-#' with 1 being the left end interval.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the partition intervals based on \code{Yp} points.}
+#' with 1 being the left end-interval.}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation is the partition intervals based on \code{Yp} points.}
 #' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
 #' @seealso \code{\link{num.arcsPEint}}, \code{\link{num.arcsPEmid.int}}, \code{\link{num.arcsPEend.int}},
@@ -1935,7 +2032,7 @@ num.arcsPEint <- function(Xp,int,r,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b);
@@ -1961,6 +2058,10 @@ num.arcsPE1D <- function(Xp,Yp,r,c=.5)
   if (!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp)))
   {stop('Xp and Yp must be 1D vector of numerical entries')}
 
+  if(any(duplicated(Yp))) #if there are duplicates for Yp values, only one is taken for each
+  {Yp = unique(Yp)
+  warning("There were duplicate Yp values; only one value is kept for each duplicate value!")}
+
   nx<-length(Xp); ny<-length(Yp)
 
   if (nx==0 || ny==0)
@@ -1976,7 +2077,7 @@ num.arcsPE1D <- function(Xp,Yp,r,c=.5)
   int.ind[which(Xp<ymin)]=1
   int.ind[which(Xp>ymax)]=ny+1
 
-  #for end intervals
+  #for end-intervals
   narcs.left = num.arcsPEend.int(dat.left,Yrange,r)
   narcs.right = num.arcsPEend.int(dat.right,Yrange,r)
   arcs=narcs.left
@@ -1998,7 +2099,7 @@ num.arcsPE1D <- function(Xp,Yp,r,c=.5)
   for (i in 1:n.int)
   {
     ind = which(Xp>=Ys[i] & Xp <= Ys[i+1])
-    dat.int<-Xp[ind] #X points in the ith Yp mid interval
+    dat.int <- Xp[ind] #X points in the ith Yp mid interval
     int.ind[ind] = i+1
 
     ni.vec = c(ni.vec,length(dat.int))
@@ -2011,7 +2112,7 @@ num.arcsPE1D <- function(Xp,Yp,r,c=.5)
 
   desc<-"Number of Arcs of the PE-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Partition Intervals"
 
-    res<-list(desc=desc, #description of the output
+  res<-list(desc=desc, #description of the output
             num.arcs=narcs, #number of arcs for the entire PCD
             int.num.arcs=arcs, #vector of number of arcs for the partition intervals
             num.in.range=nx2, #number of Xp points in the range of Yp points
@@ -2032,16 +2133,20 @@ num.arcsPE1D <- function(Xp,Yp,r,c=.5)
 
 #################################################################
 
-#' @title The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - one interval case
+#' @title The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD)
+#' for 1D data - one interval case
 #'
 #' @description
 #' An object of class \code{"PCDs"}.
-#' Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
-#' of PE-PCD.  \code{int} determines the end points of the interval.
+#' Returns arcs of PE-PCD as tails (or sources) and heads (or arrow ends)
+#' and related parameters and the quantities of the digraph.
+#' The vertices of the PE-PCD are the 1D data points in \code{Xp}
+#' in the one interval case.
+#' \code{int} determines the end points of the interval.
 #'
 #' For this function, PE proximity regions are constructed data points inside or outside the interval based
 #' on \code{int} points with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
-#' arcs may exist for points in the middle or end intervals.
+#' arcs may exist for points in the middle or end-intervals.
 #' It also provides various descriptions and quantities about the arcs of the PE-PCD
 #' such as number of arcs, arc density, etc.
 #'
@@ -2058,9 +2163,10 @@ num.arcsPE1D <- function(Xp,Yp,r,c=.5)
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
 #' \item{parameters}{Parameters of the digraph, here, they are expansion and centrality parameters.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the intervalization of the real line based on \code{int} points.}
-#' \item{tess.name}{Name of data set used in tessellation, it is \code{int} for this function}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation points are the end points of the support interval \code{int}.}
+#' \item{tess.name}{Name of the tessellation points \code{tess.points}}
 #' \item{vertices}{Vertices of the digraph, \code{Xp} points}
 #' \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 #' \item{S}{Tails (or sources) of the arcs of PE-PCD for 1D data}
@@ -2077,7 +2183,7 @@ num.arcsPE1D <- function(Xp,Yp,r,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b);
@@ -2125,10 +2231,10 @@ arcsPEint <- function(Xp,int,r,c=.5)
       ind[i]<-(Xp[i]>y1 & Xp[i] < y2 )  #indices of X points inside the interval int
 
     Xint<-Xp[ind==1] # X points inside the interval int
-    XLe<-Xp[Xp<y1] # X points in the left end interval of the interval int
-    XRe<-Xp[Xp>y2] # X points in the right end interval of the interval int
+    XLe<-Xp[Xp<y1] # X points in the left end-interval of the interval int
+    XRe<-Xp[Xp>y2] # X points in the right end-interval of the interval int
 
-    #for left end interval
+    #for left end-interval
     nle<-length(XLe)
     if (nle>1 )
     {
@@ -2164,7 +2270,7 @@ arcsPEint <- function(Xp,int,r,c=.5)
       }
     }
 
-    #for right end interval
+    #for right end-interval
     nre<-length(XRe)
     if (nre>1 )
     {
@@ -2214,19 +2320,30 @@ arcsPEint <- function(Xp,int,r,c=.5)
 
 #################################################################
 
-#' @title The plot of the arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) for 1D data
+#' @title The plot of the arcs of Proportional Edge Proximity Catch Digraphs
+#' (PE-PCDs) for 1D data
 #' (vertices jittered along \eqn{y}-coordinate) - one interval case
 #'
-#' @description Plots the arcs of PE-PCD whose vertices are the 1D points, \code{Xp}. PE proximity regions are constructed with
-#' expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)} and the intervals are based on the interval \code{int}\eqn{=(a,b)}
+#' @description Plots the arcs of PE-PCD whose vertices are the 1D points, \code{Xp}.
+#' PE proximity regions are constructed with
+#' expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}
+#' and the intervals are based on the interval \code{int}\eqn{=(a,b)}
 #' That is, data set \code{Xp}
-#' constitutes the vertices of the digraph and \code{int} determines the end points of the interval.
+#' constitutes the vertices of the digraph
+#' and \code{int} determines the end points of the interval.
+#' If there are duplicates of \code{Xp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
-#' For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)} (default for \eqn{Jit=.1}) is added to
-#' the \eqn{y}-direction where \code{Jit} equals to the range of \eqn{\{}\code{Xp}, \code{int}\eqn{\}}
+#' For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)}
+#' (default for \eqn{Jit=.1}) is added to
+#' the \eqn{y}-direction where \code{Jit} equals to
+#' the range of \eqn{\{}\code{Xp}, \code{int}\eqn{\}}
 #' multiplied by \code{Jit} with default for \eqn{Jit=.1}).
-#' \code{center} is a logical argument, if \code{TRUE}, plot includes the center of the interval \code{int}
-#' as a vertical line in the plot, else center of the interval is not plotted.
+#' \code{center} is a logical argument, if \code{TRUE},
+#' plot includes the center of the interval \code{int}
+#' as a vertical line in the plot,
+#' else center of the interval is not plotted.
 #'
 #' See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 #'
@@ -2259,7 +2376,7 @@ arcsPEint <- function(Xp,int,r,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
@@ -2283,8 +2400,14 @@ arcsPEint <- function(Xp,int,r,c=.5)
 #' }
 #'
 #' @export plotPEarcs.int
-plotPEarcs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,center=FALSE, ...)
+plotPEarcs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,
+                           xlim=NULL,ylim=NULL,center=FALSE, ...)
 {
+  if(any(duplicated(Xp))) #if there are duplicates for Xp values, only one is taken for each
+  {Xp = unique(Xp)
+  warning("There were duplicate Xp values;
+          only one value is kept for each duplicate Xp value (to avoid arcs of zero length)!")}
+
   arcs<-arcsPEint(Xp,int,r,c)
   S<-arcs$S
   E<-arcs$E
@@ -2323,17 +2446,26 @@ plotPEarcs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 
 #################################################################
 
-#' @title The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - multiple interval case
+#' @title The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD)
+#' for 1D data - multiple interval case
 #'
 #' @description
 #' An object of class \code{"PCDs"}.
-#' Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
-#' of PE-PCD and related parameters and the quantities of the digraph.
+#' Returns arcs of PE-PCD as tails (or sources) and heads (or arrow ends)
+#' and related parameters and the quantities of the digraph.
+#' The vertices of the PE-PCD are the 1D data points in \code{Xp}
+#' in the multiple interval case.
 #' \code{Yp} determines the end points of the intervals.
 #'
-#' For this function, PE proximity regions are constructed data points inside or outside the intervals based
-#' on \code{Yp} points with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
-#' arcs may exist for points in the middle or end intervals.
+#' If there are duplicates of \code{Yp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
+#'
+#' For this function,
+#' PE proximity regions are constructed data points inside or outside the intervals based
+#' on \code{Yp} points with expansion parameter \eqn{r \ge 1}
+#' and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
+#' arcs may exist for points in the middle or end-intervals.
 #' It also provides various descriptions and quantities about the arcs of the PE-PCD
 #' such as number of arcs, arc density, etc.
 #'
@@ -2350,9 +2482,10 @@ plotPEarcs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
 #' \item{parameters}{Parameters of the digraph, here, they are expansion and centrality parameters.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-#' is the intervalization of the real line based on \code{Yp} points.}
-#' \item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
+#' \item{tess.points}{Tessellation points, i.e., points on which the tessellation of
+#' the study region is performed,
+#' here, tessellation is the intervalization of the real line based on \code{Yp} points.}
+#' \item{tess.name}{Name of the tessellation points \code{tess.points}}
 #' \item{vertices}{Vertices of the digraph, \code{Xp} points}
 #' \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 #' \item{S}{Tails (or sources) of the arcs of PE-PCD for 1D data}
@@ -2369,7 +2502,7 @@ plotPEarcs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b);
@@ -2404,6 +2537,10 @@ arcsPE1D <- function(Xp,Yp,r,c=.5)
   if (!is.point(c,1) || c <= 0 || c >= 1)
   {stop('c must be a scalar in (0,1)')}
 
+  if(any(duplicated(Yp))) #if there are duplicates for Yp values, only one is taken for each
+  {Yp = unique(Yp)
+  warning("There were duplicate Yp values; only one value is kept for each duplicate value!")}
+
   nx<-length(Xp); ny<-length(Yp)
   S<-E<-vector()  #S is for source and E is for end points for the arcs
   if (nx==0 || ny==0)
@@ -2419,10 +2556,10 @@ arcsPE1D <- function(Xp,Yp,r,c=.5)
       int[i]<-(Xp[i]>ymin & Xp[i] < ymax )  #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
 
     Xint<-Xp[int==1] # X points inside  min(Yp) and max (Yp)
-    XLe<-Xp[Xp<ymin] # X points in the left end interval of Yp points
-    XRe<-Xp[Xp>ymax] # X points in the right end interval of Yp points
+    XLe<-Xp[Xp<ymin] # X points in the left end-interval of Yp points
+    XRe<-Xp[Xp>ymax] # X points in the right end-interval of Yp points
 
-    #for left end interval
+    #for left end-interval
     nle<-length(XLe)
     if (nle>1 )
     {
@@ -2476,7 +2613,7 @@ arcsPE1D <- function(Xp,Yp,r,c=.5)
       }
     }
 
-    #for right end interval
+    #for right end-interval
     nre<-length(XRe)
     if (nre>1 )
     {
@@ -2529,8 +2666,13 @@ arcsPE1D <- function(Xp,Yp,r,c=.5)
 #' @title Incidence matrix for Proportional-Edge Proximity Catch Digraphs (PE-PCDs)
 #' for 1D data - multiple interval case
 #'
-#' @description Returns the incidence matrix for the PE-PCD for a given 1D numerical data set, \code{Xp},
-#' as the vertices of the digraph and \code{Yp} determines the end points of the intervals (in the multi-interval case).
+#' @description Returns the incidence matrix for the PE-PCD
+#' for a given 1D numerical data set, \code{Xp},
+#' as the vertices of the digraph
+#' and \code{Yp} determines the end points of the intervals (in the multi-interval case).
+#' If there are duplicates of \code{Yp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #' Loops are allowed, so the diagonal entries are all equal to 1.
 #'
 #' PE proximity region is constructed
@@ -2558,7 +2700,7 @@ arcsPE1D <- function(Xp,Yp,r,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10;
@@ -2587,6 +2729,10 @@ inci.matPE1D <- function(Xp,Yp,r,c=.5)
 
   if (!is.point(c,1) || c <= 0 || c >= 1)
   {stop('c must be a scalar in (0,1)')}
+
+  if(any(duplicated(Yp))) #if there are duplicates for Yp values, only one is taken for each
+  {Yp = unique(Yp)
+  warning("There were duplicate Yp values; only one value is kept for each duplicate value!")}
 
   nx<-length(Xp); ny<-length(Yp)
   nt<-ny-1 #number of Yp middle intervals
@@ -2663,7 +2809,7 @@ inci.matPE1D <- function(Xp,Yp,r,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c<-.4
 #' r<-2
 #' a<-0; b<-10; int<-c(a,b)
@@ -2697,14 +2843,14 @@ inci.matPEint <- function(Xp,int,r,c=.5)
   if (!is.point(c,1) || c <= 0 || c >= 1)
   {stop('c must be a scalar in (0,1)')}
 
-  nx<-length(Xp); #ny<-length(Yp)
+  nx<-length(Xp);
 
   if (nx==0)
   {stop('Not enough points to construct PE-PCD')}
 
-  if (nx>=1)
-  {
-   y1=int[1]; y2<-int[2];
+ # if (nx>=1)
+ # {
+    y1=int[1]; y2<-int[2];
 
     pr<-c() #proximity region
     for (i in 1:nx)
@@ -2720,22 +2866,29 @@ inci.matPEint <- function(Xp,int,r,c=.5)
       inc.mat[i,j]<-sum(Xp[j]>=reg[1] & Xp[j]<=reg[2])
     }
     }
-  }
+  #}
   inc.mat
 } #end of the function
 #'
 
 #################################################################
 
-#' @title The plot of the Proportional Edge (PE) Proximity Regions (vertices jittered along \eqn{y}-coordinate)
+#' @title The plot of the Proportional Edge (PE) Proximity Regions
+#' (vertices jittered along \eqn{y}-coordinate)
 #' - multiple interval case
 #'
-#' @description Plots the points in and outside of the intervals based on \code{Yp} points and also the PE proximity regions
-#' (i.e., intervals). PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and
+#' @description Plots the points in and outside of the intervals
+#' based on \code{Yp} points and also the PE proximity regions
+#' (i.e., intervals).
+#' PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and
 #' centrality parameter \eqn{c \in (0,1)}.
+#' If there are duplicates of \code{Yp} or \code{Xp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
 #' For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)}
-#' (default is \eqn{Jit=.1}) times range of \code{Xp} and \code{Yp} and the proximity regions (intervals)) is added to the
+#' (default is \eqn{Jit=.1}) times range of \code{Xp}
+#' and \code{Yp} and the proximity regions (intervals)) is added to the
 #' \eqn{y}-direction.
 #'
 #' \code{centers} is a logical argument, if \code{TRUE},
@@ -2763,7 +2916,7 @@ inci.matPEint <- function(Xp,int,r,c=.5)
 #' as vertical lines in the plot, else centers of the intervals are not plotted (default is \code{FALSE}).
 #' @param \dots Additional \code{plot} parameters.
 #'
-#' @return Plot of the PE proximity regions for 1D points located in the middle or end intervals
+#' @return Plot of the PE proximity regions for 1D points located in the middle or end-intervals
 #' based on \code{Yp} points
 #'
 #' @seealso \code{\link{plotPEregs1D}}, \code{\link{plotCSregs.int}}, and \code{\link{plotCSregs1D}}
@@ -2774,7 +2927,7 @@ inci.matPEint <- function(Xp,int,r,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b);
@@ -2792,7 +2945,8 @@ inci.matPEint <- function(Xp,int,r,c=.5)
 #' }
 #'
 #' @export
-plotPEregs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,centers=FALSE, ...)
+plotPEregs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,
+                         xlim=NULL,ylim=NULL,centers=FALSE, ...)
 {
   if (!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp)) )
   {stop('Xp and Yp must be 1D vectors of numerical entries')}
@@ -2802,6 +2956,16 @@ plotPEregs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
 
   if (!is.point(c,1) || c <= 0 || c >= 1)
   {stop('c must be a scalar in (0,1)')}
+
+  if(any(duplicated(Yp))) #if there are duplicates for Yp values, only one is taken for each
+  {Yp = unique(Yp)
+  warning("There were duplicate Yp values; only one value is kept for each duplicate value!")}
+
+  if(any(duplicated(Xp))) #if there are duplicates for Xp values, only one is taken for each
+  {Xp = unique(Xp)
+  warning("There were duplicate Xp values;
+          only one value is kept for each duplicate Xp value
+          (to avoid proximity intervals of zero length)!")}
 
   nx<-length(Xp); ny<-length(Yp)
 
@@ -2819,10 +2983,10 @@ plotPEregs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
     in.int[i]<-(Xp[i]>ymin & Xp[i] < ymax )  #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
 
   Xint<-Xp[in.int==1] # X points inside  min(Yp) and max (Yp)
-  XLe<-Xp[Xp<ymin] # X points in the left end interval of Yp points
-  XRe<-Xp[Xp>ymax] # X points in the right end interval of Yp points
+  XLe<-Xp[Xp<ymin] # X points in the left end-interval of Yp points
+  XRe<-Xp[Xp>ymax] # X points in the right end-interval of Yp points
 
-  #for left end interval
+  #for left end-interval
   nle<-length(XLe)
   if (nle>=1 )
   {
@@ -2864,7 +3028,7 @@ plotPEregs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
     }
   }
 
-  #for right end interval
+  #for right end-interval
   nre<-length(XRe)
   if (nre>=1 )
   {
@@ -2955,7 +3119,7 @@ plotPEregs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10
@@ -3480,79 +3644,25 @@ Pdom.num2PE1Dasy <- function(c)
 
 #################################################################
 
-#' @title Indices of the intervals where the 1D point(s) reside
+#' @title The domination number of Proportional Edge Proximity Catch Digraph
+#' (PE-PCD) for 1D data
 #'
-#' @description Returns the indices of intervals for all the points in 1D data set, \code{Xp}, as a vector.
-#'
-#' Intervals are based on \code{Yp} and left end interval is labeled as 1, the next interval as 2, and so on.
-#'
-#' @param Xp A set of 1D points for which the indices of intervals are to be determined.
-#' @param Yp A set of 1D points from which intervals are constructed.
-#'
-#' @return The \code{vector} of indices of the intervals in which points in the 1D data set, \code{Xp}, reside
-#'
-#' @author Elvan Ceyhan
-#'
-#' @examples
-#' \dontrun{
-#' a<-0; b<-10; int<-c(a,b)
-#'
-#' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-15; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
-#'
-#' set.seed(1)
-#' xf<-(int[2]-int[1])*.1
-#' Xp<-runif(nx,a-xf,b+xf)
-#' Yp<-runif(ny,a,b)  #try also Yp<-runif(ny,a+1,b-1)
-#'
-#' ind<-interval.indices.set(Xp,Yp)
-#' ind
-#'
-#' jit<-.1
-#' yjit<-runif(nx,-jit,jit)
-#'
-#' Xlim<-range(a,b,Xp,Yp)
-#' xd<-Xlim[2]-Xlim[1]
-#'
-#' plot(cbind(a,0), xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit),pch=".")
-#' abline(h=0)
-#' points(Xp, yjit,pch=".",cex=3)
-#' abline(v=Yp,lty=2)
-#' text(Xp,yjit,labels=factor(ind))
-#' }
-#'
-#' @export interval.indices.set
-interval.indices.set <- function(Xp,Yp)
-{
-  if (!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp)))
-  {stop('Both arguments must be 1D vectors of numerical entries')}
-
-  nt<-length(Xp)
-  ny<-length(Yp)
-  ind.set<-rep(0,nt)
-  Ys<-sort(Yp)
-  ind.set[Xp<Ys[1]]<-1; ind.set[Xp>Ys[ny]]<-ny+1;
-  for (i in 1:(ny-1))
-  {
-    ind<-(Xp>=Ys[i] & Xp<=Ys[i+1] )
-    ind.set[ind]<-i+1
-  }
-  ind.set
-} #end of the function
-#'
-
-#################################################################
-
-#' @title The domination number of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data
-#'
-#' @description Returns the domination number, a minimum dominating set of PE-PCD whose vertices are the 1D data set \code{Xp},
+#' @description Returns the domination number,
+#' a minimum dominating set of PE-PCD whose vertices are the 1D data set \code{Xp},
 #' and the domination numbers for partition intervals based on \code{Yp}.
 #'
-#' \code{Yp} determines the end points of the intervals (i.e., partition the real line via intervalization).
-#' It also includes the domination numbers in the end intervals, with interval label 1 for the left end interval
-#' and $|Yp|+1$ for the right end interval.
+#' \code{Yp} determines the end points of the intervals
+#' (i.e., partition the real line via intervalization).
+#' It also includes the domination numbers in the end-intervals,
+#' with interval label 1 for the left end-interval
+#' and $|Yp|+1$ for the right end-interval.
 #'
-#' PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}.
+#' If there are duplicates of \code{Yp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
+#'
+#' PE proximity region is constructed with expansion parameter \eqn{r \ge 1}
+#' and centrality parameter \eqn{c \in (0,1)}.
 #'
 #' @param Xp A set of 1D points which constitute the vertices of the PE-PCD.
 #' @param Yp A set of 1D points which constitute the end points of the intervals which
@@ -3573,7 +3683,7 @@ interval.indices.set <- function(Xp,Yp)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' a<-0; b<-10
 #' c<-.4
 #' r<-2
@@ -3603,6 +3713,10 @@ PEdom.num1D <- function(Xp,Yp,r,c=.5)
   if (!is.point(c,1) || c <= 0 || c >= 1)
   {stop('c must be a scalar in (0,1)')}
 
+  if(any(duplicated(Yp))) #if there are duplicates for Yp values, only one is taken for each
+  {Yp = unique(Yp)
+  warning("There were duplicate Yp values; only one value is kept for each duplicate value!")}
+
   nx<-length(Xp)  #number of Xp points
   ny<-length(Yp)  #number of Yp points
 
@@ -3619,7 +3733,7 @@ PEdom.num1D <- function(Xp,Yp,r,c=.5)
     #calculation of the domination number
     gam<-rep(0,nint); mds<-mds.ind<-c()
 
-    for (i in 2:(nint-1)) #2:(nint-1) is to remove the end intervals
+    for (i in 2:(nint-1)) #2:(nint-1) is to remove the end-intervals
     {
       ith.int.ind = Int.Ind==i
       Xpi<-Xp[ith.int.ind]  #points in ith partition interval
@@ -3656,39 +3770,39 @@ PEdom.num1D <- function(Xp,Yp,r,c=.5)
     }
   }
 
-  indL = which(Xp<Ys[1]); indR = which(Xp>Ys[ny]); #original data indices in the left and right end intervals
-  XpL = Xp[indL]; XpR = Xp[indR]; #data points in the left and right end intervals
+  indL = which(Xp<Ys[1]); indR = which(Xp>Ys[ny]); #original data indices in the left and right end-intervals
+  XpL = Xp[indL]; XpR = Xp[indR]; #data points in the left and right end-intervals
 
 
   if (length(XpL)>0)
   {
     gamL=1;
     mdsL.ind=which(XpL == min(XpL));  #indices of min in the left data set
-    mdsL=XpL[mdsL.ind] #mds set in the left end interval
+    mdsL=XpL[mdsL.ind] #mds set in the left end-interval
     ind.mdsL=indL[mdsL.ind]; #data index for the mds of XpL
   } else
   {
-  gamL=0;
-  mdsL.ind = mdsL = ind.mdsL = NULL
+    gamL=0;
+    mdsL.ind = mdsL = ind.mdsL = NULL
   }
 
   if (length(XpR)>0)
   {
     gamR=1;
     mdsR.ind=which(XpR == max(XpR));  #indices of max in the right data set
-    mdsR=XpR[mdsR.ind] #mds set in the right end interval
+    mdsR=XpR[mdsR.ind] #mds set in the right end-interval
     ind.mdsR=indR[mdsR.ind]; #data index for the mds of XpR
   } else
   {
-  gamR=0;
-  mdsR.ind = mdsR = ind.mdsR = NULL
+    gamR=0;
+    mdsR.ind = mdsR = ind.mdsR = NULL
   }
 
   mds<-c(mdsL,mds,mdsR)  #a minimum dominating set
   mds.ind=c(ind.mdsL,mds.ind,ind.mdsR)
 
-  gam[1]<-gamL; gam[nint]<-gamR; #c(gamL,gam,gamR) #adding the domination numbers in the end intervals
-  Gam<-sum(gam)  #domination number for the entire digraph including the end intervals
+  gam[1]<-gamL; gam[nint]<-gamR; #c(gamL,gam,gamR) #adding the domination numbers in the end-intervals
+  Gam<-sum(gam)  #domination number for the entire digraph including the end-intervals
 
   res<- list(dom.num = Gam,  #domination number
              mds = mds, #a minimum dominating set
@@ -3705,12 +3819,16 @@ PEdom.num1D <- function(Xp,Yp,r,c=.5)
 #' @title The domination number of Proportional Edge Proximity Catch Digraph (PE-PCD) with
 #' non-degeneracy centers - multiple interval case
 #'
-#' @description Returns the domination number, a minimum dominating set of PE-PCD whose vertices are the 1D data set \code{Xp},
+#' @description Returns the domination number,
+#' a minimum dominating set of PE-PCD whose vertices are the 1D data set \code{Xp},
 #' and the domination numbers for partition intervals based on \code{Yp}
 #' when PE-PCD is constructed with vertex regions based on non-degeneracy centers.
 #'
 #' \code{Yp} determines the end points of the intervals
 #' (i.e., partition the real line via intervalization).
+#' If there are duplicates of \code{Yp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
 #' PE proximity regions are defined with respect to the intervals based on \code{Yp} points with
 #' expansion parameter \eqn{r \ge 1} and
@@ -3744,7 +3862,7 @@ PEdom.num1D <- function(Xp,Yp,r,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' a<-0; b<-10
 #' r<-1.5
 #'
@@ -3768,6 +3886,10 @@ PEdom.num1Dnondeg <- function(Xp,Yp,r)
   if (!is.point(r,1) || r<= 1 || r>2)
   {stop('r must be a scalar in (1,2]')}
 
+  if(any(duplicated(Yp))) #if there are duplicates for Yp values, only one is taken for each
+  {Yp = unique(Yp)
+  warning("There were duplicate Yp values; only one value is kept for each duplicate value!")}
+
   nx<-length(Xp)  #number of Xp points
   ny<-length(Yp)  #number of Yp points
 
@@ -3784,7 +3906,7 @@ PEdom.num1Dnondeg <- function(Xp,Yp,r)
     #calculation of the domination number
     gam<-rep(0,nint); mds<-mds.ind<-c()
 
-    for (i in 1:(nint-2)) #1:(nint-2) is to remove the end intervals
+    for (i in 1:(nint-2)) #1:(nint-2) is to remove the end-intervals
     {
       ith.int.ind = Int.Ind==i+1
       Xpi<-Xp[ith.int.ind]  #points in ith partition interval
@@ -3822,15 +3944,15 @@ PEdom.num1Dnondeg <- function(Xp,Yp,r)
     }
   }
 
-  indL = which(Xp<Ys[1]); indR = which(Xp>Ys[ny]); #original data indices in the left and right end intervals
-  XpL = Xp[indL]; XpR = Xp[indR]; #data points in the left and right end intervals
+  indL = which(Xp<Ys[1]); indR = which(Xp>Ys[ny]); #original data indices in the left and right end-intervals
+  XpL = Xp[indL]; XpR = Xp[indR]; #data points in the left and right end-intervals
 
 
   if (length(XpL)>0)
   {
     gamL=1;
     mdsL.ind=which(XpL == min(XpL));  #indices of min in the left data set
-    mdsL=XpL[mdsL.ind] #mds set in the left end interval
+    mdsL=XpL[mdsL.ind] #mds set in the left end-interval
     ind.mdsL=indL[mdsL.ind]; #data index for the mds of XpL
   } else
   {
@@ -3842,7 +3964,7 @@ PEdom.num1Dnondeg <- function(Xp,Yp,r)
   {
     gamR=1;
     mdsR.ind=which(XpR == max(XpR));  #indices of max in the right data set
-    mdsR=XpR[mdsR.ind] #mds set in the right end interval
+    mdsR=XpR[mdsR.ind] #mds set in the right end-interval
     ind.mdsR=indR[mdsR.ind]; #data index for the mds of XpR
   } else
   {
@@ -3853,8 +3975,8 @@ PEdom.num1Dnondeg <- function(Xp,Yp,r)
   mds<-c(mdsL,mds,mdsR)  #a minimum dominating set
   mds.ind=c(ind.mdsL,mds.ind,ind.mdsR)
 
-  gam<-c(gamL,gam,gamR) #adding the domination number in the end intervals
-  Gam<-sum(gam)  #domination number for the entire digraph including the end intervals
+  gam<-c(gamL,gam,gamR) #adding the domination number in the end-intervals
+  Gam<-sum(gam)  #domination number for the entire digraph including the end-intervals
 
   res<- list(dom.num=Gam,  #domination number
              mds=mds, #a minimum dominating set
@@ -3943,7 +4065,7 @@ PEdom.num1Dnondeg <- function(Xp,Yp,r)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' a<-0; b<-10; supp<-c(a,b)
 #' c<-.4
 #'
@@ -3964,7 +4086,7 @@ PEdom.num1Dnondeg <- function(Xp,Yp,r)
 #'
 #' @export PEdom.num.binom.test1Dint
 PEdom.num.binom.test1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
-                            alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
+                                      alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   dname <-deparse(quote(Xp))
 
@@ -4075,79 +4197,112 @@ PEdom.num.binom.test1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
 
 #################################################################
 
-#' @title A test of segregation/association based on domination number of Proportional Edge Proximity Catch Digraph
+#' @title A test of segregation/association based on domination number of
+#' Proportional Edge Proximity Catch Digraph
 #' (PE-PCD) for 1D data - Binomial Approximation
 #'
 #' @description
-#' An object of class \code{"htest"} (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
-#' randomness (CSR) or uniformity of \code{Xp} points within the partition intervals based on \code{Yp} points (both residing in the
+#' An object of class \code{"htest"} (i.e., hypothesis test) function
+#' which performs a hypothesis test of complete spatial
+#' randomness (CSR) or uniformity of \code{Xp} points
+#' within the partition intervals based on \code{Yp} points (both residing in the
 #' support interval \eqn{(a,b)}).
 #' The test is for testing the spatial interaction between \code{Xp} and \code{Yp} points.
 #'
 #' The null hypothesis is uniformity of \code{Xp} points on \eqn{(y_{\min},y_{\max})} (by default)
 #' where \eqn{y_{\min}} and \eqn{y_{\max}} are minimum and maximum of \code{Yp} points, respectively.
-#' \code{Yp} determines the end points of the intervals (i.e., partition the real line via its spacings called intervalization)
+#' \code{Yp} determines the end points of the intervals
+#' (i.e., partition the real line via its spacings called intervalization)
 #' where end points are the order statistics of \code{Yp} points.
+#' If there are duplicates of \code{Yp} points,
+#' only one point is retained for each duplicate value,
+#' and a warning message is printed.
 #'
-#' The alternatives are segregation (where \code{Xp} points cluster away from \code{Yp} points i.e., cluster around the centers of the
-#' partition intervals) and association (where \code{Xp} points cluster around \code{Yp} points). The test is based on the (asymptotic) binomial
-#' distribution of the domination number of PE-PCD for uniform 1D data in the partition intervals based on \code{Yp} points.
+#' The alternatives are segregation (where \code{Xp} points cluster away from \code{Yp} points
+#' i.e., cluster around the centers of the
+#' partition intervals) and association (where \code{Xp}
+#' points cluster around \code{Yp} points).
+#' The test is based on the (asymptotic) binomial
+#' distribution of the domination number of PE-PCD
+#' for uniform 1D data in the partition intervals based on \code{Yp} points.
 #'
-#' The test by default is restricted to the range of \code{Yp} points, and so ignores \code{Xp} points outside this range.
-#' However, a correction for the \code{Xp} points outside the range of \code{Yp} points is available by setting
-#' \code{end.int.cor=TRUE}, which is recommended when both \code{Xp} and \code{Yp} have the same interval support.
+#' The test by default is restricted to the range of \code{Yp} points,
+#' and so ignores \code{Xp} points outside this range.
+#' However, a correction for the \code{Xp} points outside
+#' the range of \code{Yp} points is available by setting
+#' \code{end.int.cor=TRUE},
+#' which is recommended when both \code{Xp} and \code{Yp}
+#' have the same interval support.
 #'
 #' The function yields the test statistic, \eqn{p}-value for the corresponding
-#' alternative, the confidence interval, estimate and null value for the parameter of interest (which is
-#' \eqn{Pr(}domination number\eqn{\le 1)}), and method and name of the data set used.
+#' alternative, the confidence interval,
+#' estimate and null value for the parameter of interest (which is
+#' \eqn{Pr(}domination number\eqn{\le 1)}),
+#' and method and name of the data set used.
 #'
-#' Under the null hypothesis of uniformity of \code{Xp} points in the intervals based on \code{Yp} points, probability of success
+#' Under the null hypothesis of uniformity of \code{Xp} points in the intervals
+#' based on \code{Yp} points, probability of success
 #' (i.e., \eqn{Pr(}domination number\eqn{\le 1)}) equals to its expected value) and
-#' \code{alternative} could be two-sided, or left-sided (i.e., data is accumulated around the \code{Yp} points, or association)
-#' or right-sided (i.e., data is accumulated around the centers of the partition intervals, or segregation).
+#' \code{alternative} could be two-sided, or left-sided
+#' (i.e., data is accumulated around the \code{Yp} points, or association)
+#' or right-sided (i.e., data is accumulated around
+#' the centers of the partition intervals, or segregation).
 #'
-#' PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} which yields
-#' \eqn{M}-vertex regions. More precisely, for a middle interval \eqn{(y_{(i)},y_{(i+1)})}, the center is
+#' PE proximity region is constructed with the expansion parameter \eqn{r \ge 1}
+#' and centrality parameter \code{c} which yields
+#' \eqn{M}-vertex regions. More precisely,
+#' for a middle interval \eqn{(y_{(i)},y_{(i+1)})}, the center is
 #' \eqn{M=y_{(i)}+c(y_{(i+1)}-y_{(i)})} for the centrality parameter \code{c}.
 #' For a given \eqn{c \in (0,1)}, the
-#' expansion parameter \eqn{r} is taken to be \eqn{1/\max(c,1-c)} which yields non-degenerate asymptotic distribution of the
+#' expansion parameter \eqn{r} is taken to be \eqn{1/\max(c,1-c)}
+#' which yields non-degenerate asymptotic distribution of the
 #' domination number.
 #'
-#' The test statistic is based on the binomial distribution, when success is defined as domination number being less than or
+#' The test statistic is based on the binomial distribution,
+#' when success is defined as domination number being less than or
 #' equal to 1 in the one interval case
-#' (i.e., number of successes is equal to domination number \eqn{\le 1} in the partition intervals).
-#' That is, the test statistic is based on the domination number for \code{Xp} points inside range of \code{Yp} points
+#' (i.e., number of successes is equal to
+#' domination number \eqn{\le 1} in the partition intervals).
+#' That is, the test statistic is based on the domination number
+#' for \code{Xp} points inside range of \code{Yp} points
 #' (the domination numbers are summed over the \eqn{|Yp|-1} middle intervals)
-#' for the PE-PCD and default end interval correction, \code{end.int.cor}, is \code{FALSE}
-#' and the center \eqn{Mc} is chosen so that asymptotic distribution for the domination number is nondegenerate.
-#' For this test to work, \code{Xp} must be at least 5 times more than \code{Yp} points
+#' for the PE-PCD and default end-interval correction, \code{end.int.cor}, is \code{FALSE}
+#' and the center \eqn{Mc} is chosen so that asymptotic distribution
+#' for the domination number is nondegenerate.
+#' For this test to work, \code{Xp} must be at least 10 times more than \code{Yp} points
 #' (or \code{Xp} must be at least 5 or more per partition interval).
 #' Probability of success is the exact probability of success for the binomial distribution.
 #'
-#' **Caveat:** This test is currently a conditional test, where \code{Xp} points are assumed to be random, while \code{Yp} points are
+#' **Caveat:** This test is currently a conditional test,
+#' where \code{Xp} points are assumed to be random, while \code{Yp} points are
 #' assumed to be fixed (i.e., the test is conditional on \code{Yp} points).
-#' Furthermore, the test is a large sample test when \code{Xp} points are substantially larger than \code{Yp} points,
-#' say at least 7 times more.
-#' This test is more appropriate when supports of \code{Xp} and \code{Yp} have a substantial overlap.
-#' Currently, the \code{Xp} points outside the range of \code{Yp} points are handled with an end interval correction factor
+#' This test is more appropriate when supports of \code{Xp}
+#' and \code{Yp} have a substantial overlap.
+#' Currently, the \code{Xp} points outside the range of \code{Yp} points
+#' are handled with an end-interval correction factor
 #' (see the description below and the function code.)
 #' Removing the conditioning and extending it to the case of non-concurring supports is
 #' an ongoing line of research of the author of the package.
 #'
-#' See also (\insertCite{ceyhan:stat-2020;textual}{pcds}) for more on the uniformity test based on the arc
+#' See also (\insertCite{ceyhan:stat-2020;textual}{pcds})
+#' for more on the uniformity test based on the arc
 #' density of PE-PCDs.
 #'
 #' @param Xp A set of 1D points which constitute the vertices of the PE-PCD.
 #' @param Yp A set of 1D points which constitute the end points of the partition intervals.
 #' @param support.int Support interval \eqn{(a,b)} with \eqn{a<b}.
 #' Uniformity of \code{Xp} points in this interval is tested. Default is \code{NULL}.
-#' @param c A positive real number which serves as the centrality parameter in PE proximity region;
+#' @param c A positive real number
+#' which serves as the centrality parameter in PE proximity region;
 #' must be in \eqn{(0,1)} (default \code{c=.5}).
-#' @param end.int.cor A logical argument for end interval correction, default is \code{FALSE},
+#' @param end.int.cor A logical argument for end-interval correction, default is \code{FALSE},
 #' recommended when both \code{Xp} and \code{Yp} have the same interval support.
-#' @param alternative Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.
-#' @param conf.level Level of the confidence interval, default is \code{0.95}, for the probability of success
-#' (i.e., \eqn{Pr(}domination number\eqn{\le 1)} for PE-PCD whose vertices are the 1D data set \code{Xp}.
+#' @param alternative Type of the alternative hypothesis in the test,
+#' one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.
+#' @param conf.level Level of the confidence interval, default is \code{0.95},
+#' for the probability of success
+#' (i.e., \eqn{Pr(}domination number\eqn{\le 1)} for PE-PCD
+#' whose vertices are the 1D data set \code{Xp}.
 #'
 #' @return A \code{list} with the elements
 #' \item{statistic}{Test statistic}
@@ -4169,7 +4324,7 @@ PEdom.num.binom.test1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' a<-0; b<-10; supp<-c(a,b)
 #' c<-.4
 #'
@@ -4189,7 +4344,7 @@ PEdom.num.binom.test1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
 #'
 #' @export PEdom.num.binom.test1D
 PEdom.num.binom.test1D <- function(Xp,Yp,c=.5,support.int=NULL,end.int.cor=FALSE,
-                           alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
+                                   alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   dname <-deparse(substitute(Xp))
 
@@ -4200,13 +4355,17 @@ PEdom.num.binom.test1D <- function(Xp,Yp,c=.5,support.int=NULL,end.int.cor=FALSE
   if ((!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp))))
   {stop('Xp and Yp must be 1D vectors of numerical entries.')}
 
+  if(any(duplicated(Yp))) #if there are duplicates for Yp values, only one is taken for each
+  {Yp = unique(Yp)
+  warning("There were duplicate Yp values; only one value is kept for each duplicate value!")}
+
   if (length(Yp)<2)
   {stop('Yp must be of length > 2')}
 
   if (!is.null(support.int))
   {
-  if (!is.point(support.int) || support.int[2]<=support.int[1])
-  {stop('support.int must be an interval as (a,b) with a<b')}
+    if (!is.point(support.int) || support.int[2]<=support.int[1])
+    {stop('support.int must be an interval as (a,b) with a<b')}
   }
 
   if (!is.point(c,1) || c <= 0 || c >= 1)
@@ -4229,8 +4388,8 @@ PEdom.num.binom.test1D <- function(Xp,Yp,c=.5,support.int=NULL,end.int.cor=FALSE
   Gammas<-dom.num$int #domination numbers for the partition intervals
   #nint=ny-1 #-sum(Gammas0<1)
 
-  Gam.all<-dom.num$d #domination number (with the end intervals included)
-  Gam<-Gam.all-sum(sum(Xp<Ys[1])>0)-sum(sum(Xp>Ys[ny])>0)  #removing the domination number in the end intervals
+  Gam.all<-dom.num$d #domination number (with the end-intervals included)
+  Gam<-Gam.all-sum(sum(Xp<Ys[1])>0)-sum(sum(Xp>Ys[ny])>0)  #removing the domination number in the end-intervals
   estimate2<-Gam
 
   estimate1<-Gam.all #domination number of the entire PE-PCD
@@ -4240,16 +4399,16 @@ PEdom.num.binom.test1D <- function(Xp,Yp,c=.5,support.int=NULL,end.int.cor=FALSE
 
   method <-c("Large Sample Binomial Test based on the Domination Number of PE-PCD for Testing Uniformity of 1D Data ---")
 
-  if (end.int.cor==TRUE)  #the part for the end interval correction
+  if (end.int.cor==TRUE)  #the part for the end-interval correction
   {
     out.int<-sum(Xp<Ys[1])+sum(Xp>Ys[ny])
-    prop.out<-out.int/nx #observed proportion of points in the end intervals
-    exp.prop.out<-2/(ny+1)  #expected proportion of points in the end intervals
+    prop.out<-out.int/nx #observed proportion of points in the end-intervals
+    exp.prop.out<-2/(ny+1)  #expected proportion of points in the end-intervals
 
     x<-round(Bm*(1-(prop.out-exp.prop.out)))
-    method <-c(method, " with End Interval Correction")
+    method <-c(method, " with End-Interval Correction")
   } else
-  { method <-c(method, " without End Interval Correction")}
+  { method <-c(method, " without End-Interval Correction")}
 
   x<-Bm
   pval <-switch(alternative, less = pbinom(x, nint, p),

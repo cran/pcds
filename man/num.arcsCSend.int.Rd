@@ -2,7 +2,7 @@
 % Please edit documentation in R/CentSim1D.R
 \name{num.arcsCSend.int}
 \alias{num.arcsCSend.int}
-\title{Number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) - end interval case}
+\title{Number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) - end-interval case}
 \usage{
 num.arcsCSend.int(Xp, int, t)
 }
@@ -15,7 +15,7 @@ num.arcsCSend.int(Xp, int, t)
 }
 \value{
 Number of arcs for the CS-PCD with vertices being 1D data set, \code{Xp},
-expansion parameter, \code{t}, for the end intervals.
+expansion parameter, \code{t}, for the end-intervals.
 }
 \description{
 Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) whose

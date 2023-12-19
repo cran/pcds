@@ -29,7 +29,7 @@ Currently it only takes \code{"CC"} for circumcenter and \code{"CM"} for center 
 }
 \description{
 Returns \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))} for 3D points \code{p1} and \code{p2}, that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
-returns 0 otherwise, where N_{PE}(x,r) is the PE proximity region for point \eqn{x} with the expansion parameter \eqn{r \ge 1}.
+returns 0 otherwise, where \eqn{N_{PE}(x,r)} is the PE proximity region for point \eqn{x} with the expansion parameter \eqn{r \ge 1}.
 
 PE proximity region is constructed with respect to the tetrahedron \code{th} and
 vertex regions are based on the center \code{M} which is circumcenter (\code{"CC"}) or
@@ -42,7 +42,7 @@ but if they are identical, then it returns 1 regardless of their locations (i.e.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 n<-3  #try also n<-20

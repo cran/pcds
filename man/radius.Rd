@@ -33,7 +33,7 @@ That is, for the point \code{p} \eqn{radius= \min_{y \in Y}d(p,y)}
 The point \code{p} and \code{Y} points must be of same dimension.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 
 ny<-10

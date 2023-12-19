@@ -26,7 +26,7 @@ Returns the distance from a point \code{p} to the line joining
 points \code{a} and \code{b} in 2D space.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,2); B<-c(2,3); P<-c(3,1.5)
 
 dpl<-dist.point2line(P,A,B);

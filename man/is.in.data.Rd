@@ -19,7 +19,7 @@ returns \code{TRUE} if the point \code{p} of any dimension is inside the data se
 otherwise returns \code{FALSE}.
 }
 \examples{
-\dontrun{
+\donttest{
 n<-10
 Xp<-cbind(runif(n),runif(n))
 

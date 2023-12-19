@@ -42,7 +42,7 @@ and edge region 3 is \eqn{T(A,B,M)}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 P<-c(.4,.2)
 rel.edge.std.triCM(P)
 

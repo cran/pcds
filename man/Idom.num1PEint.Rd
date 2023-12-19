@@ -44,7 +44,7 @@ so by default this function checks whether the point \code{p} would be a dominat
 if it actually were in the data set.
 }
 \examples{
-\dontrun{
+\donttest{
 r<-2
 c<-.4
 a<-0; b<-10

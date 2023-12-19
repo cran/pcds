@@ -46,17 +46,21 @@ for points in data set \code{Xp}.
 
 AS proximity regions are defined with respect to the triangle \code{tri},
 so AS proximity regions are defined only for points inside the triangle \code{tri} and
-vertex regions are based on the center \code{M="CC"} for
-circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric
-coordinates in the interior of the triangle \code{tri}; default is \code{M="CC"} the circumcenter of \code{tri}.
-When vertex regions are constructed with circumcenter, \code{CC}, the vertex regions are constructed based on the
-orthogonal projections to the edges, while with any interior center \code{M}, the vertex regions are constructed using the extensions
+vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri}
+or based on circumcenter of  \code{tri};
+default is \code{M="CC"}, i.e., circumcenter of \code{tri}.
+When vertex regions are constructed with circumcenter, \code{CC},
+the vertex regions are constructed based on the
+orthogonal projections to the edges, while with any interior center \code{M},
+the vertex regions are constructed using the extensions
 of the lines combining vertices with \code{M}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 n<-10

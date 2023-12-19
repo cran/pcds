@@ -62,7 +62,7 @@ from the interior triangle
 (see examples for a sample plot.)
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
 n<-100  #try also n<-20 or n<-100 or 1000
